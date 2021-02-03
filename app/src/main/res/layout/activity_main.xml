@@ -8,7 +8,7 @@
 
     <ImageButton
         android:contentDescription="@string/InfoButtonDesc"
-        android:onClick="@string/info"
+        android:onClick="openInfoPage"
         android:id="@+id/infoButton"
         android:layout_width="45dp"
         android:layout_height="45dp"
