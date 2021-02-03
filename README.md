@@ -2,7 +2,7 @@
 
 ## Product Vision
 
-For players of the game Antidote who want to play remotely with friends or bots, Antidote Mobile provides a mobile application to do so. Players can now view their game stats and interact through chats without leaving the comfort or safety of their room. Unlike the alternative strategy card games that rely heavily on facial cues and body language to be played effectively, Antidote Mobile relies on information control which can be fully facillitated online on your Android device. Moreover, no other online card game service provides a version of Antidote, making Antidote Mobile the first of its kind.
+For players of the game Antidote who want to play remotely with friends or bots, Antidote Mobile provides a mobile application to do so. Players can now view their game stats and interact through chats without leaving the comfort or safety of their room. Unlike the alternative strategy card games that rely heavily on facial cues and body language to be played effectively, Antidote Mobile relies on information control which can be fully facilitated online on your Android device. Moreover, no other online card game service provides a version of Antidote, making Antidote Mobile the first of its kind.
 
 ### Team Members
 
