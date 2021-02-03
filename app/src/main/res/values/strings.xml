@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Antidote Mobile</string>
+    <string name="app_name">Antidote Mobile Home</string>
+    <string name="infopage_name">Antidote Info</string>
 </resources>

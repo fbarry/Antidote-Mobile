@@ -16,6 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".InfoPageActivity"
+            android:label="@string/infopage_name">
+        </activity>
     </application>
 
 </manifest>
