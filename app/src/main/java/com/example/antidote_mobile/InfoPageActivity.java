@@ -15,7 +15,7 @@ public class InfoPageActivity extends AppCompatActivity {
         setContentView(R.layout.info_page);
     }
 
-    public void goBack(View v){
+    public void goBack(View v) {
         InfoPageActivity.this.finish();
     }
 

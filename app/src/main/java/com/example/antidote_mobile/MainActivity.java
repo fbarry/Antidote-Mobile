@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void openInfoPage(View v){
+    public void openInfoPage(View v) {
         startActivity(new Intent(MainActivity.this, InfoPageActivity.class));
     }
 
