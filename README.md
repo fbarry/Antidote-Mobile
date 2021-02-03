@@ -7,7 +7,7 @@ For players of the game Antidote who want to play remotely with friends or bots,
 ### Team Members
 
 - Fiona Barry (fbarry)
-- Jacob Steinebron (JakeSteinebronn)
+- Jacob Steinebronn (JakeSteinebronn)
 - Mong-En (Zach) Ip (ElementGiraffe)
 - Daniel West (DanielW48)
 - Enrique Rodriguez (Erodz00)
