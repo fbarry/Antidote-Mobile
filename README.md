@@ -7,7 +7,7 @@ For players of the game Antidote who want to play remotely with friends or bots,
 ### Team Members
 
 - Fiona Barry (fbarry)
-- Jacob Steinebron (JakeSteinebronn)
+- Jacob Steinebronn (JakeSteinebronn)
 - Mong-En (Zach) Ip (ElementGiraffe)
 - Daniel West (DanielW48)
 - Enrique Rodriguez (Erodz00)
@@ -27,7 +27,7 @@ For players of the game Antidote who want to play remotely with friends or bots,
 ### Task Allocation
 
 ## Sprint 2
-
+ 
 - [Product Backlog](https://trello.com/b/4BXuyGVT/antidote-planning)
 - [Sprint Backlog](https://trello.com/b/4BXuyGVT/antidote-planning)
 - Requirements
