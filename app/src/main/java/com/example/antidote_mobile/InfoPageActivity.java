@@ -10,6 +10,7 @@ public class InfoPageActivity extends AppCompatActivity {
 
 
     ScrollView scrollView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,21 +22,20 @@ public class InfoPageActivity extends AppCompatActivity {
         InfoPageActivity.this.finish();
     }
 
-    public void scrollToSetup(View v){
+    public void scrollToSetup(View v) {
         View setupHeader = findViewById(R.id.header_setup);
         scrollView.smoothScrollTo(0, setupHeader.getTop());
     }
 
-    public void scrollToObjective(View v){
+    public void scrollToObjective(View v) {
         View setupHeader = findViewById(R.id.header_objective);
         scrollView.smoothScrollTo(0, setupHeader.getTop());
     }
 
-    public void scrollToGameplay(View v){
+    public void scrollToGameplay(View v) {
         View setupHeader = findViewById(R.id.header_gameplay);
         scrollView.smoothScrollTo(0, setupHeader.getTop());
     }
-
 
 
 }

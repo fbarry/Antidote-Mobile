@@ -26,7 +26,9 @@
         android:id="@+id/infoScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="35dp"
+        android:layout_marginRight="5dp"
         android:clipToPadding="true"
         android:fillViewport="true"
         android:hapticFeedbackEnabled="true"
@@ -34,8 +36,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.055">
 
@@ -57,33 +57,33 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:onClick="scrollToSetup"
                 android:id="@+id/toc_setup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:linksClickable="false"
+                android:onClick="scrollToSetup"
                 android:text="@string/infopage_toc_setup"
                 android:textAllCaps="false"
                 android:textColor="#3F51B5"
                 android:textSize="18sp" />
 
             <TextView
-                android:onClick="scrollToObjective"
                 android:id="@+id/toc_objective"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:linksClickable="false"
+                android:onClick="scrollToObjective"
                 android:text="@string/infopage_toc_objective"
                 android:textAllCaps="false"
                 android:textColor="#3F51B5"
                 android:textSize="18sp" />
 
             <TextView
-                android:onClick="scrollToGameplay"
                 android:id="@+id/toc_gameplay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:linksClickable="false"
+                android:onClick="scrollToGameplay"
                 android:text="@string/infopage_toc_gameplay"
                 android:textAllCaps="false"
                 android:textColor="#3F51B5"
@@ -115,8 +115,8 @@
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="175dp"
-                app:srcCompat="@drawable/setuptable"
-                android:contentDescription="@string/info_table01_contentDesc" />
+                android:contentDescription="@string/info_table01_contentDesc"
+                app:srcCompat="@drawable/setuptable" />
 
             <TextView
                 android:id="@+id/setup_step1"
@@ -303,8 +303,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/infopage_gameplay_text13"
                 android:textSize="18sp" />
-
-
 
         </LinearLayout>
     </ScrollView>
