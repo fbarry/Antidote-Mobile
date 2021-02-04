@@ -4,4 +4,18 @@
     <string name="info">Info</string>
     <string name="InfoButtonDesc">Take the user to the info page</string>
     <string name="BackButtonDesc">Returns the user to the previous page</string>
+    <string name="game_instructions">Game Instructions</string>
+    <string name="infopage_toc_objective">- Objective</string>
+    <string name="infopage_toc_gameplay">- Gameplay</string>
+    <string name="infopage_toc_scoring">- Scoring</string>
+    <string name="infopage_headers_setup">Game Setup</string>
+    <string name="infopage_headers_objective">Objective</string>
+    <string name="infopage_headers_gameplay">Gameplay</string>
+    <string name="info_setup_step1">1. Toxin cards are shuffled, and one is removed and set aside. The toxin that is set aside is the one for which players will try to find the antidote.</string>
+    <string name="info_setup_step2">2. Remaining toxin cards are shuffled with syringe cards (See Table 01). Two cards (Three in 3-Player games) are dealt to each player.</string>
+    <string name="info_setup_step3">3. Antidote cards are selected (see Table 01 for counts), shuffled, and evenly dealt to each player. For example, in a 4-Player game, all cards with a 1, 2, 3, or 4 are selected for each formula, shuffled, and evenly dealt.</string>
+    <string name="info_setup_step4">4. Once cards have been dealt, players may view and reorganize their hands. All players will have the same number of cards in hand, at all times.</string>
+    <string name="info_objective_text">Cards will be discarded over the course of the game. Your goal is for your last remaining card to be an antidote to the hidden Toxin.</string>
+    <string name="info_table01_contentDesc">Table denoting card distribution at start of game</string>
+    <string name="infopage_toc_setup">- Setup</string>
 </resources>
