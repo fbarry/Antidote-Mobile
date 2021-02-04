@@ -33,12 +33,12 @@ public class MainActivityTest {
             = new ActivityScenarioRule<>(MainActivity.class);
 
     @Before
-    public void startIntents() {
+    public void initIntents() {
         Intents.init();
     }
 
     @After
-    public void relaseIntents() {
+    public void releaseIntents() {
         Intents.release();
     }
 
