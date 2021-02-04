@@ -175,6 +175,135 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/gameplay_text1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="At the start of the game, a random player will be selected to go first. Play will continue clockwise from this starting player. On your turn, you must take one of 3 actions:"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/gameplay_text2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="   1: Discard a Card"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/gameplay_text3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="   2: Trade Cards"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/gameplay_text4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="   3: Play a Syringe Card"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/gameplay_text5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Each player must take exactly one action, after which their turn is over."
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/subheader_discard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1: Discard a Card"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/gameplay_text6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Every player will choose a card, and simultaneously discard it to their workstation (the area directly in front of them). Toxin cards (Those marked with an “X”) will be face-down, all other cards will be face-up. Cards on a player's workstation are visible to all players. "
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/subheader_trade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2: Trade Cards"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/gameplay_text7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="There are two ways to trade cards: "
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/gameplay_text8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="   A) All players pass a card face-down to the left or right, OR"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/gameplay_text9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="   B) Make a one-card trade with a player of your choice."
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/gameplay_text10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A) First, select either left or right. All players will select a single card from their hands and simultaneously pass it face-down in the direction you chose. Then, players add the recieved cards to their hand."
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/gameplay_text11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="B) Choose a player to trade with. Discuss terms of the trade, and simultaneously complete the trade face-down, adding the received card to your hand. You may only trade one card. The player can refuse a trade. You must honor the agreement. For example, you can both agree to trade a Toxin card, but you must both actually trade Toxin cards. If no player agrees to trade with you, select a different action."
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/subheader_syringe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3: Play a Syringe Card"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/gameplay_text12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Note: You can only choose this action if you have a Syringe card in your hand."
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/gameplay_text13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reveal a Syringe card from your hand to “steal“ a card from any player's hand or workstation. If you choose to steal a card from a player's hand, it is selected randomly and given to you, and they are given the Syringe. If you choose to steal a card from a player's workstation, you place the stolen card in your hand and place the syringe on their workstation. You may steal face-down or face-up cards from a player's workstation. You may steal from your own workstation."
+                android:textSize="18sp" />
+
+
+
         </LinearLayout>
     </ScrollView>
 
