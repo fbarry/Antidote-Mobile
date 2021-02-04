@@ -2,6 +2,7 @@
     <string name="app_name">Antidote Mobile Home</string>
     <string name="infopage_name">Antidote Info</string>
     <string name="info">Info</string>
+
     <string name="InfoButtonDesc">Take the user to the info page</string>
     <string name="BackButtonDesc">Returns the user to the previous page</string>
     <string name="game_instructions">Game Instructions</string>
@@ -18,6 +19,7 @@
     <string name="info_objective_text">Cards will be discarded over the course of the game. Your goal is for your last remaining card to be an antidote to the hidden Toxin.</string>
     <string name="info_table01_contentDesc">Table denoting card distribution at start of game</string>
     <string name="infopage_toc_setup">- Setup</string>
+
     <string name="infopage_gameplay_text1">At the start of the game, a random player will be selected to go first. Play will continue clockwise from this starting player. On your turn, you must take one of 3 actions:</string>
     <string name="infopage_gameplay_text2">1: Discard a Card</string>
     <string name="infopage_gameplay_text3">2: Trade Cards</string>
@@ -31,6 +33,7 @@
     <string name="infopage_gameplay_text11">B) Choose a player to trade with. Discuss terms of the trade, and simultaneously complete the trade face-down, adding the received card to your hand. You may only trade one card. The player can refuse a trade. You must honor the agreement. For example, you can both agree to trade a Toxin card, but you must both actually trade Toxin cards. If no player agrees to trade with you, select a different action.</string>
     <string name="infopage_gameplay_text12">Note: You can only choose this action if you have a Syringe card in your hand.</string>
     <string name="infopage_gameplay_text13">Reveal a Syringe card from your hand to “steal“ a card from any player\'s hand or workstation. If you choose to steal a card from a player\'s hand, it is selected randomly and given to you, and they are given the Syringe. If you choose to steal a card from a player\'s workstation, you place the stolen card in your hand and place the syringe on their workstation. You may steal face-down or face-up cards from a player\'s workstation. You may steal from your own workstation.</string>
+
     <string name="infopage_subheader_1">1: Discard a Card</string>
     <string name="infopage_subheader_2">2: Trade Cards</string>
     <string name="infopage_subheader_3">3: Play a Syringe Card</string>
