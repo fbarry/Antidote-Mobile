@@ -37,5 +37,20 @@ public class InfoPageActivity extends AppCompatActivity {
         scrollView.smoothScrollTo(0, setupHeader.getTop());
     }
 
+    public void scrollToDiscard(View v) {
+        View setupHeader = findViewById(R.id.subheader_discard);
+        scrollView.smoothScrollTo(0, setupHeader.getTop());
+    }
+
+    public void scrollToTrade(View v) {
+        View setupHeader = findViewById(R.id.subheader_trade);
+        scrollView.smoothScrollTo(0, setupHeader.getTop());
+    }
+
+    public void scrollToSyringe(View v) {
+        View setupHeader = findViewById(R.id.subheader_syringe);
+        scrollView.smoothScrollTo(0, setupHeader.getTop());
+    }
+
 
 }

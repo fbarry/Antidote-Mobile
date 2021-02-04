@@ -188,6 +188,8 @@
                 android:id="@+id/gameplay_text2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#3F51B5"
+                android:onClick="scrollToDiscard"
                 android:text="@string/infopage_gameplay_text2"
                 android:textSize="18sp" />
 
@@ -195,12 +197,16 @@
                 android:id="@+id/gameplay_text3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#3F51B5"
+                android:onClick="scrollToTrade"
                 android:text="@string/infopage_gameplay_text3"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/gameplay_text4"
                 android:layout_width="match_parent"
+                android:textColor="#3F51B5"
+                android:onClick="scrollToSyringe"
                 android:layout_height="wrap_content"
                 android:text="@string/infopage_gameplay_text4"
                 android:textSize="18sp" />
