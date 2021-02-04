@@ -28,12 +28,12 @@ public class InfoPageTest {
             = new ActivityTestRule<>(InfoPageActivity.class, true, true);
 
     @Before
-    public void startIntents() {
+    public void initIntents() {
         Intents.init();
     }
 
     @After
-    public void relaseIntents() {
+    public void releaseIntents() {
         Intents.release();
     }
 
