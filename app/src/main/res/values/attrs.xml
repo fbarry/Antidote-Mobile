@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DoodleView">
+        <attr name="strokey" format="float" />
+    </declare-styleable>
+    <declare-styleable name="HeaderTextView">
+
+    </declare-styleable>
+    <declare-styleable name="SubheaderTextView">
+
+    </declare-styleable>
+</resources>

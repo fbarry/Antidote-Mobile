@@ -99,17 +99,11 @@
                 android:textColor="#3F51B5"
                 android:textSize="18sp" />
 
-            <TextView
+            <com.example.antidote_mobile.HeaderTextView
                 android:id="@+id/header_setup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/infopage_headers_setup"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="@string/infopage_headers_setup" />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -146,17 +140,12 @@
                 android:text="@string/info_setup_step4"
                 android:textSize="18sp" />
 
-            <TextView
+
+            <com.example.antidote_mobile.HeaderTextView
                 android:id="@+id/header_objective"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/infopage_headers_objective"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="@string/infopage_headers_objective" />
 
             <TextView
                 android:id="@+id/objective_text"
@@ -165,17 +154,11 @@
                 android:text="@string/info_objective_text"
                 android:textSize="18sp" />
 
-            <TextView
+            <com.example.antidote_mobile.HeaderTextView
                 android:id="@+id/header_gameplay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/infopage_headers_gameplay"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="@string/infopage_headers_gameplay" />
 
             <TextView
                 android:id="@+id/gameplay_text1"
@@ -218,17 +201,11 @@
                 android:text="@string/infopage_gameplay_text5"
                 android:textSize="18sp" />
 
-            <TextView
+            <com.example.antidote_mobile.SubheaderTextView
                 android:id="@+id/subheader_discard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/infopage_subheader_1"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="@string/infopage_subheader_1" />
 
             <TextView
                 android:id="@+id/gameplay_text6"
@@ -237,17 +214,11 @@
                 android:text="@string/infopage_gameplay_text6"
                 android:textSize="18sp" />
 
-            <TextView
+            <com.example.antidote_mobile.SubheaderTextView
                 android:id="@+id/subheader_trade"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/infopage_subheader_2"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="@string/infopage_subheader_2" />
 
             <TextView
                 android:id="@+id/gameplay_text7"
@@ -284,17 +255,11 @@
                 android:text="@string/infopage_gameplay_text11"
                 android:textSize="18sp" />
 
-            <TextView
+            <com.example.antidote_mobile.SubheaderTextView
                 android:id="@+id/subheader_syringe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/infopage_subheader_3"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="@string/infopage_subheader_3" />
 
             <TextView
                 android:id="@+id/gameplay_text12"
