@@ -8,6 +8,9 @@ import android.util.AttributeSet;
 import androidx.annotation.Nullable;
 
 public class HeaderTextView extends androidx.appcompat.widget.AppCompatTextView {
+
+    static final float fontSize = 24;
+
     public HeaderTextView(Context context) {
         super(context);
         init();
@@ -24,7 +27,7 @@ public class HeaderTextView extends androidx.appcompat.widget.AppCompatTextView 
     }
 
     private void init() {
-        this.setTextSize(24);
+        this.setTextSize(fontSize);
         this.setTypeface(this.getTypeface(), Typeface.BOLD);
         this.setPaintFlags(this.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
     }

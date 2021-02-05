@@ -8,6 +8,9 @@ import android.util.AttributeSet;
 import androidx.annotation.Nullable;
 
 public class SubheaderTextView extends androidx.appcompat.widget.AppCompatTextView {
+
+    static final float fontSize = 20;
+
     public SubheaderTextView(Context context) {
         super(context);
         init();
@@ -24,7 +27,7 @@ public class SubheaderTextView extends androidx.appcompat.widget.AppCompatTextVi
     }
 
     private void init() {
-        this.setTextSize(20);
+        this.setTextSize(fontSize);
         this.setTypeface(this.getTypeface(), Typeface.BOLD);
     }
 
