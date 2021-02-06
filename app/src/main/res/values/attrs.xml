@@ -9,4 +9,10 @@
     <declare-styleable name="SubheaderTextView">
 
     </declare-styleable>
+    <declare-styleable name="CardHandler">
+        <attr name="deck_left" format="integer" />
+        <attr name="deck_top" format="integer" />
+        <attr name="deck_bottom" format="integer" />
+        <attr name="deck_right" format="integer" />
+    </declare-styleable>
 </resources>

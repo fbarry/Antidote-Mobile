@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <com.example.antidote_mobile.CardHandler
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:deck_left="100"
+        app:deck_right="980"
+        app:deck_top="1300" />
+
+
     <ImageButton
         android:id="@+id/infoButton"
         android:layout_width="35dp"
