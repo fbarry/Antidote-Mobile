@@ -27,7 +27,7 @@ public class CardHandler extends View {
     private final Context context;
     private static final Paint blackText = new Paint();
 
-    private static final int millisPerFrame = 2;
+    private static final int millisPerFrame = 2, maxDx = 150;
     private static int minCardX = 50, maxCardX = 1000, cardY = 1000;
 
     Card touching;
@@ -119,13 +119,26 @@ public class CardHandler extends View {
     // animation to go to that position.
     private void fixCards() {
         Collections.sort(cards);
+        animateFor(600);
+
+        if (cards.size() == 1) {
+            cards.get(0).setTarget((maxCardX + minCardX) / 2 - Card.cardWidth / 2, cardY);
+            return;
+        }
+
+
         double dx = (maxCardX - minCardX - Card.cardWidth) / (double) (cards.size() - 1);
 
+        // Ensure that if we  don't have enough cards to fill the play area, they
+        // don't spread out too much, and they're centered.
+        int offset = 0;
+        if (dx > maxDx)
+            offset = (maxCardX - minCardX) / 2 - maxDx * cards.size() / 2 - maxDx / 4;
+        dx = Math.min(dx, maxDx);
+
         for (int i = 0; i < cards.size(); i++) {
-            cards.get(i).setTarget((int) (minCardX + dx * i), cards.get(i).yEnd);
+            cards.get(i).setTarget((int) (offset + minCardX + dx * i), cards.get(i).yEnd);
         }
-        animateFor(600);
-        // TODO: Center cards if we don't have enough to fill the range
     }
 
 
