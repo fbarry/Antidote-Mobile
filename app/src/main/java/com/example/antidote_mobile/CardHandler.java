@@ -35,6 +35,7 @@ public class CardHandler extends View {
     Timer invalidateTimer;
 
     // Number of times onDraw has been called (for debug)
+    @SuppressWarnings("unused")
     static int draws = 0;
 
     public CardHandler(Context context) {
@@ -55,6 +56,7 @@ public class CardHandler extends View {
         init(attrs);
     }
 
+    @SuppressWarnings("unused")
     public CardHandler(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         this.context = context;
