@@ -84,13 +84,13 @@ public class CardHandler extends View {
         // Intended is to get these from the db
         for (int i = 0; i < 6; i++) {
             cards.add(new Card(i * 10, 100));
-            cards.get(i).setTarget(cards.get(i).x, cardY, 400);
+            cards.get(i).setTarget(cards.get(i).x, cardY);
         }
 
         // Setup the timer and set the cards to fix themselves (while animating)
         invalidateTimer = new Timer();
-        animateFor(450);
         fixCards();
+        animateFor(1000);
     }
 
     // Ensure that this CardHandler will continue animations for a set amount of time
@@ -124,8 +124,9 @@ public class CardHandler extends View {
         double dx = (maxCardX - minCardX - Card.cardWidth) / (double) (cards.size() - 1);
 
         for (int i = 0; i < cards.size(); i++) {
-            cards.get(i).setTarget((int) (minCardX + dx * i), cards.get(i).yEnd, 300);
+            cards.get(i).setTarget((int) (minCardX + dx * i), cards.get(i).yEnd);
         }
+        animateFor(600);
         // TODO: Center cards if we don't have enough to fill the range
     }
 
@@ -159,7 +160,6 @@ public class CardHandler extends View {
                 }
             case MotionEvent.ACTION_MOVE:
                 if (touching != null) {
-                    animateFor(1000);
                     fixCards();
                     touching.forceSetPosition(touchX - xOffset, touchY - yOffset);
                 }
@@ -167,7 +167,6 @@ public class CardHandler extends View {
             case MotionEvent.ACTION_UP:
                 if (touching != null) {
                     touching.setTarget(touchX - xOffset, cardY);
-                    animateFor(450);
                     fixCards();
                     touching = null;
                 }
@@ -180,65 +179,41 @@ public class CardHandler extends View {
     static class Card implements Comparable<Card> {
 
         private static final int cardHeight = 367, cardWidth = 200;
+        private static final double trackingDivisor = 6.5, snapRadius = 2.5;
 
-        int xStart, xEnd, yStart, yEnd;
-        long tStart, tEnd;
-        int x, y;
+        int xEnd, yEnd, x, y;
 
         public Card(int x, int y) {
             this.x = xEnd = x;
             this.y = yEnd = y;
         }
 
-        // Set this card to animate towards (tx, ty) over 100ms
+
+        // Set this card to animate towards (tx, ty) over time
+        // Ensure that you set enough animation frames for this to complete
         public void setTarget(int tx, int ty) {
-            setTarget(tx, ty, 100);
-        }
-
-        // Set this card to animate towards (tx, ty) over a period of time
-        public void setTarget(int tx, int ty, long delay) {
-            if (tx == xEnd && ty == yEnd) return;
-            // If we're currently en route, just say this is our new start
-            xStart = x;
-            yStart = y;
-
-            // Set our targets for interpolation later
             xEnd = tx;
             yEnd = ty;
-            tStart = System.currentTimeMillis();
-            tEnd = tStart + delay;
         }
 
         // Forcibly set the card's position, without animation
         public void forceSetPosition(int x, int y) {
-            this.x = xStart = xEnd = x;
-            this.y = yStart = yEnd = y;
-            tEnd = tStart;
+            this.x = xEnd = x;
+            this.y = yEnd = y;
         }
 
         // Compute and set this card's x to where it should be on it's animation
         private void update() {
-            if (tStart == tEnd) {
-                x = xEnd;
-                y = yEnd;
+            if(Math.abs(xEnd-x) < snapRadius && Math.abs(yEnd-y) < snapRadius){
+                x = xEnd; y = yEnd;
                 return;
             }
 
-            double progress = (double) (System.currentTimeMillis() - tStart) / (tEnd - tStart);
-            if (progress >= 1) {
-                x = xEnd;
-                y = yEnd;
-                tStart = tEnd;
-                return;
-            }
+            double dx = (xEnd-x)/trackingDivisor;
+            double dy = (yEnd-y)/trackingDivisor;
 
-            x = linterp(xStart, xEnd, progress);
-            y = linterp(yStart, yEnd, progress);
-        }
-
-        // Linear interpolation from s to e, with progress p
-        private static int linterp(int s, int e, double p) {
-            return (int) (s + (e - s) * p);
+            x += dx;
+            y += dy;
         }
 
         // Draw this card on the canvas
