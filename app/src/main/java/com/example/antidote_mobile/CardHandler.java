@@ -60,7 +60,7 @@ public class CardHandler extends View {
     }
 
     private void init(@Nullable AttributeSet attrs) {
-        blackText.setTextSize(70);
+        blackText.setTextSize(50);
         blackText.setColor(Color.BLACK);
 
         // Pull attrs from the activity's XML
@@ -138,6 +138,7 @@ public class CardHandler extends View {
 
         for (int i = 0; i < cards.size(); i++) {
             cards.get(i).setTarget((int) (offset + minCardX + dx * i), cards.get(i).yEnd);
+            cards.get(i).setCardData(CardType.SYRINGE);
         }
     }
 
@@ -280,6 +281,21 @@ public class CardHandler extends View {
             Drawable img = ResourcesCompat.getDrawable(getResources(), R.drawable.blank_card, null);
             img.setBounds(bounds);
             img.draw(canvas);
+
+            switch (type){
+                case SYRINGE:
+                    canvas.drawText("S", x+20, y+40, blackText);
+                    break;
+                case TOXIN:
+                    canvas.drawText("X", x+20, y+40, blackText);
+                    break;
+                case ANTIDOTE:
+                    canvas.drawText("A", x+20, y+40, blackText);
+                    break;
+                case NONE:
+                default:
+                    break;
+            }
         }
 
         // Returns whether (x,y) is inside this card)
