@@ -7,10 +7,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.widget.TextView;
-
-import java.util.List;
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void addProfile(View v) {
         TextView textView = (TextView) findViewById(R.id.textView);
-        Profile newProfile = new Profile("randomUser", "randomPassword");
+        User newUser = new User("randomUser", "randomPassword");
     }
 
     public void openInfoPage(View v) {

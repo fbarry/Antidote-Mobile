@@ -4,12 +4,12 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
 
-public class Profile {
+public class User {
     private String username;
     private String password;
     private boolean isGuest;
 
-    public Profile(String username, String password) {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
 
