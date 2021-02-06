@@ -236,7 +236,7 @@ public class CardHandler extends View {
             this.number = number;
         }
 
-        public void clearCardData(){
+        public void clearCardData() {
             type = CardType.NONE;
             toxin = Toxin.NONE;
             number = -1;
@@ -279,18 +279,19 @@ public class CardHandler extends View {
             bounds.bottom = bounds.top + cardHeight;
             bounds.right = bounds.left + cardWidth;
             Drawable img = ResourcesCompat.getDrawable(getResources(), R.drawable.blank_card, null);
+            assert img != null;
             img.setBounds(bounds);
             img.draw(canvas);
 
-            switch (type){
+            switch (type) {
                 case SYRINGE:
-                    canvas.drawText("S", x+20, y+40, blackText);
+                    canvas.drawText("S", x + 20, y + 40, blackText);
                     break;
                 case TOXIN:
-                    canvas.drawText("X", x+20, y+40, blackText);
+                    canvas.drawText("X", x + 20, y + 40, blackText);
                     break;
                 case ANTIDOTE:
-                    canvas.drawText("A", x+20, y+40, blackText);
+                    canvas.drawText("A", x + 20, y + 40, blackText);
                     break;
                 case NONE:
                 default:

@@ -49,25 +49,23 @@ public class MainActivity extends AppCompatActivity {
         List<ParseObject> thelist = query.find();
 
         StringBuilder disp = new StringBuilder();
-        for(ParseObject object:thelist){
+        for (ParseObject object : thelist) {
             disp.append(object.getObjectId()).append(" ");
         }
         textView2.setText(disp.toString());
 
 
-
-
         query.getInBackground("PK7N8AL2H3", new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
-                if (e == null){
+                if (e == null) {
                     String display = "SUCC ";
                     int cardnum = object.getInt("cardNum");
                     String type = object.getString("type");
-                    display+=cardnum+" ";
-                    display+=type;
+                    display += cardnum + " ";
+                    display += type;
                     textView.setText(display);
-                }else{
+                } else {
                     textView.setText(e.getMessage());
                     e.printStackTrace();
                 }
