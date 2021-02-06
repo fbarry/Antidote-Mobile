@@ -1,7 +1,8 @@
 package com.example.antidote_mobile;
 
-public enum CardTypes {
+public enum CardType {
     TOXIN,
     SYRINGE,
-    ANTIDOTE
+    ANTIDOTE,
+    NONE
 }

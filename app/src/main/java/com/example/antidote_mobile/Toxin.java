@@ -1,6 +1,6 @@
 package com.example.antidote_mobile;
 
-public enum Toxins {
+public enum Toxin {
     SERUMN,
     OSLERSOIL,
     RUBIMAXB,
@@ -8,5 +8,6 @@ public enum Toxins {
     BOOTHEIDE,
     W2ROSE,
     MXVILE,
-    AGENTU
+    AGENTU,
+    NONE
 }

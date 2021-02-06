@@ -210,11 +210,35 @@ public class CardHandler extends View {
 
         int xEnd, yEnd, x, y;
 
+        CardType type = CardType.NONE;
+        Toxin toxin = Toxin.NONE;
+        int number = -1;
+
         public Card(int x, int y) {
             this.x = xEnd = x;
             this.y = yEnd = y;
         }
 
+        public void setCardData(CardType type) {
+            this.type = type;
+        }
+
+        public void setCardData(int CardTypes, int Toxins) {
+            this.type = type;
+            this.toxin = toxin;
+        }
+
+        public void setCardData(int CardTypes, int Toxins, int number) {
+            this.type = type;
+            this.toxin = toxin;
+            this.number = number;
+        }
+
+        public void clearCardData(){
+            type = CardType.NONE;
+            toxin = Toxin.NONE;
+            number = -1;
+        }
 
         // Set this card to animate towards (tx, ty) over time
         // Ensure that you set enough animation frames for this to complete
