@@ -8,13 +8,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.core.content.res.ResourcesCompat;
 
 import java.util.ArrayList;
@@ -193,7 +191,7 @@ public class CardHandler extends View {
     class Card implements Comparable<Card> {
 
         private static final int cardHeight = 367, cardWidth = 200;
-        private static final double trackingDivisor = 6.5, snapRadius = 2.5;
+        private static final double trackingDivisor = 6.5, snapRadius = 7.5;
 
         int xEnd, yEnd, x, y;
 
