@@ -19,27 +19,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void viewProfiles(View v) {
-        TextView textView = (TextView) findViewById(R.id.textView);
-
-    }
-
-    public void addProfile(View v) {
-        TextView textView = (TextView) findViewById(R.id.textView);
-        User newUser = new User("randomUser", "randomPassword", new SignUpCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    // Success
-                } else {
-                    // Failure
-                    textView.setText(e.getMessage());
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
     public void openInfoPage(View v) {
         startActivity(new Intent(MainActivity.this, InfoPageActivity.class));
     }
@@ -47,7 +26,20 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void testytest(View v) {
         // Put some code here if you want to test something from the home screen.
-        ((TextView) findViewById(R.id.textView)).setText("Hello, gamers!");
+        TextView textView = (TextView) findViewById(R.id.textView);
+        User newUser = new User("randomUser3", "randomPassword", new SignUpCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    // Success
+                    textView.setText("SUCCESS");
+                } else {
+                    // Failure
+                    textView.setText(e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 

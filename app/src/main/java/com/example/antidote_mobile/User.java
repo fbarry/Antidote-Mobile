@@ -9,7 +9,6 @@ import com.parse.SignUpCallback;
 public class User {
     private String username;
     private String password;
-    private boolean isGuest;
 
     public User(String username, String password, SignUpCallback performWhenDone) {
         this.username = username;
