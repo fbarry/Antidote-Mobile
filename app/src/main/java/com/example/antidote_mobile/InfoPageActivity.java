@@ -36,6 +36,4 @@ public class InfoPageActivity extends AppCompatActivity {
         View setupHeader = findViewById(R.id.header_gameplay);
         scrollView.smoothScrollTo(0, setupHeader.getTop());
     }
-
-
 }
