@@ -203,6 +203,7 @@ public class CardHandler extends View {
     }
 
 
+    @SuppressWarnings("unused")
     class Card implements Comparable<Card> {
 
         private static final int cardHeight = 367, cardWidth = 200;
@@ -223,12 +224,12 @@ public class CardHandler extends View {
             this.type = type;
         }
 
-        public void setCardData(int CardTypes, int Toxins) {
+        public void setCardData(CardType type, Toxin toxin) {
             this.type = type;
             this.toxin = toxin;
         }
 
-        public void setCardData(int CardTypes, int Toxins, int number) {
+        public void setCardData(CardType type, Toxin toxin, int number) {
             this.type = type;
             this.toxin = toxin;
             this.number = number;
