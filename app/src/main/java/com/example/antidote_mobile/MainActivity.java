@@ -12,7 +12,6 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.SignUpCallback;
 
 import java.util.List;
 
@@ -31,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void testytest(View v) throws ParseException {
         // Put some code here if you want to test something from the home screen.
-        TextView textView = (TextView) findViewById(R.id.textView);
-        TextView textView2 = (TextView) findViewById(R.id.textView2);
+        TextView textView = findViewById(R.id.textView);
+        TextView textView2 = findViewById(R.id.textView2);
 //        User newUser = new User("randomUser3", "randomPassword", new SignUpCallback() {
 ////            @Override
 ////            public void done(ParseException e) {
@@ -49,11 +48,11 @@ public class MainActivity extends AppCompatActivity {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Card");
         List<ParseObject> thelist = query.find();
 
-        String disp = "";
+        StringBuilder disp = new StringBuilder();
         for(ParseObject object:thelist){
-            disp+=object.getObjectId()+" ";
+            disp.append(object.getObjectId()).append(" ");
         }
-        textView2.setText(disp);
+        textView2.setText(disp.toString());
 
 
 

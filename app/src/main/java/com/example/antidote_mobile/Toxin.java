@@ -1,5 +1,6 @@
 package com.example.antidote_mobile;
 
+@SuppressWarnings("unused")
 public enum Toxin {
     SERUMN,
     OSLERSOIL,
