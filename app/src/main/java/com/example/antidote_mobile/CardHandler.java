@@ -129,14 +129,30 @@ public class CardHandler extends View {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void drawPlayMat(Canvas canvas) {
+        Paint paint = new Paint();
+        int borderB = 40, borderW = 20;
+        paint.setColor(Color.BLACK);
+        paint.setStrokeWidth(3);
+        // This cards border is offset by a few pixels, I'm not sure why so this fix will work for now
+        // Is there a better solution? Probably!
+        canvas.drawRoundRect(minCardX - borderB - 7, cardY - borderB - 8, maxCardX + borderB, cardY + Card.cardHeight + borderB, 35, 35, paint);
+        paint.setStrokeWidth(0);
+        paint.setColor(Color.WHITE);
+        canvas.drawRoundRect(minCardX - borderW - 7, cardY - borderW - 8, maxCardX + borderW, cardY + Card.cardHeight + borderW, 35, 35, paint);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onDraw(Canvas canvas) {
 //        canvas.drawText("" + draws++, 400, 430, black);
 //        canvas.drawText("" + minCardX + "," + maxCardX + "," + cardY, 400, 300, black);
-
+        drawPlayMat(canvas);
         for (Card c : cards) {
             c.draw(canvas);
         }
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -202,13 +218,14 @@ public class CardHandler extends View {
 
         // Compute and set this card's x to where it should be on it's animation
         private void update() {
-            if(Math.abs(xEnd-x) < snapRadius && Math.abs(yEnd-y) < snapRadius){
-                x = xEnd; y = yEnd;
+            if (Math.abs(xEnd - x) < snapRadius && Math.abs(yEnd - y) < snapRadius) {
+                x = xEnd;
+                y = yEnd;
                 return;
             }
 
-            double dx = (xEnd-x)/trackingDivisor;
-            double dy = (yEnd-y)/trackingDivisor;
+            double dx = (xEnd - x) / trackingDivisor;
+            double dy = (yEnd - y) / trackingDivisor;
 
             x += dx;
             y += dy;
