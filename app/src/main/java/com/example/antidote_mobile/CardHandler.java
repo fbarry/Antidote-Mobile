@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -139,7 +140,7 @@ public class CardHandler extends View {
 //        canvas.drawText("" + minCardX + "," + maxCardX + "," + cardY, 400, 300, black);
 
         for (Card c : cards) {
-            c.draw(canvas, context);
+            c.draw(canvas);
         }
     }
 
@@ -178,7 +179,7 @@ public class CardHandler extends View {
     }
 
 
-    static class Card implements Comparable<Card> {
+    class Card implements Comparable<Card> {
 
         private static final int cardHeight = 367, cardWidth = 200;
         private static final double trackingDivisor = 6.5, snapRadius = 2.5;
@@ -219,14 +220,14 @@ public class CardHandler extends View {
         }
 
         // Draw this card on the canvas
-        public void draw(Canvas canvas, Context context) {
+        public void draw(Canvas canvas) {
             update();
             Rect bounds = new Rect();
             bounds.top = y;
             bounds.left = x;
             bounds.bottom = bounds.top + cardHeight;
             bounds.right = bounds.left + cardWidth;
-            Drawable img = context.getResources().getDrawable(R.drawable.blank_card);
+            Drawable img = ResourcesCompat.getDrawable(getResources(), R.drawable.blank_card, null);
             img.setBounds(bounds);
             img.draw(canvas);
         }
