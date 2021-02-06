@@ -2,7 +2,6 @@
     <string name="app_name">Antidote Mobile Home</string>
     <string name="infopage_name">Antidote Info</string>
     <string name="info">Info</string>
-    <string name="getGameInfo">Load Game Info</string>
     <string name="addProfile">Add Profile</string>
     <string name="loadProfiles">Load Profiles</string>
 
