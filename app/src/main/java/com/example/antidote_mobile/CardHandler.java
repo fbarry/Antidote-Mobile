@@ -79,7 +79,7 @@ public class CardHandler extends View {
         // Intended is to get these from the db
         for (int i = 0; i < 6; i++) {
             cards.add(new Card(i * 10, 100));
-            cards.get(i).setTarget(cards.get(i).x, cardY);
+            cards.get(i).forceSetPosition(cards.get(i).x, cardY);
         }
 
         // Setup the timer and set the cards to fix themselves (while animating)
