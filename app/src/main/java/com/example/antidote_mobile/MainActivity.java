@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,10 +13,12 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    ParseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         textView2.setText(disp.toString());
 
 
+        //noinspection Convert2Lambda
         query.getInBackground("PK7N8AL2H3", new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
@@ -71,6 +75,28 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void logUserIn(View v) {
+        EditText username = findViewById(R.id.usernameInput);
+        EditText password = findViewById(R.id.passwordInput);
+
+        TextView textView = findViewById(R.id.textView);
+
+        try {
+            currentUser = ParseUser.logIn(username.getText().toString(), password.getText().toString());
+            textView.setText(currentUser.getUsername() + " you have successfully logged in!");
+
+        } catch (ParseException e) {
+            currentUser = null;
+
+            textView.setText("Login failed.");
+        } finally {
+            password.getText().clear();
+        }
+
+
     }
 
 

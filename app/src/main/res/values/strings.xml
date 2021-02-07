@@ -45,4 +45,7 @@
     <string name="infotable_scoring_table_contentdesc">Table showing various cases of scoring</string>
     <string name="infotable_scoring_subheader1">Dying to play again?</string>
     <string name="infopage_scoring_text5">Even if you die, you can play again! The winner of a game of antidote is the player with the most points after 3 rounds.</string>
+    <string name="activity_main_username">Username:</string>
+    <string name="activity_main_password">Password:</string>
+    <string name="activity_main_login">Login</string>
 </resources>
