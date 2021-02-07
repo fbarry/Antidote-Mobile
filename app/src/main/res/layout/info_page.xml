@@ -94,6 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:linksClickable="false"
+                android:onClick="scrollToScoring"
                 android:text="@string/infopage_toc_scoring"
                 android:textAllCaps="false"
                 android:textColor="#3F51B5"
@@ -274,6 +275,61 @@
                 android:layout_height="wrap_content"
                 android:text="@string/infopage_gameplay_text13"
                 android:textSize="18sp" />
+
+            <com.example.antidote_mobile.HeaderTextView
+                android:id="@+id/header_scoring"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/infopage_header_scoring" />
+
+            <TextView
+                android:id="@+id/scoring_text1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/infopage_scoring_text1"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/scoring_text2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/infopage_scoring_text2"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/scoring_text3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/infopage_scoring_text3"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/scoring_text4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/infopage_scoring_text4"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:contentDescription="@string/infotable_scoring_table_contentdesc"
+                app:srcCompat="@drawable/table02" />
+
+            <com.example.antidote_mobile.SubheaderTextView
+                android:id="@+id/subheader_scoring"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/infotable_scoring_subheader1" />
+
+            <TextView
+                android:id="@+id/scoring_text5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/infopage_scoring_text5"
+                android:textSize="18sp" />
+
 
         </LinearLayout>
     </ScrollView>

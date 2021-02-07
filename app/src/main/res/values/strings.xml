@@ -37,4 +37,12 @@
     <string name="infopage_subheader_1">1: Discard a Card</string>
     <string name="infopage_subheader_2">2: Trade Cards</string>
     <string name="infopage_subheader_3">3: Play a Syringe Card</string>
+    <string name="infopage_header_scoring">Scoring</string>
+    <string name="infopage_scoring_text1">Eventually, all the players will only have one card left. When this occurs, players reveal their last card. Then, the hidden Toxin, selected at the start of the game, will be shown.</string>
+    <string name="infopage_scoring_text2">A) If you drink the antidote (i.e. the hidden Toxin matches your last card), you live! You gain points equal to the number on your last card. (See Table 02: Scoring Examples - Example 1)</string>
+    <string name="infopage_scoring_text3">B) If you do not drink the antidote (i.e. the hidden Toxin does NOT match your last card), you die. You lose points equal to the number on your last card (See Table 02: Scoring Examples - Example 2)</string>
+    <string name="infopage_scoring_text4">C) If your last card is not an antidote card (e.g. if it is a Syringe), you die and receive -1 point.</string>
+    <string name="infotable_scoring_table_contentdesc">Table showing various cases of scoring</string>
+    <string name="infotable_scoring_subheader1">Dying to play again?</string>
+    <string name="infopage_scoring_text5">Even if you die, you can play again! The winner of a game of antidote is the player with the most points after 3 rounds.</string>
 </resources>

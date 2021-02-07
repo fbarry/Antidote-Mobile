@@ -28,28 +28,33 @@ public class InfoPageActivity extends AppCompatActivity {
     }
 
     public void scrollToObjective(View v) {
-        View setupHeader = findViewById(R.id.header_objective);
-        scrollView.smoothScrollTo(0, setupHeader.getTop());
+        View objectiveHeader = findViewById(R.id.header_objective);
+        scrollView.smoothScrollTo(0, objectiveHeader.getTop());
     }
 
     public void scrollToGameplay(View v) {
-        View setupHeader = findViewById(R.id.header_gameplay);
-        scrollView.smoothScrollTo(0, setupHeader.getTop());
+        View gameplayHeader = findViewById(R.id.header_gameplay);
+        scrollView.smoothScrollTo(0, gameplayHeader.getTop());
     }
 
     public void scrollToDiscard(View v) {
-        View setupHeader = findViewById(R.id.subheader_discard);
-        scrollView.smoothScrollTo(0, setupHeader.getTop());
+        View discardSubheader = findViewById(R.id.subheader_discard);
+        scrollView.smoothScrollTo(0, discardSubheader.getTop());
     }
 
     public void scrollToTrade(View v) {
-        View setupHeader = findViewById(R.id.subheader_trade);
-        scrollView.smoothScrollTo(0, setupHeader.getTop());
+        View tradeSubheader = findViewById(R.id.subheader_trade);
+        scrollView.smoothScrollTo(0, tradeSubheader.getTop());
     }
 
     public void scrollToSyringe(View v) {
-        View setupHeader = findViewById(R.id.subheader_syringe);
-        scrollView.smoothScrollTo(0, setupHeader.getTop());
+        View syringeSubheader = findViewById(R.id.subheader_syringe);
+        scrollView.smoothScrollTo(0, syringeSubheader.getTop());
+    }
+
+    public void scrollToScoring(View v) {
+        View scoringHeader = findViewById(R.id.header_scoring);
+        scrollView.smoothScrollTo(0, scoringHeader.getTop());
     }
 
 
