@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -80,6 +81,7 @@ public class CardHandler extends View {
         for (int i = 0; i < 6; i++) {
             cards.add(new Card(i * 10, 100));
             cards.get(i).forceSetPosition(cards.get(i).x, cardY);
+            cards.get(i).setCardData(CardType.SYRINGE);
         }
 
         // Setup the timer and set the cards to fix themselves (while animating)
@@ -123,7 +125,6 @@ public class CardHandler extends View {
             return;
         }
 
-
         double dx = (maxCardX - minCardX - Card.cardWidth) / (double) (cards.size() - 1);
 
         // Ensure that if we  don't have enough cards to fill the play area, they
@@ -135,7 +136,6 @@ public class CardHandler extends View {
 
         for (int i = 0; i < cards.size(); i++) {
             cards.get(i).setTarget((int) (offset + minCardX + dx * i), cards.get(i).yEnd);
-            cards.get(i).setCardData(CardType.SYRINGE);
         }
     }
 
@@ -200,6 +200,18 @@ public class CardHandler extends View {
         return true;
     }
 
-
+    public void setCards(String cardData){
+        String[] dats = cardData.split("\\.");
+        System.out.println(Arrays.toString(dats));
+        for(Card c:cards){
+            if(dats.length == 1){
+                c.setCardData(CardType.fromString(dats[0]));
+            }else if(dats.length == 2){
+                c.setCardData(CardType.fromString(dats[0]), Toxin.fromString(dats[1]));
+            }else if(dats.length == 3){
+                c.setCardData(CardType.fromString(dats[0]), Toxin.fromString(dats[1]), Integer.parseInt(dats[2]));
+            }
+        }
+    }
 
 }

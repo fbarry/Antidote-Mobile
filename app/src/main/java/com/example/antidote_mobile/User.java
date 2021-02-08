@@ -1,6 +1,7 @@
 package com.example.antidote_mobile;
 
 import com.parse.GetCallback;
+import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -22,6 +23,7 @@ public class User {
 
         newProfile.signUpInBackground(performWhenDone);
     }
+
 
 
 }

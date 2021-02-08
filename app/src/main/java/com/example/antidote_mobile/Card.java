@@ -78,6 +78,7 @@ class Card implements Comparable<Card> {
 
     // Draw this card on the canvas
     public void draw(Canvas canvas, Resources resources) {
+        blackText.setTextSize(30);
         update();
         Rect bounds = new Rect();
         bounds.top = y;
@@ -94,10 +95,10 @@ class Card implements Comparable<Card> {
                 canvas.drawText("S", x + 20, y + 40, blackText);
                 break;
             case TOXIN:
-                canvas.drawText("X", x + 20, y + 40, blackText);
+                canvas.drawText("X"+toxin.getText().charAt(0), x + 20, y + 40, blackText);
                 break;
             case ANTIDOTE:
-                canvas.drawText("A", x + 20, y + 40, blackText);
+                canvas.drawText("A"+toxin.getText().charAt(0)+number, x + 20, y + 40, blackText);
                 break;
             case NONE:
             default:
