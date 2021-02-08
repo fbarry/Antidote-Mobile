@@ -26,11 +26,11 @@ For players of the game Antidote who want to play remotely with friends or bots,
 
 ### Task Allocation
 
-Fiona Barry - 
-Jacob Steinebronn - 
-Enrique Rodriguez - 
-Daniel West - 
-Zach Ip - 
+- Fiona Barry:
+- Jacob Steinebronn:
+- Enrique Rodriguez:
+- Daniel West:
+- Zach Ip: 
 
 ## Sprint 2
  
