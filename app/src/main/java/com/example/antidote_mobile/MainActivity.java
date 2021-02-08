@@ -25,17 +25,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    ParseUser currentUser;
+    public static User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        try {
-            currentUser = ParseUser.logIn("randomUser", "randomPassword");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+
+        currentUser = User.signIn("randomUser", "randomPassword");
+
         CardHandler ch = findViewById(R.id.cardHandler);
         ch.setCards("ANTIDOTE.SERUM-N.5");
         System.out.println("LMAOOOO BROOOO");
@@ -53,26 +51,29 @@ public class MainActivity extends AppCompatActivity {
         TextView textView2 = findViewById(R.id.textView2);
 
         if (currentUser != null) {
-            textView.setText(currentUser.getInt("magicnumber") + " is the magic number of " + currentUser.getUsername());
-        } else {
-            textView.setText("you silly billy, you're not logged in");
-            return;
+            textView.setText(currentUser.getUsername() + "," + currentUser.getEmail());
 
-        }
+//        if (currentUser != null) {
+//            textView.setText(currentUser.getInt("magicnumber") + " is the magic number of " + currentUser.getUsername());
+//        } else {
+//            textView.setText("you silly billy, you're not logged in");
+//            return;
+//
+//        }
 
-        currentUser.put("magicnumber", (int) (Math.random() * 100));
-        currentUser.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-//                textView2.setText("Update done! ");
-            }
-        });
-        Object thing = currentUser.get("specialArray");
+//        currentUser.put("magicnumber", (int) (Math.random() * 100));
+//        currentUser.saveInBackground(new SaveCallback() {
+//            @Override
+//            public void done(ParseException e) {
+////                textView2.setText("Update done! ");
+//            }
+//        });
+//        Object thing = currentUser.get("specialArray");
 
-        if (thing == null) {
-            textView2.setText("oh noes");
-        } else {
-            textView2.setText(thing.toString() + "," + thing.getClass());
+//        if (thing == null) {
+//            textView2.setText("oh noes");
+//        } else {
+//            textView2.setText(thing.toString() + "," + thing.getClass());
 
 //            textView2.append(" "+po.getString("type"));
 //            textView2.append(((ParseObject)thing).get("type").toString());
@@ -186,17 +187,15 @@ public class MainActivity extends AppCompatActivity {
                 EditText username = myDialog.findViewById(R.id.login_usernameEntry);
                 EditText password = myDialog.findViewById(R.id.login_passwordEntry);
                 TextView message = myDialog.findViewById(R.id.login_textViewMessage);
-                try {
-                    currentUser = ParseUser.logIn(username.getText().toString(), password.getText().toString());
-//                        textView.setText(currentUser.getUsername() + " you have successfully logged in!");
+
+                currentUser = User.signIn(username.getText().toString(), password.getText().toString());
+
+                password.getText().clear();
+                if (currentUser != null) {
                     username.getText().clear();
                     myDialog.dismiss();
-
-                } catch (ParseException e) {
-                    currentUser = null;
+                } else {
                     message.setText("Login failed.");
-                } finally {
-                    password.getText().clear();
                 }
 
             }
