@@ -26,10 +26,10 @@ For players of the game Antidote who want to play remotely with friends or bots,
 
 ### Task Allocation
 
-- Fiona Barry:
+- Fiona Barry: Set up the database through Parse
 - Jacob Steinebronn:
 - Enrique Rodriguez:
-- Daniel West:
+- Daniel West: Got familiar with app development principles
 - Zach Ip: 
 
 ## Sprint 2
