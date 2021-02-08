@@ -26,6 +26,12 @@ For players of the game Antidote who want to play remotely with friends or bots,
 
 ### Task Allocation
 
+- Fiona Barry:
+- Jacob Steinebronn:
+- Enrique Rodriguez:
+- Daniel West:
+- Zach Ip: 
+
 ## Sprint 2
  
 - [Product Backlog](https://trello.com/b/4BXuyGVT/antidote-planning)
