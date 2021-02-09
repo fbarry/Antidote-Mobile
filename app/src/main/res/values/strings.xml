@@ -49,4 +49,5 @@
     <string name="activity_main_password">Password:</string>
     <string name="activity_main_login">Login</string>
     <string name="login_signinmessage">Please sign in to your account</string>
+    <string name="login_failed">Login failed.</string>
 </resources>
