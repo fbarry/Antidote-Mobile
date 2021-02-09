@@ -10,15 +10,6 @@ public class User {
     String username;
     String email;
 
-    public User(String username) {
-        this.username = username;
-    }
-
-    public User(String username, String email) {
-        this.username = username;
-        this.email = email;
-    }
-
     public User(ParseObject po){
         username = po.getString("username");
         email = po.getString("email");
@@ -42,7 +33,7 @@ public class User {
     public static User signIn(String username, String password) {
         try {
             ParseUser returned = ParseUser.logIn(username, password);
-            return new User(returned.getUsername(), returned.getEmail());
+            return new User(returned);
         } catch (ParseException e) {
             return null;
         }
@@ -59,7 +50,7 @@ public class User {
         try {
             newProfile.signUp();
             // success! don't need to do much, since we have the stuff ready anyway...
-            return new User(username, email);
+            return new User(newProfile);
         } catch (ParseException e) {
             return null;
         }
@@ -67,14 +58,6 @@ public class User {
 
     public static User signUp(String username, String password) {
         return signUp(username, password, null);
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
 }
