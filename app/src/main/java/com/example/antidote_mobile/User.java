@@ -9,15 +9,18 @@ import com.parse.ParseUser;
 public class User {
     String username;
     String email;
+    boolean isGuest;
 
     public User(ParseObject po){
         username = po.getString("username");
         email = po.getString("email");
+        isGuest = po.getBoolean("isGuest");
     }
 
     public User(ParseUser po){
         username = po.getUsername();
         email = po.getEmail();
+        isGuest = po.getBoolean("isGuest");
     }
 
     public static User getUser(String objectId) {
@@ -43,6 +46,7 @@ public class User {
         ParseUser newProfile = new ParseUser();
         newProfile.put("username", username);
         newProfile.put("password", password);
+        newProfile.put("isGuest", false);
 
         if (email != null)
             newProfile.put("email", email);
