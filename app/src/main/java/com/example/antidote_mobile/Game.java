@@ -72,5 +72,21 @@ public class Game {
         return new Game(po);
     }
 
+    public void update() throws ParseException {
+        ParseQuery<ParseObject> query = new ParseQuery<>("Game");
+        ParseObject po = query.get(this.objectId);
+
+        this.currentTurn = po.getInt("currentTurn");
+        this.numCards = po.getInt("numCards");
+        this.numRoundsCompleted = po.getInt("numRoundsCompleted");
+        this.numPlayers = po.getInt("numPlayers");
+        this.toxin = Toxin.fromString(po.getString("toxin"));
+
+        //noinspection unchecked
+        this.playerIds = (ArrayList<String>) po.get("players");
+
+        this.joinCode = po.getString("joinCode");
+        this.objectId = po.getObjectId();
+    }
 
 }
