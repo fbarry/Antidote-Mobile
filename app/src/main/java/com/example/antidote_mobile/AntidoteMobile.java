@@ -7,6 +7,7 @@ public class AntidoteMobile extends Application {
     // Initializes Parse SDK as soon as the application is created
 
     public static User currentUser;
+    public static final String guestPassword = "guestPass1337!_mobileAntidoteMobile";
 
     @Override
     public void onCreate() {
