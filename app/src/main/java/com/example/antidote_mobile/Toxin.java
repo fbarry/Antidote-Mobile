@@ -12,7 +12,7 @@ public enum Toxin {
     AGENTU("AGENT-U"),
     NONE("NONE");
 
-    private String text;
+    private final String text;
 
     Toxin(String s) {
         this.text = s;
