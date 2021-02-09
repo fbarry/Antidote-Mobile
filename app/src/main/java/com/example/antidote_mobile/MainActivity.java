@@ -25,14 +25,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    public static User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        currentUser = User.signIn("randomUser", "randomPassword");
+        AntidoteMobile.currentUser = User.signIn("randomUser", "randomPassword");
 
         CardHandler ch = findViewById(R.id.cardHandler);
         ch.setCards("ANTIDOTE.SERUM-N.5");
@@ -50,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView);
         TextView textView2 = findViewById(R.id.textView2);
 
-        if (currentUser != null) {
-            textView.setText(currentUser.getUsername() + "," + currentUser.getEmail());
+        if (AntidoteMobile.currentUser != null) {
+            textView.setText(AntidoteMobile.currentUser.username + "," + AntidoteMobile.currentUser.email);
 
 //        if (currentUser != null) {
 //            textView.setText(currentUser.getInt("magicnumber") + " is the magic number of " + currentUser.getUsername());
@@ -188,10 +187,10 @@ public class MainActivity extends AppCompatActivity {
                 EditText password = myDialog.findViewById(R.id.login_passwordEntry);
                 TextView message = myDialog.findViewById(R.id.login_textViewMessage);
 
-                currentUser = User.signIn(username.getText().toString(), password.getText().toString());
+                AntidoteMobile.currentUser = User.signIn(username.getText().toString(), password.getText().toString());
 
                 password.getText().clear();
-                if (currentUser != null) {
+                if (AntidoteMobile.currentUser != null) {
                     username.getText().clear();
                     myDialog.dismiss();
                 } else {

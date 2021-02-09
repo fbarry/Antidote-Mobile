@@ -5,6 +5,9 @@ import android.app.Application;
 
 public class AntidoteMobile extends Application {
     // Initializes Parse SDK as soon as the application is created
+
+    public static User currentUser;
+
     @Override
     public void onCreate() {
         super.onCreate();
