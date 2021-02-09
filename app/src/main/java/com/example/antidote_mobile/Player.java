@@ -25,4 +25,23 @@ public class Player {
         query.getInBackground(po.getString("who"), (object, e) -> user = new User(object));
     }
 
+    public Player(User user){
+        if(user.isGuest){
+            // need to register
+            User signedup = User.signUpGuest(user.username, AntidoteMobile.guestPassword);
+            user.objectId = signedup.objectId;
+        }
+
+        ParseObject po = new ParseObject("Player");
+        po.put("who", user.objectId);
+        po.put("cards", new ArrayList<String>());
+        po.put("points", 0);
+        po.saveInBackground();
+
+        objectId = po.getObjectId();
+        points = 0;
+        this.user = user;
+        cards = new ArrayList<>();
+    }
+
 }

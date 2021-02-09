@@ -7,19 +7,24 @@ import com.parse.ParseUser;
 
 @SuppressWarnings("unused")
 public class User {
-    String username;
-    String email;
+    String username, email, objectId;
     boolean isGuest;
 
-    public User(ParseObject po){
+    public User() {
+
+    }
+
+    public User(ParseObject po) {
         username = po.getString("username");
         email = po.getString("email");
         isGuest = po.getBoolean("isGuest");
+        objectId = po.getObjectId();
     }
 
-    public User(ParseUser po){
+    public User(ParseUser po) {
         username = po.getUsername();
         email = po.getEmail();
+        objectId = po.getObjectId();
         isGuest = po.getBoolean("isGuest");
     }
 
@@ -42,6 +47,13 @@ public class User {
         }
     }
 
+    public static User getNewGuest() {
+        User ret = new User();
+        ret.username = "guest_" + (int) (Math.random() * 100000000);
+        ret.isGuest = true;
+        return ret;
+    }
+
     public static User signUp(String username, String password, String email) {
         ParseUser newProfile = new ParseUser();
         newProfile.put("username", username);
@@ -60,8 +72,30 @@ public class User {
         }
     }
 
+    public static User signUpGuest(String username, String password) {
+        ParseUser newProfile = new ParseUser();
+        newProfile.put("username", username);
+        newProfile.put("password", password);
+        newProfile.put("isGuest", true);
+
+        try {
+            newProfile.signUp();
+            // success! don't need to do much, since we have the stuff ready anyway...
+            return new User(newProfile);
+        } catch (ParseException e) {
+            System.out.println("Failed to sign guest up!");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static User signUp(String username, String password) {
         return signUp(username, password, null);
+    }
+
+    @SuppressWarnings("NullableProblems")
+    public String toString(){
+        return "User: ["+username+","+objectId+","+isGuest+","+email+"]";
     }
 
 }

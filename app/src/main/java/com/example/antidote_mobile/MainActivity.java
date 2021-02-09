@@ -13,17 +13,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    Player currentPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AntidoteMobile.currentUser = User.signIn("randomUser", "randomPassword");
-
         CardHandler ch = findViewById(R.id.cardHandler);
         ch.setCards("ANTIDOTE.SERUM-N.5");
-        System.out.println("LMAOOOO BROOOO");
-
     }
 
     public void openInfoPage(View v) {
@@ -41,6 +39,17 @@ public class MainActivity extends AppCompatActivity {
             textView.setText(AntidoteMobile.currentUser.username + "," + AntidoteMobile.currentUser.email);
 
         }
+    }
+
+    @SuppressWarnings("unused")
+    @SuppressLint("SetTextI18n")
+    public void testytest2(View v) {
+        // Put some code here if you want to test something from the home screen.
+        TextView textView = findViewById(R.id.textView);
+        TextView textView2 = findViewById(R.id.textView2);
+
+        currentPlayer = new Player(AntidoteMobile.currentUser);
+        textView2.setText(currentPlayer.objectId+", "+currentPlayer.user.toString());
     }
 
     public void launchLoginWindowDialog(View v) {

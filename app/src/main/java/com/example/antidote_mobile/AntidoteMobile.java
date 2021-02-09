@@ -1,6 +1,8 @@
 package com.example.antidote_mobile;
 
 import com.parse.Parse;
+import com.parse.ParseUser;
+
 import android.app.Application;
 
 public class AntidoteMobile extends Application {
@@ -19,5 +21,8 @@ public class AntidoteMobile extends Application {
                 .server("https://parseapi.back4app.com")
                 .build()
         );
+
+        ParseUser.logOutInBackground();
+        currentUser = User.getNewGuest();
     }
 }
