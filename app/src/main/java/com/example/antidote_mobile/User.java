@@ -1,17 +1,14 @@
 package com.example.antidote_mobile;
 
-import com.parse.GetCallback;
-import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.ParseObject;
-import com.parse.SaveCallback;
-import com.parse.SignUpCallback;
 
+@SuppressWarnings("unused")
 public class User {
-    private String username;
-    private String email;
+    String username;
+    String email;
 
     public User(String username) {
         this.username = username;
@@ -20,6 +17,26 @@ public class User {
     public User(String username, String email) {
         this.username = username;
         this.email = email;
+    }
+
+    public User(ParseObject po){
+        username = po.getString("username");
+        email = po.getString("email");
+    }
+
+    public User(ParseUser po){
+        username = po.getUsername();
+        email = po.getEmail();
+    }
+
+    public static User getUser(String objectId) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
+        try {
+            ParseObject po = query.get(objectId);
+            return new User(po);
+        } catch (ParseException e) {
+            return null;
+        }
     }
 
     public static User signIn(String username, String password) {
@@ -42,8 +59,7 @@ public class User {
         try {
             newProfile.signUp();
             // success! don't need to do much, since we have the stuff ready anyway...
-            User ret = new User(username, email);
-            return ret;
+            return new User(username, email);
         } catch (ParseException e) {
             return null;
         }
