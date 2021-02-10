@@ -33,7 +33,7 @@ For players of the game Antidote who want to play remotely with friends or bots,
 ## Sprint 2
  
 - [Trello Board](https://trello.com/b/4BXuyGVT/antidote-planning)
-- Requirements
+- [Requirements](architecture.md)
 - Burndown Chart
 - Velocity Chart
 - System Architecture
