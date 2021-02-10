@@ -33,10 +33,9 @@ For players of the game Antidote who want to play remotely with friends or bots,
 ## Sprint 2
  
 - [Trello Board](https://trello.com/b/4BXuyGVT/antidote-planning)
-- [Requirements](architecture.md)
 - Burndown Chart
 - Velocity Chart
-- System Architecture
+- [System Architecture](https://github.com/fbarry/Antidote-Mobile/tree/master/artifacts/architecture.md)
 - Source Code
 - Automated Tests
 - Product Demonstration
@@ -46,7 +45,6 @@ For players of the game Antidote who want to play remotely with friends or bots,
 ## Sprint 3
 
 - [Trello Board](https://trello.com/b/4BXuyGVT/antidote-planning)
-- Requirements
 - Burndown Chart
 - Velocity Chart
 - System Architecture
@@ -59,7 +57,6 @@ For players of the game Antidote who want to play remotely with friends or bots,
 ## Sprint 4
 
 - [Trello Board](https://trello.com/b/4BXuyGVT/antidote-planning)
-- Requirements
 - Burndown Chart
 - Velocity Chart
 - System Architecture
@@ -72,7 +69,6 @@ For players of the game Antidote who want to play remotely with friends or bots,
 ## Sprint 5
 
 - [Trello Board](https://trello.com/b/4BXuyGVT/antidote-planning)
-- Requirements
 - Burndown Chart
 - Velocity Chart
 - System Architecture
@@ -85,7 +81,6 @@ For players of the game Antidote who want to play remotely with friends or bots,
 ## Sprint 6
 
 - [Trello Board](https://trello.com/b/4BXuyGVT/antidote-planning)
-- Requirements
 - Burndown Chart
 - Velocity Chart
 - System Architecture
@@ -98,7 +93,6 @@ For players of the game Antidote who want to play remotely with friends or bots,
 ## Sprint 7
 
 - [Trello Board](https://trello.com/b/4BXuyGVT/antidote-planning)
-- Requirements
 - Burndown Chart
 - Velocity Chart
 - System Architecture
@@ -111,7 +105,6 @@ For players of the game Antidote who want to play remotely with friends or bots,
 ## Sprint 8
 
 - [Trello Board](https://trello.com/b/4BXuyGVT/antidote-planning)
-- Requirements
 - Burndown Chart
 - Velocity Chart
 - System Architecture
