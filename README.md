@@ -42,6 +42,12 @@ For players of the game Antidote who want to play remotely with friends or bots,
 
 ### Task Allocation
 
+- Fiona Barry:
+- Jacob Steinebronn:
+- Enrique Rodriguez:
+- Daniel West:
+- Zach Ip: 
+
 ## Sprint 3
 
 - [Trello Board](https://trello.com/b/4BXuyGVT/antidote-planning)
@@ -53,6 +59,12 @@ For players of the game Antidote who want to play remotely with friends or bots,
 - Product Demonstration
 
 ### Task Allocation
+
+- Fiona Barry:
+- Jacob Steinebronn:
+- Enrique Rodriguez:
+- Daniel West:
+- Zach Ip: 
 
 ## Sprint 4
 
@@ -66,6 +78,12 @@ For players of the game Antidote who want to play remotely with friends or bots,
 
 ### Task Allocation
 
+- Fiona Barry:
+- Jacob Steinebronn:
+- Enrique Rodriguez:
+- Daniel West:
+- Zach Ip: 
+
 ## Sprint 5
 
 - [Trello Board](https://trello.com/b/4BXuyGVT/antidote-planning)
@@ -77,6 +95,12 @@ For players of the game Antidote who want to play remotely with friends or bots,
 - Product Demonstration
 
 ### Task Allocation
+
+- Fiona Barry:
+- Jacob Steinebronn:
+- Enrique Rodriguez:
+- Daniel West:
+- Zach Ip: 
 
 ## Sprint 6
 
@@ -90,6 +114,12 @@ For players of the game Antidote who want to play remotely with friends or bots,
 
 ### Task Allocation
 
+- Fiona Barry:
+- Jacob Steinebronn:
+- Enrique Rodriguez:
+- Daniel West:
+- Zach Ip: 
+
 ## Sprint 7
 
 - [Trello Board](https://trello.com/b/4BXuyGVT/antidote-planning)
@@ -102,6 +132,12 @@ For players of the game Antidote who want to play remotely with friends or bots,
 
 ### Task Allocation
 
+- Fiona Barry:
+- Jacob Steinebronn:
+- Enrique Rodriguez:
+- Daniel West:
+- Zach Ip: 
+
 ## Sprint 8
 
 - [Trello Board](https://trello.com/b/4BXuyGVT/antidote-planning)
@@ -113,4 +149,10 @@ For players of the game Antidote who want to play remotely with friends or bots,
 - Product Demonstration
 
 ### Task Allocation
+
+- Fiona Barry:
+- Jacob Steinebronn:
+- Enrique Rodriguez:
+- Daniel West:
+- Zach Ip: 
 
