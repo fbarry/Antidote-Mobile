@@ -69,4 +69,18 @@ As development continues, we may need to add other libraries for features we wis
 - Parse SDK Android: A REST API which is used to connect to a database stored on back4app.com. Parse has objects and function calls which allow for synchronous and asynchronous requests to POST, DELETE, and GET, along with more specific requests to update, sign-in/-out, and anything with an HTTP request. We use Parse because it provides a complete framework for backend development, allowing us to focus on implementing and developing other aspects of our app.
 
 # Change Strategy
-See Code Complete, Chapter 3
+
+We have many planned enhancements to the basic version of our app listed below:
+- Accessible mini-help popups
+- AI players
+- Enhanced graphics
+- Profile accessibility
+- Color themes
+- Privacy settings
+- Interactive tutorials
+- Landscape support
+- Customizable game modes
+- Sharing results on social media
+- Separate lobbies
+- Friends lists
+Because we have these improvements in mind, we can prepare the architecture of the app to account for them. Moreover, our database is very accessible, and we have local copies of each database object with the fields each object has. This allows us to change database platforms without worrying about losing database structure, ensuring a more flexible database architecture. The same idea goes for HTTP requests; we are trying to implement as many code handlers as possible to centralize our function calls in case we need to make any drastic changes. This will help to ensure the ripple of changes isn't too drastic.
