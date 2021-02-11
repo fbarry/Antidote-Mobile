@@ -56,11 +56,14 @@ See Code Complete, Chapter 3
 See Code Complete, Chapter 3
 
 # Overengineering
-See Code Complete, Chapter 3
+
+A few principles will be in place to ensure overengineering is not over- or under-done:
+- All calls to the database will have error handling that gracefully shows an alert to the user when an error occurs, allowing them to 'Try Again' or 'Cancel' their call to the database.
+- All returned objects will be checked for null value, as this would cause the app to crash. This null value will be handled on a case-by-case basis.
 
 # Build-vs-Buy Decisions
 
-As development continues, we expect to build rather than "buy" most features, but for the basic functionality of the app, we are building a custom view for the cards in a player's hand first.
+As development continues, we expect to build rather than "buy" most UI features, but for the basic functionality of the app, we are building a custom view for the cards in a player's hand first.
 - Custom Card Handler: We decided to use a custom card handler for two reasons: it is one of the main programming components of the app with touch features and layout challenges and we want to graphically design our own cards. If this was less of a learning project, we would have probably done more research into a library that would suit our needs, but programming custom views is a good tool to implement!
 
 # Reuse
