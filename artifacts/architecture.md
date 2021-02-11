@@ -53,7 +53,8 @@ See Code Complete, Chapter 3
 See Code Complete, Chapter 3
 
 # Architectural Feasibility
-See Code Complete, Chapter 3
+
+We don't have any explicit concerns over feasibility, as many of our app ideas and features are inspired by apps we have seen with similar features. For example, the idea of a join code allowing players to access a lobby with a list of other players and an in-game chat are both inspired by Among Us. Sharing game results, having a profile, and friending other players are all common features of mobile games.
 
 # Overengineering
 
