@@ -83,4 +83,5 @@ We have many planned enhancements to the basic version of our app listed below:
 - Sharing results on social media
 - Separate lobbies
 - Friends lists
+
 Because we have these improvements in mind, we can prepare the architecture of the app to account for them. Moreover, our database is very accessible, and we have local copies of each database object with the fields each object has. This allows us to change database platforms without worrying about losing database structure, ensuring a more flexible database architecture. The same idea goes for HTTP requests; we are trying to implement as many code handlers as possible to centralize our function calls in case we need to make any drastic changes. This will help to ensure the ripple of changes isn't too drastic.
