@@ -47,7 +47,16 @@ See Code Complete, Chapter 3
 See Code Complete, Chapter 3
 
 # Error Processing
-See Code Complete, Chapter 3
+
+Error processing is:
+- Corrective. Users are prompted with an alert to 'Try Again' or 'Cancel'. Most, if not all, errors will be caused by a database or network issue, which can be resolved by simply trying again immediately or changing a detail then trying again.
+- Passive with the database, active with game play. If the user enters incorrect login or signup information or a game code that does not exist, the database will respond accordingly. When this happens, the user is notified of the issue and allowed to try again. If a user tries to do an invalid action in game, however, the app will actively prevent them from taking that action, as it would mess up the flow of the game.
+- Immediately dealt with. If an error is detected, the process in which it occured is stopped so it can be immediately handled. For example, if a user is trying to join a game (which involves finding the game code then adding them to the game - two database calls) and there is an invalid game code, then the user would be immediately notified of this issue before the system tried to add them to a non-existent game, causing yet another error.
+- Handled through alerts. The standard format of an error alert is a popup with an informational message explaining to the user what went wrong. There are then two buttons: 'Try Again' or 'Cancel'.
+- Caught in database calls through exceptions. Exception handling in Parse database calls in explicitly supported (the call returns an exception which, if not null, must be handled). Moreover, null pointer exceptions must be prevented, not handled, by making checks to see if an object is null before using it.
+- Passed off to an error-handling class. This class will contain at least one function that allows the app to present a standard alert to the user containing an error message and options to 'Try Again' or 'Cancel', specifying what action to try again as a parameter.
+- Prevented through verifying data at a class level. Any class that takes input from the user is responsible for verifying that data. If the class is being passed data from another location in the app, it can assume that data is clean.
+- Handled through a customized built-in-exception-handling. This means that while exceptions will be used to monitor the status of a process and caught using built-in-exception-handling, further action will be taken using our own design of an alert message to the user with options we present to them. The user would not benefit from the stack trace as we would.
 
 # Fault Tolerance
 
