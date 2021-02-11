@@ -37,17 +37,12 @@ See Code Complete, Chapter 3
 # Scalability
 
 The scalability of our app is limited by the database limit of our chosen database server (back4app). The limits are shown below:
-____________________________
-Requests/second | 10 req/s |
-____________________________
-Total requests/month | 10 K |
-____________________________
-File Storage | 1 GB |
-____________________________
-Database Storage | 0.25 GB |
-____________________________
-Cloud Code Jobs | 1 |
-____________________________
+
+| Requests/second       | 10 req/s  |
+| Total requests/month  | 10 K      |
+| File Storage          | 1 GB      |
+| Database Storage      | 0.25 GB   |
+| Cloud Code Jobs       | 1         |
 
 # Interoperability
 
