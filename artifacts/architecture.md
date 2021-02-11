@@ -60,12 +60,13 @@ See Code Complete, Chapter 3
 
 # Build-vs-Buy Decisions
 
-As development continues, we expect to use a few additional libraries to improve the UX, but for the basic functionality of the app, we are building a custom view for the cards in a player's hand (described below) and the following library:
-- Parse SDK Android: A REST API which is used to connect to a database stored on back4app.com. Parse has objects and function calls which allow for synchronous and asynchronous requests to POST, DELETE, and GET, along with more specific requests to update, sign-in/-out, and anything with an HTTP request. We use Parse because it provides a complete framework for backend development, allowing us to focus on implementing and developing other aspects of our app.
+As development continues, we expect to build rather than "buy" most features, but for the basic functionality of the app, we are building a custom view for the cards in a player's hand first.
 - Custom Card Handler: We decided to use a custom card handler for two reasons: it is one of the main programming components of the app with touch features and layout challenges and we want to graphically design our own cards. If this was less of a learning project, we would have probably done more research into a library that would suit our needs, but programming custom views is a good tool to implement!
 
 # Reuse
-See Code Complete, Chapter 3
+
+As development continues, we may need to add other libraries for features we wish to implement - examples of which include a messaging view for an in-game chat, a sharing SDK to share results to social media platforms, and, perhaps, an animation library to liven the UX. The library needed for the main functionality of the app, however, is below.
+- Parse SDK Android: A REST API which is used to connect to a database stored on back4app.com. Parse has objects and function calls which allow for synchronous and asynchronous requests to POST, DELETE, and GET, along with more specific requests to update, sign-in/-out, and anything with an HTTP request. We use Parse because it provides a complete framework for backend development, allowing us to focus on implementing and developing other aspects of our app.
 
 # Change Strategy
 See Code Complete, Chapter 3
