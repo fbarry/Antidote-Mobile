@@ -50,7 +50,8 @@ See Code Complete, Chapter 3
 See Code Complete, Chapter 3
 
 # Fault Tolerance
-See Code Complete, Chapter 3
+
+Our main strategy to handle fault tolerance is to catch exceptions and present an alert to the user, allowing them to try the process again or cancel it. If a problem cannot be solved by trying again (such as a game code or user not existing), the user would be notified. The REST API makes error handling simple in an area (database interaction) that could potentially have many faults, which eases our strain. Errors that cannot be resolved by the user (like an in-game glitch which causes the flow of the game to disrupted, i.e. skipping someone's turn) should be double checked by a second function.
 
 # Architectural Feasibility
 
