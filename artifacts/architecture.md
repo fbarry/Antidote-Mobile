@@ -37,7 +37,17 @@ See Code Complete, Chapter 3
 # Scalability
 
 The scalability of our app is limited by the database limit of our chosen database server (back4app). The limits are shown below:
-![back4app database limit](https://github.com/fbarry/Antidote-Mobile/blob/master/artifacts/images/back4appDBplan.png)
+____________________________
+Requests/second | 10 req/s |
+____________________________
+Total requests/month | 10 K |
+____________________________
+File Storage | 1 GB |
+____________________________
+Database Storage | 0.25 GB |
+____________________________
+Cloud Code Jobs | 1 |
+____________________________
 
 # Interoperability
 
