@@ -25,7 +25,7 @@ For players of the game Antidote who want to play remotely with friends or bots,
 ### Task Allocation
 
 - Fiona Barry: Set up the database through Parse
-- Jacob Steinebronn:
+- Jacob Steinebronn: Build and populate the Info Page
 - Enrique Rodriguez: Starting creating graphics and set up Android Studio
 - Daniel West: Got familiar with app development principles
 - Zach Ip: 
