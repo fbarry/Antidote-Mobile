@@ -83,7 +83,8 @@ The app is not expected to share data or resources with other software or hardwa
 While the app is not going to be used commercially, it does use Java String objects, and all strings are stored in a reosurces file called strings.xml. Using this resource file, we can change the occurance of all uses of a string without touching the code values. This is especially important when updating string values, including when translating into other languages. In addition, Android Studio has a lot of built-in functionality for this strings resource.
 
 # Input/Output
-See Code Complete, Chapter 3
+
+Currently, there are three places input is planned from the user: sign up, login, and game code input. In all three places, the user enters information (for login and sign up, text boxes accept all characters; for game code, the text box accepts only numbers) and the database call checks that information is valid and complete (i.e. is unique or exists). Output to the user comes mostly in alerts when something goes wrong (i.e. database call comes back with an exception). 
 
 # Error Processing
 
