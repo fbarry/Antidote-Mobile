@@ -16,34 +16,33 @@ If you are using a database, you should have a basic Entity Relationship Diagram
 See Code Complete, Chapter 3
 
 # Business Rules
-You should list the assumptions, rules, and guidelines from external sources that are impacting your program design.
 
-See Code Complete, Chapter 3
+A general business rule to follow in a multiplayer game is to ensure that players are shown all game updates as soon as they occur. As a result, when designing the architecture for the in-game experience, the database must notify the application when a turn takes place, allowing the player's game to update in response. If a player's device cannot update for more than 30 seconds, an error should be shown, and the player is kicked out of the game.
 
 # User Interface Design
 
-Home Screen:
-The home screen contains only a few items: The logo in the center near the top, the info (i) button in the top-right, the menu button in the top-left, the "Create Game" button below the logo, and the "Join Game" beneath that.
-The info button opens the Info Screen
-The menu button opens a drawer from the left side of the screen containing the profile actions (login, sign up, view stats, logout)
-The "Create Game" button only works if the user is logged-in, and takes the player to a Lobby screen
-The "Join Game" has an attached text-entry, where the user enters the alphabetic code given to them by their friend. It takes them to a Lobby screen.
+## Home Screen:
+- The home screen contains only a few items: The logo in the center near the top, the info (i) button in the top-right, the menu button in the top-left, the "Create Game" button below the logo, and the "Join Game" beneath that.
+- The info button opens the Info Screen
+- The menu button opens a drawer from the left side of the screen containing the profile actions (login, sign up, view stats, logout)
+- The "Create Game" button only works if the user is logged-in, and takes the player to a Lobby screen
+- The "Join Game" has an attached text-entry, where the user enters the alphabetic code given to them by their friend. It takes them to a Lobby screen.
 
-Info Screen:
-The Info Screen contains a back button in the top-left, and the rest of the page is dominated by a scroll view, which contains the rules of the game.
-The back button takes the user to whichever screen directed them to the Info screen.
+## Info Screen:
+- The Info Screen contains a back button in the top-left, and the rest of the page is dominated by a scroll view, which contains the rules of the game.
+- The back button takes the user to whichever screen directed them to the Info screen.
 
-Lobby screen:
-The lobby screen displays a list of the users who are in the lobby, the info button in the top-right, the "Leave Game" button, and the "Start Game" button
-The info button opens the Info Screen
-The "Leave Game" button directs the user back to the Home Screen
-The "Start Game" button is only visible to the user who created the lobby using "Create Game", and will direct *all* users to a Game Screen
+## Lobby screen:
+- The lobby screen displays a list of the users who are in the lobby, the info button in the top-right, the "Leave Game" button, and the "Start Game" button
+- The info button opens the Info Screen
+- The "Leave Game" button directs the user back to the Home Screen
+- The "Start Game" button is only visible to the user who created the lobby using "Create Game", and will direct *all* users to a Game Screen
 
-Game Screen:
-The Game Screen displays the user's cards on the bottom edge of the screen, a graphical list of the other players, an indicator of whose turn it is, "workstation" buttons in front of each player, the Info button, and buttons for making one's turn.
-The Info button opens the Info Screen
-The turn-choice buttons are only visible when it is the user's turn, and will graphically indicate which of the allowable actions are about to be taken
-The Workstation button opens a pop-up, which displays the workstation of the selected user.
+## Game Screen:
+- The Game Screen displays the user's cards on the bottom edge of the screen, a graphical list of the other players, an indicator of whose turn it is, "workstation" buttons in front of each player, the Info button, and buttons for making one's turn.
+- The Info button opens the Info Screen
+- The turn-choice buttons are only visible when it is the user's turn, and will graphically indicate which of the allowable actions are about to be taken
+- The Workstation button opens a pop-up, which displays the workstation of the selected user.
 
 | Screen        | User Stories                                      |
 |---------------|---------------------------------------------------|
