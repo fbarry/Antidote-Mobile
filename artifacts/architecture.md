@@ -21,7 +21,6 @@ You should list the assumptions, rules, and guidelines from external sources tha
 See Code Complete, Chapter 3
 
 # User Interface Design
-You should have one or more user interface screens in this section. Each screen should be accompanied by an explaination of the screens purpose and how the user will interact with it. You should relate each screen to one another as the user transitions through the states of your application. You should also have a table that relates each window or component to the support using stories.
 
 Home Screen:
 The home screen contains only a few items: The logo in the center near the top, the info (i) button in the top-right, the menu button in the top-left, the "Create Game" button below the logo, and the "Join Game" beneath that.
@@ -52,9 +51,6 @@ The Workstation button opens a pop-up, which displays the workstation of the sel
 | Info Screen   | 24, 23, 7, 25                                     |
 | Lobby Screen  | 5, 7, 17, 11, 26, 30, 1, 25                       |
 | Game Screen   | 3, 7, 17, 13, 11, 27, 25, 4, 2                    |
-
-
-See Code Complete, Chapter 3
 
 # Resource Management
 See Code Complete, Chapter 3
