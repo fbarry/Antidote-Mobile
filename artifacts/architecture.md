@@ -52,7 +52,8 @@ A general business rule to follow in a multiplayer game is to ensure that player
 | Game Screen   | 3, 7, 17, 13, 11, 27, 25, 4, 2                    |
 
 # Resource Management
-See Code Complete, Chapter 3
+
+Database resources are the biggest concern. The limit on requests/second and total requests/month described in the "Scalability" section of this document puts a strain on the number of concurrent and total number of games that can be played per month. Because we are not planning to launch this app currently, this should not be a long-term issue as we should have enough resources to sufficiently test and demo the app. The number of requests/second should not exceed about the number of players in a game (3-9). Database storage should not be an issue as only current games are stored and updated in the database while older games are deleted. User statistics are not data heavy, being mostly integers (number of games, number of wins, etc.). We can manage these issues on a case-by-case basis while in development.
 
 # Security
 See Code Complete, Chapter 3
