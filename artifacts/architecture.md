@@ -1,5 +1,3 @@
-Populate each section with information as it applies to your project. If a section does not apply, explain why. Include diagrams (or links to diagrams) in each section, as appropriate. For example, sketches of the user interfaces along with an explanation of how the interface components will work; ERD diagrams of the database; rough class diagrams; context diagrams showing the system boundary; etc. Do not link to your diagrams, embed them directly in this document by uploading the images to your GitHub and linking to them. Do not leave any section blank.
-
 # Program Organization
 You should have your context, container, and component (c4model.com) diagrams in this section, along with a description and explanation of each diagram and a table that relates each block to one or more user stories.
 
@@ -59,7 +57,10 @@ Database resources are the biggest concern. The limit on requests/second and tot
 See Code Complete, Chapter 3
 
 # Performance
-See Code Complete, Chapter 3
+
+The main performance goal is in-game performance. There are two main areas where this becomes especially relevant:
+- Database calls. When other players make decisions during their turns, the application must listen for database changes, retrieve those changes, and display them. While we can't do much to improve database call speed, we can ensure that while the user is waiting for the game to update, they are shown a loading feature.
+- AI decisions. When programming the AI bots to play Antidote, we must ensure that their algorithm for determining what move they will take does not take longer than the average real player. That estimate will be determined at a later date, but will provide a bound for the algorithm's runtime.
 
 # Scalability
 
