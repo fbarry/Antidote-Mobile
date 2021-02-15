@@ -24,9 +24,10 @@ See Code Complete, Chapter 3 and https://c4model.com/
 
 ![Graphical Diagrams](https://github.com/fbarry/Antidote-Mobile/blob/master/artifacts/Sequence%20Diagram.png)
 
-# Data Design
+## Data Design:
+- This diagram shows the relationship between the different entities in the database.
 
-![Entity Relationship Diagram](https://github.com/fbarry/Antidote-Mobile/blob/master/artifacts/EntityRelationshipDiagram.png?raw=true)
+![Graphical Diagrams](https://github.com/fbarry/Antidote-Mobile/blob/master/artifacts/EntityRelationshipDiagram.png?raw=true)
 
 # Business Rules
 
