@@ -1,7 +1,4 @@
 # Program Organization
-You should have your context, container, and component (c4model.com) diagrams in this section, along with a description and explanation of each diagram and a table that relates each block to one or more user stories.
-
-See Code Complete, Chapter 3 and https://c4model.com/
 
 ## Context Diagram:
 - The context diagram shows the context of the use of our software system.
@@ -9,9 +6,9 @@ See Code Complete, Chapter 3 and https://c4model.com/
 
 ![Graphical Diagrams](https://github.com/fbarry/Antidote-Mobile/blob/master/artifacts/Context%20Diagram.PNG?raw=true)
 
-| brother   |   how can this be   |
-|-----------|---------------------|
-| is this   |   how tables work   |
+| Block                         | User Stories        |
+|-------------------------------|---------------------|
+| Internet Antidote Game System | hmmmm               |
 
 ## Container Diagram:
 - The container diagram shows the three containers behind the software system.
