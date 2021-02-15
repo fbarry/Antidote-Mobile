@@ -42,7 +42,7 @@ For players of the game Antidote who want to play remotely with friends or bots,
 
 ### Task Allocation
 
-- Fiona Barry:
+- Fiona Barry: Worked on architecture document and Trello board organization
 - Jacob Steinebronn: Write UI mock-up, add custom View which handles cards (CardHandler)
 - Enrique Rodriguez: Created low-level UML diagrams, setting up Navigation Drawer
 - Daniel West:
