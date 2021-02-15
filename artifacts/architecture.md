@@ -4,14 +4,30 @@ You should have your context, container, and component (c4model.com) diagrams in
 See Code Complete, Chapter 3 and https://c4model.com/
 
 # Code Design
-You should have your UML Class diagram and any other useful UML diagrams in this section. Each diagram should be accompanied by a brief description explaining what the elements are and why they are in the diagram. For your class diagram, you must also include a table that relates each class to one or more user stories.
 
-See Code Complete, Chapter 3 and https://c4model.com/
+## Activity Diagram:
+- The activity diagram shows how both ends of the system work together and gives a rough walkthrough of how the user may choose to interact with the app at any given time.
+- The circles represent who is actively using the system, green ovals represent actions/classes, and rhombuses represent active checks that grab information from the Back End server.
+- The user must first sign in after opening the app before accessing the main menu, showing how both the Front and Back Ends interact with each other. 
 
-# Data Design
-If you are using a database, you should have a basic Entity Relationship Diagram (ERD) in this section. This diagram should describe the tables in your database and their relationship to one another (especially primary/foreign keys), including the columns within each table.
+![Graphical Diagrams](https://github.com/fbarry/Antidote-Mobile/blob/master/artifacts/Activity%20Diagram.png?raw=true)
 
-See Code Complete, Chapter 3
+## Class Diagram:
+- The class diagram shows how specific classes interact with each other and the variables they use regularly as the app is in use.
+- The chosen classes were chosen as they are the most frequently accessed classes by the application.
+
+![Graphical Diagrams](https://github.com/fbarry/Antidote-Mobile/blob/master/artifacts/Class%20Diagram.jpg?raw=true)
+
+## Sequence Diagram:
+- This diagram showcases the most common interaction (MCI) in our game, a player object interacting with a card object.
+- The player interacts with the card and depending on their action, onTouchEvent(), the card does a certain action, update().
+
+![Graphical Diagrams](https://github.com/fbarry/Antidote-Mobile/blob/master/artifacts/Sequence%20Diagram.png)
+
+## Data Design:
+- This diagram shows the relationship between the different entities in the database.
+
+![Graphical Diagrams](https://github.com/fbarry/Antidote-Mobile/blob/master/artifacts/EntityRelationshipDiagram.png?raw=true)
 
 # Business Rules
 
@@ -41,6 +57,8 @@ A general business rule to follow in a multiplayer game is to ensure that player
 - The Info button opens the Info Screen
 - The turn-choice buttons are only visible when it is the user's turn, and will graphically indicate which of the allowable actions are about to be taken
 - The Workstation button opens a pop-up, which displays the workstation of the selected user.
+
+![Graphical Diagrams](https://github.com/fbarry/Antidote-Mobile/blob/master/artifacts/UImockup.png?raw=true)
 
 | Screen        | User Stories                                      |
 |---------------|---------------------------------------------------|

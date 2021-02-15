@@ -28,7 +28,7 @@ For players of the game Antidote who want to play remotely with friends or bots,
 - Jacob Steinebronn: Build and populate the Info Page
 - Enrique Rodriguez: Starting creating graphics and set up Android Studio
 - Daniel West: Got familiar with app development principles
-- Zach Ip: 
+- Zach Ip: Worked on setting up the login system
 
 ## Sprint 2
  
@@ -44,9 +44,9 @@ For players of the game Antidote who want to play remotely with friends or bots,
 
 - Fiona Barry:
 - Jacob Steinebronn: Write UI mock-up, add custom View which handles cards (CardHandler)
-- Enrique Rodriguez:
+- Enrique Rodriguez: Created low-level UML diagrams, setting up Navigation Drawer
 - Daniel West:
-- Zach Ip: 
+- Zach Ip: Worked on Entity Relationship Diagram
 
 ## Sprint 3
 
