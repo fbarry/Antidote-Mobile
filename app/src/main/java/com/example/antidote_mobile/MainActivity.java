@@ -8,10 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 public class MainActivity extends AppCompatActivity {
+    private DrawerLayout drawer;
 
     Player currentPlayer;
 
@@ -22,6 +27,15 @@ public class MainActivity extends AppCompatActivity {
 
         CardHandler ch = findViewById(R.id.cardHandler);
         ch.setCards("ANTIDOTE.SERUM-N.5");
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     public void openInfoPage(View v) {
