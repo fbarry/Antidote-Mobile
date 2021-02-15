@@ -14,6 +14,11 @@ See Code Complete, Chapter 3 and https://c4model.com/
 
 ![Graphical Diagrams](https://github.com/fbarry/Antidote-Mobile/blob/master/artifacts/Container%20Diagram.PNG?raw=true)
 
+## Component Diagram:
+- 
+
+![Graphical Diagrams](https://github.com/fbarry/Antidote-Mobile/blob/master/artifacts/Component%20Diagram.PNG?raw=true)
+
 # Code Design
 
 ## Activity Diagram:
