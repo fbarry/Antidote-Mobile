@@ -44,7 +44,7 @@ For players of the game Antidote who want to play remotely with friends or bots,
 
 - Fiona Barry:
 - Jacob Steinebronn: Write UI mock-up, add custom View which handles cards (CardHandler)
-- Enrique Rodriguez:
+- Enrique Rodriguez: Created low-level UML diagrams, setting up Navigation Drawer
 - Daniel West:
 - Zach Ip: 
 
