@@ -42,6 +42,8 @@ A general business rule to follow in a multiplayer game is to ensure that player
 - The turn-choice buttons are only visible when it is the user's turn, and will graphically indicate which of the allowable actions are about to be taken
 - The Workstation button opens a pop-up, which displays the workstation of the selected user.
 
+![Graphical Diagrams](https://github.com/fbarry/Antidote-Mobile/artifacts/UImockup.png?raw=true)
+
 | Screen        | User Stories                                      |
 |---------------|---------------------------------------------------|
 | Home Screen   | 7, 17, 18, 20, 28, 9, 10, 13, 11, 12, 14, 15, 16  |
