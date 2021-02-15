@@ -33,7 +33,7 @@ For players of the game Antidote who want to play remotely with friends or bots,
 ## Sprint 2
  
 - [Trello Board](https://trello.com/b/4BXuyGVT/antidote-planning)
-- [Burndown Chart](https://docs.google.com/drawings/d/1JCJZOAMAWwgHDhH4fQI5nDxEwt-b9voHQQ8owbaSqNo/edit?usp=sharing)
+- [Burndown Chart](https://docs.google.com/drawings/d/1JCJZOAMAWwgHDhH4fQI5nDxEwt-b9voHQQ8owbaSqNo/edit)
 - [Velocity Chart](https://docs.google.com/drawings/d/16rvN4Frxrgw_4FFaJiSVTQm7VpvmOW8X7FXCXC2kVLU/edit)
 - [System Architecture](https://github.com/fbarry/Antidote-Mobile/tree/master/artifacts/architecture.md)
 - Source Code
@@ -51,9 +51,9 @@ For players of the game Antidote who want to play remotely with friends or bots,
 ## Sprint 3
 
 - [Trello Board](https://trello.com/b/4BXuyGVT/antidote-planning)
-- Burndown Chart
-- Velocity Chart
-- System Architecture
+- [Burndown Chart](https://docs.google.com/drawings/d/1E7qSSjzJW04xwiGujTXYdIxMOspmxSeiHkRL1O4JMio/edit)
+- [Velocity Chart](https://docs.google.com/drawings/d/16rvN4Frxrgw_4FFaJiSVTQm7VpvmOW8X7FXCXC2kVLU/edit)
+- [System Architecture](https://github.com/fbarry/Antidote-Mobile/tree/master/artifacts/architecture.md)
 - Source Code
 - Automated Tests
 - Product Demonstration
