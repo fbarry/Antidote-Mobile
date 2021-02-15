@@ -16,16 +16,23 @@
 
 ![Graphical Diagrams](https://github.com/fbarry/Antidote-Mobile/blob/master/artifacts/Container%20Diagram.PNG?raw=true)
 
-| Block           | User Stories                                                    |
-|-----------------|-----------------------------------------------------------------|
-| Mobile App      | 2, 5, 7, 14, 15, 16, 18, 19, 22, 23, 24, 25, 26, 27, 28, 29, 30 |
-| API Application | 1, 3, 4, 9, 10, 11, 13, 17, 20, 21                              |
-| Database        | 6, 12                                                           |
+| Block           | User Stories                                                        |
+|-----------------|---------------------------------------------------------------------|
+| Mobile App      | 2, 5, 7, 9, 14, 15, 16, 18, 19, 22, 23, 24, 25, 26, 27, 28, 29, 30  |
+| API Application | 1, 3, 4, 6, 10, 11, 12, 13, 17, 20, 21                              |
+| Database        | 6, 12                                                               |
 
 ## Component Diagram:
 - The component diagram shows the breakdown of the components of the API interactions.
 
 ![Graphical Diagrams](https://github.com/fbarry/Antidote-Mobile/blob/master/artifacts/Component%20Diagram.PNG?raw=true)
+
+| Block               | User Stories                |
+|---------------------|-----------------------------|
+| Sign In Controller  | 21, 30                      |
+| Security Component  | 16, 20                      |
+| Stats Page          | 6                           |
+| In-Game Page        | 1, 2, 3, 4, 10, 11, 13, 17  |
 
 # Code Design
 
