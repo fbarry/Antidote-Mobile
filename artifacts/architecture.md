@@ -6,9 +6,9 @@
 
 ![Graphical Diagrams](https://github.com/fbarry/Antidote-Mobile/blob/master/artifacts/Context%20Diagram.PNG?raw=true)
 
-| Block                         | User Stories        |
-|-------------------------------|---------------------|
-| Internet Antidote Game System | hmmmm               |
+| Block                         | User Stories  |
+|-------------------------------|---------------|
+| Internet Antidote Game System | 8             |
 
 ## Container Diagram:
 - The container diagram shows the three containers behind the software system.
