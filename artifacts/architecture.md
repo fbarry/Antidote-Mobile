@@ -25,9 +25,8 @@ See Code Complete, Chapter 3 and https://c4model.com/
 ![Graphical Diagrams](https://github.com/fbarry/Antidote-Mobile/blob/master/artifacts/Sequence%20Diagram.png)
 
 # Data Design
-If you are using a database, you should have a basic Entity Relationship Diagram (ERD) in this section. This diagram should describe the tables in your database and their relationship to one another (especially primary/foreign keys), including the columns within each table.
 
-See Code Complete, Chapter 3
+![Entity Relationship Diagram](https://github.com/fbarry/Antidote-Mobile/blob/master/artifacts/EntityRelationshipDiagram.png?raw=true)
 
 # Business Rules
 
