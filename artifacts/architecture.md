@@ -3,6 +3,10 @@ You should have your context, container, and component (c4model.com) diagrams in
 
 See Code Complete, Chapter 3 and https://c4model.com/
 
+## Context Diagram:
+- The context diagram shows the context of the use of our software system.
+- The relationship shown is between the user and the system.
+
 ![Graphical Diagrams](https://github.com/fbarry/Antidote-Mobile/blob/master/artifacts/Context%20Diagram.PNG?raw=true)
 
 # Code Design
