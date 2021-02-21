@@ -5,19 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/roomCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="ROOM CODE"
-        android:textAllCaps="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <com.example.antidote_mobile.CardHandler
         android:id="@+id/cardHandler"
@@ -28,16 +15,5 @@
         app:deck_top="1500"
         tools:layout_editor_absoluteX="31dp"
         tools:layout_editor_absoluteY="-30dp" />
-
-    <Button
-        android:id="@+id/startGameButton"
-        android:layout_width="163dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="148dp"
-        android:text="Start Game"
-        android:onClick="startGame"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
