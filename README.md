@@ -54,13 +54,13 @@ For players of the game Antidote who want to play remotely with friends or bots,
 - [Burndown Chart](https://docs.google.com/drawings/d/1E7qSSjzJW04xwiGujTXYdIxMOspmxSeiHkRL1O4JMio/edit)
 - [Velocity Chart](https://docs.google.com/drawings/d/16rvN4Frxrgw_4FFaJiSVTQm7VpvmOW8X7FXCXC2kVLU/edit)
 - [System Architecture](https://github.com/fbarry/Antidote-Mobile/tree/master/artifacts/architecture.md)
-- Source Code
-- Automated Tests
+- [Source Code](https://github.com/fbarry/Antidote-Mobile/tree/master/app/src/main)
+- [Automated Tests](https://github.com/fbarry/Antidote-Mobile/tree/master/app/src/androidTest/java)
 - Product Demonstration
 
 ### Task Allocation
 
-- Fiona Barry:
+- Fiona Barry: Add feature to allow players to create and join games, then be taken to a lobby screen
 - Jacob Steinebronn:
 - Enrique Rodriguez:
 - Daniel West:
