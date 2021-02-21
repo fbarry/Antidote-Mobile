@@ -23,14 +23,13 @@
         android:id="@+id/lobbyScrollView"
         android:layout_width="405dp"
         android:layout_height="486dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="32dp"
         android:background="#B0DADF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/roomCodeTextView">
-        app:layout_constraintTop_toBottomOf="@+id/roomCodeTextView"
+        app:layout_constraintTop_toBottomOf="@+id/startGameButton"
         app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
@@ -67,11 +66,12 @@
         android:id="@+id/startGameButton"
         android:layout_width="163dp"
         android:layout_height="51dp"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="148dp"
-        android:text="Start Game"
+        android:layout_marginTop="32dp"
         android:onClick="startGame"
+        android:text="Start Game"
+        app:layout_constraintBottom_toTopOf="@id/lobbyScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/roomCodeTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
