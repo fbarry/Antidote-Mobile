@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
             Intent goToLobby = new Intent(MainActivity.this, LobbyActivity.class);
             Bundle sendGame = new Bundle();
             sendGame.putSerializable("gameInfo", game);
+            sendGame.putSerializable("currentPlayer", currentPlayer);
             goToLobby.putExtras(sendGame);
             startActivity(goToLobby);
         }

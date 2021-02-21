@@ -19,7 +19,7 @@ public class LobbyActivity extends AppCompatActivity {
 
     public static final int millisPerUpdate = 4000;
     Game game;
-
+    Player currentPlayer;
     Timer refreshTimer;
 
     @Override
@@ -28,6 +28,7 @@ public class LobbyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lobby);
 
         game = (Game) getIntent().getSerializableExtra("gameInfo");
+        currentPlayer = (Player) getIntent().getSerializableExtra("currentPlayer");
 
         TextView roomCodeTextView = findViewById(R.id.roomCodeTextView);
         roomCodeTextView.setText(game.roomCode);
