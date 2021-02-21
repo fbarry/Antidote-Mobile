@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             } catch (ParseException e) {
-                System.out.println("Coulnd't find an existing Player with current user, making one");
+                System.out.println("Couldn't find an existing Player with current user, making one");
                 currentPlayer = null;
             }
 
