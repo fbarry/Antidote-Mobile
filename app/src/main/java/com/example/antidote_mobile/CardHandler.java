@@ -87,7 +87,7 @@ public class CardHandler extends View {
         // Setup the timer and set the cards to fix themselves (while animating)
         invalidateTimer = new Timer();
         fixCards();
-        animateFor(1000);
+        animateFor(5000);
     }
 
     // Ensure that this CardHandler will continue animations for a set amount of time

@@ -2,6 +2,8 @@ package com.example.antidote_mobile;
 
 import android.provider.ContactsContract;
 
+import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -10,10 +12,10 @@ import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
-    String objectId;
-    User user;
+    String objectId, who;
     ArrayList<String> cards; // Might be changed to Card or something
     int points;
 
@@ -26,8 +28,7 @@ public class Player {
         points = po.getInt("points");
         //noinspection unchecked
         cards = (ArrayList<String>) po.get("cards");
-        ParseQuery<ParseObject> query = new ParseQuery<>("user");
-        query.getInBackground(po.getString("who"), (object, e) -> user = new User((ParseUser)object));
+        who = po.getString("who");
     }
 
     public Player createPlayer(User user) {

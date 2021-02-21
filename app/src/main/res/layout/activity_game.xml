@@ -19,6 +19,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.example.antidote_mobile.CardHandler
+        android:id="@+id/cardHandler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:deck_left="70"
+        app:deck_right="1020"
+        app:deck_top="1500"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="-30dp" />
+
     <Button
         android:id="@+id/startGameButton"
         android:layout_width="163dp"

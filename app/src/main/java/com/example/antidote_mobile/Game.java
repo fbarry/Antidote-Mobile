@@ -7,6 +7,7 @@ import com.parse.ParseQuery;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Game implements Serializable {
     public String roomCode, objectId;
@@ -62,6 +63,28 @@ public class Game implements Serializable {
             System.out.println(e.getMessage().toString());
             return null;
         }
+    }
+
+    public static Game rejoinGame(Player player) {
+        // Theoretically, this player SHOULD be in some game if we found it
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
+        ArrayList<ParseObject> games;
+        try {
+            games = (ArrayList<ParseObject>) query.find();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        if (games == null) return null;
+        for(ParseObject gameCandidate : games){
+            List<Object> players = gameCandidate.getList("players");
+            if(players.contains(player.objectId)){
+                return new Game(gameCandidate);
+            }
+        }
+
+        return null;
     }
 
     public static Game joinGame(String roomCode, Player player) {

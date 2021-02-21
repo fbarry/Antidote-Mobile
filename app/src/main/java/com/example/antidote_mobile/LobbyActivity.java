@@ -1,5 +1,6 @@
 package com.example.antidote_mobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -41,7 +42,8 @@ public class LobbyActivity extends AppCompatActivity {
                 @Override
                 public void done(ParseObject object, ParseException e) {
                     if (e == null) {
-                        textView.append("PLAYER\n");
+                        textView.append("PLAYER - \n");
+                        textView.append(object.getString("username") + "\n");
                     } else {
                         textView.append("Unknown... mysterious\n");
                     }
@@ -51,6 +53,16 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     public void startGame(View v) {
+        // Mess with <game>'s parameters
+        // Save them
+        // Mess with players' cards
+        // Save them
+        // Enter game screen
 
+        Intent goToLobby = new Intent(LobbyActivity.this, GameActivity.class);
+        Bundle sendGame = new Bundle();
+        sendGame.putSerializable("gameInfo", game);
+        goToLobby.putExtras(sendGame);
+        startActivity(goToLobby);
     }
 }

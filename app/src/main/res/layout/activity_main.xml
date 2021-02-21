@@ -46,16 +46,6 @@
         tools:context=".MainActivity"
         tools:ignore="ExtraText">
 
-        <com.example.antidote_mobile.CardHandler
-            android:id="@+id/cardHandler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:deck_left="100"
-            app:deck_right="980"
-            app:deck_top="1300"
-            tools:layout_editor_absoluteX="31dp"
-            tools:layout_editor_absoluteY="-30dp" />
-
         <Button
             android:id="@+id/createGameButton"
             android:layout_width="wrap_content"
