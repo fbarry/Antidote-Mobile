@@ -84,7 +84,9 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     public void endGame(View v) {
-        System.out.println("CLICK");
+        game.deleteGame();
+        refreshTimer.cancel();
+        LobbyActivity.this.finish();
     }
 
     public void startGame(View v) {

@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @SuppressWarnings("unused")
 public class Game implements Serializable {
@@ -82,7 +83,7 @@ public class Game implements Serializable {
         if (games == null) return null;
         for (ParseObject gameCandidate : games) {
             List<Object> players = gameCandidate.getList("players");
-            if (players.contains(player.objectId)) {
+            if (players != null && players.contains(player.objectId)) {
                 return new Game(gameCandidate);
             }
         }
@@ -100,7 +101,7 @@ public class Game implements Serializable {
             ArrayList<ParseObject> candidates = (ArrayList<ParseObject>) query.find();
             System.out.println(candidates);
             for (ParseObject obj : candidates) {
-                if (obj.getString("roomCode").equals(roomCode)) {
+                if (Objects.equals(obj.getString("roomCode"), roomCode)) {
                     po = obj;
                     break;
                 }
@@ -115,6 +116,7 @@ public class Game implements Serializable {
         //noinspection unchecked
         ArrayList<String> ids = (ArrayList<String>) po.get("players");
 
+        assert ids != null;
         ids.add(player.objectId);
         po.put("players", ids);
         po.put("numPlayers", ids.size());
@@ -141,4 +143,38 @@ public class Game implements Serializable {
         this.objectId = po.getObjectId();
     }
 
+    // TODO: Handle errors
+    @SuppressWarnings("StatementWithEmptyBody")
+    public void deleteGame() {
+        for (String playerId : players) removePlayer(playerId);
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
+        query.getInBackground(this.objectId, (object, e) -> {
+            if (e == null) {
+                object.deleteInBackground(e2 -> {
+                    if (e2 == null) {
+                    } else {
+                    }
+                });
+            } else {
+            }
+        });
+    }
+
+    // TODO: Handle errors
+    @SuppressWarnings("StatementWithEmptyBody")
+    public void removePlayer(String playerId) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Player");
+
+        query.getInBackground(playerId, (object, e) -> {
+            if (e == null) {
+                object.deleteInBackground(e2 -> {
+                    if (e2 == null) {
+                    } else {
+                    }
+                });
+            } else {
+            }
+        });
+    }
 }

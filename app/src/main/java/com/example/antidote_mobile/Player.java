@@ -27,7 +27,7 @@ public class Player implements Serializable {
     }
 
     public Player createPlayer(User user) {
-        if (user.isGuest) {
+        if (user.objectId == null) {
             User signedup = User.signUpGuest(user.username, AntidoteMobile.guestPassword);
 
             if (signedup == null) {
