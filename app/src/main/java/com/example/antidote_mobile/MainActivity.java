@@ -28,9 +28,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//
-//        CardHandler ch = findViewById(R.id.cardHandler);
-//        ch.setCards("ANTIDOTE.SERUM-N.5");
+
         AntidoteMobile.currentUser = User.signIn("randomUser", "randomPassword");
 
         updateDisplayedUsername();
@@ -40,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     void updateDisplayedUsername() {
         TextView usernameTextView = findViewById(R.id.usernameTextView);
         usernameTextView.setText(R.string.hey_there);
-        usernameTextView.append(AntidoteMobile.currentUser.username);
+        usernameTextView.append(" " + AntidoteMobile.currentUser.username);
         usernameTextView.append("!");
     }
 
