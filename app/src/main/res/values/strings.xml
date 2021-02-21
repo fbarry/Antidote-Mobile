@@ -59,4 +59,5 @@
 
     <string name="player_label">Players</string>
     <string name="hey_there">Hey there</string>
+    <string name="game_code">Game Code:</string>
 </resources>
