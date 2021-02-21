@@ -51,7 +51,6 @@ public class MainActivityTest {
     }
 
     @Test
-//    Test if the info button starts the InfoPageActivity
     public void testEnterInfoPage() {
         Espresso.onView(ViewMatchers.withId(R.id.infoButton)).perform(click());
         intended(hasComponent(InfoPageActivity.class.getName()));
