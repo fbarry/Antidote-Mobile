@@ -64,14 +64,29 @@
 
     <Button
         android:id="@+id/startGameButton"
-        android:layout_width="163dp"
+        android:layout_width="0dp"
         android:layout_height="51dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         android:onClick="startGame"
         android:text="Start Game"
-        app:layout_constraintBottom_toTopOf="@id/lobbyScrollView"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/lobbyScrollView"
+        app:layout_constraintEnd_toStartOf="@id/endGameButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/roomCodeTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/roomCodeTextView" />
+
+    <Button
+        android:id="@+id/endGameButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:onClick="endGame"
+        android:text="End Game"
+        app:layout_constraintBottom_toBottomOf="@+id/startGameButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/startGameButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.example.antidote_mobile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,11 @@ public class LobbyActivity extends AppCompatActivity {
 
         game = (Game) getIntent().getSerializableExtra("gameInfo");
         currentPlayer = (Player) getIntent().getSerializableExtra("currentPlayer");
+
+        if (!currentPlayer.objectId.equals(game.host)) {
+            Button startGameButton = findViewById(R.id.startGameButton);
+            Button endGameButton = findViewById(R.id.endGameButton);
+        }
 
         TextView roomCodeTextView = findViewById(R.id.roomCodeTextView);
         roomCodeTextView.setText(game.roomCode);
@@ -70,6 +76,8 @@ public class LobbyActivity extends AppCompatActivity {
             });
         });
     }
+
+    public void endGame(View v) {}
 
     public void startGame(View v) {
         // Mess with <game>'s parameters
