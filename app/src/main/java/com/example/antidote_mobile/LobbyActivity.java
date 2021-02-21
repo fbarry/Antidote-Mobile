@@ -47,6 +47,7 @@ public class LobbyActivity extends AppCompatActivity {
 
     public void updatePlayerList() {
         TextView textView = findViewById(R.id.playerList);
+        textView.setText("PLAYERS\n");
 
         ParseQuery<ParseObject> getPlayers = new ParseQuery<>("Player");
         getPlayers.whereContainedIn("objectId", game.players);
