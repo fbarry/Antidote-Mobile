@@ -42,29 +42,29 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this, InfoPageActivity.class));
     }
 
-    @SuppressWarnings("unused")
-    @SuppressLint("SetTextI18n")
-    public void testytest(View v) {
-        // Put some code here if you want to test something from the home screen.
-        TextView textView = findViewById(R.id.textView);
-        TextView textView2 = findViewById(R.id.textView2);
-
-        if (AntidoteMobile.currentUser != null) {
-            textView.setText(AntidoteMobile.currentUser.username + "," + AntidoteMobile.currentUser.email);
-
-        }
-    }
-
-    @SuppressWarnings("unused")
-    @SuppressLint("SetTextI18n")
-    public void testytest2(View v) {
-        // Put some code here if you want to test something from the home screen.
-        TextView textView = findViewById(R.id.textView);
-        TextView textView2 = findViewById(R.id.textView2);
-
-        currentPlayer = new Player(AntidoteMobile.currentUser);
-        textView2.setText(currentPlayer.objectId+", "+currentPlayer.user.toString());
-    }
+//    @SuppressWarnings("unused")
+//    @SuppressLint("SetTextI18n")
+//    public void testytest(View v) {
+//        // Put some code here if you want to test something from the home screen.
+//        TextView textView = findViewById(R.id.textView);
+//        TextView textView2 = findViewById(R.id.textView2);
+//
+//        if (AntidoteMobile.currentUser != null) {
+//            textView.setText(AntidoteMobile.currentUser.username + "," + AntidoteMobile.currentUser.email);
+//
+//        }
+//    }
+//
+//    @SuppressWarnings("unused")
+//    @SuppressLint("SetTextI18n")
+//    public void testytest2(View v) {
+//        // Put some code here if you want to test something from the home screen.
+//        TextView textView = findViewById(R.id.textView);
+//        TextView textView2 = findViewById(R.id.textView2);
+//
+//        currentPlayer = new Player(AntidoteMobile.currentUser);
+//        textView2.setText(currentPlayer.objectId+", "+currentPlayer.user.toString());
+//    }
 
     public void launchLoginWindowDialog(View v) {
         Dialog myDialog = new Dialog(this);

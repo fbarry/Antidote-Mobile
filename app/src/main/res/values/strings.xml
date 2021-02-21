@@ -2,6 +2,9 @@
     <string name="app_name">Antidote Mobile Home</string>
     <string name="infopage_name">Antidote Info</string>
     <string name="info">Info</string>
+    <string name="create_game_button">Create Game</string>
+    <string name="join_game_button">Join Game</string>
+    <string name="game_code_placeholder">Enter game code</string>
 
     <string name="InfoButtonDesc">Take the user to the info page</string>
     <string name="BackButtonDesc">Returns the user to the previous page</string>
