@@ -38,15 +38,7 @@ public class LobbyActivity extends AppCompatActivity {
 
         refreshTimer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
-                runOnUiThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-
-                        updatePlayerList();
-                    }
-                });
-
+                runOnUiThread(() -> updatePlayerList());
             }
         }, millisPerUpdate, millisPerUpdate);
 
@@ -54,10 +46,10 @@ public class LobbyActivity extends AppCompatActivity {
 
     public void updatePlayerList() {
         TextView textView = findViewById(R.id.playerList);
-        textView.setText("PLAYERS\n");
 
         ParseQuery<ParseObject> getPlayers = new ParseQuery<>("Player");
         getPlayers.whereContainedIn("objectId", game.players);
+
         getPlayers.findInBackground((objects, e) -> {
             ArrayList<String> userObjectIds = new ArrayList<>();
             for (ParseObject po : objects) {
@@ -69,12 +61,17 @@ public class LobbyActivity extends AppCompatActivity {
             ParseQuery<ParseUser> getUsers = ParseUser.getQuery();
             getUsers.whereContainedIn("objectId", userObjectIds);
             getUsers.findInBackground((objects1, e1) -> {
+                StringBuilder newText = new StringBuilder();
                 for (ParseUser user : objects1) {
                     System.out.println("Found user with objectid " + user.getObjectId());
-                    textView.append(user.getUsername() + "\n");
+                    newText.append(user.getUsername());
+                    newText.append("\n");
                 }
+                textView.setText(newText.toString());
             });
         });
+
+
     }
 
     public void startGame(View v) {
