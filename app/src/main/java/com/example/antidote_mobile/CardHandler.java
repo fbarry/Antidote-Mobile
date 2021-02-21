@@ -200,6 +200,7 @@ public class CardHandler extends View {
         return true;
     }
 
+    @SuppressWarnings("unused")
     public void setCards(String cardData){
         String[] dats = cardData.split("\\.");
         System.out.println(Arrays.toString(dats));

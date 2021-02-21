@@ -3,14 +3,10 @@ package com.example.antidote_mobile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.parse.GetCallback;
-import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -35,18 +31,15 @@ public class LobbyActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.playerList);
 
         for (String playerId : game.players) {
-            ParseQuery<ParseObject> getPlayer = new ParseQuery<ParseObject>("Player");
+            ParseQuery<ParseObject> getPlayer = new ParseQuery<>("Player");
             getPlayer.include("user");
 
-            getPlayer.getInBackground(playerId, new GetCallback<ParseObject>() {
-                @Override
-                public void done(ParseObject object, ParseException e) {
-                    if (e == null) {
-                        textView.append("PLAYER - \n");
-                        textView.append(object.getString("username") + "\n");
-                    } else {
-                        textView.append("Unknown... mysterious\n");
-                    }
+            getPlayer.getInBackground(playerId, (object, e) -> {
+                if (e == null) {
+                    textView.append("PLAYER - \n");
+                    textView.append(object.getString("username") + "\n");
+                } else {
+                    textView.append("Unknown... mysterious\n");
                 }
             });
         }
