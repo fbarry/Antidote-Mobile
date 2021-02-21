@@ -1,6 +1,7 @@
 package com.example.antidote_mobile;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -47,5 +48,9 @@ public class LobbyActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public void startGame(View v) {
+
     }
 }
