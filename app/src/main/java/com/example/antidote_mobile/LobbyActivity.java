@@ -12,10 +12,15 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class LobbyActivity extends AppCompatActivity {
 
+    public static final int millisPerUpdate = 4000;
     Game game;
+
+    Timer refreshTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,16 @@ public class LobbyActivity extends AppCompatActivity {
         roomCodeTextView.setText(game.roomCode);
 
         updatePlayerList();
+
+        refreshTimer = new Timer();
+
+        refreshTimer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                updatePlayerList();
+
+            }
+        }, millisPerUpdate, millisPerUpdate);
+
     }
 
     public void updatePlayerList() {
