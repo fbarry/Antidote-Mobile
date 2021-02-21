@@ -55,6 +55,4 @@ public class MainActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.infoButton)).perform(click());
         intended(hasComponent(InfoPageActivity.class.getName()));
     }
-
-
 }
