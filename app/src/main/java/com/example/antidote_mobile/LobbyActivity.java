@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import java.util.ArrayList;
 
 public class LobbyActivity extends AppCompatActivity {
 
@@ -30,19 +33,25 @@ public class LobbyActivity extends AppCompatActivity {
     public void updatePlayerList() {
         TextView textView = findViewById(R.id.playerList);
 
-        for (String playerId : game.players) {
-            ParseQuery<ParseObject> getPlayer = new ParseQuery<>("Player");
-            getPlayer.include("user");
+        ParseQuery<ParseObject> getPlayers = new ParseQuery<>("Player");
+        getPlayers.whereContainedIn("objectId", game.players);
+        getPlayers.findInBackground((objects, e) -> {
+            ArrayList<String> userObjectIds = new ArrayList<>();
+            for (ParseObject po : objects) {
+                userObjectIds.add(po.getString("who"));
+                System.out.println("Found player with objectid " + po.getObjectId());
+            }
+            System.out.println("User object ids for refresh: " + userObjectIds);
 
-            getPlayer.getInBackground(playerId, (object, e) -> {
-                if (e == null) {
-                    textView.append("PLAYER - \n");
-                    textView.append(object.getString("username") + "\n");
-                } else {
-                    textView.append("Unknown... mysterious\n");
+            ParseQuery<ParseUser> getUsers = ParseUser.getQuery();
+            getUsers.whereContainedIn("objectId", userObjectIds);
+            getUsers.findInBackground((objects1, e1) -> {
+                for (ParseUser user : objects1) {
+                    System.out.println("Found user with objectid " + user.getObjectId());
+                    textView.append(user.getUsername() + "\n");
                 }
             });
-        }
+        });
     }
 
     public void startGame(View v) {
