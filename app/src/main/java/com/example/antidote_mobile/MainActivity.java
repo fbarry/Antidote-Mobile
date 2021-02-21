@@ -33,11 +33,15 @@ public class MainActivity extends AppCompatActivity {
 //        ch.setCards("ANTIDOTE.SERUM-N.5");
         AntidoteMobile.currentUser = User.signIn("randomUser", "randomPassword");
 
+        updateDisplayedUsername();
+
+    }
+
+    void updateDisplayedUsername(){
         TextView usernameTextView = findViewById(R.id.usernameTextView);
         usernameTextView.setText(R.string.hey_there);
         usernameTextView.append(AntidoteMobile.currentUser.username);
         usernameTextView.append("!");
-
     }
 
     @Override
@@ -147,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 password.getText().clear();
                 if (AntidoteMobile.currentUser != null) {
                     username.getText().clear();
+                    updateDisplayedUsername();
                     myDialog.dismiss();
                 } else {
                     message.setText(R.string.login_failed);
