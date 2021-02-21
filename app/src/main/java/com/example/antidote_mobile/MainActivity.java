@@ -19,6 +19,7 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    @SuppressWarnings("unused")
     private DrawerLayout drawer;
 
     Player currentPlayer;
@@ -33,10 +34,10 @@ public class MainActivity extends AppCompatActivity {
         AntidoteMobile.currentUser = User.signIn("randomUser", "randomPassword");
 
         TextView usernameTextView = findViewById(R.id.usernameTextView);
-        usernameTextView.setText("Hey there " + AntidoteMobile.currentUser.username + "!");
+        usernameTextView.setText(R.string.hey_there);
+        usernameTextView.append(AntidoteMobile.currentUser.username);
+        usernameTextView.append("!");
 
-        CardHandler ch = findViewById(R.id.cardHandler);
-        ch.setCards("ANTIDOTE.SERUM-N.5");
     }
 
     @Override
