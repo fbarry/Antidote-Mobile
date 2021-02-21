@@ -24,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        TextView usernameTextView = findViewById(R.id.usernameTextView);
+        usernameTextView.setText("Hey there " + AntidoteMobile.currentUser.username + "!");
+
         CardHandler ch = findViewById(R.id.cardHandler);
         ch.setCards("ANTIDOTE.SERUM-N.5");
     }

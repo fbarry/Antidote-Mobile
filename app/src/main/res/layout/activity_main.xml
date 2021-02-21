@@ -56,6 +56,18 @@
             tools:layout_editor_absoluteX="31dp"
             tools:layout_editor_absoluteY="-30dp" />
 
+        <TextView
+            android:id="@+id/usernameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/createGameButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <Button
             android:id="@+id/createGameButton"
             android:layout_width="wrap_content"
