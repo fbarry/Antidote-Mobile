@@ -87,7 +87,7 @@ public class CardHandler extends View {
         // Setup the timer and set the cards to fix themselves (while animating)
         invalidateTimer = new Timer();
         fixCards();
-        animateFor(1000);
+        animateFor(5000);
     }
 
     // Ensure that this CardHandler will continue animations for a set amount of time
@@ -200,15 +200,16 @@ public class CardHandler extends View {
         return true;
     }
 
-    public void setCards(String cardData){
+    @SuppressWarnings("unused")
+    public void setCards(String cardData) {
         String[] dats = cardData.split("\\.");
         System.out.println(Arrays.toString(dats));
-        for(Card c:cards){
-            if(dats.length == 1){
+        for (Card c : cards) {
+            if (dats.length == 1) {
                 c.setCardData(CardType.fromString(dats[0]));
-            }else if(dats.length == 2){
+            } else if (dats.length == 2) {
                 c.setCardData(CardType.fromString(dats[0]), Toxin.fromString(dats[1]));
-            }else if(dats.length == 3){
+            } else if (dats.length == 3) {
                 c.setCardData(CardType.fromString(dats[0]), Toxin.fromString(dats[1]), Integer.parseInt(dats[2]));
             }
         }

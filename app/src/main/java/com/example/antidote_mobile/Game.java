@@ -6,8 +6,10 @@ import com.parse.ParseQuery;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
+@SuppressWarnings("unused")
 public class Game implements Serializable {
     public String roomCode, objectId;
     public ArrayList<String> players;
@@ -51,7 +53,7 @@ public class Game implements Serializable {
         newGame.put("numPlayers", 1);
         newGame.put("currentTurn", 0);
         newGame.put("numCards", -1);
-        newGame.put("players", new ArrayList<String>(Arrays.asList(player.objectId)));
+        newGame.put("players", new ArrayList<>(Collections.singletonList(player.objectId)));
         newGame.put("numRoundsCompleted", 0);
         newGame.put("toxin", Toxin.NONE.getText());
 
@@ -59,9 +61,31 @@ public class Game implements Serializable {
             newGame.save();
             return new Game(newGame);
         } catch (ParseException e) {
-            System.out.println(e.getMessage().toString());
+            System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    public static Game rejoinGame(Player player) {
+        // Theoretically, this player SHOULD be in some game if we found it
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
+        ArrayList<ParseObject> games;
+        try {
+            games = (ArrayList<ParseObject>) query.find();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        if (games == null) return null;
+        for (ParseObject gameCandidate : games) {
+            List<Object> players = gameCandidate.getList("players");
+            if (players.contains(player.objectId)) {
+                return new Game(gameCandidate);
+            }
+        }
+
+        return null;
     }
 
     public static Game joinGame(String roomCode, Player player) {
