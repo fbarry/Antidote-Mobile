@@ -25,6 +25,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.intent.Intents.intended;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -55,16 +57,7 @@ public class CreateGameTest {
     @Test
     public void testClickCreateGameGoesToLobby() {
         Espresso.onView(ViewMatchers.withId(R.id.createGameButton)).perform(click());
-
-        Game game = Game.createGame(new Player().createPlayer(User.getNewGuest()));
-
-        Intent goToLobby = new Intent();
-        Bundle sendGame = new Bundle();
-        sendGame.putSerializable("gameInfo", game);
-        goToLobby.putExtras(sendGame);
-
-        Activity lobby = lobbyActivityTestRule.launchActivity(goToLobby);
-        assertNotNull(lobby);
+        intended(hasComponent(LobbyActivity.class.getName()));
     }
 
     @Test
