@@ -4,9 +4,10 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Player {
+public class Player implements Serializable {
     String objectId, who;
     User user;
     ArrayList<String> cards; // Might be changed to Card or something
