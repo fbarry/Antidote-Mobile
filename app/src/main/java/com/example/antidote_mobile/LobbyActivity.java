@@ -33,7 +33,9 @@ public class LobbyActivity extends AppCompatActivity {
 
         if (!currentPlayer.objectId.equals(game.host)) {
             Button startGameButton = findViewById(R.id.startGameButton);
+            startGameButton.setVisibility(View.GONE);
             Button endGameButton = findViewById(R.id.endGameButton);
+            endGameButton.setVisibility(View.GONE);
         }
 
         TextView roomCodeTextView = findViewById(R.id.roomCodeTextView);
@@ -81,7 +83,9 @@ public class LobbyActivity extends AppCompatActivity {
 
     }
 
-    public void endGame(View v) {}
+    public void endGame(View v) {
+        System.out.println("CLICK");
+    }
 
     public void startGame(View v) {
         // Mess with <game>'s parameters

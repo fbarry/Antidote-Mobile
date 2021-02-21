@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AntidoteMobile.currentUser = User.signIn("randomUser", "randomPassword");
+//        AntidoteMobile.currentUser = User.signIn("randomUser", "randomPassword");
 
         updateDisplayedUsername();
 
