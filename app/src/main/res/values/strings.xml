@@ -58,5 +58,5 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="player_label">Players</string>
-    <string name="hey_there">\"Hey there \"</string>
+    <string name="hey_there">Hey there</string>
 </resources>
