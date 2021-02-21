@@ -1,4 +1,5 @@
 import android.content.Context;
+import android.widget.TextView;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.intent.Intents;
@@ -17,6 +18,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.w3c.dom.Text;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -29,8 +31,8 @@ import static org.junit.Assert.*;
 public class MainActivityTest {
 
     @Rule
-    public ActivityScenarioRule<MainActivity> activityRule
-            = new ActivityScenarioRule<>(MainActivity.class);
+    public ActivityTestRule<MainActivity> activityRule
+            = new ActivityTestRule<>(MainActivity.class);
 
     @Before
     public void initIntents() {
@@ -40,6 +42,12 @@ public class MainActivityTest {
     @After
     public void releaseIntents() {
         Intents.release();
+    }
+
+    @Test
+    public void testUserSeesUsername() {
+        TextView usernameTextView = activityRule.getActivity().findViewById(R.id.usernameTextView);
+        assertNotEquals(R.string.hey_there + "!", usernameTextView.getText().toString());
     }
 
     @Test
