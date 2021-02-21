@@ -32,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
 //        ch.setCards("ANTIDOTE.SERUM-N.5");
         AntidoteMobile.currentUser = User.signIn("randomUser", "randomPassword");
 
+        TextView usernameTextView = findViewById(R.id.usernameTextView);
+        usernameTextView.setText("Hey there " + AntidoteMobile.currentUser.username + "!");
+
+        CardHandler ch = findViewById(R.id.cardHandler);
+        ch.setCards("ANTIDOTE.SERUM-N.5");
     }
 
     @Override
