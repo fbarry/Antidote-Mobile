@@ -11,7 +11,7 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public class Game implements Serializable {
-    public String roomCode, objectId;
+    public String roomCode, objectId, host;
     public ArrayList<String> players;
     public int numPlayers, currentTurn, numCards, numRoundsCompleted;
     public Toxin toxin;
@@ -21,6 +21,7 @@ public class Game implements Serializable {
     }
 
     public Game(ParseObject po) {
+        this.host = po.getString("host");
         this.currentTurn = po.getInt("currentTurn");
         this.numCards = po.getInt("numCards");
         this.numRoundsCompleted = po.getInt("numRoundsCompleted");
@@ -49,6 +50,7 @@ public class Game implements Serializable {
 
         ParseObject newGame = new ParseObject("Game");
 
+        newGame.put("host", player.objectId);
         newGame.put("roomCode", newGameCode);
         newGame.put("numPlayers", 1);
         newGame.put("currentTurn", 0);
