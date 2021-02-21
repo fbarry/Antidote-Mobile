@@ -78,9 +78,9 @@ public class Game implements Serializable {
         }
 
         if (games == null) return null;
-        for(ParseObject gameCandidate : games){
+        for (ParseObject gameCandidate : games) {
             List<Object> players = gameCandidate.getList("players");
-            if(players.contains(player.objectId)){
+            if (players.contains(player.objectId)) {
                 return new Game(gameCandidate);
             }
         }

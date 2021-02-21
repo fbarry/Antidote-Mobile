@@ -12,7 +12,7 @@ public class Player {
     ArrayList<String> cards; // Might be changed to Card or something
     int points;
 
-    public Player(){
+    public Player() {
         cards = new ArrayList<>();
     }
 
@@ -26,7 +26,7 @@ public class Player {
     }
 
     public Player createPlayer(User user) {
-        if(user.isGuest){
+        if (user.isGuest) {
             User signedup = User.signUpGuest(user.username, AntidoteMobile.guestPassword);
 
             if (signedup == null) {

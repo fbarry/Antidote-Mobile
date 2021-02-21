@@ -201,15 +201,15 @@ public class CardHandler extends View {
     }
 
     @SuppressWarnings("unused")
-    public void setCards(String cardData){
+    public void setCards(String cardData) {
         String[] dats = cardData.split("\\.");
         System.out.println(Arrays.toString(dats));
-        for(Card c:cards){
-            if(dats.length == 1){
+        for (Card c : cards) {
+            if (dats.length == 1) {
                 c.setCardData(CardType.fromString(dats[0]));
-            }else if(dats.length == 2){
+            } else if (dats.length == 2) {
                 c.setCardData(CardType.fromString(dats[0]), Toxin.fromString(dats[1]));
-            }else if(dats.length == 3){
+            } else if (dats.length == 3) {
                 c.setCardData(CardType.fromString(dats[0]), Toxin.fromString(dats[1]), Integer.parseInt(dats[2]));
             }
         }

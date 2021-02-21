@@ -25,7 +25,7 @@ public class User {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
         try {
             ParseObject po = query.get(objectId);
-            return new User((ParseUser)po);
+            return new User((ParseUser) po);
         } catch (ParseException e) {
             return null;
         }
@@ -87,8 +87,8 @@ public class User {
     }
 
     @SuppressWarnings("NullableProblems")
-    public String toString(){
-        return "User: ["+username+","+objectId+","+isGuest+","+email+"]";
+    public String toString() {
+        return "User: [" + username + "," + objectId + "," + isGuest + "," + email + "]";
     }
 
 }

@@ -27,7 +27,7 @@
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
         </FrameLayout>
     </LinearLayout>
@@ -88,14 +88,14 @@
             android:layout_marginTop="32dp"
             android:ems="10"
             android:hint="@string/game_code_placeholder"
+            android:importantForAutofill="no"
             android:inputType="text|textCapCharacters"
             android:textAlignment="center"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/joinGameButton"
-            android:importantForAutofill="no" />
+            app:layout_constraintTop_toBottomOf="@id/joinGameButton" />
 
         <ImageButton
             android:id="@+id/infoButton"
