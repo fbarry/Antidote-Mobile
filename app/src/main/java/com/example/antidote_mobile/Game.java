@@ -4,10 +4,10 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-@SuppressWarnings("unused")
-public class Game {
+public class Game implements Serializable {
     public String joinCode, objectId;
     public ArrayList<String> playerIds;
     public int numPlayers, currentTurn, numCards, numRoundsCompleted;
@@ -39,6 +39,11 @@ public class Game {
         } catch (ParseException e) {
             return null;
         }
+    }
+
+    // This function will create a game and add the player to the game then return the game object
+    public static Game createGame(Player player) {
+        return null;
     }
 
     public static Game joinGame(String joinCode, Player player) {

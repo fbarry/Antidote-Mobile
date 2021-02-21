@@ -23,6 +23,9 @@
         <activity
             android:name=".InfoPageActivity"
             android:label="@string/infopage_name" />
+        <activity
+            android:name=".LobbyActivity"
+            android:label="Game Lobby" />
     </application>
 
 </manifest>

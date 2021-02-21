@@ -4,7 +4,7 @@
     <string name="info">Info</string>
     <string name="create_game_button">Create Game</string>
     <string name="join_game_button">Join Game</string>
-    <string name="game_code_placeholder">Enter game code</string>
+    <string name="game_code_placeholder">ENTER GAME CODE</string>
 
     <string name="InfoButtonDesc">Take the user to the info page</string>
     <string name="BackButtonDesc">Returns the user to the previous page</string>

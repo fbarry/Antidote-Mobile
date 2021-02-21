@@ -1,6 +1,5 @@
 package com.example.antidote_mobile;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -36,6 +33,33 @@ public class MainActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    public void onCreateGame(View v) {
+        goToLobbyActivity(Game.createGame(currentPlayer));
+    }
+
+    public void onJoinGame(View v) {
+        TextView gameCodeTextView = findViewById(R.id.joinCodeTextView);
+        String gameCode = gameCodeTextView.getText().toString();
+
+        if (gameCode.length() == 0) {
+            return;
+        }
+
+        goToLobbyActivity(Game.joinGame(gameCode, currentPlayer));
+    }
+
+    public void goToLobbyActivity(Game game) {
+//        if (game == null) {
+//            // join failed, show alert
+//        } else {
+            Intent goToLobby = new Intent(MainActivity.this, LobbyActivity.class);
+            Bundle sendGame = new Bundle();
+            sendGame.putSerializable("gameInfo", game);
+            goToLobby.putExtras(sendGame);
+            startActivity(goToLobby);
+//        }
     }
 
     public void openInfoPage(View v) {
