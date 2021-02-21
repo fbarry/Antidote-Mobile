@@ -38,7 +38,14 @@ public class LobbyActivity extends AppCompatActivity {
 
         refreshTimer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
-                updatePlayerList();
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                        updatePlayerList();
+                    }
+                });
 
             }
         }, millisPerUpdate, millisPerUpdate);
@@ -47,6 +54,7 @@ public class LobbyActivity extends AppCompatActivity {
 
     public void updatePlayerList() {
         TextView textView = findViewById(R.id.playerList);
+        textView.setText("PLAYERS\n");
 
         ParseQuery<ParseObject> getPlayers = new ParseQuery<>("Player");
         getPlayers.whereContainedIn("objectId", game.players);
