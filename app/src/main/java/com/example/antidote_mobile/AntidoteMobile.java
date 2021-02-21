@@ -10,6 +10,7 @@ public class AntidoteMobile extends Application {
 
     public static User currentUser;
     public static final String guestPassword = "guestPass1337!_mobileAntidoteMobile";
+    public static final int gameCodeLength = 6;
 
     @Override
     public void onCreate() {
@@ -23,6 +24,7 @@ public class AntidoteMobile extends Application {
         );
 
         ParseUser.logOutInBackground();
+
         currentUser = User.getNewGuest();
     }
 }

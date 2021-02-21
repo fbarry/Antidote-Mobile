@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/roomCode"
+        android:id="@+id/roomCodeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -28,7 +28,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/roomCode">
+        app:layout_constraintTop_toBottomOf="@+id/roomCodeTextView">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,10 +51,9 @@
                 tools:layout_editor_absoluteY="110dp" />
 
             <TextView
-                android:id="@+id/player1"
+                android:id="@+id/playerList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Player 1"
                 android:textAlignment="center"
                 android:textSize="24sp" />
 

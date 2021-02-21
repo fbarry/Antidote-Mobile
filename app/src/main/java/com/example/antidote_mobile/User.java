@@ -14,13 +14,6 @@ public class User {
 
     }
 
-    public User(ParseObject po) {
-        username = po.getString("username");
-        email = po.getString("email");
-        isGuest = po.getBoolean("isGuest");
-        objectId = po.getObjectId();
-    }
-
     public User(ParseUser po) {
         username = po.getUsername();
         email = po.getEmail();
@@ -32,7 +25,7 @@ public class User {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
         try {
             ParseObject po = query.get(objectId);
-            return new User(po);
+            return new User((ParseUser)po);
         } catch (ParseException e) {
             return null;
         }
@@ -84,7 +77,7 @@ public class User {
             return new User(newProfile);
         } catch (ParseException e) {
             System.out.println("Failed to sign guest up!");
-            e.printStackTrace();
+//            e.printStackTrace();
             return null;
         }
     }

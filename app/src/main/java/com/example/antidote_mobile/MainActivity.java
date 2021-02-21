@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.parse.ParseException;
+
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
 
@@ -36,7 +38,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onCreateGame(View v) {
-        goToLobbyActivity(Game.createGame(currentPlayer));
+        currentPlayer = new Player().createPlayer(AntidoteMobile.currentUser);
+        if (currentPlayer == null) {
+            // failed
+            System.out.println("FAILED TO CREATE NEW PLAYER");
+        } else {
+            goToLobbyActivity(Game.createGame(currentPlayer));
+        }
     }
 
     public void onJoinGame(View v) {
@@ -47,19 +55,28 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        goToLobbyActivity(Game.joinGame(gameCode, currentPlayer));
+        System.out.println("TRY TO JOIN: " + gameCode);
+
+        currentPlayer = new Player().createPlayer(AntidoteMobile.currentUser);
+        if (currentPlayer == null) {
+            // failed
+            System.out.println("FAILED TO CREATE NEW PLAYER");
+        } else {
+            goToLobbyActivity(Game.joinGame(gameCode, currentPlayer));
+        }
     }
 
     public void goToLobbyActivity(Game game) {
-//        if (game == null) {
-//            // join failed, show alert
-//        } else {
+        if (game == null) {
+            // join failed, show alert
+            System.out.println("FAILED TO CREATE/JOIN GAME");
+        } else {
             Intent goToLobby = new Intent(MainActivity.this, LobbyActivity.class);
             Bundle sendGame = new Bundle();
             sendGame.putSerializable("gameInfo", game);
             goToLobby.putExtras(sendGame);
             startActivity(goToLobby);
-//        }
+        }
     }
 
     public void openInfoPage(View v) {

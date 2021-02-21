@@ -1,11 +1,16 @@
 package com.example.antidote_mobile;
 
+import android.provider.ContactsContract;
+
+import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseRelation;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 
-@SuppressWarnings("unused")
 public class Player {
     String objectId;
     User user;
@@ -16,32 +21,42 @@ public class Player {
         cards = new ArrayList<>();
     }
 
-    public Player(ParseObject po){
+    public Player(ParseObject po) {
         objectId = po.getObjectId();
         points = po.getInt("points");
         //noinspection unchecked
         cards = (ArrayList<String>) po.get("cards");
         ParseQuery<ParseObject> query = new ParseQuery<>("user");
-        query.getInBackground(po.getString("who"), (object, e) -> user = new User(object));
+        query.getInBackground(po.getString("who"), (object, e) -> user = new User((ParseUser)object));
     }
 
-    public Player(User user){
+    public Player createPlayer(User user) {
         if(user.isGuest){
-            // need to register
             User signedup = User.signUpGuest(user.username, AntidoteMobile.guestPassword);
+
+            if (signedup == null) {
+                System.out.println("FAILED TO CREATE SIGN UP");
+                return null;
+            }
+
             user.objectId = signedup.objectId;
+            System.out.println("SIGNED UP: " + user.objectId);
         }
 
         ParseObject po = new ParseObject("Player");
         po.put("who", user.objectId);
         po.put("cards", new ArrayList<String>());
         po.put("points", 0);
-        po.saveInBackground();
 
-        objectId = po.getObjectId();
-        points = 0;
-        this.user = user;
-        cards = new ArrayList<>();
+        try {
+            po.save();
+            objectId = po.getObjectId();
+            points = 0;
+            cards = new ArrayList<>();
+            return this;
+        } catch (ParseException e) {
+            return null;
+        }
     }
 
 }

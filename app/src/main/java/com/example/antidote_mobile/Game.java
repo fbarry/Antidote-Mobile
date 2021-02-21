@@ -6,15 +6,16 @@ import com.parse.ParseQuery;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Game implements Serializable {
-    public String joinCode, objectId;
-    public ArrayList<String> playerIds;
+    public String roomCode, objectId;
+    public ArrayList<String> players;
     public int numPlayers, currentTurn, numCards, numRoundsCompleted;
     public Toxin toxin;
 
     public Game() {
-        this.playerIds = new ArrayList<>();
+        this.players = new ArrayList<>();
     }
 
     public Game(ParseObject po) {
@@ -25,9 +26,9 @@ public class Game implements Serializable {
         this.toxin = Toxin.fromString(po.getString("toxin"));
 
         //noinspection unchecked
-        this.playerIds = (ArrayList<String>) po.get("players");
+        this.players = (ArrayList<String>) po.get("players");
 
-        this.joinCode = po.getString("joinCode");
+        this.roomCode = po.getString("roomCode");
         this.objectId = po.getObjectId();
     }
 
@@ -41,28 +42,48 @@ public class Game implements Serializable {
         }
     }
 
-    // This function will create a game and add the player to the game then return the game object
     public static Game createGame(Player player) {
-        return null;
+        String newGameCode = Utilities.getRandomString(AntidoteMobile.gameCodeLength);
+
+        ParseObject newGame = new ParseObject("Game");
+
+        newGame.put("roomCode", newGameCode);
+        newGame.put("numPlayers", 1);
+        newGame.put("currentTurn", 0);
+        newGame.put("numCards", -1);
+        newGame.put("players", new ArrayList<String>(Arrays.asList(player.objectId)));
+        newGame.put("numRoundsCompleted", 0);
+        newGame.put("toxin", Toxin.NONE.getText());
+
+        try {
+            newGame.save();
+            return new Game(newGame);
+        } catch (ParseException e) {
+            System.out.println(e.getMessage().toString());
+            return null;
+        }
     }
 
-    public static Game joinGame(String joinCode, Player player) {
+    public static Game joinGame(String roomCode, Player player) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
-        query.whereEqualTo("joinCode", joinCode);
+        query.whereEqualTo("roomCode", roomCode);
 
         ParseObject po = null;
 
         try {
             ArrayList<ParseObject> candidates = (ArrayList<ParseObject>) query.find();
+            System.out.println(candidates);
             for (ParseObject obj : candidates) {
-                if (obj.getString("joinCode").equals(joinCode)) {
+                if (obj.getString("roomCode").equals(roomCode)) {
                     po = obj;
                     break;
                 }
             }
         } catch (ParseException e) {
+            System.out.println("Could not find game object");
             return null;
         }
+
         if (po == null) return null;
 
         //noinspection unchecked
@@ -88,9 +109,9 @@ public class Game implements Serializable {
         this.toxin = Toxin.fromString(po.getString("toxin"));
 
         //noinspection unchecked
-        this.playerIds = (ArrayList<String>) po.get("players");
+        this.players = (ArrayList<String>) po.get("players");
 
-        this.joinCode = po.getString("joinCode");
+        this.roomCode = po.getString("roomCode");
         this.objectId = po.getObjectId();
     }
 
