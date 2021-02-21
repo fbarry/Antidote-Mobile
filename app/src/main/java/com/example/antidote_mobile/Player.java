@@ -1,12 +1,15 @@
 package com.example.antidote_mobile;
 
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 
 public class Player {
     String objectId, who;
+    User user;
     ArrayList<String> cards; // Might be changed to Card or something
     int points;
 
@@ -20,6 +23,7 @@ public class Player {
         //noinspection unchecked
         cards = (ArrayList<String>) po.get("cards");
         who = po.getString("who");
+        ParseUser.getQuery().getInBackground(who, (object, e) -> user = new User(object));
     }
 
     public Player createPlayer(User user) {
