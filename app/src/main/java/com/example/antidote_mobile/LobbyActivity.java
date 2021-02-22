@@ -56,13 +56,25 @@ public class LobbyActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        refreshTimer.cancel();
+
+        if (currentPlayer != null && game != null && currentPlayer.objectId.equals(game.host))
+            game.deleteGame();
+        else if (currentPlayer != null && game != null)
+            game.removePlayer(currentPlayer.objectId);
+    }
+
     public void update() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
         query.getInBackground(game.objectId, (object, e) -> {
             if (e != null) {
                 if (object == null) {
                     game = null;
-                    closeActivity();
+                    LobbyActivity.this.finish();
                 }
             } else {
                 game = new Game(object);
@@ -103,12 +115,15 @@ public class LobbyActivity extends AppCompatActivity {
 
     public void leaveGame(View v) {
         game.removePlayer(currentPlayer.objectId);
-        closeActivity();
+        currentPlayer = null;
+        LobbyActivity.this.finish();
     }
 
     public void endGame(View v) {
         game.deleteGame();
-        closeActivity();
+        currentPlayer = null;
+        game = null;
+        LobbyActivity.this.finish();
     }
 
     public void startGame(View v) {
@@ -125,8 +140,4 @@ public class LobbyActivity extends AppCompatActivity {
         startActivity(goToLobby);
     }
 
-    public void closeActivity() {
-        refreshTimer.cancel();
-        LobbyActivity.this.finish();
-    }
 }
