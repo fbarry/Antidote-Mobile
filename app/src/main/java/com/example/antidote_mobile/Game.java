@@ -200,4 +200,20 @@ public class Game implements Serializable {
             }
         });
     }
+
+    public void save() throws ParseException {
+        ParseObject po = new ParseObject("Game");
+
+        po.put("roomCode", roomCode);
+        po.put("objectId", objectId);
+        po.put("host", host);
+        po.put("players", players);
+        po.put("numPlayers", numPlayers);
+        po.put("currentTurn", currentTurn);
+        po.put("numCards", numCards);
+        po.put("numRoundsCompleted", numRoundsCompleted);
+        po.put("toxin", toxin);
+
+        po.save();
+    }
 }
