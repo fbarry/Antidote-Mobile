@@ -63,7 +63,7 @@ public class LobbyActivity extends AppCompatActivity {
                 e.printStackTrace();
                 if (object == null) {
                     game = null;
-                    LobbyActivity.this.finish();
+                    closeActivity();
                 }
             } else {
                 game = new Game(object);
@@ -104,13 +104,12 @@ public class LobbyActivity extends AppCompatActivity {
 
     public void leaveGame(View v) {
         game.removePlayer(currentPlayer.objectId);
-        LobbyActivity.this.finish();
+        closeActivity();
     }
 
     public void endGame(View v) {
         game.deleteGame();
-        refreshTimer.cancel();
-        LobbyActivity.this.finish();
+        closeActivity();
     }
 
     public void startGame(View v) {
@@ -125,5 +124,10 @@ public class LobbyActivity extends AppCompatActivity {
         sendGame.putSerializable("gameInfo", game);
         goToLobby.putExtras(sendGame);
         startActivity(goToLobby);
+    }
+
+    public void closeActivity() {
+        refreshTimer.cancel();
+        LobbyActivity.this.finish();
     }
 }
