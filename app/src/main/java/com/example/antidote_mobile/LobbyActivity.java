@@ -36,6 +36,9 @@ public class LobbyActivity extends AppCompatActivity {
             startGameButton.setVisibility(View.GONE);
             Button endGameButton = findViewById(R.id.endGameButton);
             endGameButton.setVisibility(View.GONE);
+        } else {
+            Button leaveGameButton = findViewById(R.id.leaveGameButton);
+            leaveGameButton.setVisibility(View.GONE);
         }
 
         TextView roomCodeTextView = findViewById(R.id.roomCodeTextView);
@@ -81,6 +84,11 @@ public class LobbyActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public void leaveGame(View v) {
+        game.removePlayer(currentPlayer.objectId);
+        LobbyActivity.this.finish();
     }
 
     public void endGame(View v) {

@@ -1,5 +1,6 @@
 package com.example.antidote_mobile;
 
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -164,12 +165,34 @@ public class Game implements Serializable {
     // TODO: Handle errors
     @SuppressWarnings("StatementWithEmptyBody")
     public void removePlayer(String playerId) {
+        players.remove(playerId);
+        numPlayers--;
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Player");
 
         query.getInBackground(playerId, (object, e) -> {
             if (e == null) {
                 object.deleteInBackground(e2 -> {
                     if (e2 == null) {
+                        ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Game");
+
+                        ParseObject po = null;
+                        try {
+                            po = query2.get(objectId);
+
+                            //noinspection unchecked
+                            ArrayList<String> ids = (ArrayList<String>) po.get("players");
+
+                            assert ids != null;
+                            ids.remove(playerId);
+                            po.put("players", ids);
+                            po.put("numPlayers", ids.size());
+
+                            po.saveInBackground();
+
+                        } catch (ParseException e3) {
+
+                        }
                     } else {
                     }
                 });
