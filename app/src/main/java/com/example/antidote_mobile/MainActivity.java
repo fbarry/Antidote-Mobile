@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     public void onJoinGame(View v) {
         TextView gameCodeTextView = findViewById(R.id.joinCodeTextView);
         String gameCode = gameCodeTextView.getText().toString();
+        currentPlayer = null;
 
         // If a player exists with us as its pointer, get that guy,
         if (AntidoteMobile.currentUser.objectId != null) {
