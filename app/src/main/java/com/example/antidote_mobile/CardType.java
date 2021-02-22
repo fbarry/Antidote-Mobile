@@ -7,12 +7,13 @@ public enum CardType {
     NONE("NONE");
 
 
-    private String text;
+    private final String text;
 
     CardType(String s) {
         this.text = s;
     }
 
+    @SuppressWarnings("unused")
     public String getText() {
         return text;
     }

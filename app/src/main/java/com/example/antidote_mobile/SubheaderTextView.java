@@ -1,7 +1,6 @@
 package com.example.antidote_mobile;
 
 import android.content.Context;
-import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 

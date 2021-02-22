@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     void updateDisplayedUsername() {
         TextView usernameTextView = findViewById(R.id.usernameTextView);
         usernameTextView.setText(R.string.hey_there);
-        usernameTextView.append(" " + AntidoteMobile.currentUser.username);
+        usernameTextView.append(" " + AntidoteMobile.currentUser.getUsername());
         usernameTextView.append("!");
     }
 
@@ -67,18 +67,18 @@ public class MainActivity extends AppCompatActivity {
         currentPlayer = null;
 
         // If a player exists with us as its pointer, get that guy,
-        if (AntidoteMobile.currentUser.objectId != null) {
+        if (AntidoteMobile.currentUser.getObjectId() != null) {
             // It's at least possible that a player exists with us, since we're
             // registered with the database. Go find a Player with us
 
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Player");
-            query.whereEqualTo("who", AntidoteMobile.currentUser.objectId);
+            query.whereEqualTo("who", AntidoteMobile.currentUser.getObjectId());
 
             try {
                 ArrayList<ParseObject> candidates = (ArrayList<ParseObject>) query.find();
                 System.out.println(candidates.size() + " potential Players found (should be 0 or 1)");
                 for (ParseObject obj : candidates) {
-                    if (obj.getString("who").equals(AntidoteMobile.currentUser.objectId)) {
+                    if (obj.getString("who").equals(AntidoteMobile.currentUser.getObjectId())) {
                         currentPlayer = new Player(obj);
                         break;
                     }

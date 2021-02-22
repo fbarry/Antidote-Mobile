@@ -16,6 +16,8 @@ public class AntidoteMobile extends Application {
     public void onCreate() {
         super.onCreate();
 
+        ParseUser.registerSubclass(User.class);
+
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("eTrWlVXg4AnZU2ZMLg7YVsQ6LsgNluEkY9Z7DRob")
                 .clientKey("THyrLzi4oRMpVB0VTc7sG2HlzcSyQT0SsCUeBIBd")

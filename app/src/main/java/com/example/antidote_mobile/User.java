@@ -1,31 +1,29 @@
 package com.example.antidote_mobile;
 
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 @SuppressWarnings("unused")
-public class User {
-    String username, email, objectId;
-    boolean isGuest;
+public class User extends ParseUser {
 
     public User() {
-
+        super();
     }
 
-    public User(ParseUser po) {
-        username = po.getUsername();
-        email = po.getEmail();
-        objectId = po.getObjectId();
-        isGuest = po.getBoolean("isGuest");
+    public boolean isGuest(){
+        return this.getBoolean("isGuest");
+    }
+
+    public void setIsGuest(boolean isGuest){
+        this.put("isGuest", isGuest);
     }
 
     public static User getUser(String objectId) {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
         try {
-            ParseObject po = query.get(objectId);
-            return new User((ParseUser) po);
+            ParseUser po = query.get(objectId);
+            return (User) po;
         } catch (ParseException e) {
             return null;
         }
@@ -34,7 +32,7 @@ public class User {
     public static User signIn(String username, String password) {
         try {
             ParseUser returned = ParseUser.logIn(username, password);
-            return new User(returned);
+            return (User) returned;
         } catch (ParseException e) {
             return null;
         }
@@ -42,53 +40,46 @@ public class User {
 
     public static User getNewGuest() {
         User ret = new User();
-        ret.username = "guest_" + (int) (Math.random() * 100000000);
-        ret.isGuest = true;
+        ret.setUsername("guest_" + (int) (Math.random() * 100000000));
+        ret.setIsGuest(true);
         return ret;
     }
 
     public static User signUp(String username, String password, String email) {
-        ParseUser newProfile = new ParseUser();
-        newProfile.put("username", username);
-        newProfile.put("password", password);
-        newProfile.put("isGuest", false);
+        User newProfile = new User();
+        newProfile.setUsername(username);
+        newProfile.setPassword(password);
+        newProfile.setIsGuest(false);
 
-        if (email != null)
-            newProfile.put("email", email);
+        if (email != null) newProfile.setEmail(email);
 
         try {
             newProfile.signUp();
             // success! don't need to do much, since we have the stuff ready anyway...
-            return new User(newProfile);
+            return (User) newProfile;
         } catch (ParseException e) {
             return null;
         }
     }
 
     public static User signUpGuest(String username, String password) {
-        ParseUser newProfile = new ParseUser();
-        newProfile.put("username", username);
-        newProfile.put("password", password);
-        newProfile.put("isGuest", true);
+        User newProfile = new User();
+        newProfile.setUsername(username);
+        newProfile.setPassword(password);
+        newProfile.setIsGuest(true);
 
         try {
             newProfile.signUp();
-            // success! don't need to do much, since we have the stuff ready anyway...
-            return new User(newProfile);
+            // Success! don't need to do much, since we have the stuff ready anyway...
+            return (User) newProfile;
         } catch (ParseException e) {
             System.out.println("Failed to sign guest up!");
-//            e.printStackTrace();
             return null;
         }
     }
 
     public static User signUp(String username, String password) {
         return signUp(username, password, null);
-    }
-
-    @SuppressWarnings("NullableProblems")
-    public String toString() {
-        return "User: [" + username + "," + objectId + "," + isGuest + "," + email + "]";
     }
 
 }
