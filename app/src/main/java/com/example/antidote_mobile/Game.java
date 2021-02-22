@@ -1,6 +1,5 @@
 package com.example.antidote_mobile;
 
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -147,7 +146,8 @@ public class Game implements Serializable {
     // TODO: Handle errors
     @SuppressWarnings("StatementWithEmptyBody")
     public void deleteGame() {
-        for (String playerId : players) removePlayer(playerId);
+        ArrayList<String> playerList = new ArrayList<>(players);
+        for (String playerId : playerList) removePlayer(playerId);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
         query.getInBackground(this.objectId, (object, e) -> {
@@ -176,7 +176,7 @@ public class Game implements Serializable {
                     if (e2 == null) {
                         ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Game");
 
-                        ParseObject po = null;
+                        ParseObject po;
                         try {
                             po = query2.get(objectId);
 
@@ -191,7 +191,7 @@ public class Game implements Serializable {
                             po.saveInBackground();
 
                         } catch (ParseException e3) {
-
+                            e3.printStackTrace();
                         }
                     } else {
                     }
