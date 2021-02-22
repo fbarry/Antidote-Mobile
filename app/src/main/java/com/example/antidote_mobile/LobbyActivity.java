@@ -60,7 +60,6 @@ public class LobbyActivity extends AppCompatActivity {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
         query.getInBackground(game.objectId, (object, e) -> {
             if (e != null) {
-                e.printStackTrace();
                 if (object == null) {
                     game = null;
                     closeActivity();
