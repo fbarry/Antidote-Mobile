@@ -50,10 +50,26 @@ public class LobbyActivity extends AppCompatActivity {
 
         refreshTimer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
-                runOnUiThread(() -> updatePlayerList());
+                runOnUiThread(() -> update());
             }
         }, millisPerUpdate, millisPerUpdate);
 
+    }
+
+    public void update() {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
+        query.getInBackground(game.objectId, (object, e) -> {
+            if (e != null) {
+                e.printStackTrace();
+                if (object == null) {
+                    game = null;
+                    LobbyActivity.this.finish();
+                }
+            } else {
+                game = new Game(object);
+                updatePlayerList();
+            }
+        });
     }
 
     public void updatePlayerList() {

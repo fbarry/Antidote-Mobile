@@ -8,15 +8,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Arrays;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity {
 
     Game game;
     CardHandler ch;
-
-    Timer refreshTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
