@@ -64,7 +64,7 @@ For players of the game Antidote who want to play remotely with friends or bots,
 - Jacob Steinebronn: Add various online features including the game screen
 - Enrique Rodriguez: Continued work on changing the Navigation Drawer to change screens.
 - Daniel West:
-- Zach Ip: 
+- Zach Ip: Added profile page
 
 ## Sprint 4
 
