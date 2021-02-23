@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -80,8 +81,26 @@ public class LobbyActivity extends AppCompatActivity {
             } else {
                 game = new Game(object);
                 updatePlayerList();
+                updateGameScreen();
             }
         });
+    }
+
+    public void updateGameScreen() {
+        if (game.host.equals(currentPlayer.objectId)) return;
+
+        if (game.numCards > 0) {
+            ParseQuery<ParseObject> query = new ParseQuery<>("Player");
+
+            try {
+                ParseObject po = query.get(currentPlayer.objectId);
+                currentPlayer = new Player(po);
+                goToGameScreen();
+            } catch (ParseException e) {
+                game.removePlayer(currentPlayer.objectId);
+                e.printStackTrace();
+            }
+        }
     }
 
     public void updatePlayerList() {
@@ -214,8 +233,11 @@ public class LobbyActivity extends AppCompatActivity {
         }
 
         game.updateGameStart();
+        goToGameScreen();
+    }
 
-        System.out.println(game.players);
+    public void goToGameScreen() {
+        LobbyActivity.this.finish();
 
         Intent goToGame = new Intent(LobbyActivity.this, GameActivity.class);
         Bundle sendGame = new Bundle();
@@ -224,5 +246,4 @@ public class LobbyActivity extends AppCompatActivity {
         goToGame.putExtras(sendGame);
         startActivity(goToGame);
     }
-
 }
