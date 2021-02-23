@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 @SuppressWarnings("unused")
 public class Game implements Serializable {
@@ -101,7 +100,7 @@ public class Game implements Serializable {
             ArrayList<ParseObject> candidates = (ArrayList<ParseObject>) query.find();
             System.out.println(candidates);
             for (ParseObject obj : candidates) {
-                if (Objects.equals(obj.getString("roomCode"), roomCode)) {
+                if (obj.getString("roomCode").equals(roomCode)) {
                     po = obj;
                     break;
                 }
@@ -201,18 +200,14 @@ public class Game implements Serializable {
         });
     }
 
-    public void save() throws ParseException {
-        ParseObject po = new ParseObject("Game");
+    public void updateGameStart() throws ParseException {
+        ParseQuery<ParseObject> query = new ParseQuery<>("Game");
+        ParseObject po = query.get(objectId);
 
-        po.put("roomCode", roomCode);
-        po.put("objectId", objectId);
-        po.put("host", host);
-        po.put("players", players);
-        po.put("numPlayers", numPlayers);
         po.put("currentTurn", currentTurn);
         po.put("numCards", numCards);
         po.put("numRoundsCompleted", numRoundsCompleted);
-        po.put("toxin", toxin);
+        po.put("toxin", toxin.getText());
 
         po.save();
     }
