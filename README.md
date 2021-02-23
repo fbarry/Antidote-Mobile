@@ -62,8 +62,8 @@ For players of the game Antidote who want to play remotely with friends or bots,
 
 - Fiona Barry: Add feature to allow players to create and join games, then be taken to a lobby screen
 - Jacob Steinebronn: Add various online features including the game screen
-- Enrique Rodriguez: Continued work on changing the Navigation Drawer to change screens.
-- Daniel West:
+- Enrique Rodriguez: Continued work on changing the Navigation Drawer to change screens
+- Daniel West: Add card distribution feature on the start of the game
 - Zach Ip: Added profile page
 
 ## Sprint 4
