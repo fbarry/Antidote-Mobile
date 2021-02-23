@@ -63,6 +63,11 @@ public class LobbyActivity extends AppCompatActivity {
         super.onDestroy();
 
         refreshTimer.cancel();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
 
         if (currentPlayer != null && game != null && currentPlayer.objectId.equals(game.host))
             game.deleteGame();
