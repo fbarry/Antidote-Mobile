@@ -111,6 +111,14 @@ class Card implements Comparable<Card> {
         return x >= this.x && y >= this.y && x <= this.x + cardWidth && y <= this.y + cardHeight;
     }
 
+    public String getStringValue() {
+        String out = "NONE";
+        if(type != CardType.NONE) out = type.getText();
+        if(toxin != Toxin.NONE) out += "." + toxin.getText();
+        if(number != -1) out += "." + number;
+        return out;
+    }
+
     @Override
     public int compareTo(Card o) {
         return Integer.compare(xEnd, o.xEnd);
