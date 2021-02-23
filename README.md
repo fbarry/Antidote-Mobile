@@ -56,15 +56,15 @@ For players of the game Antidote who want to play remotely with friends or bots,
 - [System Architecture](https://github.com/fbarry/Antidote-Mobile/tree/master/artifacts/architecture.md)
 - [Source Code](https://github.com/fbarry/Antidote-Mobile/tree/master/app/src/main)
 - [Automated Tests](https://github.com/fbarry/Antidote-Mobile/tree/master/app/src/androidTest/java)
-- Product Demonstration
+- [Product Demonstration](https://youtu.be/bGv0rCc_4JY)
 
 ### Task Allocation
 
 - Fiona Barry: Add feature to allow players to create and join games, then be taken to a lobby screen
-- Jacob Steinebronn:
-- Enrique Rodriguez: Continued work on changing the Navigation Drawer to change screens.
-- Daniel West:
-- Zach Ip: 
+- Jacob Steinebronn: Add various online features including the game screen
+- Enrique Rodriguez: Continued work on changing the Navigation Drawer to change screens
+- Daniel West: Add card distribution feature on the start of the game
+- Zach Ip: Added profile page
 
 ## Sprint 4
 

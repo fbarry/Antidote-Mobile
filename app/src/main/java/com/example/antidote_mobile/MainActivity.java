@@ -1,5 +1,6 @@
 package com.example.antidote_mobile;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     Player currentPlayer;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +34,11 @@ public class MainActivity extends AppCompatActivity {
 //        AntidoteMobile.currentUser = User.signIn("randomUser", "randomPassword");
 
         updateDisplayedUsername();
+
+        if (AntidoteMobile.currentUser != null && !AntidoteMobile.currentUser.isGuest()) {
+            Button loginbutton = findViewById(R.id.loginButton);
+            loginbutton.setText("Profile");
+        }
 
     }
 
@@ -129,36 +136,47 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void launchLoginWindowDialog(View v) {
-        Dialog myDialog = new Dialog(this);
-        myDialog.setContentView(R.layout.login_popup);
-        myDialog.setCancelable(true);
-        myDialog.setTitle("gaming");
-        Button login = myDialog.findViewById(R.id.login_loginButton);
 
-        myDialog.show();
+        if (AntidoteMobile.currentUser == null || AntidoteMobile.currentUser.isGuest()) {
 
-        //noinspection Convert2Lambda
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            Dialog myDialog = new Dialog(this);
+            myDialog.setContentView(R.layout.login_popup);
+            myDialog.setCancelable(true);
+            myDialog.setTitle("gaming");
+            Button login = myDialog.findViewById(R.id.login_loginButton);
 
-                EditText username = myDialog.findViewById(R.id.login_usernameEntry);
-                EditText password = myDialog.findViewById(R.id.login_passwordEntry);
-                TextView message = myDialog.findViewById(R.id.login_textViewMessage);
+            myDialog.show();
 
-                AntidoteMobile.currentUser = User.signIn(username.getText().toString(), password.getText().toString());
+            //noinspection Convert2Lambda
+            login.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void onClick(View v) {
 
-                password.getText().clear();
-                if (AntidoteMobile.currentUser != null) {
-                    username.getText().clear();
-                    updateDisplayedUsername();
-                    myDialog.dismiss();
-                } else {
-                    message.setText(R.string.login_failed);
+                    EditText username = myDialog.findViewById(R.id.login_usernameEntry);
+                    EditText password = myDialog.findViewById(R.id.login_passwordEntry);
+                    TextView message = myDialog.findViewById(R.id.login_textViewMessage);
+
+                    AntidoteMobile.currentUser = User.signIn(username.getText().toString(), password.getText().toString());
+
+                    password.getText().clear();
+                    if (AntidoteMobile.currentUser != null) {
+                        username.getText().clear();
+                        updateDisplayedUsername();
+                        myDialog.dismiss();
+
+                        Button loginbutton = findViewById(R.id.loginButton);
+                        loginbutton.setText("Profile");
+                    } else {
+                        message.setText(R.string.login_failed);
+                    }
+
                 }
+            });
 
-            }
-        });
+        } else {
+            startActivity(new Intent(MainActivity.this, ProfilePageActivity.class));
+        }
     }
 
 }

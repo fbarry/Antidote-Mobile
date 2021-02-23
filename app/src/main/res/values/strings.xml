@@ -60,4 +60,10 @@
     <string name="player_label">Players</string>
     <string name="hey_there">Hey there</string>
     <string name="game_code">Game Code:</string>
+
+    <string name="default_profile_title">Profile</string>
+    <string name="default_games_played">Games Played</string>
+    <string name="default_games_won">Games Won</string>
+    <string name="default_games_lost">Games Lost</string>
+    <string name="default_win_rate">Win Rate</string>
 </resources>

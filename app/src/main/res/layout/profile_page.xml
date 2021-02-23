@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profilePage"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfilePageActivity">
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="#00FFFFFF"
+        android:contentDescription="@string/BackButtonDesc"
+        android:onClick="goBack"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="?attr/homeAsUpIndicator" />
+
+    <TextView
+        android:id="@+id/profileTitle"
+        android:layout_width="298dp"
+        android:layout_height="164dp"
+        android:layout_marginTop="52dp"
+        android:layout_weight="1"
+        android:ellipsize="none"
+        android:gravity="center"
+        android:maxLines="100"
+        android:scrollHorizontally="false"
+        android:text="@string/default_profile_title"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/gamesPlayed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="@string/default_games_played"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/profileTitle"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/profileTitle"
+        app:layout_constraintTop_toBottomOf="@+id/profileTitle" />
+
+    <TextView
+        android:id="@+id/gamesWon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="@string/default_games_won"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/gamesPlayed"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="@+id/gamesPlayed"
+        app:layout_constraintTop_toBottomOf="@+id/gamesPlayed" />
+
+    <TextView
+        android:id="@+id/gamesLost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="@string/default_games_lost"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/gamesWon"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/gamesWon"
+        app:layout_constraintTop_toBottomOf="@+id/gamesWon" />
+
+    <TextView
+        android:id="@+id/winRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="@string/default_win_rate"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/gamesLost"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="@+id/gamesLost"
+        app:layout_constraintTop_toBottomOf="@+id/gamesLost" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
