@@ -7,11 +7,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Arrays;
-
 public class GameActivity extends AppCompatActivity {
 
     Game game;
+    Player currentPlayer;
     CardHandler ch;
 
     @Override
@@ -20,8 +19,10 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         game = (Game) getIntent().getSerializableExtra("gameInfo");
+        currentPlayer = (Player) getIntent().getSerializableExtra("currentPlayer");
+
         ch = findViewById(R.id.cardHandler);
-        ch.setCards(Arrays.asList("SYRINGE", "TOXIN.SERUM-N", "ANTIDOTE.RUBIMAXB.4", "ANTIDOTE.MX-VILE.2", "SYRINGE"));
+        ch.setCards(currentPlayer.cards);
 
         TextView gameCodeTextView = findViewById(R.id.gameCodeTextView);
         gameCodeTextView.append(" "+game.roomCode);
