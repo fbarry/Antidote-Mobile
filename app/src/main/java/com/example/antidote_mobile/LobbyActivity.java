@@ -54,7 +54,7 @@ public class LobbyActivity extends AppCompatActivity {
             public void run() {
                 runOnUiThread(() -> update());
             }
-        }, millisPerUpdate, millisPerUpdate);
+        }, 0, millisPerUpdate);
 
     }
 
