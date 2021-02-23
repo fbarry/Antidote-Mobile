@@ -152,7 +152,7 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     public void startGame(View v) throws ParseException {
-        if(game.numPlayers < 2) return;
+        if (game.numPlayers < 2) return;
 
         game.numRoundsCompleted = 0;
         game.currentTurn = Utilities.getRandomInt(0, game.players.size() - 1);

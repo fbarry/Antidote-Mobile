@@ -12,7 +12,7 @@ public class Utilities {
 
     public static int getRandomInt(int low, int high) {
         int diff = high - low;
-        int add = (int)(Math.random() * (diff + 1));
+        int add = (int) (Math.random() * (diff + 1));
         return low + add;
     }
 }
