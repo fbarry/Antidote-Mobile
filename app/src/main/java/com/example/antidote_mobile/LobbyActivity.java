@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -126,18 +127,102 @@ public class LobbyActivity extends AppCompatActivity {
         LobbyActivity.this.finish();
     }
 
-    public void startGame(View v) {
-        // Mess with <game>'s parameters
-        // Save them
-        // Mess with players' cards
-        // Save them
-        // Enter game screen
+    public void startGame(View v) throws ParseException {
+        if(game.numPlayers < 2) return;
 
-        Intent goToLobby = new Intent(LobbyActivity.this, GameActivity.class);
+        game.numRoundsCompleted = 0;
+        game.currentTurn = Utilities.getRandomInt(0, game.players.size() - 1);
+
+        int numFormulas;
+        if (game.numPlayers == 7) numFormulas = 8;
+        else numFormulas = 7;
+
+        int numCardsPerFormula;
+        if (game.numPlayers == 2) numCardsPerFormula = 3;
+        else numCardsPerFormula = game.numPlayers;
+
+        int numSyringes;
+        if (game.numPlayers == 2 || game.numPlayers == 3) numSyringes = 3;
+        else if (game.numPlayers == 4) numSyringes = 2;
+        else if (game.numPlayers == 5) numSyringes = 4;
+        else if (game.numPlayers == 6) numSyringes = 6;
+        else numSyringes = 7;
+
+        int startingHandSize;
+        if (4 <= game.numPlayers && game.numPlayers <= 6) startingHandSize = 9;
+        else startingHandSize = 10;
+
+        game.numCards = game.numPlayers * startingHandSize;
+
+        int numSpecialDist;
+        if (game.numPlayers == 2 || game.numPlayers == 3) numSpecialDist = 3;
+        else numSpecialDist = 2;
+
+        @SuppressWarnings("unchecked")
+        ArrayList<String>[] hands = new ArrayList[game.numPlayers];
+        for (int player = 0; player < game.numPlayers; ++player) hands[player] = new ArrayList<>();
+
+        ArrayList<Card> specialPile = new ArrayList<>();
+        for (int formula = 0; formula < numFormulas; ++formula) {
+            Card add = new Card(0, 0);
+            add.setCardData(CardType.TOXIN, Toxin.values()[formula]);
+            specialPile.add(add);
+        }
+
+        game.toxin = specialPile.remove(Utilities.getRandomInt(0, specialPile.size() - 1)).toxin;
+
+        for (int syringe = 0; syringe < numSyringes; ++syringe) {
+            Card add = new Card(0, 0);
+            add.setCardData(CardType.SYRINGE);
+            specialPile.add(add);
+        }
+
+        for (int player = 0; player < game.numPlayers; ++player) {
+            for (int dist = 0; dist < numSpecialDist; ++dist) {
+                hands[player].add(specialPile.remove(Utilities.getRandomInt(0, specialPile.size() - 1)).getStringValue());
+            }
+        }
+
+        ArrayList<Card> remainingCards = new ArrayList<>();
+        for (int formula = 0; formula < numFormulas; ++formula) {
+            for (int number = 1; number <= numCardsPerFormula; ++number) {
+                Card add = new Card(0, 0);
+                add.setCardData(CardType.ANTIDOTE, Toxin.values()[formula], number);
+                remainingCards.add(add);
+            }
+        }
+
+        for (int player = 0; player < game.numPlayers; ++player) {
+            for (int cardNum = numSpecialDist; cardNum < startingHandSize; ++cardNum) {
+                hands[player].add(remainingCards.remove(Utilities.getRandomInt(0, remainingCards.size() - 1)).getStringValue());
+            }
+        }
+
+        int playerIndex = 0;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Player");
+        for (String playerId : game.players) {
+            if (playerId.equals(currentPlayer.objectId)) {
+                currentPlayer.cards = new ArrayList<>(hands[playerIndex]);
+            }
+            try {
+                ParseObject player = query.get(playerId);
+                player.put("cards", hands[playerIndex++]);
+                player.saveInBackground();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        game.updateGameStart();
+
+        System.out.println(game.players);
+
+        Intent goToGame = new Intent(LobbyActivity.this, GameActivity.class);
         Bundle sendGame = new Bundle();
         sendGame.putSerializable("gameInfo", game);
-        goToLobby.putExtras(sendGame);
-        startActivity(goToLobby);
+        sendGame.putSerializable("currentPlayer", currentPlayer);
+        goToGame.putExtras(sendGame);
+        startActivity(goToGame);
     }
 
 }
