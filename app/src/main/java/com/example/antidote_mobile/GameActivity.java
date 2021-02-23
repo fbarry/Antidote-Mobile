@@ -30,6 +30,17 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (game.host.equals(currentPlayer.objectId)) {
+            game.deleteGame();
+        } else {
+            game.removePlayer(currentPlayer.objectId);
+        }
+    }
+
     public void openInfoPage(View v) {
         startActivity(new Intent(GameActivity.this, InfoPageActivity.class));
     }
