@@ -19,6 +19,8 @@ import com.example.antidote_mobile.MainActivity;
 import com.example.antidote_mobile.Player;
 import com.example.antidote_mobile.R;
 import com.example.antidote_mobile.User;
+import com.parse.ParseException;
+import com.parse.ParseUser;
 
 import org.hamcrest.Matcher;
 import org.junit.After;
@@ -26,6 +28,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -57,10 +62,25 @@ public class JoinGameTest {
 
     @Test
     public void testClickJoinGameGoesToLobbyWithGameObject() {
-        Game game = Game.createGame(new Player().createPlayer(User.getNewGuest()));
+        User user = User.signUpGuest();
+
+        if (user == null) return;
+
+        Player player = new Player().createPlayer(user);
+        Game game = Game.createGame(player);
+        assert game != null;
         Espresso.onView(ViewMatchers.withId(R.id.joinCodeTextView))
                 .perform(replaceText(game.roomCode));
         Espresso.onView(ViewMatchers.withId(R.id.joinGameButton)).perform(click());
         intended(hasComponent(LobbyActivity.class.getName()));
+
+        try {
+            ParseUser.deleteAll(Collections.singletonList(user));
+            // Can be added for cleanup when Player extends ParseObject
+            // ParseObject.deleteAll(Arrays.asList(player));
+            game.deleteGame();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

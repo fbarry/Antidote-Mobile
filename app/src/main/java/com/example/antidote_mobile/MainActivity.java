@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    void updateDisplayedUsername() {
+    public void updateDisplayedUsername() {
         TextView usernameTextView = findViewById(R.id.usernameTextView);
         usernameTextView.setText(R.string.hey_there);
         usernameTextView.append(" " + AntidoteMobile.currentUser.getUsername());
