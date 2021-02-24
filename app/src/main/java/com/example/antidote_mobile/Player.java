@@ -27,18 +27,6 @@ public class Player implements Serializable {
     }
 
     public Player createPlayer(User user) {
-        if (user.getObjectId() == null) {
-            User signedup = User.signUpGuest(user.getUsername(), AntidoteMobile.guestPassword);
-
-            if (signedup == null) {
-                System.out.println("FAILED TO CREATE SIGN UP");
-                return null;
-            }
-
-            user.setObjectId(signedup.getObjectId());
-            System.out.println("SIGNED UP: " + user.getObjectId());
-        }
-
         ParseObject po = new ParseObject("Player");
         po.put("who", user.getObjectId());
         po.put("cards", new ArrayList<String>());

@@ -18,6 +18,9 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.Objects;
+
+import static android.view.View.GONE;
 
 public class MainActivity extends AppCompatActivity {
     @SuppressWarnings("unused")
@@ -31,13 +34,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        AntidoteMobile.currentUser = User.signIn("randomUser", "randomPassword");
-
         updateDisplayedUsername();
 
         if (AntidoteMobile.currentUser != null && !AntidoteMobile.currentUser.isGuest()) {
             Button loginbutton = findViewById(R.id.loginButton);
-            loginbutton.setText("Profile");
+            loginbutton.setVisibility(GONE);
         }
 
     }
@@ -61,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
     public void onCreateGame(View v) {
         currentPlayer = new Player().createPlayer(AntidoteMobile.currentUser);
         if (currentPlayer == null) {
-            // failed
             System.out.println("FAILED TO CREATE NEW PLAYER");
         } else {
             goToLobbyActivity(Game.createGame(currentPlayer));
@@ -73,42 +73,30 @@ public class MainActivity extends AppCompatActivity {
         String gameCode = gameCodeTextView.getText().toString();
         currentPlayer = null;
 
-        // If a player exists with us as its pointer, get that guy,
-        if (AntidoteMobile.currentUser.getObjectId() != null) {
-            // It's at least possible that a player exists with us, since we're
-            // registered with the database. Go find a Player with us
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Player");
+        query.whereEqualTo("who", AntidoteMobile.currentUser.getObjectId());
 
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Player");
-            query.whereEqualTo("who", AntidoteMobile.currentUser.getObjectId());
-
-            try {
-                ArrayList<ParseObject> candidates = (ArrayList<ParseObject>) query.find();
-                System.out.println(candidates.size() + " potential Players found (should be 0 or 1)");
-                for (ParseObject obj : candidates) {
-                    if (obj.getString("who").equals(AntidoteMobile.currentUser.getObjectId())) {
-                        currentPlayer = new Player(obj);
-                        break;
-                    }
+        try {
+            ArrayList<ParseObject> candidates = (ArrayList<ParseObject>) query.find();
+            System.out.println(candidates.size() + " potential Players found (should be 0 or 1)");
+            for (ParseObject obj : candidates) {
+                if (Objects.equals(obj.getString("who"), AntidoteMobile.currentUser.getObjectId())) {
+                    currentPlayer = new Player(obj);
+                    break;
                 }
-            } catch (ParseException e) {
-                System.out.println("Couldn't find an existing Player with current user, making one");
-                currentPlayer = null;
             }
-
-            if (currentPlayer != null) {
-                // We found a player, so rejoin the game it's in
-                goToLobbyActivity(Game.rejoinGame(currentPlayer));
-                return;
-            }
+        } catch (ParseException e) {
+            System.out.println("Couldn't find an existing Player with current user, making one");
         }
 
-        // We couldn't find an existing Player to use, so let's try to make one
+        if (currentPlayer != null) {
+            goToLobbyActivity(Game.rejoinGame(currentPlayer));
+            return;
+        }
 
         if (gameCode.length() == 0) return;
 
-        System.out.println("TRY TO JOIN: " + gameCode);
         currentPlayer = new Player().createPlayer(AntidoteMobile.currentUser);
-
 
         if (currentPlayer == null) {
             System.out.println("FAILED TO CREATE NEW PLAYER");
@@ -136,47 +124,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void launchLoginWindowDialog(View v) {
+        Dialog myDialog = new Dialog(this);
+        myDialog.setContentView(R.layout.login_popup);
+        myDialog.setCancelable(true);
+        myDialog.setTitle("gaming");
+        Button login = myDialog.findViewById(R.id.login_loginButton);
 
-        if (AntidoteMobile.currentUser == null || AntidoteMobile.currentUser.isGuest()) {
+        myDialog.show();
 
-            Dialog myDialog = new Dialog(this);
-            myDialog.setContentView(R.layout.login_popup);
-            myDialog.setCancelable(true);
-            myDialog.setTitle("gaming");
-            Button login = myDialog.findViewById(R.id.login_loginButton);
+        //noinspection Convert2Lambda
+        login.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View v) {
 
-            myDialog.show();
+                EditText username = myDialog.findViewById(R.id.login_usernameEntry);
+                EditText password = myDialog.findViewById(R.id.login_passwordEntry);
+                TextView message = myDialog.findViewById(R.id.login_textViewMessage);
 
-            //noinspection Convert2Lambda
-            login.setOnClickListener(new View.OnClickListener() {
-                @SuppressLint("SetTextI18n")
-                @Override
-                public void onClick(View v) {
+                AntidoteMobile.currentUser = User.signIn(username.getText().toString(), password.getText().toString());
 
-                    EditText username = myDialog.findViewById(R.id.login_usernameEntry);
-                    EditText password = myDialog.findViewById(R.id.login_passwordEntry);
-                    TextView message = myDialog.findViewById(R.id.login_textViewMessage);
+                password.getText().clear();
+                if (AntidoteMobile.currentUser != null) {
+                    username.getText().clear();
+                    updateDisplayedUsername();
+                    myDialog.dismiss();
 
-                    AntidoteMobile.currentUser = User.signIn(username.getText().toString(), password.getText().toString());
-
-                    password.getText().clear();
-                    if (AntidoteMobile.currentUser != null) {
-                        username.getText().clear();
-                        updateDisplayedUsername();
-                        myDialog.dismiss();
-
-                        Button loginbutton = findViewById(R.id.loginButton);
-                        loginbutton.setText("Profile");
-                    } else {
-                        message.setText(R.string.login_failed);
-                    }
-
+                    Button loginbutton = findViewById(R.id.loginButton);
+                    loginbutton.setText("Profile");
+                } else {
+                    message.setText(R.string.login_failed);
                 }
-            });
 
-        } else {
-            startActivity(new Intent(MainActivity.this, ProfilePageActivity.class));
-        }
+            }
+        });
     }
 
 }
