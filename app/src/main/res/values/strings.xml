@@ -5,6 +5,11 @@
     <string name="create_game_button">Create Game</string>
     <string name="join_game_button">Join Game</string>
     <string name="game_code_placeholder">ENTER GAME CODE</string>
+    <string name="login_username">Username</string>
+    <string name="login_password">Password</string>
+    <string name="signup_message">Don\'t have an account yet? Sign up here.</string>
+    <string name="continue_as_guest">Continue as guest</string>
+    <string name="login_title">Login</string>
 
     <string name="InfoButtonDesc">Take the user to the info page</string>
     <string name="BackButtonDesc">Returns the user to the previous page</string>
