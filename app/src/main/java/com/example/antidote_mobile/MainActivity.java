@@ -78,12 +78,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    void updateDisplayedUsername() {
+    public void updateDisplayedUsername() {
         TextView usernameTextView = findViewById(R.id.usernameTextView);
         usernameTextView.setText(R.string.hey_there);
         usernameTextView.append(" " + AntidoteMobile.currentUser.getUsername());
         usernameTextView.append("!");
     }
+
+
     public void onCreateGame(View v) {
         currentPlayer = new Player().createPlayer(AntidoteMobile.currentUser);
         if (currentPlayer == null) {

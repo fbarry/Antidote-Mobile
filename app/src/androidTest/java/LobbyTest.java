@@ -83,9 +83,13 @@ public class LobbyTest {
 
     private Activity getNewLobby() {
         Intent goToLobby = new Intent();
-        Game game = Game.createGame(new Player().createPlayer(User.getNewGuest()));
+        User user = User.signUpGuest();
+        assert user != null;
+        Player player = new Player().createPlayer(user);
+        Game game = Game.createGame(player);
         Bundle sendGame = new Bundle();
         sendGame.putSerializable("gameInfo", game);
+        sendGame.putSerializable("currentPlayer", player);
         goToLobby.putExtras(sendGame);
 
         return lobbyActivityTestRule.launchActivity(goToLobby);
