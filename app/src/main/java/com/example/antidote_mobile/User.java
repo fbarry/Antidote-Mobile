@@ -11,11 +11,11 @@ public class User extends ParseUser {
         super();
     }
 
-    public boolean isGuest(){
+    public boolean isGuest() {
         return this.getBoolean("isGuest");
     }
 
-    public void setIsGuest(boolean isGuest){
+    public void setIsGuest(boolean isGuest) {
         this.put("isGuest", isGuest);
     }
 

@@ -95,10 +95,10 @@ class Card implements Comparable<Card> {
                 canvas.drawText("S", x + 20, y + 40, blackText);
                 break;
             case TOXIN:
-                canvas.drawText("X"+toxin.getText().charAt(0), x + 20, y + 40, blackText);
+                canvas.drawText("X" + toxin.getText().charAt(0), x + 20, y + 40, blackText);
                 break;
             case ANTIDOTE:
-                canvas.drawText("A"+toxin.getText().charAt(0)+number, x + 20, y + 40, blackText);
+                canvas.drawText("A" + toxin.getText().charAt(0) + number, x + 20, y + 40, blackText);
                 break;
             case NONE:
             default:
@@ -113,9 +113,9 @@ class Card implements Comparable<Card> {
 
     public String getStringValue() {
         String out = "NONE";
-        if(type != CardType.NONE) out = type.getText();
-        if(toxin != Toxin.NONE) out += "." + toxin.getText();
-        if(number != -1) out += "." + number;
+        if (type != CardType.NONE) out = type.getText();
+        if (toxin != Toxin.NONE) out += "." + toxin.getText();
+        if (number != -1) out += "." + number;
         return out;
     }
 
