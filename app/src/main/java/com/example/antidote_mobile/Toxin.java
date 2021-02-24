@@ -23,7 +23,7 @@ public enum Toxin {
     }
 
     public static Toxin fromString(String text) {
-        if(text == null) return null;
+        if (text == null) return null;
         for (Toxin t : Toxin.values()) {
             if (t.text.equalsIgnoreCase(text)) {
                 return t;

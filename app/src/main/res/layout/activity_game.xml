@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         app:deck_left="70"
         app:deck_right="1020"
-        app:deck_top="1500"
+        app:deck_top="1450"
         tools:layout_editor_absoluteX="31dp"
         tools:layout_editor_absoluteY="-30dp" />
 

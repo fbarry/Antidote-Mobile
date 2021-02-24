@@ -56,7 +56,7 @@ public class User extends ParseUser {
         try {
             newProfile.signUp();
             // success! don't need to do much, since we have the stuff ready anyway...
-            return (User) newProfile;
+            return newProfile;
         } catch (ParseException e) {
             return null;
         }
@@ -71,7 +71,7 @@ public class User extends ParseUser {
         try {
             newProfile.signUp();
             // Success! don't need to do much, since we have the stuff ready anyway...
-            return (User) newProfile;
+            return newProfile;
         } catch (ParseException e) {
             System.out.println("Failed to sign guest up!");
             return null;

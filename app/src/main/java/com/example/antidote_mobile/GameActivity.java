@@ -22,10 +22,10 @@ public class GameActivity extends AppCompatActivity {
         currentPlayer = (Player) getIntent().getSerializableExtra("currentPlayer");
 
         ch = findViewById(R.id.cardHandler);
-        ch.setCards(currentPlayer.cards);
+        ch.setCards(currentPlayer.cards());
 
         TextView gameCodeTextView = findViewById(R.id.gameCodeTextView);
-        gameCodeTextView.append(" "+game.roomCode);
+        gameCodeTextView.append(" " + game.roomCode());
 
 
     }
@@ -34,10 +34,10 @@ public class GameActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        if (game.host.equals(currentPlayer.objectId)) {
+        if (game.host().equals(currentPlayer.getObjectId())) {
             game.deleteGame();
         } else {
-            game.removePlayer(currentPlayer.objectId);
+            game.removePlayer(currentPlayer.getObjectId());
         }
     }
 

@@ -32,7 +32,7 @@ public class LobbyActivity extends AppCompatActivity {
         game = (Game) getIntent().getSerializableExtra("gameInfo");
         currentPlayer = (Player) getIntent().getSerializableExtra("currentPlayer");
 
-        if (!currentPlayer.objectId.equals(game.host)) {
+        if (!currentPlayer.getObjectId().equals(game.host())) {
             Button startGameButton = findViewById(R.id.startGameButton);
             startGameButton.setVisibility(View.GONE);
             Button endGameButton = findViewById(R.id.endGameButton);
@@ -43,7 +43,7 @@ public class LobbyActivity extends AppCompatActivity {
         }
 
         TextView roomCodeTextView = findViewById(R.id.roomCodeTextView);
-        roomCodeTextView.setText(game.roomCode);
+        roomCodeTextView.setText(game.roomCode());
 
         updatePlayerList();
 
@@ -68,22 +68,22 @@ public class LobbyActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        if (currentPlayer != null && game != null && currentPlayer.objectId.equals(game.host))
+        if (currentPlayer != null && game != null && currentPlayer.getObjectId().equals(game.host()))
             game.deleteGame();
         else if (currentPlayer != null && game != null)
-            game.removePlayer(currentPlayer.objectId);
+            game.removePlayer(currentPlayer.getObjectId());
     }
 
     public void update() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
-        query.getInBackground(game.objectId, (object, e) -> {
+        query.getInBackground(game.getObjectId(), (object, e) -> {
             if (e != null) {
                 if (object == null) {
                     game = null;
                     LobbyActivity.this.finish();
                 }
             } else {
-                game = new Game(object);
+                game = (Game) object;
                 updatePlayerList();
                 updateGameScreen();
             }
@@ -91,15 +91,17 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     public void updateGameScreen() {
-        if (game.numCards > 0) {
+        if (game.host().equals(currentPlayer.getObjectId())) return;
+
+        if (game.numCards() > 0) {
             ParseQuery<ParseObject> query = new ParseQuery<>("Player");
 
             try {
-                ParseObject po = query.get(currentPlayer.objectId);
-                currentPlayer = new Player(po);
+                ParseObject po = query.get(currentPlayer.getObjectId());
+                currentPlayer = (Player) po;
                 goToGameScreen();
             } catch (ParseException e) {
-                game.removePlayer(currentPlayer.objectId);
+                game.removePlayer(currentPlayer.getObjectId());
                 e.printStackTrace();
             }
         }
@@ -109,7 +111,7 @@ public class LobbyActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.playerList);
 
         ParseQuery<ParseObject> getPlayers = new ParseQuery<>("Player");
-        getPlayers.whereContainedIn("objectId", game.players);
+        getPlayers.whereContainedIn("objectId", game.players());
 
         getPlayers.findInBackground((objects, e) -> {
             ArrayList<String> userObjectIds = new ArrayList<>();
@@ -136,7 +138,7 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     public void leaveGame(View v) {
-        game.removePlayer(currentPlayer.objectId);
+        game.removePlayer(currentPlayer.getObjectId());
         currentPlayer = null;
         LobbyActivity.this.finish();
     }
@@ -149,39 +151,40 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     public void startGame(View v) throws ParseException {
-        if (game.numPlayers < 2) return;
+        if (game.numPlayers() < 2) return;
 
-        game.numRoundsCompleted = 0;
-        game.currentTurn = Utilities.getRandomInt(0, game.players.size() - 1);
+        game.setNumRoundsCompleted(0);
+        game.setCurrentTurn(Utilities.getRandomInt(0, game.players().size() - 1));
 
         int numFormulas;
-        if (game.numPlayers == 7) numFormulas = 8;
+        if (game.numPlayers() == 7) numFormulas = 8;
         else numFormulas = 7;
 
         int numCardsPerFormula;
-        if (game.numPlayers == 2) numCardsPerFormula = 3;
-        else numCardsPerFormula = game.numPlayers;
+        if (game.numPlayers() == 2) numCardsPerFormula = 3;
+        else numCardsPerFormula = game.numPlayers();
 
         int numSyringes;
-        if (game.numPlayers == 2 || game.numPlayers == 3) numSyringes = 3;
-        else if (game.numPlayers == 4) numSyringes = 2;
-        else if (game.numPlayers == 5) numSyringes = 4;
-        else if (game.numPlayers == 6) numSyringes = 6;
+        if (game.numPlayers() == 2 || game.numPlayers() == 3) numSyringes = 3;
+        else if (game.numPlayers() == 4) numSyringes = 2;
+        else if (game.numPlayers() == 5) numSyringes = 4;
+        else if (game.numPlayers() == 6) numSyringes = 6;
         else numSyringes = 7;
 
         int startingHandSize;
-        if (4 <= game.numPlayers && game.numPlayers <= 6) startingHandSize = 9;
+        if (4 <= game.numPlayers() && game.numPlayers() <= 6) startingHandSize = 9;
         else startingHandSize = 10;
 
-        game.numCards = game.numPlayers * startingHandSize;
+        game.setNumCards(startingHandSize);
 
         int numSpecialDist;
-        if (game.numPlayers == 2 || game.numPlayers == 3) numSpecialDist = 3;
+        if (game.numPlayers() == 2 || game.numPlayers() == 3) numSpecialDist = 3;
         else numSpecialDist = 2;
 
         @SuppressWarnings("unchecked")
-        ArrayList<String>[] hands = new ArrayList[game.numPlayers];
-        for (int player = 0; player < game.numPlayers; ++player) hands[player] = new ArrayList<>();
+        ArrayList<String>[] hands = new ArrayList[game.numPlayers()];
+        for (int player = 0; player < game.numPlayers(); ++player)
+            hands[player] = new ArrayList<>();
 
         ArrayList<Card> specialPile = new ArrayList<>();
         for (int formula = 0; formula < numFormulas; ++formula) {
@@ -190,7 +193,7 @@ public class LobbyActivity extends AppCompatActivity {
             specialPile.add(add);
         }
 
-        game.toxin = specialPile.remove(Utilities.getRandomInt(0, specialPile.size() - 1)).toxin;
+        game.setToxin(specialPile.remove(Utilities.getRandomInt(0, specialPile.size() - 1)).toxin);
 
         for (int syringe = 0; syringe < numSyringes; ++syringe) {
             Card add = new Card(0, 0);
@@ -198,7 +201,7 @@ public class LobbyActivity extends AppCompatActivity {
             specialPile.add(add);
         }
 
-        for (int player = 0; player < game.numPlayers; ++player) {
+        for (int player = 0; player < game.numPlayers(); ++player) {
             for (int dist = 0; dist < numSpecialDist; ++dist) {
                 hands[player].add(specialPile.remove(Utilities.getRandomInt(0, specialPile.size() - 1)).getStringValue());
             }
@@ -213,7 +216,7 @@ public class LobbyActivity extends AppCompatActivity {
             }
         }
 
-        for (int player = 0; player < game.numPlayers; ++player) {
+        for (int player = 0; player < game.numPlayers(); ++player) {
             for (int cardNum = numSpecialDist; cardNum < startingHandSize; ++cardNum) {
                 hands[player].add(remainingCards.remove(Utilities.getRandomInt(0, remainingCards.size() - 1)).getStringValue());
             }
@@ -221,9 +224,9 @@ public class LobbyActivity extends AppCompatActivity {
 
         int playerIndex = 0;
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Player");
-        for (String playerId : game.players) {
-            if (playerId.equals(currentPlayer.objectId)) {
-                currentPlayer.cards = new ArrayList<>(hands[playerIndex]);
+        for (String playerId : game.players()) {
+            if (playerId.equals(currentPlayer.getObjectId())) {
+                currentPlayer.setCards(new ArrayList<>(hands[playerIndex]));
             }
             try {
                 ParseObject player = query.get(playerId);
@@ -234,7 +237,7 @@ public class LobbyActivity extends AppCompatActivity {
             }
         }
 
-        game.updateGameStart();
+        game.save();
     }
 
     public void goToGameScreen() {

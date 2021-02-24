@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        AntidoteMobile.currentUser = User.signIn("randomUser", "randomPassword");
+        AntidoteMobile.currentUser = User.signIn("randomUser2", "randomPassword");
 
         updateDisplayedUsername();
 
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     void updateDisplayedUsername() {
         TextView usernameTextView = findViewById(R.id.usernameTextView);
+        System.out.println(usernameTextView + " IS THE USERNAME TEXT VIEW");
         usernameTextView.setText(R.string.hey_there);
         usernameTextView.append(" " + AntidoteMobile.currentUser.getUsername());
         usernameTextView.append("!");
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onCreateGame(View v) {
-        currentPlayer = new Player().createPlayer(AntidoteMobile.currentUser);
+        currentPlayer = Player.createPlayer(AntidoteMobile.currentUser);
         if (currentPlayer == null) {
             // failed
             System.out.println("FAILED TO CREATE NEW PLAYER");
@@ -85,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<ParseObject> candidates = (ArrayList<ParseObject>) query.find();
                 System.out.println(candidates.size() + " potential Players found (should be 0 or 1)");
                 for (ParseObject obj : candidates) {
-                    if (obj.getString("who").equals(AntidoteMobile.currentUser.getObjectId())) {
-                        currentPlayer = new Player(obj);
+                    if (AntidoteMobile.currentUser.getObjectId().equals(obj.getString("who"))) {
+                        currentPlayer = (Player) obj;
                         break;
                     }
                 }
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         if (gameCode.length() == 0) return;
 
         System.out.println("TRY TO JOIN: " + gameCode);
-        currentPlayer = new Player().createPlayer(AntidoteMobile.currentUser);
+        currentPlayer = Player.createPlayer(AntidoteMobile.currentUser);
 
 
         if (currentPlayer == null) {

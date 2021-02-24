@@ -1,5 +1,6 @@
 package com.example.antidote_mobile;
 
+import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -10,36 +11,101 @@ import java.util.Collections;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class Game implements Serializable {
-    public String roomCode, objectId, host;
-    public ArrayList<String> players;
-    public int numPlayers, currentTurn, numCards, numRoundsCompleted;
-    public Toxin toxin;
+@ParseClassName("Game")
+public class Game extends ParseObject implements Serializable {
 
     public Game() {
-        this.players = new ArrayList<>();
+
     }
 
-    public Game(ParseObject po) {
-        this.host = po.getString("host");
-        this.currentTurn = po.getInt("currentTurn");
-        this.numCards = po.getInt("numCards");
-        this.numRoundsCompleted = po.getInt("numRoundsCompleted");
-        this.numPlayers = po.getInt("numPlayers");
-        this.toxin = Toxin.fromString(po.getString("toxin"));
+    public String roomCode() {
+        return getString("roomCode");
+    }
 
+    public void setRoomCode(String roomCode) {
+        put("roomCode", roomCode);
+    }
+
+    public String host() {
+        return getString("host");
+    }
+
+    public void setHost(String host) {
+        put("host", host);
+    }
+
+    public ArrayList<String> players() {
         //noinspection unchecked
-        this.players = (ArrayList<String>) po.get("players");
+        return (ArrayList<String>) get("players");
+    }
 
-        this.roomCode = po.getString("roomCode");
-        this.objectId = po.getObjectId();
+    public void setPlayers(ArrayList<String> players) {
+        put("players", players);
+    }
+
+    public int numPlayers() {
+        return getInt("numPlayers");
+    }
+
+    public void setNumPlayers(int numPlayers) {
+        put("numPlayers", numPlayers);
+    }
+
+    public int currentTurn() {
+        return getInt("currentTurn");
+    }
+
+    public void setCurrentTurn(int currentTurn) {
+        put("currentTurn", currentTurn);
+    }
+
+    public void incrementCurrentTurn() {
+        put("currentTurn", (currentTurn() + 1) % numPlayers());
+    }
+
+    public int numCards() {
+        return getInt("numCards");
+    }
+
+    public void setNumCards(int numCards) {
+        put("numCards", numCards);
+    }
+
+    public int numRoundsCompleted() {
+        return getInt("numRoundsCompleted");
+    }
+
+    public void setNumRoundsCompleted(int numRoundsCompleted) {
+        put("numRoundsCompleted", numRoundsCompleted);
+    }
+
+    public Toxin toxin() {
+        return Toxin.fromString(getString("toxin"));
+    }
+
+    public void setToxin(Toxin toxin) {
+        put("toxin", toxin.getText());
+    }
+
+    public void setToxin(String toxin) {
+        put("toxin", toxin);
+    }
+
+    public void addPlayer(String newPlayer) {
+        ArrayList<String> curPlayers = players();
+        curPlayers.add(newPlayer);
+        setPlayers(curPlayers);
+        setNumPlayers(curPlayers.size());
+    }
+
+    public void addPlayer(Player newPlayer) {
+        addPlayer(newPlayer.getObjectId());
     }
 
     public static Game getGame(String objectId) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
         try {
-            ParseObject po = query.get(objectId);
-            return new Game(po);
+            return (Game) query.get(objectId);
         } catch (ParseException e) {
             return null;
         }
@@ -48,20 +114,20 @@ public class Game implements Serializable {
     public static Game createGame(Player player) {
         String newGameCode = Utilities.getRandomString(AntidoteMobile.gameCodeLength);
 
-        ParseObject newGame = new ParseObject("Game");
+        Game newGame = new Game();
 
-        newGame.put("host", player.objectId);
-        newGame.put("roomCode", newGameCode);
-        newGame.put("numPlayers", 1);
-        newGame.put("currentTurn", 0);
-        newGame.put("numCards", -1);
-        newGame.put("players", new ArrayList<>(Collections.singletonList(player.objectId)));
-        newGame.put("numRoundsCompleted", 0);
-        newGame.put("toxin", Toxin.NONE.getText());
+        newGame.setHost(player.getObjectId());
+        newGame.setRoomCode(newGameCode);
+        newGame.setNumPlayers(1);
+        newGame.setCurrentTurn(0);
+        newGame.setNumCards(-1);
+        newGame.setPlayers(new ArrayList<>(Collections.singletonList(player.getObjectId())));
+        newGame.setNumRoundsCompleted(0);
+        newGame.setToxin(Toxin.NONE.getText());
 
         try {
             newGame.save();
-            return new Game(newGame);
+            return newGame;
         } catch (ParseException e) {
             System.out.println(e.getMessage());
             return null;
@@ -82,8 +148,8 @@ public class Game implements Serializable {
         if (games == null) return null;
         for (ParseObject gameCandidate : games) {
             List<Object> players = gameCandidate.getList("players");
-            if (players != null && players.contains(player.objectId)) {
-                return new Game(gameCandidate);
+            if (players != null && players.contains(player.getObjectId())) {
+                return (Game) gameCandidate;
             }
         }
 
@@ -94,62 +160,47 @@ public class Game implements Serializable {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
         query.whereEqualTo("roomCode", roomCode);
 
-        ParseObject po = null;
+        Game toJoin;
 
         try {
-            ArrayList<ParseObject> candidates = (ArrayList<ParseObject>) query.find();
-            System.out.println(candidates);
-            for (ParseObject obj : candidates) {
-                if (obj.getString("roomCode").equals(roomCode)) {
-                    po = obj;
-                    break;
-                }
-            }
+            toJoin = (Game) query.getFirst();
         } catch (ParseException e) {
             System.out.println("Could not find game object");
             return null;
         }
 
-        if (po == null) return null;
+        if (toJoin == null) return null;
 
-        //noinspection unchecked
-        ArrayList<String> ids = (ArrayList<String>) po.get("players");
+        toJoin.addPlayer(player);
+        toJoin.saveInBackground();
 
-        assert ids != null;
-        ids.add(player.objectId);
-        po.put("players", ids);
-        po.put("numPlayers", ids.size());
-
-        po.saveInBackground();
-
-        return new Game(po);
+        return toJoin;
     }
 
     public void update() throws ParseException {
         ParseQuery<ParseObject> query = new ParseQuery<>("Game");
-        ParseObject po = query.get(this.objectId);
+        Game po = (Game) query.get(getObjectId());
 
-        this.currentTurn = po.getInt("currentTurn");
-        this.numCards = po.getInt("numCards");
-        this.numRoundsCompleted = po.getInt("numRoundsCompleted");
-        this.numPlayers = po.getInt("numPlayers");
-        this.toxin = Toxin.fromString(po.getString("toxin"));
-
-        //noinspection unchecked
-        this.players = (ArrayList<String>) po.get("players");
-
-        this.roomCode = po.getString("roomCode");
-        this.objectId = po.getObjectId();
+        setCurrentTurn(po.currentTurn());
+        setNumCards(po.numCards());
+        setNumRoundsCompleted(po.numRoundsCompleted());
+        setNumPlayers(po.numPlayers());
+        setPlayers(po.players());
+        setRoomCode(po.roomCode());
+        setObjectId(po.getObjectId());
+        setToxin(po.toxin());
+        setHost(po.host());
+        setCurrentTurn(po.currentTurn());
     }
 
     // TODO: Handle errors
     @SuppressWarnings("StatementWithEmptyBody")
     public void deleteGame() {
-        ArrayList<String> playerList = new ArrayList<>(players);
+        ArrayList<String> playerList = new ArrayList<>(players());
         for (String playerId : playerList) removePlayer(playerId);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
-        query.getInBackground(this.objectId, (object, e) -> {
+        query.getInBackground(getObjectId(), (object, e) -> {
             if (e == null) {
                 object.deleteInBackground(e2 -> {
                     if (e2 == null) {
@@ -164,8 +215,10 @@ public class Game implements Serializable {
     // TODO: Handle errors
     @SuppressWarnings("StatementWithEmptyBody")
     public void removePlayer(String playerId) {
-        players.remove(playerId);
-        numPlayers--;
+        ArrayList<String> curPlayers = players();
+        curPlayers.remove(playerId);
+        setPlayers(curPlayers);
+        setNumPlayers(curPlayers.size());
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Player");
 
@@ -177,7 +230,7 @@ public class Game implements Serializable {
 
                         ParseObject po;
                         try {
-                            po = query2.get(objectId);
+                            po = query2.get(getObjectId());
 
                             //noinspection unchecked
                             ArrayList<String> ids = (ArrayList<String>) po.get("players");
@@ -200,15 +253,4 @@ public class Game implements Serializable {
         });
     }
 
-    public void updateGameStart() throws ParseException {
-        ParseQuery<ParseObject> query = new ParseQuery<>("Game");
-        ParseObject po = query.get(objectId);
-
-        po.put("currentTurn", currentTurn);
-        po.put("numCards", numCards);
-        po.put("numRoundsCompleted", numRoundsCompleted);
-        po.put("toxin", toxin.getText());
-
-        po.save();
-    }
 }
