@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -92,8 +91,6 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     public void updateGameScreen() {
-        if (game.host.equals(currentPlayer.objectId)) return;
-
         if (game.numCards > 0) {
             ParseQuery<ParseObject> query = new ParseQuery<>("Player");
 
@@ -238,7 +235,6 @@ public class LobbyActivity extends AppCompatActivity {
         }
 
         game.updateGameStart();
-        goToGameScreen();
     }
 
     public void goToGameScreen() {
