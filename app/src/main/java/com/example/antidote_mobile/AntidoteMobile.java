@@ -19,14 +19,10 @@ public class AntidoteMobile extends Application {
         ParseUser.registerSubclass(User.class);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
-                .applicationId("eTrWlVXg4AnZU2ZMLg7YVsQ6LsgNluEkY9Z7DRob")
-                .clientKey("THyrLzi4oRMpVB0VTc7sG2HlzcSyQT0SsCUeBIBd")
+                .applicationId("vyp5dLVIrJQ81Bmy8MBK47rxhJ46hrIT34Xy1yGk")
+                .clientKey("Movx5aZHHDMIKPOM3tZNMROrfuG8lladrcFRse7x")
                 .server("https://parseapi.back4app.com")
                 .build()
         );
-
-        ParseUser.logOutInBackground();
-
-        currentUser = User.getNewGuest();
     }
 }

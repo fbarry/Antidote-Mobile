@@ -1,6 +1,7 @@
 package com.example.antidote_mobile;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -12,10 +13,31 @@ import com.parse.ParseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
+    SharedPreferences sp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+
+        sp = getSharedPreferences("login", MODE_PRIVATE);
+
+        // Logs current user out for testing purposes
+        // sp.edit().putBoolean("logged", false).apply();
+
+        if(sp.getBoolean("logged",false)) {
+            String userId = sp.getString("currentUser", "ERROR: NOT SET");
+
+            System.out.println("PERSISTENT");
+
+            try {
+                User user = (User) ParseUser.getQuery().get(userId);
+                goToDashboard(user);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } else {
+            setContentView(R.layout.activity_login);
+        }
     }
 
     public void onLogin(View v) {
@@ -26,8 +48,8 @@ public class LoginActivity extends AppCompatActivity {
         if (password.equals("")) return;
 
         try {
-            AntidoteMobile.currentUser = (User) ParseUser.logIn(username, password);
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            User user = (User) ParseUser.logIn(username, password);
+            goToDashboard(user);
         } catch (ParseException e) {
             System.out.println(e.getMessage());
         }
@@ -38,9 +60,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onContinueAsGuest(View v) {
-        AntidoteMobile.currentUser = User.signUpGuest();
-        if (AntidoteMobile.currentUser == null) return;
+        User user = User.signUpGuest();
 
+        if (user == null) return;
+
+        goToDashboard(user);
+    }
+
+    public void goToDashboard(User user) {
+        AntidoteMobile.currentUser = user;
+        sp.edit().putBoolean("logged", true).apply();
+        sp.edit().putString("currentUser", user.getObjectId()).apply();
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
     }
 }
