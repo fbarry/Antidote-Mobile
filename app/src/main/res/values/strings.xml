@@ -66,4 +66,5 @@
     <string name="default_games_won">Games Won</string>
     <string name="default_games_lost">Games Lost</string>
     <string name="default_win_rate">Win Rate</string>
+
 </resources>
