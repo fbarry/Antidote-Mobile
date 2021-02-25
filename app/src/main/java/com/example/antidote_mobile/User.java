@@ -38,13 +38,6 @@ public class User extends ParseUser {
         }
     }
 
-    public static User getNewGuest() {
-        User ret = new User();
-        ret.setUsername("guest_" + (int) (Math.random() * 100000000));
-        ret.setIsGuest(true);
-        return ret;
-    }
-
     public static User signUp(String username, String password, String email) {
         User newProfile = new User();
         newProfile.setUsername(username);
@@ -56,22 +49,21 @@ public class User extends ParseUser {
         try {
             newProfile.signUp();
             // success! don't need to do much, since we have the stuff ready anyway...
-            return newProfile;
+            return (User) newProfile;
         } catch (ParseException e) {
             return null;
         }
     }
 
-    public static User signUpGuest(String username, String password) {
+    public static User signUpGuest() {
         User newProfile = new User();
-        newProfile.setUsername(username);
-        newProfile.setPassword(password);
+        newProfile.setUsername("guest_" + (int) (Math.random() * 100000000));
+        newProfile.setPassword(AntidoteMobile.guestPassword);
         newProfile.setIsGuest(true);
 
         try {
             newProfile.signUp();
-            // Success! don't need to do much, since we have the stuff ready anyway...
-            return newProfile;
+            return (User) newProfile;
         } catch (ParseException e) {
             System.out.println("Failed to sign guest up!");
             return null;

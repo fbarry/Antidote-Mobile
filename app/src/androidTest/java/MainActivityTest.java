@@ -9,9 +9,13 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
+import com.example.antidote_mobile.AntidoteMobile;
 import com.example.antidote_mobile.InfoPageActivity;
 import com.example.antidote_mobile.MainActivity;
 import com.example.antidote_mobile.R;
+import com.example.antidote_mobile.User;
+import com.parse.ParseException;
+import com.parse.ParseUser;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,6 +23,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.w3c.dom.Text;
+
+import java.util.Arrays;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;

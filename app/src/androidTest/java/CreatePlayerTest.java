@@ -14,12 +14,18 @@ import com.example.antidote_mobile.MainActivity;
 import com.example.antidote_mobile.Player;
 import com.example.antidote_mobile.R;
 import com.example.antidote_mobile.User;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 import static androidx.test.espresso.action.ViewActions.click;
 import static org.junit.Assert.assertEquals;
@@ -42,8 +48,21 @@ public class CreatePlayerTest {
 
     @Test
     public void testCreatePlayerForNewGame() {
-        Player player = new Player().createPlayer(User.getNewGuest());
+        User newUser = User.signUpGuest();
+
+        if (newUser == null) return;
+
+        Player player = new Player().createPlayer(newUser);
         assertNotNull(player);
+
+        try {
+            ParseUser.deleteAll(Collections.singletonList(newUser));
+            // Can be added for cleanup when Player extends ParseObject
+            // ParseObject.deleteAll(Arrays.asList(player));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

@@ -4,24 +4,34 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.material.navigation.NavigationView;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+import static android.view.View.GONE;
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     @SuppressWarnings("unused")
-    private DrawerLayout drawer;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
 
     Player currentPlayer;
 
@@ -31,38 +41,49 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AntidoteMobile.currentUser = User.signIn("randomUser2", "randomPassword");
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
 
         updateDisplayedUsername();
 
         if (AntidoteMobile.currentUser != null && !AntidoteMobile.currentUser.isGuest()) {
             Button loginbutton = findViewById(R.id.loginButton);
-            loginbutton.setText("Profile");
+            loginbutton.setVisibility(GONE);
         }
 
     }
 
-    void updateDisplayedUsername() {
+    @Override
+    public void onBackPressed(){
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else
+        {
+            super.onBackPressed();
+        }
+    }
+
+    public void updateDisplayedUsername() {
         TextView usernameTextView = findViewById(R.id.usernameTextView);
-        System.out.println(usernameTextView + " IS THE USERNAME TEXT VIEW");
         usernameTextView.setText(R.string.hey_there);
         usernameTextView.append(" " + AntidoteMobile.currentUser.getUsername());
         usernameTextView.append("!");
     }
 
-    @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
 
     public void onCreateGame(View v) {
-        currentPlayer = Player.createPlayer(AntidoteMobile.currentUser);
+        currentPlayer = new Player().createPlayer(AntidoteMobile.currentUser);
         if (currentPlayer == null) {
-            // failed
             System.out.println("FAILED TO CREATE NEW PLAYER");
         } else {
             goToLobbyActivity(Game.createGame(currentPlayer));
@@ -74,42 +95,30 @@ public class MainActivity extends AppCompatActivity {
         String gameCode = gameCodeTextView.getText().toString();
         currentPlayer = null;
 
-        // If a player exists with us as its pointer, get that guy,
-        if (AntidoteMobile.currentUser.getObjectId() != null) {
-            // It's at least possible that a player exists with us, since we're
-            // registered with the database. Go find a Player with us
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Player");
+        query.whereEqualTo("who", AntidoteMobile.currentUser.getObjectId());
 
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Player");
-            query.whereEqualTo("who", AntidoteMobile.currentUser.getObjectId());
-
-            try {
-                ArrayList<ParseObject> candidates = (ArrayList<ParseObject>) query.find();
-                System.out.println(candidates.size() + " potential Players found (should be 0 or 1)");
-                for (ParseObject obj : candidates) {
-                    if (AntidoteMobile.currentUser.getObjectId().equals(obj.getString("who"))) {
-                        currentPlayer = (Player) obj;
-                        break;
-                    }
+        try {
+            ArrayList<ParseObject> candidates = (ArrayList<ParseObject>) query.find();
+            System.out.println(candidates.size() + " potential Players found (should be 0 or 1)");
+            for (ParseObject obj : candidates) {
+                if (Objects.equals(obj.getString("who"), AntidoteMobile.currentUser.getObjectId())) {
+                    currentPlayer = new Player(obj);
+                    break;
                 }
-            } catch (ParseException e) {
-                System.out.println("Couldn't find an existing Player with current user, making one");
-                currentPlayer = null;
             }
-
-            if (currentPlayer != null) {
-                // We found a player, so rejoin the game it's in
-                goToLobbyActivity(Game.rejoinGame(currentPlayer));
-                return;
-            }
+        } catch (ParseException e) {
+            System.out.println("Couldn't find an existing Player with current user, making one");
         }
 
-        // We couldn't find an existing Player to use, so let's try to make one
+        if (currentPlayer != null) {
+            goToLobbyActivity(Game.rejoinGame(currentPlayer));
+            return;
+        }
 
         if (gameCode.length() == 0) return;
 
-        System.out.println("TRY TO JOIN: " + gameCode);
-        currentPlayer = Player.createPlayer(AntidoteMobile.currentUser);
-
+        currentPlayer = new Player().createPlayer(AntidoteMobile.currentUser);
 
         if (currentPlayer == null) {
             System.out.println("FAILED TO CREATE NEW PLAYER");
@@ -137,47 +146,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void launchLoginWindowDialog(View v) {
+        Dialog myDialog = new Dialog(this);
+        myDialog.setContentView(R.layout.login_popup);
+        myDialog.setCancelable(true);
+        myDialog.setTitle("gaming");
+        Button login = myDialog.findViewById(R.id.login_loginButton);
 
-        if (AntidoteMobile.currentUser == null || AntidoteMobile.currentUser.isGuest()) {
+        myDialog.show();
 
-            Dialog myDialog = new Dialog(this);
-            myDialog.setContentView(R.layout.login_popup);
-            myDialog.setCancelable(true);
-            myDialog.setTitle("gaming");
-            Button login = myDialog.findViewById(R.id.login_loginButton);
+        //noinspection Convert2Lambda
+        login.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View v) {
 
-            myDialog.show();
+                EditText username = myDialog.findViewById(R.id.login_usernameEntry);
+                EditText password = myDialog.findViewById(R.id.login_passwordEntry);
+                TextView message = myDialog.findViewById(R.id.login_textViewMessage);
 
-            //noinspection Convert2Lambda
-            login.setOnClickListener(new View.OnClickListener() {
-                @SuppressLint("SetTextI18n")
-                @Override
-                public void onClick(View v) {
+                AntidoteMobile.currentUser = User.signIn(username.getText().toString(), password.getText().toString());
 
-                    EditText username = myDialog.findViewById(R.id.login_usernameEntry);
-                    EditText password = myDialog.findViewById(R.id.login_passwordEntry);
-                    TextView message = myDialog.findViewById(R.id.login_textViewMessage);
+                password.getText().clear();
+                if (AntidoteMobile.currentUser != null) {
+                    username.getText().clear();
+                    updateDisplayedUsername();
+                    myDialog.dismiss();
 
-                    AntidoteMobile.currentUser = User.signIn(username.getText().toString(), password.getText().toString());
-
-                    password.getText().clear();
-                    if (AntidoteMobile.currentUser != null) {
-                        username.getText().clear();
-                        updateDisplayedUsername();
-                        myDialog.dismiss();
-
-                        Button loginbutton = findViewById(R.id.loginButton);
-                        loginbutton.setText("Profile");
-                    } else {
-                        message.setText(R.string.login_failed);
-                    }
-
+                    Button loginbutton = findViewById(R.id.loginButton);
+                    loginbutton.setText("Profile");
+                } else {
+                    message.setText(R.string.login_failed);
                 }
-            });
 
-        } else {
-            startActivity(new Intent(MainActivity.this, ProfilePageActivity.class));
-        }
+            }
+        });
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return true;
+    }
 }
