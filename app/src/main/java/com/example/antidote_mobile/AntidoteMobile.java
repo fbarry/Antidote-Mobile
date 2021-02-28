@@ -1,6 +1,7 @@
 package com.example.antidote_mobile;
 
 import com.parse.Parse;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import android.app.Application;
@@ -17,6 +18,8 @@ public class AntidoteMobile extends Application {
         super.onCreate();
 
         ParseUser.registerSubclass(User.class);
+        ParseObject.registerSubclass(Game.class);
+        ParseObject.registerSubclass(Player.class);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("vyp5dLVIrJQ81Bmy8MBK47rxhJ46hrIT34Xy1yGk")

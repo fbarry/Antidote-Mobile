@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     public void onCreateGame(View v) {
-        currentPlayer = new Player().createPlayer(AntidoteMobile.currentUser);
+        currentPlayer = Player.createPlayer(AntidoteMobile.currentUser);
         if (currentPlayer == null) {
             System.out.println("FAILED TO CREATE NEW PLAYER");
         } else {
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             System.out.println(candidates.size() + " potential Players found (should be 0 or 1)");
             for (ParseObject obj : candidates) {
                 if (Objects.equals(obj.getString("who"), AntidoteMobile.currentUser.getObjectId())) {
-                    currentPlayer = new Player(obj);
+                    currentPlayer =  (Player) obj;
                     break;
                 }
             }
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (gameCode.length() == 0) return;
 
-        currentPlayer = new Player().createPlayer(AntidoteMobile.currentUser);
+        currentPlayer = Player.createPlayer(AntidoteMobile.currentUser);
 
         if (currentPlayer == null) {
             System.out.println("FAILED TO CREATE NEW PLAYER");
