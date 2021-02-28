@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         // Logs current user out for testing purposes
         // sp.edit().putBoolean("logged", false).apply();
 
-        if(sp.getBoolean("logged",false)) {
+        if (sp.getBoolean("logged", false)) {
             String userId = sp.getString("currentUser", "ERROR: NOT SET");
 
             System.out.println("PERSISTENT");

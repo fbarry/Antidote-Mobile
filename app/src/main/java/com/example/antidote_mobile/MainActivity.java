@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             System.out.println(candidates.size() + " potential Players found (should be 0 or 1)");
             for (ParseObject obj : candidates) {
                 if (Objects.equals(obj.getString("who"), AntidoteMobile.currentUser.getObjectId())) {
-                    currentPlayer =  (Player) obj;
+                    currentPlayer = (Player) obj;
                     break;
                 }
             }
