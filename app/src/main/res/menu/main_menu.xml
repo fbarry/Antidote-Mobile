@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:ignore="HardcodedText" >
 
     <group android:checkableBehavior="single">
 
@@ -9,20 +11,21 @@
             <item
                 android:id="@+id/nav_home"
                 android:icon="@drawable/example_icon"
-                android:title="Home" />
+                android:title="Home"
+                />
 
             <item
-                android:id="@+id/nav_cycle"
+                android:id="@+id/nav_tab1"
                 android:icon="@drawable/example_icon"
                 android:title="Tab 1" />
 
             <item
-                android:id="@+id/nav_bus"
+                android:id="@+id/nav_tab2"
                 android:icon="@drawable/example_icon"
                 android:title="Tab 2" />
 
             <item
-                android:id="@+id/nav_plane"
+                android:id="@+id/nav_tab3"
                 android:icon="@drawable/example_icon"
                 android:title="Tab 3" />
         </group>
