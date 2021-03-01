@@ -25,6 +25,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -93,6 +94,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 sp = getSharedPreferences("login", MODE_PRIVATE);
                 sp.edit().putBoolean("logged", false).apply();
                 sp.edit().putString("currentUser", "ERROR: NOT SET").apply();
+                ParseUser.logOutInBackground();
+
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 MainActivity.this.finish();
                 break;
         }
