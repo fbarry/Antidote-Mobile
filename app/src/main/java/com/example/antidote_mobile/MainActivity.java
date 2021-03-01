@@ -3,6 +3,7 @@ package com.example.antidote_mobile;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -24,6 +25,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -86,6 +88,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_profile:
                 startActivity(new Intent(MainActivity.this, ProfilePageActivity.class));
+                break;
+            case R.id.nav_logout:
+                SharedPreferences sp;
+                sp = getSharedPreferences("login", MODE_PRIVATE);
+                sp.edit().putBoolean("logged", false).apply();
+                sp.edit().putString("currentUser", "ERROR: NOT SET").apply();
+                ParseUser.logOutInBackground();
+
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                MainActivity.this.finish();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
