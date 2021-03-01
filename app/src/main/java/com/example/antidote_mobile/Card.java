@@ -61,6 +61,11 @@ class Card implements Comparable<Card> {
         this.y = yEnd = y;
     }
 
+    public void forceMove(){
+        this.x = xEnd;
+        this.y = yEnd;
+    }
+
     // Compute and set this card's x to where it should be on it's animation
     private void update() {
         if (Math.abs(xEnd - x) < snapRadius && Math.abs(yEnd - y) < snapRadius) {

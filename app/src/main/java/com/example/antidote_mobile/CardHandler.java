@@ -200,8 +200,11 @@ public class CardHandler extends View {
         return true;
     }
 
-    @SuppressWarnings("unused")
     public void setCards(List<String> cardData) {
+        this.setCards(cardData, false);
+    }
+
+    public void setCards(List<String> cardData, boolean force) {
         cards.clear();
 
         int cidx = 0;
@@ -218,6 +221,11 @@ public class CardHandler extends View {
             cards.add(c);
         }
         fixCards();
+        if(force){
+            for(Card c:cards){
+                c.forceMove();
+            }
+        }
         animateFor(5000);
     }
 

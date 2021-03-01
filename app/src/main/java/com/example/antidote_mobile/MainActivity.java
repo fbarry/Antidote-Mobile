@@ -3,6 +3,7 @@ package com.example.antidote_mobile;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -83,6 +84,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_share:
                 Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_profile:
+                startActivity(new Intent(MainActivity.this, ProfilePageActivity.class));
+                break;
+            case R.id.nav_logout:
+                SharedPreferences sp;
+                sp = getSharedPreferences("login", MODE_PRIVATE);
+                sp.edit().putBoolean("logged", false).apply();
+                sp.edit().putString("currentUser", "ERROR: NOT SET").apply();
+                MainActivity.this.finish();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);

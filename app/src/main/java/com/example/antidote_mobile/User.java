@@ -19,6 +19,32 @@ public class User extends ParseUser {
         this.put("isGuest", isGuest);
     }
 
+    public int getNumberOfWins() {
+        return this.getInt("numberOfWins");
+    }
+
+    public void setNumberOfWins(int numberOfWins) {
+        this.put("numberOfWins", numberOfWins);
+    }
+
+    public int getNumberOfLoses() {
+        return this.getInt("numberOfLoses");
+    }
+
+    public void setNumberOfLoses(int numberOfLoses) {
+        this.put("numberOfLoses", numberOfLoses);
+    }
+
+    public int getTotalGames() {
+        return getNumberOfWins() + getNumberOfLoses();
+    }
+
+    public double getWinRate() {
+        if (getTotalGames() == 0)
+            return 0;
+        return (Math.round(((this.getNumberOfWins() * 100.0) / this.getTotalGames()) * 100.0) / 100.0);
+    }
+
     public static User getUser(String objectId) {
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         try {
@@ -43,6 +69,9 @@ public class User extends ParseUser {
         newProfile.setUsername(username);
         newProfile.setPassword(password);
         newProfile.setIsGuest(false);
+
+        newProfile.setNumberOfWins(0);
+        newProfile.setNumberOfLoses(0);
 
         if (email != null) newProfile.setEmail(email);
 
