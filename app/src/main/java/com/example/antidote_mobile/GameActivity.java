@@ -1,5 +1,6 @@
 package com.example.antidote_mobile;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,11 +8,19 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameActivity extends AppCompatActivity {
 
     Game game;
     Player currentPlayer;
     CardHandler ch;
+    ArrayList<Player> players;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +29,19 @@ public class GameActivity extends AppCompatActivity {
 
         game = (Game) getIntent().getSerializableExtra("gameInfo");
         currentPlayer = (Player) getIntent().getSerializableExtra("currentPlayer");
+
+        ParseQuery<ParseObject> getPlayers = new ParseQuery<>("Player");
+        getPlayers.whereContainedIn("objectId", game.players());
+
+        players = new ArrayList<>();
+        try {
+            List<ParseObject> parseObjects = getPlayers.find();
+            for(ParseObject currObject : parseObjects){
+                players.add((Player) currObject);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         ch = findViewById(R.id.cardHandler);
         ch.setCards(currentPlayer.cards());
@@ -109,9 +131,22 @@ public class GameActivity extends AppCompatActivity {
     }
 
     // playerNum is zero-indexed
-    @SuppressWarnings("unused")
     public void viewWorkstation(int playerNum) {
+        Dialog myDialog = new Dialog(this);
+        myDialog.setContentView(R.layout.activity_workstation);
+        myDialog.setCancelable(true);
+        myDialog.setTitle("gaming");
 
+        myDialog.show();
+
+        CardHandler workstationCh = myDialog.findViewById(R.id.cardHandlerWorkstation);
+
+        if(workstationCh == null){
+            System.err.println("!!! brother.");
+            return;
+        }
+
+        workstationCh.setCards(players.get(playerNum).cards());
     }
 
 }
