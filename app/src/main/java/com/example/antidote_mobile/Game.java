@@ -18,6 +18,14 @@ public class Game extends ParseObject implements Serializable {
 
     }
 
+    public String currentAction() {
+        return getString("currentAction");
+    }
+
+    public void setCurrentAction(String currentAction) {
+        put("currentAction", currentAction);
+    }
+
     public String roomCode() {
         return getString("roomCode");
     }
@@ -124,6 +132,7 @@ public class Game extends ParseObject implements Serializable {
         newGame.setPlayers(new ArrayList<>(Collections.singletonList(player.getObjectId())));
         newGame.setNumRoundsCompleted(0);
         newGame.setToxin(Toxin.NONE.getText());
+        newGame.setCurrentAction(ActionType.NONE.getText());
 
         try {
             newGame.save();
