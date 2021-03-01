@@ -84,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_share:
                 Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.nav_profile:
+                startActivity(new Intent(MainActivity.this, ProfilePageActivity.class));
+                break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

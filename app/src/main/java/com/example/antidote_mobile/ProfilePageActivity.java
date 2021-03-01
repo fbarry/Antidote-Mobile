@@ -14,21 +14,15 @@ public class ProfilePageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        User user = AntidoteMobile.currentUser;
+
         setContentView(R.layout.profile_page);
 
         TextView title = (TextView) findViewById(R.id.profileTitle);
 
-        title.setText(AntidoteMobile.currentUser.getUsername());
+        title.setText(user.getUsername());
         title.append("'s Profile");
-
-
-        int dummyGamesWon = 3;
-        int dummyGamesLost = 4;
-        int dummyGamesPlayed = dummyGamesWon + dummyGamesLost;
-        double dummyWinRate = 0;
-        if (dummyGamesPlayed != 0) {
-            dummyWinRate = (dummyGamesWon * 100.0) / (dummyGamesPlayed);
-        }
 
         TextView gamesPlayed = (TextView) findViewById(R.id.gamesPlayed);
         TextView gamesWon = (TextView) findViewById(R.id.gamesWon);
@@ -36,16 +30,16 @@ public class ProfilePageActivity extends AppCompatActivity {
         TextView winRate = (TextView) findViewById(R.id.winRate);
 
         gamesPlayed.setText("Games Played: ");
-        gamesPlayed.append(dummyGamesPlayed + "");
+        gamesPlayed.append(user.getTotalGames() + "");
 
         gamesWon.setText("Games Won: ");
-        gamesWon.append(dummyGamesWon + "");
+        gamesWon.append(user.getNumberOfWins() + "");
 
         gamesLost.setText("Games Lost: ");
-        gamesLost.append(dummyGamesLost + "");
+        gamesLost.append(user.getNumberOfLoses() + "");
 
         winRate.setText("Win Rate: ");
-        winRate.append((Math.round(dummyWinRate * 100.0) / 100.0) + "%");
+        winRate.append(user.getWinRate() + "%");
     }
 
     public void goBack(View v) {
