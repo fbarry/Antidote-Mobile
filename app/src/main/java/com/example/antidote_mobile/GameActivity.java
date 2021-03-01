@@ -8,11 +8,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -98,7 +101,34 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    public void update(){
+    public void update() {
+        // update our game
+        // update our players arraylist
+        ParseQuery.getQuery("Game").getFirstInBackground((object, e) -> {
+            game = (Game) object;
+
+            ParseQuery<ParseObject> getPlayers = new ParseQuery<>("Player");
+            getPlayers.whereContainedIn("objectId", game.players());
+
+            try {
+                List<ParseObject> parseObjects = getPlayers.find();
+                System.out.println("Got " + parseObjects.size() + " updated players, previously had " + players.size());
+                for (int i = 0; i < players.size(); i++) {
+                    if (parseObjects.get(i).getObjectId().equals(currentPlayer.getObjectId())) {
+                        ArrayList<String> oldCards = currentPlayer.cards();
+                        currentPlayer = (Player) parseObjects.get(i);
+                        if (!oldCards.equals(currentPlayer.cards())) {
+                            ch.setCards(currentPlayer.cards());
+                            System.out.println("Updated cards!");
+                        }
+                    }
+                    if (parseObjects.get(i).getObjectId().equals(players.get(i).getObjectId())) {
+                        players.set(i, (Player) parseObjects.get(i));
+                    }
+                }
+            } catch (ParseException ignored) {
+            }
+        });
 
     }
 
