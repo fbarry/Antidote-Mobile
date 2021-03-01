@@ -25,14 +25,16 @@ public class CardHandler extends View {
     private final Context context;
     private static final Paint blackText = new Paint();
 
+    private static final long TAP_WINDOW = 500;
     private static final int millisPerFrame = 2, maxDx = 150;
     private int minCardX = 50, maxCardX = 1000, cardY = 1000;
 
     Card touching;
+    Card lifted;
     int xOffset, yOffset;
 
     ArrayList<Card> cards;
-    long animationFrames = 0;
+    long animationFrames = 0, fingerDownTime = 0;
     Timer invalidateTimer;
 
     // Number of times onDraw has been called (for debug)
@@ -174,6 +176,7 @@ public class CardHandler extends View {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                fingerDownTime = System.currentTimeMillis();
                 for (int i = cards.size() - 1; i >= 0; i--) {
                     Card c = cards.get(i);
                     if (c.pointInside(touchX, touchY)) {
@@ -183,6 +186,9 @@ public class CardHandler extends View {
                         break;
                     }
                 }
+                if(lifted != null && lifted != touching){
+                    lifted.setTarget(lifted.x, cardY);
+                }
             case MotionEvent.ACTION_MOVE:
                 if (touching != null) {
                     fixCards();
@@ -191,7 +197,13 @@ public class CardHandler extends View {
                 break;
             case MotionEvent.ACTION_UP:
                 if (touching != null) {
-                    touching.setTarget(touchX - xOffset, cardY);
+                    if (System.currentTimeMillis() - fingerDownTime < TAP_WINDOW && touching != lifted) {
+                        touching.setTarget(touchX - xOffset, cardY - 50);
+                        lifted = touching;
+                    } else {
+                        touching.setTarget(touchX - xOffset, cardY);
+                        lifted = null;
+                    }
                     fixCards();
                     touching = null;
                 }
@@ -221,8 +233,8 @@ public class CardHandler extends View {
             cards.add(c);
         }
         fixCards();
-        if(force){
-            for(Card c:cards){
+        if (force) {
+            for (Card c : cards) {
                 c.forceMove();
             }
         }
