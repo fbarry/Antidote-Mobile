@@ -18,6 +18,22 @@ public class Player extends ParseObject implements Serializable {
 
     }
 
+    public boolean isLocked() {
+        return this.getBoolean("isLocked");
+    }
+
+    public void setIsLocked(boolean isLocked) {
+        this.put("isLocked", isLocked);
+    }
+
+    public int selectedIdx() {
+        return this.getInt("selectedIdx");
+    }
+
+    public void setSelectedIdx(int selectedIdx) {
+        this.put("selectedIdx", selectedIdx);
+    }
+
     public String who() {
         return this.getString("who");
     }
@@ -78,6 +94,8 @@ public class Player extends ParseObject implements Serializable {
         ret.setCards(new ArrayList<>());
         ret.setWorkstation(new ArrayList<>());
         ret.setPoints(0);
+        ret.setIsLocked(false);
+        ret.setSelectedIdx(-1);
 
         if (user.isGuest()) ret.setUsername(Player.guestUsername);
         else ret.setUsername(user.getUsername());
