@@ -14,9 +14,13 @@ import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity {
 
+    public static final int millisPerUpdate = 4_000;
+    Timer refreshTimer;
     Game game;
     Player currentPlayer;
     CardHandler ch;
@@ -84,6 +88,17 @@ public class GameActivity extends AppCompatActivity {
                 ((TextView) findViewById(R.id.player1TextView)).setText(players.get(0).username());
         }
 
+        refreshTimer = new Timer();
+
+        refreshTimer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                runOnUiThread(() -> update());
+            }
+        }, 0, millisPerUpdate);
+
+    }
+
+    public void update(){
 
     }
 
