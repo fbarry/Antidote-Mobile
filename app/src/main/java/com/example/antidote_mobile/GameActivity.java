@@ -36,7 +36,7 @@ public class GameActivity extends AppCompatActivity {
         players = new ArrayList<>();
         try {
             List<ParseObject> parseObjects = getPlayers.find();
-            for(ParseObject currObject : parseObjects){
+            for (ParseObject currObject : parseObjects) {
                 players.add((Player) currObject);
             }
         } catch (ParseException e) {
@@ -141,12 +141,7 @@ public class GameActivity extends AppCompatActivity {
 
         CardHandler workstationCh = myDialog.findViewById(R.id.cardHandlerWorkstation);
 
-        if(workstationCh == null){
-            System.err.println("!!! brother.");
-            return;
-        }
-
-        workstationCh.setCards(players.get(playerNum).cards());
+        workstationCh.setCards(players.get(playerNum).workstation());
     }
 
 }

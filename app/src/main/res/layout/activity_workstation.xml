@@ -7,12 +7,12 @@
 
     <com.example.antidote_mobile.CardHandler
         android:id="@+id/cardHandlerWorkstation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:deck_left="70"
         app:deck_right="930"
         app:deck_top="70"
         tools:layout_editor_absoluteX="-28dp"
-        tools:layout_editor_absoluteY="41dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        tools:layout_editor_absoluteY="41dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
