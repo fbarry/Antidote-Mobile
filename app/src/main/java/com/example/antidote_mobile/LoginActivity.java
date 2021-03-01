@@ -44,7 +44,11 @@ public class LoginActivity extends AppCompatActivity {
         String username = ((TextView) findViewById(R.id.editTextUsername)).getText().toString();
         String password = ((TextView) findViewById(R.id.editTextPassword)).getText().toString();
 
-        login(username, password);
+        if (login(username, password)) {
+            ((TextView) findViewById(R.id.editTextUsername)).setText("");
+        }
+
+        ((TextView) findViewById(R.id.editTextPassword)).setText("");
     }
 
     public boolean login(String username, String password) {
