@@ -76,6 +76,7 @@ public class Player extends ParseObject implements Serializable {
 
         ret.setWho(user.getObjectId());
         ret.setCards(new ArrayList<>());
+        ret.setWorkstation(new ArrayList<>());
         ret.setPoints(0);
 
         if (user.isGuest()) ret.setUsername(Player.guestUsername);
