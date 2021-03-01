@@ -78,7 +78,7 @@ For players of the game Antidote who want to play remotely with friends or bots,
 
 ### Task Allocation
 
-- Fiona Barry: Implement kicking people from the lobby and persistent login
+- Fiona Barry: Implement persistent login
 - Jacob Steinebronn: Implement game play
 - Enrique Rodriguez: Finish implementing the navigation menu
 - Daniel West: Create a sign up page and help implement game play
