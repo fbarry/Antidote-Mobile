@@ -27,6 +27,15 @@ public class Player extends ParseObject implements Serializable {
         return (ArrayList<String>) this.get("cards");
     }
 
+    public ArrayList<String> workstation() {
+        //noinspection unchecked
+        return (ArrayList<String>) this.get("workstation");
+    }
+
+    public void setWorkstation(List<String> workstation) {
+        this.put("workstation", workstation);
+    }
+
     public String username() {
         return this.getString("username");
     }
@@ -69,7 +78,7 @@ public class Player extends ParseObject implements Serializable {
         ret.setCards(new ArrayList<>());
         ret.setPoints(0);
 
-        if(user.isGuest()) ret.setUsername(Player.guestUsername);
+        if (user.isGuest()) ret.setUsername(Player.guestUsername);
         else ret.setUsername(user.getUsername());
 
         try {
