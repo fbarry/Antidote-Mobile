@@ -91,8 +91,6 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     public void updateGameScreen() {
-        if (game.host().equals(currentPlayer.getObjectId())) return;
-
         if (game.numCards() > 0) {
             ParseQuery<ParseObject> query = new ParseQuery<>("Player");
 
