@@ -60,6 +60,7 @@ public class User extends ParseUser {
             ParseUser returned = ParseUser.logIn(username, password);
             return (User) returned;
         } catch (ParseException e) {
+            System.out.println(e.getMessage());
             return null;
         }
     }
