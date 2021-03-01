@@ -12,7 +12,7 @@ import java.util.List;
 @ParseClassName("Player")
 public class Player extends ParseObject implements Serializable {
 
-    public static final String guestUsername = "IM_A_GUEST_aniveacuinveowihoaiscvmeoin";
+    public static final String guestUsername = "IM_A_GUEST_aniveacuinveowih";
 
     public Player() {
 
