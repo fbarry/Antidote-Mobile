@@ -12,6 +12,8 @@ import java.util.List;
 @ParseClassName("Player")
 public class Player extends ParseObject implements Serializable {
 
+    public static final String guestUsername = "IM_A_GUEST_aniveacuinveowihoaiscvmeoin";
+
     public Player() {
 
     }
@@ -23,6 +25,14 @@ public class Player extends ParseObject implements Serializable {
     public ArrayList<String> cards() {
         //noinspection unchecked
         return (ArrayList<String>) this.get("cards");
+    }
+
+    public String username() {
+        return this.getString("username");
+    }
+
+    public void setUsername(String username) {
+        this.put("username", username);
     }
 
     public int points() {
@@ -58,6 +68,9 @@ public class Player extends ParseObject implements Serializable {
         ret.setWho(user.getObjectId());
         ret.setCards(new ArrayList<>());
         ret.setPoints(0);
+
+        if(user.isGuest()) ret.setUsername(Player.guestUsername);
+        else ret.setUsername(user.getUsername());
 
         try {
             ret.save();

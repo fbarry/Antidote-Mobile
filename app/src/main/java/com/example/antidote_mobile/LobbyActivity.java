@@ -114,24 +114,12 @@ public class LobbyActivity extends AppCompatActivity {
         getPlayers.whereContainedIn("objectId", game.players());
 
         getPlayers.findInBackground((objects, e) -> {
-            ArrayList<String> userObjectIds = new ArrayList<>();
+            StringBuilder newText = new StringBuilder();
             for (ParseObject po : objects) {
-                userObjectIds.add(po.getString("who"));
                 System.out.println("Found player with objectid " + po.getObjectId());
+                newText.append(((Player) po).username()).append("\n");
             }
-            System.out.println("User object ids for refresh: " + userObjectIds);
-
-            ParseQuery<ParseUser> getUsers = ParseUser.getQuery();
-            getUsers.whereContainedIn("objectId", userObjectIds);
-            getUsers.findInBackground((objects1, e1) -> {
-                StringBuilder newText = new StringBuilder();
-                for (ParseUser user : objects1) {
-                    System.out.println("Found user with objectid " + user.getObjectId());
-                    newText.append(user.getUsername());
-                    newText.append("\n");
-                }
-                textView.setText(newText.toString());
-            });
+            textView.setText(newText.toString());
         });
 
 
