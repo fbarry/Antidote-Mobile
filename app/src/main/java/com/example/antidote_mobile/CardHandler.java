@@ -26,7 +26,7 @@ public class CardHandler extends View {
     private static final Paint blackText = new Paint();
 
     private static final int millisPerFrame = 2, maxDx = 150;
-    private static int minCardX = 50, maxCardX = 1000, cardY = 1000;
+    private int minCardX = 50, maxCardX = 1000, cardY = 1000;
 
     Card touching;
     int xOffset, yOffset;
