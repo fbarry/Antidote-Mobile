@@ -32,6 +32,8 @@ public class CardHandler extends View {
     Card touching;
     Card lifted;
     int xOffset, yOffset;
+    boolean draggable = false, selectable = true;
+
 
     ArrayList<Card> cards;
     long animationFrames = 0, fingerDownTime = 0;
@@ -71,6 +73,7 @@ public class CardHandler extends View {
             minCardX = a.getInteger(R.styleable.CardHandler_deck_left, 10);
             maxCardX = a.getInteger(R.styleable.CardHandler_deck_right, 10);
             cardY = a.getInteger(R.styleable.CardHandler_deck_top, 10);
+            draggable = a.getBoolean(R.styleable.CardHandler_draggable, false);
         } finally {
             a.recycle();
         }
@@ -115,6 +118,15 @@ public class CardHandler extends View {
             }
         }, 0, millisPerFrame);
     }
+
+    public int getSelectedIndex() {
+        if (lifted == null) return -1;
+        for (int i = 0; i < cards.size(); i++) {
+            if (cards.get(i) == lifted) return i;
+        }
+        return -1;
+    }
+
 
     // Ensure that "cards" is in sorted order of target x, and set each card's
     // animation to go to that position.
@@ -168,11 +180,28 @@ public class CardHandler extends View {
 
     }
 
+    public void deselect() {
+        if (lifted != null) {
+            lifted.setTarget(lifted.x, cardY);
+            animateFor(2000);
+        }
+    }
+
+    public void forceSelect(int idx) {
+        deselect();
+        if (idx >= cards.size() || idx < 0) return;
+        lifted = cards.get(idx);
+        lifted.setTarget(lifted.x, cardY - 50);
+        animateFor(2000);
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int touchX = (int) event.getX();
         int touchY = (int) event.getY();
+
+        if (!selectable) return true;
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -186,18 +215,18 @@ public class CardHandler extends View {
                         break;
                     }
                 }
-                if(lifted != null && lifted != touching){
+                if (lifted != null && lifted != touching) {
                     lifted.setTarget(lifted.x, cardY);
                 }
             case MotionEvent.ACTION_MOVE:
-                if (touching != null) {
+                if (touching != null && draggable) {
                     fixCards();
                     touching.forceSetPosition(touchX - xOffset, touchY - yOffset);
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 if (touching != null) {
-                    if (System.currentTimeMillis() - fingerDownTime < TAP_WINDOW && touching != lifted) {
+                    if (System.currentTimeMillis() - fingerDownTime < TAP_WINDOW && touching != lifted && selectable) {
                         touching.setTarget(touchX - xOffset, cardY - 50);
                         lifted = touching;
                     } else {
@@ -212,13 +241,25 @@ public class CardHandler extends View {
         return true;
     }
 
+    public ArrayList<String> getCardData() {
+        ArrayList<String> ans = new ArrayList<>();
+        for (Card c : cards) {
+            ans.add(c.getCardData());
+        }
+        return ans;
+    }
+
+    public void forceAll() {
+        for (Card c : cards) c.forceMove();
+    }
+
     public void setCards(List<String> cardData) {
         this.setCards(cardData, false);
     }
 
     public void setCards(List<String> cardData, boolean force) {
         cards.clear();
-
+        System.out.println("Set Cards: " + cardData);
         int cidx = 0;
         for (String data : cardData) {
             Card c = new Card(minCardX + cidx++, cardY);

@@ -12,6 +12,7 @@
         app:deck_left="70"
         app:deck_right="930"
         app:deck_top="70"
+        app:draggable="false"
         tools:layout_editor_absoluteX="-28dp"
         tools:layout_editor_absoluteY="41dp" />
 

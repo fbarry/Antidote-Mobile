@@ -27,6 +27,13 @@ class Card implements Comparable<Card> {
         this.y = yEnd = y;
     }
 
+    public String getCardData() {
+        String ret = type.getText();
+        if (toxin != Toxin.NONE) ret += "." + toxin.getText();
+        if (number != -1) ret += "." + number;
+        return ret;
+    }
+
     public void setCardData(CardType type) {
         this.type = type;
     }
@@ -61,7 +68,7 @@ class Card implements Comparable<Card> {
         this.y = yEnd = y;
     }
 
-    public void forceMove(){
+    public void forceMove() {
         this.x = xEnd;
         this.y = yEnd;
     }

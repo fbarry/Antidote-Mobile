@@ -8,14 +8,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -116,11 +113,18 @@ public class GameActivity extends AppCompatActivity {
                 for (int i = 0; i < players.size(); i++) {
                     if (parseObjects.get(i).getObjectId().equals(currentPlayer.getObjectId())) {
                         ArrayList<String> oldCards = currentPlayer.cards();
+                        int oldSelected = currentPlayer.selectedIdx();
                         currentPlayer = (Player) parseObjects.get(i);
                         if (!oldCards.equals(currentPlayer.cards())) {
                             ch.setCards(currentPlayer.cards());
                             System.out.println("Updated cards!");
                         }
+                        if (currentPlayer.isLocked()) {
+                            ch.forceAll();
+                            ch.forceSelect(currentPlayer.selectedIdx());
+                        }
+                        ch.selectable = !currentPlayer.isLocked();
+
                     }
                     if (parseObjects.get(i).getObjectId().equals(players.get(i).getObjectId())) {
                         players.set(i, (Player) parseObjects.get(i));
@@ -187,6 +191,22 @@ public class GameActivity extends AppCompatActivity {
         CardHandler workstationCh = myDialog.findViewById(R.id.cardHandlerWorkstation);
 
         workstationCh.setCards(players.get(playerNum).workstation());
+    }
+
+    public void passCardsLeft(View v) {
+        game.setCurrentAction(ActionType.PASSLEFT.getText());
+        game.saveInBackground();
+    }
+
+    public void confirmSelection(View v) {
+        int selectedIdx = ch.getSelectedIndex();
+        if (selectedIdx == -1) return;
+        System.out.println("Selected " + selectedIdx);
+        currentPlayer.setIsLocked(true);
+        currentPlayer.setCards(ch.getCardData());
+        currentPlayer.setSelectedIdx(selectedIdx);
+        currentPlayer.saveInBackground();
+        ch.selectable = false;
     }
 
 }
