@@ -78,5 +78,10 @@
     <string name="player_5">Player 5</string>
     <string name="player_6">Player 6</string>
     <string name="player_7">Player 7</string>
+    <string name="turn">Turn:</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="have_an_account_log_in_here">Have an account? Log In here.</string>
+    <string name="email">Email</string>
 
 </resources>

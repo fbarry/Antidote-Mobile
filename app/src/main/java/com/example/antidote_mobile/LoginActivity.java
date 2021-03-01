@@ -78,5 +78,6 @@ public class LoginActivity extends AppCompatActivity {
         sp.edit().putBoolean("logged", true).apply();
         sp.edit().putString("currentUser", user.getObjectId()).apply();
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        LoginActivity.this.finish();
     }
 }
