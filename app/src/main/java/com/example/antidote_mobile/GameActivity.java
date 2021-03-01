@@ -69,19 +69,19 @@ public class GameActivity extends AppCompatActivity {
         }
         switch (game.numPlayers()) {
             case 7:
-                ((TextView) findViewById(R.id.player7TextView)).setText(game.players().get(6));
+                ((TextView) findViewById(R.id.player7TextView)).setText(players.get(6).username());
             case 6:
-                ((TextView) findViewById(R.id.player6TextView)).setText(game.players().get(5));
+                ((TextView) findViewById(R.id.player6TextView)).setText(players.get(5).username());
             case 5:
-                ((TextView) findViewById(R.id.player5TextView)).setText(game.players().get(4));
+                ((TextView) findViewById(R.id.player5TextView)).setText(players.get(4).username());
             case 4:
-                ((TextView) findViewById(R.id.player4TextView)).setText(game.players().get(3));
+                ((TextView) findViewById(R.id.player4TextView)).setText(players.get(3).username());
             case 3:
-                ((TextView) findViewById(R.id.player3TextView)).setText(game.players().get(2));
+                ((TextView) findViewById(R.id.player3TextView)).setText(players.get(2).username());
             case 2:
-                ((TextView) findViewById(R.id.player2TextView)).setText(game.players().get(1));
+                ((TextView) findViewById(R.id.player2TextView)).setText(players.get(1).username());
             case 1:
-                ((TextView) findViewById(R.id.player1TextView)).setText(game.players().get(0));
+                ((TextView) findViewById(R.id.player1TextView)).setText(players.get(0).username());
         }
 
 
