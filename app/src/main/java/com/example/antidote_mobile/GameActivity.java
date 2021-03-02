@@ -15,10 +15,10 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity {
 
+    @SuppressWarnings("unused")
     public static final int millisPerUpdate = 4_000;
     Timer refreshTimer;
     Game game;
@@ -90,12 +90,17 @@ public class GameActivity extends AppCompatActivity {
 
         refreshTimer = new Timer();
 
-        refreshTimer.scheduleAtFixedRate(new TimerTask() {
-            public void run() {
-                runOnUiThread(() -> update());
-            }
-        }, 0, millisPerUpdate);
+        update();
+//        refreshTimer.scheduleAtFixedRate(new TimerTask() {
+//            public void run() {
+//                runOnUiThread(() -> update());
+//            }
+//        }, 0, millisPerUpdate);
 
+    }
+
+    public void gameRefresh(View v) {
+        update();
     }
 
     public void update() {
@@ -113,7 +118,6 @@ public class GameActivity extends AppCompatActivity {
                 for (int i = 0; i < players.size(); i++) {
                     if (parseObjects.get(i).getObjectId().equals(currentPlayer.getObjectId())) {
                         ArrayList<String> oldCards = currentPlayer.cards();
-                        int oldSelected = currentPlayer.selectedIdx();
                         currentPlayer = (Player) parseObjects.get(i);
                         if (!oldCards.equals(currentPlayer.cards())) {
                             ch.setCards(currentPlayer.cards());

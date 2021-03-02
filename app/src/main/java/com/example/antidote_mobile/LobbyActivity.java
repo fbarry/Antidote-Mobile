@@ -74,7 +74,7 @@ public class LobbyActivity extends AppCompatActivity {
             game.removePlayer(currentPlayer.getObjectId());
     }
 
-    public void lobbyRefresh(View v){
+    public void lobbyRefresh(View v) {
         update();
     }
 
