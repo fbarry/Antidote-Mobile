@@ -11,14 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class LobbyActivity extends AppCompatActivity {
 
+    @SuppressWarnings("unused")
     public static final int millisPerUpdate = 4000;
     Game game;
     Player currentPlayer;
@@ -49,11 +48,12 @@ public class LobbyActivity extends AppCompatActivity {
 
         refreshTimer = new Timer();
 
-        refreshTimer.scheduleAtFixedRate(new TimerTask() {
-            public void run() {
-                runOnUiThread(() -> update());
-            }
-        }, 0, millisPerUpdate);
+        update();
+//        refreshTimer.scheduleAtFixedRate(new TimerTask() {
+//            public void run() {
+//                runOnUiThread(() -> update());
+//            }
+//        }, 0, millisPerUpdate);
 
     }
 
@@ -72,6 +72,10 @@ public class LobbyActivity extends AppCompatActivity {
             game.deleteGame();
         else if (currentPlayer != null && game != null)
             game.removePlayer(currentPlayer.getObjectId());
+    }
+
+    public void lobbyRefresh(View v){
+        update();
     }
 
     public void update() {
