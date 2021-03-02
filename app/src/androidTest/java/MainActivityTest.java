@@ -51,12 +51,6 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testUserSeesUsername() {
-        TextView usernameTextView = activityRule.getActivity().findViewById(R.id.usernameTextView);
-        assertNotEquals(R.string.hey_there + "!", usernameTextView.getText().toString());
-    }
-
-    @Test
     public void testEnterInfoPage() {
         Espresso.onView(ViewMatchers.withId(R.id.infoButton)).perform(click());
         intended(hasComponent(InfoPageActivity.class.getName()));

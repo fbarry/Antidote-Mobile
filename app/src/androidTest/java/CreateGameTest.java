@@ -42,14 +42,6 @@ import static org.junit.Assert.assertTrue;
 @RunWith(AndroidJUnit4.class)
 public class CreateGameTest {
 
-    @Rule
-    public ActivityTestRule<LobbyActivity> lobbyActivityTestRule
-            = new ActivityTestRule<>(LobbyActivity.class, true, false);
-
-    @Rule
-    public ActivityTestRule<MainActivity> mainActivityTestRule
-            = new ActivityTestRule<>(MainActivity.class, true, true);
-
     @Before
     public void initIntents() {
         Intents.init();
@@ -61,26 +53,19 @@ public class CreateGameTest {
     }
 
     @Test
-    public void testClickCreateGameGoesToLobby() {
-        Espresso.onView(ViewMatchers.withId(R.id.createGameButton)).perform(click());
-        intended(hasComponent(LobbyActivity.class.getName()));
-    }
-
-    @Test
     public void testCreateNewGameFunction() {
-        User newUser = User.signUpGuest();
-        assert newUser != null;
-        Player player = new Player().createPlayer(newUser);
+        User user = User.signIn("randomUser", "randomPassword");
+
+        assert user != null;
+
+        Player player = Player.createPlayer(user);
+
+        assert player != null;
+
         Game game = Game.createGame(player);
+
         assertNotNull(game);
 
-        try {
-            ParseUser.deleteAll(Collections.singletonList(newUser));
-            // Can be added for cleanup when Player extends ParseObject
-            // ParseObject.deleteAll(Arrays.asList(player));
-            game.deleteGame();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        game.deleteGame();
     }
 }
