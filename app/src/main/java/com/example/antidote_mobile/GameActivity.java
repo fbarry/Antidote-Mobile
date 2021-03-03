@@ -144,9 +144,9 @@ public class GameActivity extends AppCompatActivity {
                     }
                 }
                 if(game.players().get(game.currentTurn()).equals(currentPlayer.getObjectId())){
-                    findViewById(R.id.passCardsLeftButton).setVisibility(View.GONE);
-                }else{
                     findViewById(R.id.passCardsLeftButton).setVisibility(View.VISIBLE);
+                }else{
+                    findViewById(R.id.passCardsLeftButton).setVisibility(View.GONE);
                 }
             } catch (ParseException ignored) {
             }
