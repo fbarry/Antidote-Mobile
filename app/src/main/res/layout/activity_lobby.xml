@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="ROOM CODE"
+        android:text="@string/room_code"
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textStyle="bold"
@@ -71,7 +71,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:onClick="startGame"
-        android:text="Start Game"
+        android:text="@string/start_game"
         app:layout_constraintBottom_toTopOf="@+id/lobbyScrollView"
         app:layout_constraintEnd_toStartOf="@id/endGameButton"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,7 +84,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:onClick="endGame"
-        android:text="End Game"
+        android:text="@string/end_game"
         app:layout_constraintBottom_toBottomOf="@+id/startGameButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/startGameButton" />
@@ -96,11 +96,22 @@
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
         android:onClick="leaveGame"
-        android:text="Leave Game"
+        android:text="@string/leave_game"
         app:layout_constraintBottom_toTopOf="@id/lobbyScrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/roomCodeTextView" />
+
+    <Button
+        android:id="@+id/lobbyRefreshButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:onClick="lobbyRefresh"
+        android:text="@string/refresh"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

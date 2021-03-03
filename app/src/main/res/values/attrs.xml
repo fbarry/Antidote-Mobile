@@ -14,5 +14,6 @@
         <attr name="deck_top" format="integer" />
         <attr name="deck_bottom" format="integer" />
         <attr name="deck_right" format="integer" />
+        <attr name="draggable" format="boolean" />
     </declare-styleable>
 </resources>

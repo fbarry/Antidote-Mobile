@@ -77,17 +77,6 @@ public class Player extends ParseObject implements Serializable {
     }
 
     public static Player createPlayer(User user) {
-        if (user.getObjectId() == null) {
-
-            try {
-                user.signUp();
-            } catch (ParseException e) {
-                e.printStackTrace();
-                System.out.println("Failed to sign user up!");
-            }
-
-            System.out.println("SIGNED UP: " + user.getObjectId());
-        }
         Player ret = new Player();
 
         ret.setWho(user.getObjectId());

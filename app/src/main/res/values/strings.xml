@@ -83,5 +83,10 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="have_an_account_log_in_here">Have an account? Log In here.</string>
     <string name="email">Email</string>
+    <string name="leave_game">Leave Game</string>
+    <string name="refresh">Refresh</string>
+    <string name="end_game">End Game</string>
+    <string name="start_game">Start Game</string>
+    <string name="room_code">ROOM CODE</string>
 
 </resources>

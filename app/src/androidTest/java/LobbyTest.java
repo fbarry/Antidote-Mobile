@@ -63,7 +63,10 @@ public class LobbyTest {
         String listInText = playerListTextView.getText().toString();
         String[] list = listInText.split("\n");
 
-        assertEquals(game.numPlayers, list.length);
+        assertEquals(game.numPlayers(), list.length);
+
+        lobby.finish();
+        game.deleteGame();
     }
 
     @Test
@@ -73,20 +76,26 @@ public class LobbyTest {
         Game game = (Game) (lobby.getIntent().getSerializableExtra("gameInfo"));
 
         TextView roomCodeTextView = lobby.findViewById(R.id.roomCodeTextView);
-        assertEquals(game.roomCode, roomCodeTextView.getText().toString());
-    }
+        assertEquals(game.roomCode(), roomCodeTextView.getText().toString());
 
-    @Test
-    public void testLobbyHasGameIntentWhenLaunching() {
-        assertNotNull(getNewLobby().getIntent().getSerializableExtra("gameInfo"));
+        lobby.finish();
+        game.deleteGame();
     }
 
     private Activity getNewLobby() {
         Intent goToLobby = new Intent();
-        User user = User.signUpGuest();
+        User user = User.signIn("randomUser", "randomPassword");
+
         assert user != null;
-        Player player = new Player().createPlayer(user);
+
+        Player player = Player.createPlayer(user);
+
+        assert player != null;
+
         Game game = Game.createGame(player);
+
+        assert game != null;
+
         Bundle sendGame = new Bundle();
         sendGame.putSerializable("gameInfo", game);
         sendGame.putSerializable("currentPlayer", player);
