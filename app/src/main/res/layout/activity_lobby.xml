@@ -21,16 +21,14 @@
 
     <ScrollView
         android:id="@+id/lobbyScrollView"
-        android:layout_width="405dp"
-        android:layout_height="486dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="128dp"
         android:background="#B0DADF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startGameButton"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@id/roomCodeTextView">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -64,16 +62,15 @@
 
     <Button
         android:id="@+id/startGameButton"
-        android:layout_width="0dp"
-        android:layout_height="51dp"
+        android:layout_width="142dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
         android:onClick="startGame"
         android:text="@string/start_game"
         app:layout_constraintBottom_toTopOf="@+id/lobbyScrollView"
         app:layout_constraintEnd_toStartOf="@id/endGameButton"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/roomCodeTextView" />
 
@@ -85,23 +82,23 @@
         android:layout_marginEnd="32dp"
         android:onClick="endGame"
         android:text="@string/end_game"
-        app:layout_constraintBottom_toBottomOf="@+id/startGameButton"
+        app:layout_constraintBottom_toTopOf="@id/lobbyScrollView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/startGameButton" />
+        app:layout_constraintStart_toEndOf="@+id/startGameButton"
+        app:layout_constraintTop_toBottomOf="@+id/roomCodeTextView" />
 
     <Button
         android:id="@+id/leaveGameButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:onClick="leaveGame"
         android:text="@string/leave_game"
-        app:layout_constraintBottom_toTopOf="@id/lobbyScrollView"
+        app:layout_constraintBottom_toTopOf="@+id/lobbyScrollView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/roomCodeTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/roomCodeTextView" />
 
     <Button
         android:id="@+id/lobbyRefreshButton"
