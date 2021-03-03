@@ -2,11 +2,14 @@ package com.example.antidote_mobile;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -106,11 +109,12 @@ public class GameActivity extends AppCompatActivity {
     public void update() {
         // update our game
         // update our players arraylist
-        ParseQuery.getQuery("Game").getFirstInBackground((object, e) -> {
+        ParseQuery.getQuery("Game").getInBackground(game.getObjectId(), (object, e) -> {
             game = (Game) object;
 
             ParseQuery<ParseObject> getPlayers = new ParseQuery<>("Player");
             getPlayers.whereContainedIn("objectId", game.players());
+            System.out.println(game.players());
 
             try {
                 List<ParseObject> parseObjects = getPlayers.find();
@@ -126,6 +130,8 @@ public class GameActivity extends AppCompatActivity {
                         if (currentPlayer.isLocked()) {
                             ch.forceAll();
                             ch.forceSelect(currentPlayer.selectedIdx());
+                            Drawable nimg = ResourcesCompat.getDrawable(getResources(), R.drawable.xmark, null);
+                            ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
                         }
                         ch.selectable = !currentPlayer.isLocked();
 
@@ -133,6 +139,11 @@ public class GameActivity extends AppCompatActivity {
                     if (parseObjects.get(i).getObjectId().equals(players.get(i).getObjectId())) {
                         players.set(i, (Player) parseObjects.get(i));
                     }
+                }
+                if(game.players().get(game.currentTurn()).equals(currentPlayer.getObjectId())){
+                    findViewById(R.id.passCardsLeftButton).setVisibility(View.GONE);
+                }else{
+                    findViewById(R.id.passCardsLeftButton).setVisibility(View.VISIBLE);
                 }
             } catch (ParseException ignored) {
             }
@@ -205,12 +216,26 @@ public class GameActivity extends AppCompatActivity {
     public void confirmSelection(View v) {
         int selectedIdx = ch.getSelectedIndex();
         if (selectedIdx == -1) return;
-        System.out.println("Selected " + selectedIdx);
-        currentPlayer.setIsLocked(true);
-        currentPlayer.setCards(ch.getCardData());
-        currentPlayer.setSelectedIdx(selectedIdx);
-        currentPlayer.saveInBackground();
-        ch.selectable = false;
+        if(!ch.selectable){
+            // we meant to deselect
+            ch.deselect();
+            ch.selectable = true;
+            Drawable nimg = ResourcesCompat.getDrawable(getResources(), R.drawable.checkmark, null);
+            ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
+            currentPlayer.setIsLocked(false);
+            currentPlayer.setSelectedIdx(-1);
+            currentPlayer.setCards(ch.getCardData());
+            currentPlayer.saveInBackground();
+        }else{
+            System.out.println("Selected " + selectedIdx);
+            currentPlayer.setIsLocked(true);
+            currentPlayer.setCards(ch.getCardData());
+            currentPlayer.setSelectedIdx(selectedIdx);
+            currentPlayer.saveInBackground();
+            ch.selectable = false;
+            Drawable nimg = ResourcesCompat.getDrawable(getResources(), R.drawable.xmark, null);
+            ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
+        }
     }
 
 }
