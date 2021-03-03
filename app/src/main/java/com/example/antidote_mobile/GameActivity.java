@@ -56,6 +56,9 @@ public class GameActivity extends AppCompatActivity {
         TextView gameCodeTextView = findViewById(R.id.gameCodeTextView);
         gameCodeTextView.append(" " + game.roomCode());
 
+        TextView turnTextView = findViewById(R.id.turnTextView);
+        turnTextView.append(" " + currentPlayer.username());
+
         switch (game.numPlayers()) {
             case 1:
             case 2:
