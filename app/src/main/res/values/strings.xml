@@ -88,6 +88,8 @@
     <string name="end_game">End Game</string>
     <string name="start_game">Start Game</string>
     <string name="room_code">ROOM CODE</string>
+    <string name="kick">Kick</string>
     <string name="turn_">Turn:</string>
+    <string name="filler_text">Filler text</string>
 
 </resources>

@@ -7,12 +7,15 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 
 public class LobbyActivity extends AppCompatActivity {
@@ -22,6 +25,8 @@ public class LobbyActivity extends AppCompatActivity {
     Game game;
     Player currentPlayer;
     Timer refreshTimer;
+    RecyclerView playerList;
+    PlayerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +36,12 @@ public class LobbyActivity extends AppCompatActivity {
         game = (Game) getIntent().getSerializableExtra("gameInfo");
         currentPlayer = (Player) getIntent().getSerializableExtra("currentPlayer");
 
-        if (!currentPlayer.getObjectId().equals(game.host())) {
+        playerList = findViewById(R.id.playerList);
+        playerList.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new PlayerAdapter(currentPlayer.isHost());
+        playerList.setAdapter(adapter);
+
+        if (!currentPlayer.isHost()) {
             Button startGameButton = findViewById(R.id.startGameButton);
             startGameButton.setVisibility(View.GONE);
             Button endGameButton = findViewById(R.id.endGameButton);
@@ -68,7 +78,7 @@ public class LobbyActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        if (currentPlayer != null && game != null && currentPlayer.getObjectId().equals(game.host()))
+        if (currentPlayer != null && game != null && currentPlayer.isHost())
             game.deleteGame();
         else if (currentPlayer != null && game != null)
             game.removePlayer(currentPlayer.getObjectId());
@@ -110,21 +120,19 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     public void updatePlayerList() {
-        TextView textView = findViewById(R.id.playerList);
-
         ParseQuery<ParseObject> getPlayers = new ParseQuery<>("Player");
         getPlayers.whereContainedIn("objectId", game.players());
 
         getPlayers.findInBackground((objects, e) -> {
-            StringBuilder newText = new StringBuilder();
+            ArrayList<Player> list = new ArrayList<>();
             for (ParseObject po : objects) {
                 System.out.println("Found player with objectid " + po.getObjectId());
-                newText.append(((Player) po).username()).append("\n");
+                list.add((Player)po);
             }
-            textView.setText(newText.toString());
+
+            adapter.setPlayers(list);
+            adapter.notifyDataSetChanged();
         });
-
-
     }
 
     public void leaveGame(View v) {

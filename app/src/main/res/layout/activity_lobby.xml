@@ -19,46 +19,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:id="@+id/lobbyScrollView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <TextView
+        android:id="@+id/playerLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="128dp"
-        android:background="#B0DADF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/roomCodeTextView">
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/playerLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/player_label"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textStyle="bold"
-                tools:layout_conversion_absoluteHeight="19dp"
-                tools:layout_conversion_absoluteWidth="409dp"
-                tools:layout_editor_absoluteX="1dp"
-                tools:layout_editor_absoluteY="110dp" />
-
-            <TextView
-                android:id="@+id/playerList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="24sp" />
-
-        </LinearLayout>
-    </ScrollView>
+        android:text="@string/player_label"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/roomCodeTextView"
+        tools:layout_conversion_absoluteHeight="19dp"
+        tools:layout_conversion_absoluteWidth="409dp"
+        tools:layout_editor_absoluteX="2dp" />
 
     <Button
         android:id="@+id/startGameButton"
@@ -68,7 +42,7 @@
         android:layout_marginEnd="32dp"
         android:onClick="startGame"
         android:text="@string/start_game"
-        app:layout_constraintBottom_toTopOf="@+id/lobbyScrollView"
+        app:layout_constraintBottom_toTopOf="@id/playerLabel"
         app:layout_constraintEnd_toStartOf="@id/endGameButton"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +56,7 @@
         android:layout_marginEnd="32dp"
         android:onClick="endGame"
         android:text="@string/end_game"
-        app:layout_constraintBottom_toTopOf="@id/lobbyScrollView"
+        app:layout_constraintBottom_toTopOf="@id/playerLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/startGameButton"
         app:layout_constraintTop_toBottomOf="@+id/roomCodeTextView" />
@@ -95,7 +69,7 @@
         android:layout_marginEnd="32dp"
         android:onClick="leaveGame"
         android:text="@string/leave_game"
-        app:layout_constraintBottom_toTopOf="@+id/lobbyScrollView"
+        app:layout_constraintBottom_toTopOf="@+id/playerLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/roomCodeTextView" />
@@ -110,5 +84,15 @@
         android:text="@string/refresh"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/playerList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/purple_200"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/playerLabel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

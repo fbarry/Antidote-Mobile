@@ -18,6 +18,8 @@ public class Player extends ParseObject implements Serializable {
 
     }
 
+    public boolean isHost() { return this.getBoolean("isHost"); }
+
     public boolean isLocked() {
         return this.getBoolean("isLocked");
     }
@@ -68,6 +70,8 @@ public class Player extends ParseObject implements Serializable {
         this.put("who", who);
     }
 
+    public void setIsHost(boolean isHost) { this.put("isHost", isHost); }
+
     public void setCards(List<String> cards) {
         this.put("cards", cards);
     }
@@ -76,9 +80,10 @@ public class Player extends ParseObject implements Serializable {
         this.put("points", points);
     }
 
-    public static Player createPlayer(User user) {
+    public static Player createPlayer(User user, boolean isHost) {
         Player ret = new Player();
 
+        ret.setIsHost(isHost);
         ret.setWho(user.getObjectId());
         ret.setCards(new ArrayList<>());
         ret.setWorkstation(new ArrayList<>());
