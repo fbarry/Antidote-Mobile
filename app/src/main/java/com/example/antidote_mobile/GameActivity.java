@@ -14,6 +14,7 @@ import androidx.core.content.res.ResourcesCompat;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,7 +127,8 @@ public class GameActivity extends AppCompatActivity {
                     if (parseObjects.get(i).getObjectId().equals(currentPlayer.getObjectId())) {
                         ArrayList<String> oldCards = currentPlayer.cards();
                         currentPlayer = (Player) parseObjects.get(i);
-                        if (!oldCards.equals(currentPlayer.cards())) {
+                        System.out.println("Old and new cards: \n"+oldCards+"\n"+ ch.getCardData());
+                        if (!oldCards.equals(ch.getCardData())) {
                             ch.setCards(currentPlayer.cards());
                             System.out.println("Updated cards!");
                         }
@@ -134,6 +136,10 @@ public class GameActivity extends AppCompatActivity {
                             ch.forceAll();
                             ch.forceSelect(currentPlayer.selectedIdx());
                             Drawable nimg = ResourcesCompat.getDrawable(getResources(), R.drawable.xmark, null);
+                            ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
+                        }else{
+                            ch.deselect();
+                            Drawable nimg = ResourcesCompat.getDrawable(getResources(), R.drawable.checkmark, null);
                             ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
                         }
                         ch.selectable = !currentPlayer.isLocked();
@@ -143,15 +149,49 @@ public class GameActivity extends AppCompatActivity {
                         players.set(i, (Player) parseObjects.get(i));
                     }
                 }
-                if(game.players().get(game.currentTurn()).equals(currentPlayer.getObjectId())){
+                if (game.players().get(game.currentTurn()).equals(currentPlayer.getObjectId())) {
                     findViewById(R.id.passCardsLeftButton).setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     findViewById(R.id.passCardsLeftButton).setVisibility(View.GONE);
+                }
+                if (game.host().equals(currentPlayer.getObjectId())) {
+                    // We're the host, perhaps we should complete the computation of a turn?
+                    int numLocked = 0;
+                    for (Player p : players) if (p.isLocked()) numLocked++;
+                    System.out.println(numLocked + " players were locked, out of " + game.numPlayers());
+                    if (numLocked == game.numPlayers()) {
+                        switch (ActionType.fromString(game.currentAction())) {
+                            case PASSLEFT:
+                                performPassLeft();
+                                break;
+                            case TRADE:
+                            case NONE:
+                            default:
+                        }
+                    }
                 }
             } catch (ParseException ignored) {
             }
         });
 
+    }
+
+    void performPassLeft() {
+        System.out.println("Passing Left!!!");
+        ArrayList<String> trades = new ArrayList<>();
+        for (Player p : players) trades.add(p.cards().get(p.selectedIdx()));
+        for (int i = 0; i < game.numPlayers(); i++) {
+            ArrayList<String> pCards = players.get(i).cards();
+            pCards.remove(trades.get(i));
+            int gidx = (trades.size() + i + 1) % trades.size();
+            pCards.add(trades.get(gidx));
+            players.get(i).setCards(pCards);
+            players.get(i).setIsLocked(false);
+            players.get(i).setSelectedIdx(-1);
+        }
+        game.setCurrentTurn((game.currentTurn() + 1) % game.numPlayers());
+        game.setCurrentAction(ActionType.NONE.getText());
+        ParseObject.saveAllInBackground(players, e -> game.saveInBackground(e1 -> update()));
     }
 
     @Override
@@ -219,7 +259,7 @@ public class GameActivity extends AppCompatActivity {
     public void confirmSelection(View v) {
         int selectedIdx = ch.getSelectedIndex();
         if (selectedIdx == -1) return;
-        if(!ch.selectable){
+        if (!ch.selectable) {
             // we meant to deselect
             ch.deselect();
             ch.selectable = true;
@@ -229,7 +269,7 @@ public class GameActivity extends AppCompatActivity {
             currentPlayer.setSelectedIdx(-1);
             currentPlayer.setCards(ch.getCardData());
             currentPlayer.saveInBackground();
-        }else{
+        } else {
             System.out.println("Selected " + selectedIdx);
             currentPlayer.setIsLocked(true);
             currentPlayer.setCards(ch.getCardData());
