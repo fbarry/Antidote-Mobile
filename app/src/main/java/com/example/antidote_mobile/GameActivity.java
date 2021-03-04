@@ -44,8 +44,13 @@ public class GameActivity extends AppCompatActivity {
         players = new ArrayList<>();
         try {
             List<ParseObject> parseObjects = getPlayers.find();
-            for (ParseObject currObject : parseObjects) {
-                players.add((Player) currObject);
+            for(String pid : game.players()){
+                for (ParseObject currObject : parseObjects) {
+                    if(currObject.getObjectId().equals(pid)){
+                        players.add((Player) currObject);
+                        break;
+                    }
+                }
             }
         } catch (ParseException e) {
             e.printStackTrace();
@@ -116,12 +121,6 @@ public class GameActivity extends AppCompatActivity {
         ParseQuery.getQuery("Game").getInBackground(game.getObjectId(), (object, e) -> {
             game = (Game) object;
 
-            TextView turnTextView = findViewById(R.id.turnTextView);
-            turnTextView.setText(R.string.turn_);
-            turnTextView.append(" " + currentPlayer.username());
-            turnTextView.append(", Action: ");
-            turnTextView.append(game.currentAction());
-
             ParseQuery<ParseObject> getPlayers = new ParseQuery<>("Player");
             getPlayers.whereContainedIn("objectId", game.players());
             System.out.println(game.players());
@@ -131,9 +130,9 @@ public class GameActivity extends AppCompatActivity {
                 System.out.println("Got " + parseObjects.size() + " updated players, previously had " + players.size());
                 for (int i = 0; i < players.size(); i++) {
                     if (parseObjects.get(i).getObjectId().equals(currentPlayer.getObjectId())) {
+                        // Update currentPlayer and the game's UI
                         ArrayList<String> oldCards = currentPlayer.cards();
                         currentPlayer = (Player) parseObjects.get(i);
-                        System.out.println("Old and new cards: \n" + oldCards + "\n" + ch.getCardData());
                         if (!oldCards.equals(ch.getCardData())) {
                             ch.setCards(currentPlayer.cards());
                             System.out.println("Updated cards!");
@@ -151,10 +150,12 @@ public class GameActivity extends AppCompatActivity {
                         ch.selectable = !currentPlayer.isLocked();
 
                     }
+                    // Update the players arraylist with this object
                     if (parseObjects.get(i).getObjectId().equals(players.get(i).getObjectId())) {
                         players.set(i, (Player) parseObjects.get(i));
                     }
                 }
+                // Show/hide buttons when necessary
                 if (game.players().get(game.currentTurn()).equals(currentPlayer.getObjectId())) {
                     findViewById(R.id.passCardsLeftButton).setVisibility(View.VISIBLE);
                     findViewById(R.id.passCardsRightButton).setVisibility(View.VISIBLE);
@@ -181,6 +182,14 @@ public class GameActivity extends AppCompatActivity {
                         }
                     }
                 }
+                for(Player p:players){
+                    System.out.println(p.getObjectId()+","+p.username());
+                }
+                TextView turnTextView = findViewById(R.id.turnTextView);
+                turnTextView.setText(R.string.turn_);
+                turnTextView.append(" " + players.get(game.currentTurn()).username());
+                turnTextView.append(", Action: ");
+                turnTextView.append(game.currentAction());
             } catch (ParseException ignored) {
             }
         });
