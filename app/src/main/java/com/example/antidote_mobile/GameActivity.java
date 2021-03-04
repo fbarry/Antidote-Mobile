@@ -127,7 +127,7 @@ public class GameActivity extends AppCompatActivity {
                     if (parseObjects.get(i).getObjectId().equals(currentPlayer.getObjectId())) {
                         ArrayList<String> oldCards = currentPlayer.cards();
                         currentPlayer = (Player) parseObjects.get(i);
-                        System.out.println("Old and new cards: \n"+oldCards+"\n"+ ch.getCardData());
+                        System.out.println("Old and new cards: \n" + oldCards + "\n" + ch.getCardData());
                         if (!oldCards.equals(ch.getCardData())) {
                             ch.setCards(currentPlayer.cards());
                             System.out.println("Updated cards!");
@@ -137,7 +137,7 @@ public class GameActivity extends AppCompatActivity {
                             ch.forceSelect(currentPlayer.selectedIdx());
                             Drawable nimg = ResourcesCompat.getDrawable(getResources(), R.drawable.xmark, null);
                             ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
-                        }else{
+                        } else {
                             ch.deselect();
                             Drawable nimg = ResourcesCompat.getDrawable(getResources(), R.drawable.checkmark, null);
                             ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
@@ -268,16 +268,16 @@ public class GameActivity extends AppCompatActivity {
             currentPlayer.setIsLocked(false);
             currentPlayer.setSelectedIdx(-1);
             currentPlayer.setCards(ch.getCardData());
-            currentPlayer.saveInBackground();
+            currentPlayer.saveInBackground(e -> System.out.println("Saved deselect successfully!"));
         } else {
             System.out.println("Selected " + selectedIdx);
             currentPlayer.setIsLocked(true);
             currentPlayer.setCards(ch.getCardData());
             currentPlayer.setSelectedIdx(selectedIdx);
-            currentPlayer.saveInBackground();
             ch.selectable = false;
             Drawable nimg = ResourcesCompat.getDrawable(getResources(), R.drawable.xmark, null);
             ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
+            currentPlayer.saveInBackground(e -> System.out.println("Saved select successfully!"));
         }
     }
 
