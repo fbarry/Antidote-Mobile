@@ -116,6 +116,12 @@ public class GameActivity extends AppCompatActivity {
         ParseQuery.getQuery("Game").getInBackground(game.getObjectId(), (object, e) -> {
             game = (Game) object;
 
+            TextView turnTextView = findViewById(R.id.turnTextView);
+            turnTextView.setText(R.string.turn_);
+            turnTextView.append(" " + currentPlayer.username());
+            turnTextView.append(", Action: ");
+            turnTextView.append(game.currentAction());
+
             ParseQuery<ParseObject> getPlayers = new ParseQuery<>("Player");
             getPlayers.whereContainedIn("objectId", game.players());
             System.out.println(game.players());
@@ -151,8 +157,10 @@ public class GameActivity extends AppCompatActivity {
                 }
                 if (game.players().get(game.currentTurn()).equals(currentPlayer.getObjectId())) {
                     findViewById(R.id.passCardsLeftButton).setVisibility(View.VISIBLE);
+                    findViewById(R.id.passCardsRightButton).setVisibility(View.VISIBLE);
                 } else {
                     findViewById(R.id.passCardsLeftButton).setVisibility(View.GONE);
+                    findViewById(R.id.passCardsRightButton).setVisibility(View.GONE);
                 }
                 if (game.host().equals(currentPlayer.getObjectId())) {
                     // We're the host, perhaps we should complete the computation of a turn?
@@ -163,6 +171,9 @@ public class GameActivity extends AppCompatActivity {
                         switch (ActionType.fromString(game.currentAction())) {
                             case PASSLEFT:
                                 performPassLeft();
+                                break;
+                            case PASSRIGHT:
+                                performPassRight();
                                 break;
                             case TRADE:
                             case NONE:
@@ -176,8 +187,8 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    void performPassLeft() {
-        System.out.println("Passing Left!!!");
+    // 1 for left, -1 for right
+    void performPass(int direction) {
         ArrayList<String> trades = new ArrayList<>();
         for (Player p : players) trades.add(p.cards().get(p.selectedIdx()));
         for (int i = 0; i < game.numPlayers(); i++) {
@@ -189,9 +200,19 @@ public class GameActivity extends AppCompatActivity {
             players.get(i).setIsLocked(false);
             players.get(i).setSelectedIdx(-1);
         }
-        game.setCurrentTurn((game.currentTurn() + 1) % game.numPlayers());
+        game.setCurrentTurn((game.currentTurn() + direction) % game.numPlayers());
         game.setCurrentAction(ActionType.NONE.getText());
         ParseObject.saveAllInBackground(players, e -> game.saveInBackground(e1 -> update()));
+    }
+
+    void performPassLeft() {
+        System.out.println("Passing Left!!!");
+        performPass(1);
+    }
+
+    void performPassRight() {
+        System.out.println("Passing Right!!!");
+        performPass(-1);
     }
 
     @Override
@@ -252,8 +273,17 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void passCardsLeft(View v) {
-        game.setCurrentAction(ActionType.PASSLEFT.getText());
-        game.saveInBackground();
+        if (currentPlayer.getObjectId().equals(game.players().get(game.currentTurn()))) {
+            game.setCurrentAction(ActionType.PASSLEFT.getText());
+            game.saveInBackground();
+        }
+    }
+
+    public void passCardsRight(View v) {
+        if (currentPlayer.getObjectId().equals(game.players().get(game.currentTurn()))) {
+            game.setCurrentAction(ActionType.PASSRIGHT.getText());
+            game.saveInBackground();
+        }
     }
 
     public void confirmSelection(View v) {
