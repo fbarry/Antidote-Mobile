@@ -94,6 +94,8 @@ public class Player extends ParseObject implements Serializable {
         if (user.isGuest()) ret.setUsername(Player.guestUsername);
         else ret.setUsername(user.getUsername());
 
+        if (isHost) ret.setUsername(ret.username() + " (Host)");
+
         try {
             ret.save();
             return ret;
