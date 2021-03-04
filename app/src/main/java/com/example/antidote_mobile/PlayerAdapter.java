@@ -38,17 +38,26 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         players = new ArrayList<>();
     }
 
-    public void setPlayers(ArrayList<Player> playerList) {
-        players = playerList;
+    public void addPlayer(Player player) {
+        players.add(player);
+        notifyItemInserted(players.size()-1);
     }
+
+    public void removePlayer(Player player) {
+        int index = players.indexOf(player);
+        players.remove(player);
+        notifyItemRemoved(index);
+    }
+
+    public ArrayList<Player> getPlayers() { return players; }
 
     public void setGame(Game g) { game = g; }
 
     @NonNull
     @Override
     public PlayerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
+        System.out.println("CREATE NEW VIEW HOLDER");
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View playerItemView = inflater.inflate(R.layout.player_item, parent, false);
         return new PlayerViewHolder(playerItemView);
     }
@@ -56,6 +65,8 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     @Override
     public void onBindViewHolder(@NonNull PlayerViewHolder holder, int position) {
         Player currPlayer = players.get(position);
+
+        System.out.println("Create cell for " + currPlayer.getObjectId());
 
         holder.player = currPlayer;
         holder.username.setText(currPlayer.username());
@@ -71,6 +82,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
 
     @Override
     public int getItemCount() {
+        System.out.println("UPDATE SIZE " + players.size());
         return players.size();
     }
 }

@@ -18,6 +18,14 @@ public class Player extends ParseObject implements Serializable {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o.getClass().equals(getClass())) {
+            Player p = (Player) o;
+            return getObjectId().equals(p.getObjectId());
+        } return false;
+    }
+
     public boolean isHost() { return this.getBoolean("isHost"); }
 
     public boolean isLocked() {

@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +15,8 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.lang.reflect.Array;
+import java.time.chrono.JapaneseChronology;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -37,7 +40,12 @@ public class LobbyActivity extends AppCompatActivity {
         currentPlayer = (Player) getIntent().getSerializableExtra("currentPlayer");
 
         playerList = findViewById(R.id.playerList);
-        playerList.setLayoutManager(new LinearLayoutManager(this));
+
+        LinearLayoutManager llm = new LinearLayoutManager(this,
+                                                            LinearLayoutManager.VERTICAL,
+                                                false);
+        playerList.setLayoutManager(llm);
+
         adapter = new PlayerAdapter(game, currentPlayer.isHost());
         playerList.setAdapter(adapter);
 
@@ -140,9 +148,13 @@ public class LobbyActivity extends AppCompatActivity {
             if (!stillInTheGame) {
                 currentPlayer = null;
                 LobbyActivity.this.finish();
-            } else {
-                adapter.setPlayers(list);
-                adapter.notifyDataSetChanged();
+            }
+
+            ArrayList<Player> copy = new ArrayList<>(adapter.getPlayers());
+            for (Player p : copy) {
+                if (!list.contains(p)) adapter.removePlayer(p);
+            } for (Player p : list) {
+                if (!copy.contains(p)) adapter.addPlayer(p);
             }
         });
     }
