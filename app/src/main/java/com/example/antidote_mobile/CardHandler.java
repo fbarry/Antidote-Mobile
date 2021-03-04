@@ -184,6 +184,7 @@ public class CardHandler extends View {
         if (lifted != null) {
             lifted.setTarget(lifted.x, cardY);
             animateFor(2000);
+            lifted = null;
         }
     }
 
