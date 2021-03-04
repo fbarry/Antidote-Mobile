@@ -18,6 +18,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     public static class PlayerViewHolder extends RecyclerView.ViewHolder {
         public TextView username;
         public Button kickButton;
+        public Player player;
 
         public PlayerViewHolder(View itemView) {
             super(itemView);
@@ -27,10 +28,12 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         }
     }
 
+    private Game game;
     private boolean isHost;
     private ArrayList<Player> players;
 
-    public PlayerAdapter(boolean isHost) {
+    public PlayerAdapter(Game game, boolean isHost) {
+        this.game = game;
         this.isHost = isHost;
         players = new ArrayList<>();
     }
@@ -38,6 +41,8 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     public void setPlayers(ArrayList<Player> playerList) {
         players = playerList;
     }
+
+    public void setGame(Game g) { game = g; }
 
     @NonNull
     @Override
@@ -52,9 +57,15 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     public void onBindViewHolder(@NonNull PlayerViewHolder holder, int position) {
         Player currPlayer = players.get(position);
 
+        holder.player = currPlayer;
         holder.username.setText(currPlayer.username());
         if (!isHost || currPlayer.isHost()) {
             holder.kickButton.setVisibility(View.GONE);
+        } else {
+            holder.kickButton.setOnClickListener(v -> {
+                System.out.println("KICK PLAYER " + currPlayer.getObjectId());
+                game.removePlayer(currPlayer.getObjectId());
+            });
         }
     }
 

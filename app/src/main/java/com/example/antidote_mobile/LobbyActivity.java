@@ -38,7 +38,7 @@ public class LobbyActivity extends AppCompatActivity {
 
         playerList = findViewById(R.id.playerList);
         playerList.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new PlayerAdapter(currentPlayer.isHost());
+        adapter = new PlayerAdapter(game, currentPlayer.isHost());
         playerList.setAdapter(adapter);
 
         if (!currentPlayer.isHost()) {
@@ -98,6 +98,7 @@ public class LobbyActivity extends AppCompatActivity {
                 }
             } else {
                 game = (Game) object;
+                adapter.setGame(game);
                 updatePlayerList();
                 updateGameScreen();
             }
@@ -113,7 +114,8 @@ public class LobbyActivity extends AppCompatActivity {
                 currentPlayer = (Player) po;
                 goToGameScreen();
             } catch (ParseException e) {
-                game.removePlayer(currentPlayer.getObjectId());
+                Button leave = findViewById(R.id.leaveGameButton);
+                leave.callOnClick();
                 e.printStackTrace();
             }
         }
@@ -124,14 +126,24 @@ public class LobbyActivity extends AppCompatActivity {
         getPlayers.whereContainedIn("objectId", game.players());
 
         getPlayers.findInBackground((objects, e) -> {
+            boolean stillInTheGame = false;
+
             ArrayList<Player> list = new ArrayList<>();
             for (ParseObject po : objects) {
                 System.out.println("Found player with objectid " + po.getObjectId());
-                list.add((Player)po);
+                list.add((Player) po);
+                if (po.getObjectId().equals(currentPlayer.getObjectId())) {
+                    stillInTheGame = true;
+                }
             }
 
-            adapter.setPlayers(list);
-            adapter.notifyDataSetChanged();
+            if (!stillInTheGame) {
+                currentPlayer = null;
+                LobbyActivity.this.finish();
+            } else {
+                adapter.setPlayers(list);
+                adapter.notifyDataSetChanged();
+            }
         });
     }
 
