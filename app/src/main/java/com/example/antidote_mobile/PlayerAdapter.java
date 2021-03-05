@@ -1,5 +1,6 @@
 package com.example.antidote_mobile;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +30,10 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     private Game game;
     private final boolean isHost;
     private final ArrayList<Player> players;
+    private final Activity activity;
 
-    public PlayerAdapter(Game game, boolean isHost) {
+    public PlayerAdapter(Activity activity, Game game, boolean isHost) {
+        this.activity = activity;
         this.game = game;
         this.isHost = isHost;
         players = new ArrayList<>();
@@ -68,7 +71,10 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         if (!isHost || currPlayer.isHost()) {
             holder.kickButton.setVisibility(View.GONE);
         } else {
-            holder.kickButton.setOnClickListener(v -> game.removePlayer(currPlayer.getObjectId()));
+            holder.kickButton.setOnClickListener(v -> Utilities.showConfirmationAlert(activity,
+                    "Kick " + currPlayer.username() + "?",
+                    "The player will need to rejoin",
+                    (dialog, which) -> game.removePlayer(currPlayer.getObjectId())));
         }
     }
 

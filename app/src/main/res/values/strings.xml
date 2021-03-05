@@ -91,5 +91,7 @@
     <string name="kick">Kick</string>
     <string name="turn_">Turn:</string>
     <string name="filler_text">Filler text</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,10 +14,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-import java.lang.reflect.Array;
-import java.time.chrono.JapaneseChronology;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 
 public class LobbyActivity extends AppCompatActivity {
@@ -46,7 +42,7 @@ public class LobbyActivity extends AppCompatActivity {
                                                 false);
         playerList.setLayoutManager(llm);
 
-        adapter = new PlayerAdapter(game, currentPlayer.isHost());
+        adapter = new PlayerAdapter(LobbyActivity.this, game, currentPlayer.isHost());
         playerList.setAdapter(adapter);
 
         if (!currentPlayer.isHost()) {
