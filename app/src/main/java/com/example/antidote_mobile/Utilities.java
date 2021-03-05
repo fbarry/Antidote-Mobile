@@ -32,4 +32,31 @@ public class Utilities {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    public static void showInformationAlert(Activity activity,
+                                            int title,
+                                            int message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle(title).setMessage(message);
+        builder.setNegativeButton(R.string.ok, (dialog, which) -> dialog.dismiss());
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    public static void showTwoPromptAlert(Activity activity,
+                                     int title,
+                                     int message,
+                                     int prompt1,
+                                     int prompt2,
+                                     DialogInterface.OnClickListener prompt1Action,
+                                     DialogInterface.OnClickListener prompt2Action) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle(title).setMessage(message);
+        builder.setPositiveButton(prompt1, prompt1Action)
+                .setNegativeButton(prompt2, prompt2Action);
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 }

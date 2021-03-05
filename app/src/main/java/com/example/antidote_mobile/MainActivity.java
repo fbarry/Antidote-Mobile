@@ -124,7 +124,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onCreateGame(View v) {
         currentPlayer = Player.createPlayer(AntidoteMobile.currentUser, true);
         if (currentPlayer == null) {
-            System.out.println("FAILED TO CREATE NEW PLAYER");
+            Utilities.showInformationAlert(this,
+                                            R.string.create_player_error,
+                                            R.string.check_other_games_and_internet);
         } else {
             goToLobbyActivity(Game.createGame(currentPlayer));
         }
@@ -153,25 +155,51 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         if (currentPlayer != null) {
-            goToLobbyActivity(Game.rejoinGame(currentPlayer));
-            return;
+            Game game = Game.rejoinGame(currentPlayer);
+            if (gameCode.length() != 0) {
+                Utilities.showTwoPromptAlert(this,
+                        R.string.confirm_leave_rejoin,
+                        R.string.lose_progress_warning,
+                        R.string.rejoin,
+                        R.string.leave,
+                        (dialog, which) -> goToLobbyActivity(game),
+                        (dialog, which) -> {
+                            if (game != null) game.removePlayer(currentPlayer.getObjectId());
+                            else currentPlayer.deleteInBackground();
+                            notRejoin(gameCode);
+                        });
+            } else {
+                goToLobbyActivity(game);
+            }
+        } else if (gameCode.length() != 0) {
+            notRejoin(gameCode);
         }
+    }
 
-        if (gameCode.length() == 0) return;
-
+    public void notRejoin(String gameCode) {
         currentPlayer = Player.createPlayer(AntidoteMobile.currentUser, false);
 
         if (currentPlayer == null) {
-            System.out.println("FAILED TO CREATE NEW PLAYER");
+            Utilities.showInformationAlert(this,
+                    R.string.create_player_error,
+                    R.string.check_your_internet);
         } else {
-            goToLobbyActivity(Game.joinGame(gameCode, currentPlayer));
+            Game game = Game.joinGame(gameCode, currentPlayer);
+            if (game == null) {
+                Utilities.showInformationAlert(this,
+                        R.string.enter_lobby_error,
+                        R.string.check_game_code_and_internet);
+            } else {
+                goToLobbyActivity(game);
+            }
         }
     }
 
     public void goToLobbyActivity(Game game) {
         if (game == null) {
-            // join failed, show alert
-            System.out.println("FAILED TO CREATE/JOIN GAME");
+            Utilities.showInformationAlert(this,
+                                            R.string.enter_lobby_error,
+                                            R.string.check_your_internet);
         } else {
             Intent goToLobby = new Intent(MainActivity.this, LobbyActivity.class);
             Bundle sendGame = new Bundle();
