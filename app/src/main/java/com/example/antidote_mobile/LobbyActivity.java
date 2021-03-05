@@ -118,8 +118,13 @@ public class LobbyActivity extends AppCompatActivity {
                 currentPlayer = (Player) po;
                 goToGameScreen();
             } catch (ParseException e) {
-                Button leave = findViewById(R.id.leaveGameButton);
-                leave.callOnClick();
+                Utilities.showInformationAlert(this,
+                        R.string.could_not_connect,
+                        R.string.check_your_internet,
+                        (dialog, which) -> {
+                            Button leave = findViewById(R.id.leaveGameButton);
+                            leave.callOnClick();
+                        });
                 e.printStackTrace();
             }
         }
@@ -142,8 +147,13 @@ public class LobbyActivity extends AppCompatActivity {
             }
 
             if (!stillInTheGame) {
-                currentPlayer = null;
-                LobbyActivity.this.finish();
+                Utilities.showInformationAlert(this,
+                        R.string.you_were_kicked,
+                        R.string.sorry,
+                        (dialog, which) -> {
+                            currentPlayer = null;
+                            LobbyActivity.this.finish();
+                        });
             }
 
             ArrayList<Player> copy = new ArrayList<>(adapter.getPlayers());

@@ -95,6 +95,9 @@
     <string name="cancel">Cancel</string>
     <string name="create_player_error">Could not create new player</string>
     <string name="enter_lobby_error">Could not enter the lobby</string>
+    <string name="could_not_connect">There was an issue connecting to the server.</string>
+    <string name="you_were_kicked">You were kicked out of the game.</string>
+    <string name="sorry">Sorry! :(</string>
     <string name="check_your_internet">Please check your connection and try again.</string>
     <string name="check_other_games_and_internet">
         Please check that you are not in another game and that your connection is stable and try again.

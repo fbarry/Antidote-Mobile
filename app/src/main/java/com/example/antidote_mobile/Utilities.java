@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
+import androidx.annotation.Nullable;
+
 public class Utilities {
 
     public static String getRandomString(int len) {
@@ -35,10 +37,11 @@ public class Utilities {
 
     public static void showInformationAlert(Activity activity,
                                             int title,
-                                            int message) {
+                                            int message,
+                                            @Nullable DialogInterface.OnClickListener action) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(title).setMessage(message);
-        builder.setNegativeButton(R.string.ok, (dialog, which) -> dialog.dismiss());
+        builder.setNegativeButton(R.string.ok, action == null ? (dialog, which) -> dialog.dismiss() : action);
 
         AlertDialog alert = builder.create();
         alert.show();

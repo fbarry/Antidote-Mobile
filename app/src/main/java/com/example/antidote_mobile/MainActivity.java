@@ -125,8 +125,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         currentPlayer = Player.createPlayer(AntidoteMobile.currentUser, true);
         if (currentPlayer == null) {
             Utilities.showInformationAlert(this,
-                                            R.string.create_player_error,
-                                            R.string.check_other_games_and_internet);
+                    R.string.create_player_error,
+                    R.string.check_other_games_and_internet,
+                    null);
         } else {
             goToLobbyActivity(Game.createGame(currentPlayer));
         }
@@ -182,13 +183,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (currentPlayer == null) {
             Utilities.showInformationAlert(this,
                     R.string.create_player_error,
-                    R.string.check_your_internet);
+                    R.string.check_your_internet,
+                    null);
         } else {
             Game game = Game.joinGame(gameCode, currentPlayer);
             if (game == null) {
                 Utilities.showInformationAlert(this,
                         R.string.enter_lobby_error,
-                        R.string.check_game_code_and_internet);
+                        R.string.check_game_code_and_internet,
+                        null);
             } else {
                 goToLobbyActivity(game);
             }
@@ -198,8 +201,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void goToLobbyActivity(Game game) {
         if (game == null) {
             Utilities.showInformationAlert(this,
-                                            R.string.enter_lobby_error,
-                                            R.string.check_your_internet);
+                    R.string.enter_lobby_error,
+                    R.string.check_your_internet,
+                    null);
         } else {
             Intent goToLobby = new Intent(MainActivity.this, LobbyActivity.class);
             Bundle sendGame = new Bundle();
