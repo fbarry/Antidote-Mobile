@@ -8,8 +8,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.parse.ParseException;
+import com.parse.ParseUser;
+
 public class SignUpActivity extends AppCompatActivity {
 
+    User currentUser;
     SharedPreferences sp;
 
     @Override
@@ -18,6 +22,16 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         sp = getSharedPreferences("login", MODE_PRIVATE);
+
+        if (sp.getBoolean("logged", false)) {
+            String userId = sp.getString("currentUser", "ERROR: NOT SET");
+
+            try {
+                currentUser = (User) ParseUser.getQuery().get(userId);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void onSignUp(View v) {
@@ -34,23 +48,34 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
 
-        User user = User.signUp(username, password, email);
+        if (currentUser == null) currentUser = User.signUp(username, password, email);
+        else {
+            currentUser.setUsername(username);
+            currentUser.setPassword(password);
+            currentUser.setEmail(email);
+            currentUser.setIsGuest(false);
+            try {
+                currentUser.save();
+            } catch (ParseException e) {
+                currentUser = null;
+            }
+        }
 
-        if (user == null) {
+        if (currentUser == null) {
             return;
         }
 
-        goToDashboard(user);
+        goToDashboard();
     }
 
     public void onLogInHere(View v) {
         SignUpActivity.this.finish();
     }
 
-    public void goToDashboard(User user) {
-        AntidoteMobile.currentUser = user;
+    public void goToDashboard() {
+        AntidoteMobile.currentUser = currentUser;
         sp.edit().putBoolean("logged", true).apply();
-        sp.edit().putString("currentUser", user.getObjectId()).apply();
+        sp.edit().putString("currentUser", currentUser.getObjectId()).apply();
         startActivity(new Intent(SignUpActivity.this, MainActivity.class));
         SignUpActivity.this.finish();
     }

@@ -239,35 +239,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         myDialog.setContentView(R.layout.login_popup);
         myDialog.setCancelable(true);
         myDialog.setTitle("gaming");
+
         Button login = myDialog.findViewById(R.id.login_loginButton);
+        Button signup = myDialog.findViewById(R.id.loginPopupSignUpButton);
 
         myDialog.show();
 
-        //noinspection Convert2Lambda
-        login.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View v) {
+        signup.setOnClickListener(v1 ->
+                startActivity(new Intent(MainActivity.this, SignUpActivity.class)));
 
-                EditText username = myDialog.findViewById(R.id.login_usernameEntry);
-                EditText password = myDialog.findViewById(R.id.login_passwordEntry);
-                TextView message = myDialog.findViewById(R.id.login_textViewMessage);
+        login.setOnClickListener(v1 -> {
 
-                AntidoteMobile.currentUser = User.signIn(username.getText().toString(), password.getText().toString());
+            EditText username = myDialog.findViewById(R.id.login_usernameEntry);
+            EditText password = myDialog.findViewById(R.id.login_passwordEntry);
+            TextView message = myDialog.findViewById(R.id.login_textViewMessage);
 
-                password.getText().clear();
-                if (AntidoteMobile.currentUser != null) {
-                    username.getText().clear();
-                    updateDisplayedUsername();
-                    myDialog.dismiss();
+            AntidoteMobile.currentUser = User.signIn(username.getText().toString(), password.getText().toString());
 
-                    Button loginbutton = findViewById(R.id.loginButton);
-                    loginbutton.setText("Profile");
-                } else {
-                    message.setText(R.string.login_failed);
-                }
-
+            password.getText().clear();
+            if (AntidoteMobile.currentUser != null) {
+                username.getText().clear();
+                updateDisplayedUsername();
+                Button loginbutton = findViewById(R.id.loginButton);
+                loginbutton.setVisibility(GONE);
+                myDialog.dismiss();
+            } else {
+                message.setText(R.string.login_failed);
             }
+
         });
     }
 }
