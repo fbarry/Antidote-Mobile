@@ -188,18 +188,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             Game game = Game.joinGame(gameCode, currentPlayer);
             if (game == null) {
+                currentPlayer.deleteInBackground();
+                currentPlayer = null;
                 Utilities.showInformationAlert(this,
                         R.string.enter_lobby_error,
                         R.string.check_game_code_and_internet,
                         null);
             } else {
-                goToLobbyActivity(game);
+                if (game.numCards() > 0) {
+                    currentPlayer.deleteInBackground();
+                    currentPlayer = null;
+                    Utilities.showInformationAlert(this,
+                            R.string.enter_lobby_error,
+                            R.string.game_in_progress,
+                            null);
+                } else {
+                    goToLobbyActivity(game);
+                }
             }
         }
     }
 
     public void goToLobbyActivity(Game game) {
         if (game == null) {
+            currentPlayer.deleteInBackground();
+            currentPlayer = null;
             Utilities.showInformationAlert(this,
                     R.string.enter_lobby_error,
                     R.string.check_your_internet,

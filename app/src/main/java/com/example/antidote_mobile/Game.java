@@ -179,6 +179,7 @@ public class Game extends ParseObject implements Serializable {
         }
 
         if (toJoin == null) return null;
+        if (toJoin.numCards() > 0) return toJoin;
 
         toJoin.addPlayer(player);
         toJoin.saveInBackground();
