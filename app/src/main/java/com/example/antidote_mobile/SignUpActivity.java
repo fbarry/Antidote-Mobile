@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
+import okhttp3.internal.Util;
+
 public class SignUpActivity extends AppCompatActivity {
 
     User currentUser;
@@ -41,10 +43,18 @@ public class SignUpActivity extends AppCompatActivity {
         String confirmPassword = ((TextView) findViewById(R.id.editSignUpConfirmTextPassword)).getText().toString();
 
         if (email.isEmpty() || username.isEmpty() || password.isEmpty()) {
+            Utilities.showInformationAlert(this,
+                    R.string.missing_field_info,
+                    R.string.fill_out_and_try_again,
+                    null);
             return;
         }
 
         if (!password.equals(confirmPassword)) {
+            Utilities.showInformationAlert(this,
+                    R.string.passwords_dont_match,
+                    R.string.type_carefully,
+                    null);
             return;
         }
 
@@ -62,6 +72,10 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         if (currentUser == null) {
+            Utilities.showInformationAlert(this,
+                    R.string.could_not_connect,
+                    R.string.check_your_internet,
+                    null);
             return;
         }
 

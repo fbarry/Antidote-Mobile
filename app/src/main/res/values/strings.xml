@@ -117,5 +117,9 @@
     <string name="rejoin">Rejoin</string>
     <string name="leave">Leave</string>
     <string name="try_again">Try Again</string>
+    <string name="missing_field_info">Some required fields are missing</string>
+    <string name="fill_out_and_try_again">Fill out all fields and try again.</string>
+    <string name="passwords_dont_match">Passwords do not match</string>
+    <string name="type_carefully">Type carefully!</string>
 
 </resources>
