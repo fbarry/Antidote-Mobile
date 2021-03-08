@@ -29,6 +29,8 @@ public class CardHandler extends View {
     private static final int millisPerFrame = 2, maxDx = 150;
     private int minCardX = 50, maxCardX = 1000, cardY = 1000;
 
+    ValueChangeListener valueChangeListener;
+
     Card touching;
     Card lifted;
     int xOffset, yOffset;
@@ -93,6 +95,10 @@ public class CardHandler extends View {
         invalidateTimer = new Timer();
         fixCards();
         animateFor(5000);
+    }
+
+    public void setValueChangeListener(ValueChangeListener valueChangeListener) {
+        this.valueChangeListener = valueChangeListener;
     }
 
     // Ensure that this CardHandler will continue animations for a set amount of time
@@ -186,6 +192,7 @@ public class CardHandler extends View {
             animateFor(2000);
             lifted = null;
         }
+        if (valueChangeListener != null) valueChangeListener.valueChanged();
     }
 
     public void forceSelect(int idx) {
@@ -194,6 +201,7 @@ public class CardHandler extends View {
         lifted = cards.get(idx);
         lifted.setTarget(lifted.x, cardY - 50);
         animateFor(2000);
+        if (valueChangeListener != null) valueChangeListener.valueChanged();
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -236,6 +244,7 @@ public class CardHandler extends View {
                     }
                     fixCards();
                     touching = null;
+                    if (valueChangeListener != null) valueChangeListener.valueChanged();
                 }
                 break;
         }
