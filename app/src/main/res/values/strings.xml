@@ -118,9 +118,6 @@
     <string name="leave">Leave</string>
     <string name="player123456_s_workstation">Player123456\'s Workstation</string>
     <string name="try_again">Try Again</string>
-    <string name="status_title">Status</string>
-    <string name="default_status">I\'m a pro Antidote Mobile gamer!</string>
-    <string name="edit_status_button">Edit</string>
-    <string name="save_status_button">Save</string>
+    <string name="DiscardButtonDesc">Make everyone discard a card</string>
 
 </resources>
