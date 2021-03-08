@@ -26,7 +26,7 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
     NavigationView navigationView;
     Toolbar toolbar;
 
-    static User user;
+    User user;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -73,23 +73,6 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
 
         title.setText(user.getUsername());
         title.append("'s Profile");
-
-        TextView gamesPlayed = findViewById(R.id.gamesPlayed);
-        TextView gamesWon = findViewById(R.id.gamesWon);
-        TextView gamesLost = findViewById(R.id.gamesLost);
-        TextView winRate = findViewById(R.id.winRate);
-
-        gamesPlayed.setText("Games Played: ");
-        gamesPlayed.append(user.getTotalGames() + "");
-
-        gamesWon.setText("Games Won: ");
-        gamesWon.append(user.getNumberOfWins() + "");
-
-        gamesLost.setText("Games Lost: ");
-        gamesLost.append(user.getNumberOfLoses() + "");
-
-        winRate.setText("Win Rate: ");
-        winRate.append(user.getWinRate() + "%");
     }
 
     public void editStatus(View v) {

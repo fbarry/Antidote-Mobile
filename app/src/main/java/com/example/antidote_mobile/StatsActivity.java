@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -22,10 +23,22 @@ public class StatsActivity extends AppCompatActivity implements NavigationView.O
     NavigationView navigationView;
     Toolbar toolbar;
 
+    User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
+
+        user = AntidoteMobile.currentUser;
+
+        TextView statsTitle = findViewById(R.id.statsTitle);
+        TextView statsAll = findViewById(R.id.statsAll);
+
+        statsTitle.setText(user.getUsername());
+        statsTitle.append("'s Statistics");
+
+        statsAll.setText(user.getStats());
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -59,7 +72,6 @@ public class StatsActivity extends AppCompatActivity implements NavigationView.O
                 sp.edit().putBoolean("logged", false).apply();
                 sp.edit().putString("currentUser", "ERROR: NOT SET").apply();
                 ParseUser.logOutInBackground();
-
 
 
                 gotoMenu(LoginActivity.class);

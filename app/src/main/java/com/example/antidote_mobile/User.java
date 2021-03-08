@@ -35,7 +35,7 @@ public class User extends ParseUser {
         this.put("numberOfLoses", numberOfLoses);
     }
 
-    public int getTotalGames() {
+    public int getNumberOfGames() {
         return getNumberOfWins() + getNumberOfLoses();
     }
 
@@ -48,9 +48,20 @@ public class User extends ParseUser {
     }
 
     public double getWinRate() {
-        if (getTotalGames() == 0)
+        if (getNumberOfGames() == 0)
             return 0;
-        return (Math.round(((this.getNumberOfWins() * 100.0) / this.getTotalGames()) * 100.0) / 100.0);
+        return (Math.round(((this.getNumberOfWins() * 100.0) / this.getNumberOfGames()) * 100.0) / 100.0);
+    }
+
+    public String getStats() {
+        StringBuilder stats = new StringBuilder();
+
+        stats.append("Games Played: " + getNumberOfGames() + "\n");
+        stats.append("Games Won: " + getNumberOfWins() + "\n");
+        stats.append("Games Lost: " + getNumberOfLoses() + "\n");
+        stats.append("Win Rate: " + getWinRate() + "%");
+
+        return stats.toString();
     }
 
     public static User getUser(String objectId) {

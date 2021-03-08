@@ -130,5 +130,6 @@
     <string name="default_status">I\'m a pro Antidote Mobile gamer!</string>
     <string name="edit_status_button">Edit</string>
     <string name="save_status_button">Save</string>
+    <string name="statistics">Statistics</string>
 
 </resources>
