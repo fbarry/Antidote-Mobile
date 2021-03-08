@@ -74,6 +74,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences sp = getSharedPreferences("login", MODE_PRIVATE);
         if (!sp.getBoolean("logged", false)) {
             MainActivity.this.finish();
+        } else {
+            updateDisplayedUsername();
+
+            if (AntidoteMobile.currentUser != null && !AntidoteMobile.currentUser.isGuest()) {
+                Button loginbutton = findViewById(R.id.loginButton);
+                loginbutton.setVisibility(GONE);
+            }
         }
     }
 
@@ -251,8 +258,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         myDialog.show();
 
-        signup.setOnClickListener(v1 ->
-                startActivity(new Intent(MainActivity.this, SignUpActivity.class)));
+        signup.setOnClickListener(v1 -> {
+                startActivity(new Intent(MainActivity.this, SignUpActivity.class));
+                myDialog.dismiss();
+                });
 
         login.setOnClickListener(v1 -> {
 
@@ -260,10 +269,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             EditText password = myDialog.findViewById(R.id.login_passwordEntry);
             TextView message = myDialog.findViewById(R.id.login_textViewMessage);
 
-            AntidoteMobile.currentUser = User.signIn(username.getText().toString(), password.getText().toString());
+            User user = User.signIn(username.getText().toString(), password.getText().toString());
 
             password.getText().clear();
-            if (AntidoteMobile.currentUser != null) {
+            if (user != null) {
+                AntidoteMobile.currentUser = user;
                 username.getText().clear();
                 updateDisplayedUsername();
                 Button loginbutton = findViewById(R.id.loginButton);
