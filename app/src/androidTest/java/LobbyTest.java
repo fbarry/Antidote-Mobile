@@ -88,7 +88,7 @@ public class LobbyTest {
 
         assert user != null;
 
-        Player player = Player.createPlayer(user);
+        Player player = Player.createPlayer(user, true);
 
         assert player != null;
 

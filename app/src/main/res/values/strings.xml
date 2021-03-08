@@ -105,6 +105,7 @@
     <string name="check_game_code_and_internet">
         Please check that the game code is correct and that your connection is stable and try again.
     </string>
+    <string name="game_in_progress">Game is already in progress.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="confirm_leave_rejoin">
