@@ -58,7 +58,7 @@ public class CreateGameTest {
 
         assert user != null;
 
-        Player player = Player.createPlayer(user);
+        Player player = Player.createPlayer(user, false);
 
         assert player != null;
 

@@ -52,13 +52,11 @@ public class CreatePlayerTest {
 
         if (newUser == null) return;
 
-        Player player = new Player().createPlayer(newUser);
+        Player player = Player.createPlayer(newUser, false);
         assertNotNull(player);
 
         try {
             ParseUser.deleteAll(Collections.singletonList(newUser));
-            // Can be added for cleanup when Player extends ParseObject
-            // ParseObject.deleteAll(Arrays.asList(player));
         } catch (ParseException e) {
             e.printStackTrace();
         }
