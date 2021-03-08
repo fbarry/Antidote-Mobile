@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-
         updateDisplayedUsername();
 
         if (AntidoteMobile.currentUser != null && !AntidoteMobile.currentUser.isGuest()) {
@@ -137,23 +136,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onJoinGame(View v) {
         TextView gameCodeTextView = findViewById(R.id.joinCodeTextView);
         String gameCode = gameCodeTextView.getText().toString();
+
         currentPlayer = null;
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Player");
-        query.whereEqualTo("who", AntidoteMobile.currentUser.getObjectId());
-
-        try {
-            ArrayList<ParseObject> candidates = (ArrayList<ParseObject>) query.find();
-            System.out.println(candidates.size() + " potential Players found (should be 0 or 1)");
-            for (ParseObject obj : candidates) {
-                if (Objects.equals(obj.getString("who"), AntidoteMobile.currentUser.getObjectId())) {
-                    currentPlayer = (Player) obj;
-                    break;
-                }
-            }
-        } catch (ParseException e) {
-            System.out.println("Couldn't find an existing Player with current user, making one");
-        }
+        checkIfCurrentPlayerAlreadyExists();
 
         if (currentPlayer != null) {
             Game game = Game.rejoinGame(currentPlayer);
@@ -167,17 +153,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         (dialog, which) -> {
                             if (game != null) game.removePlayer(currentPlayer.getObjectId());
                             else currentPlayer.deleteInBackground();
-                            notRejoin(gameCode);
+                            playerJoiningNewGame(gameCode);
                         });
             } else {
                 goToLobbyActivity(game);
             }
         } else if (gameCode.length() != 0) {
-            notRejoin(gameCode);
+            playerJoiningNewGame(gameCode);
         }
     }
 
-    public void notRejoin(String gameCode) {
+    public void checkIfCurrentPlayerAlreadyExists() {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Player");
+        query.whereEqualTo("who", AntidoteMobile.currentUser.getObjectId());
+
+        try {
+            ArrayList<ParseObject> candidates = (ArrayList<ParseObject>) query.find();
+            for (ParseObject obj : candidates) {
+                if (Objects.equals(obj.getString("who"), AntidoteMobile.currentUser.getObjectId())) {
+                    currentPlayer = (Player) obj;
+                    break;
+                }
+            }
+        } catch (ParseException e) {
+            System.out.println("Couldn't find an existing Player with current user, making one");
+        }
+    }
+
+    public void playerJoiningNewGame(String gameCode) {
         currentPlayer = Player.createPlayer(AntidoteMobile.currentUser, false);
 
         if (currentPlayer == null) {

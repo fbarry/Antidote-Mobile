@@ -1,5 +1,6 @@
 package com.example.antidote_mobile;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -38,8 +39,8 @@ public class LobbyActivity extends AppCompatActivity {
         playerList = findViewById(R.id.playerList);
 
         LinearLayoutManager llm = new LinearLayoutManager(this,
-                                                            LinearLayoutManager.VERTICAL,
-                                                false);
+                LinearLayoutManager.VERTICAL,
+                false);
         playerList.setLayoutManager(llm);
 
         adapter = new PlayerAdapter(LobbyActivity.this, game, currentPlayer.isHost());
@@ -159,7 +160,8 @@ public class LobbyActivity extends AppCompatActivity {
             ArrayList<Player> copy = new ArrayList<>(adapter.getPlayers());
             for (Player p : copy) {
                 if (!list.contains(p)) adapter.removePlayer(p);
-            } for (Player p : list) {
+            }
+            for (Player p : list) {
                 if (!copy.contains(p)) adapter.addPlayer(p);
             }
         });
@@ -178,104 +180,34 @@ public class LobbyActivity extends AppCompatActivity {
         LobbyActivity.this.finish();
     }
 
-    public void startGame(View v) throws ParseException {
+    public void startGame(View v) {
         if (game.numPlayers() < 2) return;
 
-        game.setNumRoundsCompleted(0);
-        game.setCurrentTurn(Utilities.getRandomInt(0, game.players().size() - 1));
+        game.initialize(currentPlayer);
 
-        int numFormulas;
-        if (game.numPlayers() == 7) numFormulas = 8;
-        else numFormulas = 7;
-
-        int numCardsPerFormula;
-        if (game.numPlayers() == 2) numCardsPerFormula = 3;
-        else numCardsPerFormula = game.numPlayers();
-
-        int numSyringes;
-        if (game.numPlayers() == 2 || game.numPlayers() == 3) numSyringes = 3;
-        else if (game.numPlayers() == 4) numSyringes = 2;
-        else if (game.numPlayers() == 5) numSyringes = 4;
-        else if (game.numPlayers() == 6) numSyringes = 6;
-        else numSyringes = 7;
-
-        int startingHandSize;
-        if (4 <= game.numPlayers() && game.numPlayers() <= 6) startingHandSize = 9;
-        else startingHandSize = 10;
-
-        game.setNumCards(startingHandSize);
-
-        int numSpecialDist;
-        if (game.numPlayers() == 2 || game.numPlayers() == 3) numSpecialDist = 3;
-        else numSpecialDist = 2;
-
-        @SuppressWarnings("unchecked")
-        ArrayList<String>[] hands = new ArrayList[game.numPlayers()];
-        for (int player = 0; player < game.numPlayers(); ++player)
-            hands[player] = new ArrayList<>();
-
-        ArrayList<Card> specialPile = new ArrayList<>();
-        for (int formula = 0; formula < numFormulas; ++formula) {
-            Card add = new Card(0, 0);
-            add.setCardData(CardType.TOXIN, Toxin.values()[formula]);
-            specialPile.add(add);
+        try {
+            game.save();
+        } catch (ParseException e) {
+            Utilities.showTwoPromptAlert(this,
+                    R.string.could_not_connect,
+                    R.string.check_your_internet,
+                    R.string.try_again,
+                    R.string.cancel,
+                    (dialog, which) -> {
+                        startGame(v);
+                        dialog.dismiss();
+                    }, (dialog, which) -> dialog.dismiss());
         }
-
-        game.setToxin(specialPile.remove(Utilities.getRandomInt(0, specialPile.size() - 1)).toxin);
-
-        for (int syringe = 0; syringe < numSyringes; ++syringe) {
-            Card add = new Card(0, 0);
-            add.setCardData(CardType.SYRINGE);
-            specialPile.add(add);
-        }
-
-        for (int player = 0; player < game.numPlayers(); ++player) {
-            for (int dist = 0; dist < numSpecialDist; ++dist) {
-                hands[player].add(specialPile.remove(Utilities.getRandomInt(0, specialPile.size() - 1)).getStringValue());
-            }
-        }
-
-        ArrayList<Card> remainingCards = new ArrayList<>();
-        for (int formula = 0; formula < numFormulas; ++formula) {
-            for (int number = 1; number <= numCardsPerFormula; ++number) {
-                Card add = new Card(0, 0);
-                add.setCardData(CardType.ANTIDOTE, Toxin.values()[formula], number);
-                remainingCards.add(add);
-            }
-        }
-
-        for (int player = 0; player < game.numPlayers(); ++player) {
-            for (int cardNum = numSpecialDist; cardNum < startingHandSize; ++cardNum) {
-                hands[player].add(remainingCards.remove(Utilities.getRandomInt(0, remainingCards.size() - 1)).getStringValue());
-            }
-        }
-
-        int playerIndex = 0;
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Player");
-        for (String playerId : game.players()) {
-            if (playerId.equals(currentPlayer.getObjectId())) {
-                currentPlayer.setCards(new ArrayList<>(hands[playerIndex]));
-            }
-            try {
-                ParseObject player = query.get(playerId);
-                player.put("cards", hands[playerIndex++]);
-                player.saveInBackground();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-
-        game.save();
     }
 
     public void goToGameScreen() {
-        LobbyActivity.this.finish();
-
         Intent goToGame = new Intent(LobbyActivity.this, GameActivity.class);
         Bundle sendGame = new Bundle();
         sendGame.putSerializable("gameInfo", game);
         sendGame.putSerializable("currentPlayer", currentPlayer);
         goToGame.putExtras(sendGame);
         startActivity(goToGame);
+
+        LobbyActivity.this.finish();
     }
 }
