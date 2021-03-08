@@ -50,6 +50,14 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
 
+        if (username.length() > AntidoteMobile.maxUsernameLength) {
+            Utilities.showInformationAlert(this,
+                    R.string.username_too_long,
+                    R.string.think_again,
+                    null);
+            return;
+        }
+
         if (!password.equals(confirmPassword)) {
             Utilities.showInformationAlert(this,
                     R.string.passwords_dont_match,
