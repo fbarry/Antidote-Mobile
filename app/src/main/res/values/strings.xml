@@ -109,12 +109,13 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="confirm_leave_rejoin">
-        You are in another game. Do you want to join this new game or rejoin the other game?
+        Do you want to join this new game or rejoin your game?
     </string>
     <string name="lose_progress_warning">
-        WARNING: If you leave the other game, you will lose all progress.
+        WARNING: If you leave your current game, you will lose all progress.
     </string>
     <string name="rejoin">Rejoin</string>
     <string name="leave">Leave</string>
+    <string name="try_again">Try Again</string>
 
 </resources>

@@ -119,6 +119,92 @@ public class Game extends ParseObject implements Serializable {
         }
     }
 
+    public void initialize(Player currentPlayer) {
+        setNumRoundsCompleted(0);
+        setCurrentTurn(Utilities.getRandomInt(0, players().size() - 1));
+
+        int numFormulas;
+        if (numPlayers() == 7) numFormulas = 8;
+        else numFormulas = 7;
+
+        int numCardsPerFormula;
+        if (numPlayers() == 2) numCardsPerFormula = 3;
+        else numCardsPerFormula = numPlayers();
+
+        int numSyringes;
+        if (numPlayers() == 2 || numPlayers() == 3) numSyringes = 3;
+        else if (numPlayers() == 4) numSyringes = 2;
+        else if (numPlayers() == 5) numSyringes = 4;
+        else if (numPlayers() == 6) numSyringes = 6;
+        else numSyringes = 7;
+
+        int startingHandSize;
+        if (4 <= numPlayers() && numPlayers() <= 6) startingHandSize = 9;
+        else startingHandSize = 10;
+
+        setNumCards(startingHandSize);
+
+        int numSpecialDist;
+        if (numPlayers() == 2 || numPlayers() == 3) numSpecialDist = 3;
+        else numSpecialDist = 2;
+
+        @SuppressWarnings("unchecked")
+        ArrayList<String>[] hands = new ArrayList[numPlayers()];
+        for (int player = 0; player < numPlayers(); ++player)
+            hands[player] = new ArrayList<>();
+
+        ArrayList<Card> specialPile = new ArrayList<>();
+        for (int formula = 0; formula < numFormulas; ++formula) {
+            Card add = new Card(0, 0);
+            add.setCardData(CardType.TOXIN, Toxin.values()[formula]);
+            specialPile.add(add);
+        }
+
+        setToxin(specialPile.remove(Utilities.getRandomInt(0, specialPile.size() - 1)).toxin);
+
+        for (int syringe = 0; syringe < numSyringes; ++syringe) {
+            Card add = new Card(0, 0);
+            add.setCardData(CardType.SYRINGE);
+            specialPile.add(add);
+        }
+
+        for (int player = 0; player < numPlayers(); ++player) {
+            for (int dist = 0; dist < numSpecialDist; ++dist) {
+                hands[player].add(specialPile.remove(Utilities.getRandomInt(0, specialPile.size() - 1)).getStringValue());
+            }
+        }
+
+        ArrayList<Card> remainingCards = new ArrayList<>();
+        for (int formula = 0; formula < numFormulas; ++formula) {
+            for (int number = 1; number <= numCardsPerFormula; ++number) {
+                Card add = new Card(0, 0);
+                add.setCardData(CardType.ANTIDOTE, Toxin.values()[formula], number);
+                remainingCards.add(add);
+            }
+        }
+
+        for (int player = 0; player < numPlayers(); ++player) {
+            for (int cardNum = numSpecialDist; cardNum < startingHandSize; ++cardNum) {
+                hands[player].add(remainingCards.remove(Utilities.getRandomInt(0, remainingCards.size() - 1)).getStringValue());
+            }
+        }
+
+        int playerIndex = 0;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Player");
+        for (String playerId : players()) {
+            if (playerId.equals(currentPlayer.getObjectId())) {
+                currentPlayer.setCards(new ArrayList<>(hands[playerIndex]));
+            }
+            try {
+                ParseObject player = query.get(playerId);
+                player.put("cards", hands[playerIndex++]);
+                player.saveInBackground();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static Game createGame(Player player) {
         String newGameCode = Utilities.getRandomString(AntidoteMobile.gameCodeLength);
 
