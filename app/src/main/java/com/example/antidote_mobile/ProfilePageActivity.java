@@ -26,6 +26,14 @@ public class ProfilePageActivity extends AppCompatActivity {
         TextView status = findViewById(R.id.statusMessage);
         EditText changeStatus = findViewById(R.id.changeStatusText);
 
+        Button editButton = findViewById(R.id.statusEditButton);
+
+        if (user.isGuest()) {
+            editButton.setVisibility(View.GONE);
+        } else {
+            editButton.setVisibility(View.VISIBLE);
+        }
+
         status.setPaintFlags(View.INVISIBLE);
         changeStatus.setPaintFlags(View.INVISIBLE);
 
