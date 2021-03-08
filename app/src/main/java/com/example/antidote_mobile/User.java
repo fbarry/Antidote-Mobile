@@ -39,6 +39,14 @@ public class User extends ParseUser {
         return getNumberOfWins() + getNumberOfLoses();
     }
 
+    public String getStatus() {
+        return this.getString("statusMessage");
+    }
+
+    public void setStatus(String status) {
+        this.put("statusMessage", status);
+    }
+
     public double getWinRate() {
         if (getTotalGames() == 0)
             return 0;
