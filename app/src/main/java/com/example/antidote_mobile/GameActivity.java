@@ -14,7 +14,6 @@ import androidx.core.content.res.ResourcesCompat;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,9 +43,9 @@ public class GameActivity extends AppCompatActivity {
         players = new ArrayList<>();
         try {
             List<ParseObject> parseObjects = getPlayers.find();
-            for(String pid : game.players()){
+            for (String pid : game.players()) {
                 for (ParseObject currObject : parseObjects) {
-                    if(currObject.getObjectId().equals(pid)){
+                    if (currObject.getObjectId().equals(pid)) {
                         players.add((Player) currObject);
                         break;
                     }
@@ -58,6 +57,17 @@ public class GameActivity extends AppCompatActivity {
 
         ch = findViewById(R.id.cardHandler);
         ch.setCards(currentPlayer.cards());
+
+        ch.setValueChangeListener(() -> {
+            if (ch.lifted != null) {
+                // We have selected a card (possibly just selected it)
+                findViewById(R.id.confirmButton).setVisibility(View.VISIBLE);
+
+            } else {
+                // We have not selected a card (possibly just deselected it)
+                findViewById(R.id.confirmButton).setVisibility(View.GONE);
+            }
+        });
 
         TextView gameCodeTextView = findViewById(R.id.gameCodeTextView);
         gameCodeTextView.append(" " + game.roomCode());
@@ -182,8 +192,8 @@ public class GameActivity extends AppCompatActivity {
                         }
                     }
                 }
-                for(Player p:players){
-                    System.out.println(p.getObjectId()+","+p.username());
+                for (Player p : players) {
+                    System.out.println(p.getObjectId() + "," + p.username());
                 }
                 TextView turnTextView = findViewById(R.id.turnTextView);
                 turnTextView.setText(R.string.turn_);
