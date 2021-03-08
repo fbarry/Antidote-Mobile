@@ -114,11 +114,11 @@ For players of the game Antidote who want to play remotely with friends or bots,
 
 ### Task Allocation
 
-- Fiona Barry:
-- Jacob Steinebronn:
-- Enrique Rodriguez:
-- Daniel West:
-- Zach Ip: 
+- Fiona Barry: Add AI bots to lobby and create game chat.
+- Jacob Steinebronn: Finish game functoin and add public lobby functionality. Add game browse in dashboard.
+- Enrique Rodriguez: Finish graphics and update layout constraints to work on all game screens and orientations.
+- Daniel West: Finish game function and begin work on "friending" feature.
+- Zach Ip: Start and complete basic "easy-level" AI.
 
 ## Sprint 7
 
