@@ -26,6 +26,10 @@ public class Game extends ParseObject implements Serializable {
         put("currentAction", currentAction);
     }
 
+    public ActionType currentActionType() {
+        return ActionType.fromString(currentAction());
+    }
+
     public String roomCode() {
         return getString("roomCode");
     }
