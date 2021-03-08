@@ -16,6 +16,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -60,12 +61,17 @@ public class GameActivity extends AppCompatActivity {
         ch.setCards(currentPlayer.cards());
 
         ch.setValueChangeListener(() -> {
-            if (ch.lifted != null && game.currentActionType() != ActionType.NONE) {
+            if (ch.lifted != null && game.currentActionType() != ActionType.NONE
+                    && game.currentActionType() != ActionType.SYRINGE) {
                 // We have selected a card (possibly just selected it)
                 findViewById(R.id.confirmButton).setVisibility(View.VISIBLE);
             } else {
                 // We have not selected a card (possibly just deselected it)
                 findViewById(R.id.confirmButton).setVisibility(View.GONE);
+            }
+            if(ch.lifted != null && ch.lifted.type != CardType.SYRINGE) {
+                game.setCurrentAction(ActionType.NONE);
+                updateTurnTextView();
             }
         });
 
@@ -166,16 +172,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                 }
                 // Show/hide buttons when necessary
-                if (game.players().get(game.currentTurn()).equals(currentPlayer.getObjectId()) &&
-                        game.currentActionType() == ActionType.NONE) {
-                    findViewById(R.id.passCardsLeftButton).setVisibility(View.VISIBLE);
-                    findViewById(R.id.passCardsRightButton).setVisibility(View.VISIBLE);
-                    findViewById(R.id.discardCardsButton).setVisibility(View.VISIBLE);
-                } else {
-                    findViewById(R.id.passCardsLeftButton).setVisibility(View.GONE);
-                    findViewById(R.id.passCardsRightButton).setVisibility(View.GONE);
-                    findViewById(R.id.discardCardsButton).setVisibility(View.GONE);
-                }
+                updateActionVisibilities();
                 if (game.host().equals(currentPlayer.getObjectId())) {
                     // We're the host, perhaps we should complete the computation of a turn?
                     int numLocked = 0;
@@ -206,15 +203,35 @@ public class GameActivity extends AppCompatActivity {
                 for (Player p : players) {
                     System.out.println(p.getObjectId() + "," + p.username());
                 }
-                TextView turnTextView = findViewById(R.id.turnTextView);
-                turnTextView.setText(R.string.turn_);
-                turnTextView.append(" " + players.get(game.currentTurn()).username());
-                turnTextView.append(", Action: ");
-                turnTextView.append(game.currentAction());
+                updateTurnTextView();
             } catch (ParseException ignored) {
             }
         });
 
+    }
+
+    void updateTurnTextView() {
+        TextView turnTextView = findViewById(R.id.turnTextView);
+        turnTextView.setText(R.string.turn_);
+        turnTextView.append(" " + players.get(game.currentTurn()).username());
+        turnTextView.append(", Action: ");
+        turnTextView.append(game.currentAction());
+    }
+
+    void updateActionVisibilities() {
+        if (game.players().get(game.currentTurn()).equals(currentPlayer.getObjectId())
+                && game.currentActionType() == ActionType.NONE) {
+            findViewById(R.id.passCardsLeftButton).setVisibility(View.VISIBLE);
+            findViewById(R.id.syringeButton).setVisibility(currentPlayer.hasSyringe() ? View.VISIBLE : View.GONE);
+            findViewById(R.id.discardCardsButton).setVisibility(View.VISIBLE);
+            findViewById(R.id.passCardsRightButton).setVisibility(View.VISIBLE);
+
+        } else {
+            findViewById(R.id.passCardsLeftButton).setVisibility(View.GONE);
+            findViewById(R.id.syringeButton).setVisibility(View.GONE);
+            findViewById(R.id.discardCardsButton).setVisibility(View.GONE);
+            findViewById(R.id.passCardsRightButton).setVisibility(View.GONE);
+        }
     }
 
     void finalizeAction() {
@@ -256,6 +273,24 @@ public class GameActivity extends AppCompatActivity {
             p.setCards(pCards);
             p.setWorkstation(pWorkstation);
             p.deselect();
+        }
+        finalizeAction();
+    }
+
+    void performSyringe(int playerIdx, int cardIdx) {
+        for (Player p : players) {
+            if (p.getObjectId().equals(currentPlayer.getObjectId())) {
+
+                ArrayList<String> otherWorkstation = players.get(playerIdx).workstation();
+                ArrayList<String> ourCards = p.cards();
+                String fromThem = otherWorkstation.remove(cardIdx);
+                String fromUs = ourCards.remove(ch.getSelectedIndex());
+                otherWorkstation.add(cardIdx, fromUs);
+                ourCards.add(ch.getSelectedIndex(), fromThem);
+
+                players.get(playerIdx).setWorkstation(otherWorkstation);
+                p.setCards(ourCards);
+            }
         }
         finalizeAction();
     }
@@ -319,10 +354,28 @@ public class GameActivity extends AppCompatActivity {
         whoseTextView.setText(players.get(playerNum).username());
         whoseTextView.append("'s Workstation");
 
-        myDialog.findViewById(R.id.confirmSyringeButton).setVisibility(View.GONE);
+
+        ImageButton syringeButton = myDialog.findViewById(R.id.confirmSyringeButton);
+        syringeButton.setVisibility(View.GONE);
+
+        boolean playerReady = game.currentActionType() == ActionType.SYRINGE && ch.getSelectedIndex() != -1;
+        if (playerReady) {
+            workstationCh.setValueChangeListener(() -> {
+                if (workstationCh.getSelectedIndex() == -1) {
+                    syringeButton.setVisibility(View.GONE);
+                } else {
+                    syringeButton.setVisibility(View.VISIBLE);
+                }
+            });
+            syringeButton.setOnClickListener(v -> {
+                performSyringe(playerNum, workstationCh.getSelectedIndex());
+                myDialog.dismiss();
+            });
+        }
+
     }
 
-    public void postAction(ActionType at){
+    public void postAction(ActionType at) {
         if (currentPlayer.getObjectId().equals(game.players().get(game.currentTurn()))) {
             game.setCurrentAction(at.getText());
             game.saveInBackground(e -> update());
@@ -339,6 +392,13 @@ public class GameActivity extends AppCompatActivity {
 
     public void discardCards(View v) {
         postAction(ActionType.DISCARD);
+    }
+
+    public void syringeButton(View v) {
+        game.setCurrentAction(ActionType.SYRINGE);
+        currentPlayer.setCards(ch.getCardData());
+        ch.forceSelect(currentPlayer.cards().indexOf(CardType.SYRINGE.getText()));
+        updateTurnTextView();
     }
 
     public void confirmSelection(View v) {
