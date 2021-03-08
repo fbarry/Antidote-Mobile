@@ -312,8 +312,13 @@ public class GameActivity extends AppCompatActivity {
         myDialog.show();
 
         CardHandler workstationCh = myDialog.findViewById(R.id.cardHandlerWorkstation);
-
         workstationCh.setCards(players.get(playerNum).workstation());
+
+        TextView whoseTextView = myDialog.findViewById(R.id.whoseWorkstationTextView);
+        whoseTextView.setText(players.get(playerNum).username());
+        whoseTextView.append("'s Workstation");
+
+        myDialog.findViewById(R.id.confirmSyringeButton).setVisibility(View.GONE);
     }
 
     public void passCardsLeft(View v) {
