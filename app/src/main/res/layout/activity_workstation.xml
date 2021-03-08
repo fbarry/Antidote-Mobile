@@ -40,6 +40,6 @@
         android:scaleType="fitCenter"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/up_arrow" />
+        app:srcCompat="@drawable/syringe_temp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
