@@ -54,22 +54,6 @@ public class LobbyTest {
     }
 
     @Test
-    public void testLobbyDisplaysCorrectNumberOfPlayers() {
-        Activity lobby = getNewLobby();
-
-        Game game = (Game) (lobby.getIntent().getSerializableExtra("gameInfo"));
-
-        TextView playerListTextView = lobby.findViewById(R.id.playerList);
-        String listInText = playerListTextView.getText().toString();
-        String[] list = listInText.split("\n");
-
-        assertEquals(game.numPlayers(), list.length);
-
-        lobby.finish();
-        game.deleteGame();
-    }
-
-    @Test
     public void testLobbyDisplaysCorrectGameCode() {
         Activity lobby = getNewLobby();
 
