@@ -116,5 +116,6 @@
     </string>
     <string name="rejoin">Rejoin</string>
     <string name="leave">Leave</string>
+    <string name="player123456_s_workstation">Player123456\'s Workstation</string>
 
 </resources>
