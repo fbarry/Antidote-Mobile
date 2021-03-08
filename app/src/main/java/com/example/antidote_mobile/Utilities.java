@@ -6,7 +6,16 @@ import android.content.DialogInterface;
 
 import androidx.annotation.Nullable;
 
+import java.util.Random;
+
 public class Utilities {
+
+    static String[] adj = new String[]{ "cute", "mad", "big", "small", "sad", "bad", "dull", "dizzy",
+                                        "crazy", "busy", "calm", "blue", "red", "pink", "teal", "fair",
+                                        "evil", "fine", "good", "ill", "hurt", "kind", "tiny"};
+    static String[] noun = new String[]{"bug", "art", "food", "data", "law", "bird", "love", "fact",
+                                        "hat", "idea", "oven", "bulb", "dino", "army", "user", "road",
+                                        "mole", "math", "lad", "wood", "cell", "mood", "ad", "debt"};
 
     public static String getRandomString(int len) {
         StringBuilder sb = new StringBuilder();
@@ -20,6 +29,21 @@ public class Utilities {
         int diff = high - low;
         int add = (int) (Math.random() * (diff + 1));
         return low + add;
+    }
+
+    public static String getRandomNumberString(int len) {
+        StringBuilder sb = new StringBuilder();
+        while (len-- > 0) {
+            sb.append((char) ('0' + (int) (Math.random() * 10)));
+        }
+        return sb.toString();
+    }
+
+    public static String getRandomGuestUsername() {
+        Random rand = new Random();
+        String ret = adj[rand.nextInt(adj.length)] + "_" + noun[rand.nextInt(noun.length)] + "_";
+        ret += getRandomNumberString(AntidoteMobile.maxUsernameLength - ret.length());
+        return ret;
     }
 
     public static void showConfirmationAlert(Activity activity,

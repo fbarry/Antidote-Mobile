@@ -8,11 +8,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.internal.Util;
+
 @SuppressWarnings("unused")
 @ParseClassName("Player")
 public class Player extends ParseObject implements Serializable {
-
-    public static final String guestUsername = "IM_A_GUEST_aniveacuinveowih";
 
     public Player() {
 
@@ -99,7 +99,7 @@ public class Player extends ParseObject implements Serializable {
         ret.setIsLocked(false);
         ret.setSelectedIdx(-1);
 
-        if (user.isGuest()) ret.setUsername(Player.guestUsername);
+        if (user.isGuest()) ret.setUsername(Utilities.getRandomGuestUsername());
         else ret.setUsername(user.getUsername());
 
         if (isHost) ret.setUsername(ret.username() + " (Host)");
