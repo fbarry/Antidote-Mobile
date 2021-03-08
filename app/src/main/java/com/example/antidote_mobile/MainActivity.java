@@ -65,28 +65,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             loginbutton.setVisibility(GONE);
         }
 
-        navigationView.setCheckedItem(R.id.nav_home);
+        navigationView.setCheckedItem(R.id.nav_dashboard);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sp = getSharedPreferences("login", MODE_PRIVATE);
+        if (!sp.getBoolean("logged", false)) {
+            MainActivity.this.finish();
+        }
+    }
+
+    public void gotoMenu(Class dest) {
+        startActivity(new Intent(MainActivity.this, dest));
     }
 
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
-            case R.id.nav_home:
-                break;
-            case R.id.nav_tab1:
-                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_tab2:
-                Intent intent2 = new Intent(MainActivity.this, ThirdActivity.class);
-                startActivity(intent2);
-                break;
-            case R.id.nav_share:
-                Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
+            case R.id.nav_dashboard:
                 break;
             case R.id.nav_profile:
-                startActivity(new Intent(MainActivity.this, ProfilePageActivity.class));
+                gotoMenu(ProfilePageActivity.class);
+                break;
+            case R.id.nav_stats:
+                gotoMenu(StatsActivity.class);
                 break;
             case R.id.nav_logout:
                 SharedPreferences sp;
@@ -95,8 +100,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 sp.edit().putString("currentUser", "ERROR: NOT SET").apply();
                 ParseUser.logOutInBackground();
 
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 MainActivity.this.finish();
+
+                gotoMenu(LoginActivity.class);
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);

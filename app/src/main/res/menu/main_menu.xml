@@ -9,64 +9,22 @@
 
         <group>
             <item
-                android:id="@+id/nav_home"
+                android:id="@+id/nav_dashboard"
                 android:icon="@drawable/example_icon"
-                android:title="Home"
-                />
-
+                android:title="Dashboard"/>
             <item
-                android:id="@+id/nav_tab1"
+                android:id="@+id/nav_profile"
                 android:icon="@drawable/example_icon"
-                android:title="Tab 1" />
-
+                android:title="Profile" />
             <item
-                android:id="@+id/nav_tab2"
+                android:id="@+id/nav_stats"
                 android:icon="@drawable/example_icon"
-                android:title="Tab 2" />
-
+                android:title="User stats" />
             <item
-                android:id="@+id/nav_tab3"
+                android:id="@+id/nav_logout"
                 android:icon="@drawable/example_icon"
-                android:title="Tab 3" />
+                android:title="Logout" />
         </group>
     </group>
 
-
-    <item android:title="Profile">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/nav_login"
-                    android:icon="@drawable/example_icon"
-                    android:title="Login" />
-
-                <item
-                    android:id="@+id/nav_profile"
-                    android:icon="@drawable/example_icon"
-                    android:title="Profile" />
-
-                <item
-                    android:id="@+id/nav_logout"
-                    android:icon="@drawable/example_icon"
-                    android:title="Logout" />
-            </group>
-        </menu>
-    </item>
-
-
-    <item android:title="Communicate">
-
-        <menu>
-
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/example_icon"
-                android:title="Share" />
-
-            <item
-                android:id="@+id/nav_rate"
-                android:icon="@drawable/example_icon"
-                android:title="Rate Us" />
-        </menu>
-    </item>
 </menu>
