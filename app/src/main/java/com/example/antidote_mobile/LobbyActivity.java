@@ -39,8 +39,8 @@ public class LobbyActivity extends AppCompatActivity {
         playerList = findViewById(R.id.playerList);
 
         LinearLayoutManager llm = new LinearLayoutManager(this,
-                                                            LinearLayoutManager.VERTICAL,
-                                                false);
+                LinearLayoutManager.VERTICAL,
+                false);
         playerList.setLayoutManager(llm);
 
         adapter = new PlayerAdapter(LobbyActivity.this, game, currentPlayer.isHost());
@@ -160,7 +160,8 @@ public class LobbyActivity extends AppCompatActivity {
             ArrayList<Player> copy = new ArrayList<>(adapter.getPlayers());
             for (Player p : copy) {
                 if (!list.contains(p)) adapter.removePlayer(p);
-            } for (Player p : list) {
+            }
+            for (Player p : list) {
                 if (!copy.contains(p)) adapter.addPlayer(p);
             }
         });
