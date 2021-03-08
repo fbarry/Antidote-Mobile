@@ -166,12 +166,15 @@ public class GameActivity extends AppCompatActivity {
                     }
                 }
                 // Show/hide buttons when necessary
-                if (game.players().get(game.currentTurn()).equals(currentPlayer.getObjectId())) {
+                if (game.players().get(game.currentTurn()).equals(currentPlayer.getObjectId()) &&
+                        game.currentAction().equals(ActionType.NONE.getText())) {
                     findViewById(R.id.passCardsLeftButton).setVisibility(View.VISIBLE);
                     findViewById(R.id.passCardsRightButton).setVisibility(View.VISIBLE);
+                    findViewById(R.id.discardCardsButton).setVisibility(View.VISIBLE);
                 } else {
                     findViewById(R.id.passCardsLeftButton).setVisibility(View.GONE);
                     findViewById(R.id.passCardsRightButton).setVisibility(View.GONE);
+                    findViewById(R.id.discardCardsButton).setVisibility(View.GONE);
                 }
                 if (game.host().equals(currentPlayer.getObjectId())) {
                     // We're the host, perhaps we should complete the computation of a turn?
@@ -186,6 +189,13 @@ public class GameActivity extends AppCompatActivity {
                             case PASSRIGHT:
                                 performPassRight();
                                 break;
+                            case DISCARD:
+                                performDiscard();
+                            case NONE:
+                            default:
+                        }
+                    } else if (numLocked == 2) {
+                        switch (ActionType.fromString(game.currentAction())) {
                             case TRADE:
                             case NONE:
                             default:
@@ -206,6 +216,12 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    void finalizeAction() {
+        game.setCurrentTurn((game.currentTurn() + 1) % game.numPlayers());
+        game.setCurrentAction(ActionType.NONE.getText());
+        ParseObject.saveAllInBackground(players, e -> game.saveInBackground(e1 -> update()));
+    }
+
     // 1 for left, -1 for right
     void performPass(int direction) {
         ArrayList<String> trades = new ArrayList<>();
@@ -213,15 +229,12 @@ public class GameActivity extends AppCompatActivity {
         for (int i = 0; i < game.numPlayers(); i++) {
             ArrayList<String> pCards = players.get(i).cards();
             pCards.remove(trades.get(i));
-            int gidx = (trades.size() + i + 1) % trades.size();
+            int gidx = (trades.size() + i + direction) % trades.size();
             pCards.add(trades.get(gidx));
             players.get(i).setCards(pCards);
-            players.get(i).setIsLocked(false);
-            players.get(i).setSelectedIdx(-1);
+            players.get(i).deselect();
         }
-        game.setCurrentTurn((game.currentTurn() + direction) % game.numPlayers());
-        game.setCurrentAction(ActionType.NONE.getText());
-        ParseObject.saveAllInBackground(players, e -> game.saveInBackground(e1 -> update()));
+        finalizeAction();
     }
 
     void performPassLeft() {
@@ -232,6 +245,18 @@ public class GameActivity extends AppCompatActivity {
     void performPassRight() {
         System.out.println("Passing Right!!!");
         performPass(-1);
+    }
+
+    void performDiscard() {
+        System.out.println("Discarding!!!");
+        for (Player p : players) {
+            ArrayList<String> pCards = p.cards(), pWorkstation = p.workstation();
+            pWorkstation.add(pCards.remove(p.selectedIdx()));
+            p.setCards(pCards);
+            p.setWorkstation(pWorkstation);
+            p.deselect();
+        }
+        finalizeAction();
     }
 
     @Override
@@ -287,8 +312,13 @@ public class GameActivity extends AppCompatActivity {
         myDialog.show();
 
         CardHandler workstationCh = myDialog.findViewById(R.id.cardHandlerWorkstation);
-
         workstationCh.setCards(players.get(playerNum).workstation());
+
+        TextView whoseTextView = myDialog.findViewById(R.id.whoseWorkstationTextView);
+        whoseTextView.setText(players.get(playerNum).username());
+        whoseTextView.append("'s Workstation");
+
+        myDialog.findViewById(R.id.confirmSyringeButton).setVisibility(View.GONE);
     }
 
     public void passCardsLeft(View v) {
@@ -301,6 +331,13 @@ public class GameActivity extends AppCompatActivity {
     public void passCardsRight(View v) {
         if (currentPlayer.getObjectId().equals(game.players().get(game.currentTurn()))) {
             game.setCurrentAction(ActionType.PASSRIGHT.getText());
+            game.saveInBackground();
+        }
+    }
+
+    public void discardCards(View v) {
+        if (currentPlayer.getObjectId().equals(game.players().get(game.currentTurn()))) {
+            game.setCurrentAction(ActionType.DISCARD.getText());
             game.saveInBackground();
         }
     }

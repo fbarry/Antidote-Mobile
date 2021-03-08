@@ -116,10 +116,17 @@
     </string>
     <string name="rejoin">Rejoin</string>
     <string name="leave">Leave</string>
+    <string name="player123456_s_workstation">Player123456\'s Workstation</string>
     <string name="try_again">Try Again</string>
     <string name="missing_field_info">Some required fields are missing</string>
     <string name="fill_out_and_try_again">Fill out all fields and try again.</string>
     <string name="passwords_dont_match">Passwords do not match</string>
     <string name="type_carefully">Type carefully!</string>
+    <string name="DiscardButtonDesc">Make everyone discard a card</string>
+
+    <string name="status_title">Status</string>
+    <string name="default_status">I\'m a pro Antidote Mobile gamer!</string>
+    <string name="edit_status_button">Edit</string>
+    <string name="save_status_button">Save</string>
 
 </resources>
