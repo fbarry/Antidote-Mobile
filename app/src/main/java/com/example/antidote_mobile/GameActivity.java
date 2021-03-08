@@ -14,6 +14,7 @@ import androidx.core.content.res.ResourcesCompat;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,10 +60,9 @@ public class GameActivity extends AppCompatActivity {
         ch.setCards(currentPlayer.cards());
 
         ch.setValueChangeListener(() -> {
-            if (ch.lifted != null) {
+            if (ch.lifted != null && game.currentActionType() != ActionType.NONE) {
                 // We have selected a card (possibly just selected it)
                 findViewById(R.id.confirmButton).setVisibility(View.VISIBLE);
-
             } else {
                 // We have not selected a card (possibly just deselected it)
                 findViewById(R.id.confirmButton).setVisibility(View.GONE);
@@ -167,7 +167,7 @@ public class GameActivity extends AppCompatActivity {
                 }
                 // Show/hide buttons when necessary
                 if (game.players().get(game.currentTurn()).equals(currentPlayer.getObjectId()) &&
-                        game.currentAction().equals(ActionType.NONE.getText())) {
+                        game.currentActionType() == ActionType.NONE) {
                     findViewById(R.id.passCardsLeftButton).setVisibility(View.VISIBLE);
                     findViewById(R.id.passCardsRightButton).setVisibility(View.VISIBLE);
                     findViewById(R.id.discardCardsButton).setVisibility(View.VISIBLE);
@@ -191,6 +191,7 @@ public class GameActivity extends AppCompatActivity {
                                 break;
                             case DISCARD:
                                 performDiscard();
+                                break;
                             case NONE:
                             default:
                         }
@@ -321,25 +322,23 @@ public class GameActivity extends AppCompatActivity {
         myDialog.findViewById(R.id.confirmSyringeButton).setVisibility(View.GONE);
     }
 
-    public void passCardsLeft(View v) {
+    public void postAction(ActionType at){
         if (currentPlayer.getObjectId().equals(game.players().get(game.currentTurn()))) {
-            game.setCurrentAction(ActionType.PASSLEFT.getText());
-            game.saveInBackground();
+            game.setCurrentAction(at.getText());
+            game.saveInBackground(e -> update());
         }
+    }
+
+    public void passCardsLeft(View v) {
+        postAction(ActionType.PASSLEFT);
     }
 
     public void passCardsRight(View v) {
-        if (currentPlayer.getObjectId().equals(game.players().get(game.currentTurn()))) {
-            game.setCurrentAction(ActionType.PASSRIGHT.getText());
-            game.saveInBackground();
-        }
+        postAction(ActionType.PASSRIGHT);
     }
 
     public void discardCards(View v) {
-        if (currentPlayer.getObjectId().equals(game.players().get(game.currentTurn()))) {
-            game.setCurrentAction(ActionType.DISCARD.getText());
-            game.saveInBackground();
-        }
+        postAction(ActionType.DISCARD);
     }
 
     public void confirmSelection(View v) {
