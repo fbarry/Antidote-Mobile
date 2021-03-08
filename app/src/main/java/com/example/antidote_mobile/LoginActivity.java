@@ -21,13 +21,8 @@ public class LoginActivity extends AppCompatActivity {
 
         sp = getSharedPreferences("login", MODE_PRIVATE);
 
-        // Logs current user out for testing purposes
-        // sp.edit().putBoolean("logged", false).apply();
-
         if (sp.getBoolean("logged", false)) {
             String userId = sp.getString("currentUser", "ERROR: NOT SET");
-
-            System.out.println("PERSISTENT");
 
             try {
                 User user = (User) ParseUser.getQuery().get(userId);

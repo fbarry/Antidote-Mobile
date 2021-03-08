@@ -10,10 +10,13 @@
         android:id="@+id/login_loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="115dp"
-        android:layout_marginEnd="12dp"
-        android:text="Login"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/activity_main_login"
+        app:layout_constraintBottom_toBottomOf="@+id/login_textViewMessage"
         app:layout_constraintEnd_toStartOf="@+id/login_textViewMessage"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -32,24 +35,12 @@
         android:id="@+id/login_textViewPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
         android:text="@string/activity_main_password"
         app:layout_constraintBottom_toBottomOf="@+id/login_passwordEntry"
         app:layout_constraintEnd_toStartOf="@+id/login_passwordEntry"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/login_passwordEntry"
         app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/login_textViewMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="@string/login_signinmessage"
-        app:layout_constraintEnd_toEndOf="@+id/login_passwordEntry"
-        app:layout_constraintHorizontal_bias="0.227"
-        app:layout_constraintStart_toStartOf="@+id/login_passwordEntry"
-        app:layout_constraintTop_toBottomOf="@+id/login_passwordEntry" />
 
     <EditText
         android:id="@+id/login_passwordEntry"
@@ -73,4 +64,26 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/loginPopupSignUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/signup_message"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_loginButton" />
+
+    <TextView
+        android:id="@+id/login_textViewMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_signinmessage"
+        app:layout_constraintBaseline_toBaselineOf="@+id/login_loginButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/login_loginButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
