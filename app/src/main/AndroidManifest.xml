@@ -42,6 +42,9 @@
         <activity
             android:name=".SignUpActivity"
             android:label="Sign Up Page" />
+        <activity
+            android:name=".StatsActivity"
+            android:label="Stats Page" />
     </application>
 
 </manifest>

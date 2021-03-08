@@ -20,7 +20,7 @@ public class ProfilePageActivity extends AppCompatActivity {
 
         user = AntidoteMobile.currentUser;
 
-        setContentView(R.layout.profile_page);
+        setContentView(R.layout.activity_profile);
 
 
         TextView status = findViewById(R.id.statusMessage);
