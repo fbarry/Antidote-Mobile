@@ -44,6 +44,11 @@ public class Player extends ParseObject implements Serializable {
         this.put("selectedIdx", selectedIdx);
     }
 
+    public void deselect() {
+        setIsLocked(false);
+        setSelectedIdx(-1);
+    }
+
     public String who() {
         return this.getString("who");
     }
