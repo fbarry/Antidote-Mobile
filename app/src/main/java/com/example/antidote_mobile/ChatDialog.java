@@ -1,20 +1,15 @@
 package com.example.antidote_mobile;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;

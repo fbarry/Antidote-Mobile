@@ -17,8 +17,6 @@ public class Message extends ParseObject {
         return getString(BODY_KEY);
     }
 
-    public String getGameId() { return getString(GAME_KEY); }
-
     public void setUserId(String userId) {
         put(USER_ID_KEY, userId);
     }
