@@ -63,7 +63,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.008"
-        app:srcCompat="@drawable/info_icon" />
+        app:srcCompat="@drawable/ic_baseline_info_24" />
 
     <ImageButton
         android:id="@+id/passCardsLeftButton"
@@ -81,7 +81,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.594"
-        app:srcCompat="@drawable/left_arrow" />
+        app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
     <ImageButton
         android:id="@+id/passCardsRightButton"
@@ -99,7 +99,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.594"
-        app:srcCompat="@drawable/right_arrow" />
+        app:srcCompat="@drawable/ic_baseline_arrow_forward_24" />
 
     <ImageButton
         android:id="@+id/discardCardsButton"
@@ -116,7 +116,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.594"
-        app:srcCompat="@drawable/up_arrow" />
+        app:srcCompat="@drawable/ic_baseline_arrow_upward_24" />
 
     <ImageButton
         android:id="@+id/syringeButton"
@@ -152,7 +152,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.008"
-        app:srcCompat="@drawable/checkmark" />
+        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
 
     <ImageButton
         android:id="@+id/player1workstation"
@@ -170,7 +170,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.096"
-        app:srcCompat="@drawable/info_icon" />
+        app:srcCompat="@drawable/ic_baseline_info_24" />
 
     <TextView
         android:id="@+id/player1TextView"
@@ -198,7 +198,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.146"
-        app:srcCompat="@drawable/info_icon" />
+        app:srcCompat="@drawable/ic_baseline_info_24" />
 
     <TextView
         android:id="@+id/player2TextView"
@@ -226,7 +226,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.196"
-        app:srcCompat="@drawable/info_icon" />
+        app:srcCompat="@drawable/ic_baseline_info_24" />
 
     <TextView
         android:id="@+id/player3TextView"
@@ -254,7 +254,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.245"
-        app:srcCompat="@drawable/info_icon" />
+        app:srcCompat="@drawable/ic_baseline_info_24" />
 
     <TextView
         android:id="@+id/player4TextView"
@@ -282,7 +282,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.295"
-        app:srcCompat="@drawable/info_icon" />
+        app:srcCompat="@drawable/ic_baseline_info_24" />
 
     <TextView
         android:id="@+id/player5TextView"
@@ -310,7 +310,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.344"
-        app:srcCompat="@drawable/info_icon" />
+        app:srcCompat="@drawable/ic_baseline_info_24" />
 
     <TextView
         android:id="@+id/player6TextView"
@@ -338,7 +338,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.395"
-        app:srcCompat="@drawable/info_icon" />
+        app:srcCompat="@drawable/ic_baseline_info_24" />
 
     <TextView
         android:id="@+id/player7TextView"

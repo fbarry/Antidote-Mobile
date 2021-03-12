@@ -156,11 +156,11 @@ public class GameActivity extends AppCompatActivity {
                         if (currentPlayer.isLocked()) {
                             ch.forceAll();
                             ch.forceSelect(currentPlayer.selectedIdx());
-                            Drawable nimg = ResourcesCompat.getDrawable(getResources(), R.drawable.xmark, null);
+                            Drawable nimg = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_baseline_cancel_24, null);
                             ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
                         } else {
                             ch.deselect();
-                            Drawable nimg = ResourcesCompat.getDrawable(getResources(), R.drawable.checkmark, null);
+                            Drawable nimg = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_baseline_check_circle_24, null);
                             ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
                         }
                         ch.selectable = !currentPlayer.isLocked();
@@ -408,7 +408,7 @@ public class GameActivity extends AppCompatActivity {
             // we meant to deselect
             ch.deselect();
             ch.selectable = true;
-            Drawable nimg = ResourcesCompat.getDrawable(getResources(), R.drawable.checkmark, null);
+            Drawable nimg = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_baseline_check_circle_24, null);
             ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
             currentPlayer.setIsLocked(false);
             currentPlayer.setSelectedIdx(-1);
@@ -420,7 +420,7 @@ public class GameActivity extends AppCompatActivity {
             currentPlayer.setCards(ch.getCardData());
             currentPlayer.setSelectedIdx(selectedIdx);
             ch.selectable = false;
-            Drawable nimg = ResourcesCompat.getDrawable(getResources(), R.drawable.xmark, null);
+            Drawable nimg = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_baseline_cancel_24, null);
             ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
             currentPlayer.saveInBackground(e -> System.out.println("Saved select successfully!"));
         }
