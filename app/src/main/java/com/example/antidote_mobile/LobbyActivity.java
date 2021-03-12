@@ -48,7 +48,8 @@ public class LobbyActivity extends AppCompatActivity {
         adapter = new PlayerAdapter(LobbyActivity.this, game, currentPlayer.isHost());
         playerList.setAdapter(adapter);
 
-        chatDialog = new ChatDialog(this, game.getObjectId(), currentPlayer.username());
+        chatDialog = new ChatDialog(LobbyActivity.this, game.getObjectId(), currentPlayer.username());
+        chatDialog.create();
 
         if (!currentPlayer.isHost()) {
             Button startGameButton = findViewById(R.id.startGameButton);

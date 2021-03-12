@@ -51,9 +51,7 @@ public class ChatDialog extends Dialog implements View.OnClickListener {
         rvChat = findViewById(R.id.rvChat);
         mFirstLoad = true;
 
-        final String userId = AntidoteMobile.currentUser.getObjectId();
-
-        mAdapter = new ChatAdapter(activity, userId, mMessages);
+        mAdapter = new ChatAdapter(getContext(), username, mMessages);
         rvChat.setAdapter(mAdapter);
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
