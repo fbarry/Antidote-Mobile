@@ -16,7 +16,7 @@
         android:paddingStart="0dp"
         android:paddingEnd="32dp"
         android:text="@string/filler_text"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <Button
