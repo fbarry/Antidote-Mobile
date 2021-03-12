@@ -1,27 +1,28 @@
 package com.example.antidote_mobile;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatDialog extends Dialog implements View.OnClickListener {
 
     static final int MAX_CHAT_MESSAGES_TO_SHOW = 50;
 
+    Activity activity;
     EditText etMessage;
     ImageButton btSend;
     RecyclerView rvChat;
@@ -30,40 +31,20 @@ public class ChatActivity extends AppCompatActivity {
 
     boolean mFirstLoad;
 
-    static final long POLL_INTERVAL = TimeUnit.SECONDS.toMillis(3);
-    Handler myHandler = new android.os.Handler();
-    Runnable mRefreshMessagesRunnable = new Runnable() {
-        @Override
-        public void run() {
-            refreshMessages();
-            myHandler.postDelayed(this, POLL_INTERVAL);
-        }
-    };
+    public ChatDialog(Activity activity) {
+        super(activity);
+        this.activity = activity;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_chat);
 
-        refreshMessages();
-        setupMessagePosting();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        myHandler.postDelayed(mRefreshMessagesRunnable, POLL_INTERVAL);
-    }
-
-    @Override
-    protected void onPause() {
-        myHandler.removeCallbacksAndMessages(null);
-        super.onPause();
-    }
-
-    public void setupMessagePosting() {
         etMessage = findViewById(R.id.etMessage);
         btSend = findViewById(R.id.btSend);
+        btSend.setOnClickListener(this);
 
         rvChat = findViewById(R.id.rvChat);
         mMessages = new ArrayList<>();
@@ -71,28 +52,31 @@ public class ChatActivity extends AppCompatActivity {
 
         final String userId = AntidoteMobile.currentUser.getObjectId();
 
-        mAdapter = new ChatAdapter(ChatActivity.this, userId, mMessages);
+        mAdapter = new ChatAdapter(activity, userId, mMessages);
         rvChat.setAdapter(mAdapter);
 
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChatActivity.this);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
         linearLayoutManager.setReverseLayout(true);
         rvChat.setLayoutManager(linearLayoutManager);
 
-        btSend.setOnClickListener(v -> {
-            String data = etMessage.getText().toString();
-            Message message = new Message();
-            message.setBody(data);
-            message.setUserId(AntidoteMobile.currentUser.getObjectId());
-            message.saveInBackground(e -> {
-                if(e == null) {
-                    System.out.println("Successfully posted chat.");
-                    refreshMessages();
-                } else {
-                    System.out.println("MESSAGE FAILED TO SEND");
-                }
-            });
-            etMessage.setText(null);
+        refreshMessages();
+    }
+
+    @Override
+    public void onClick(View v) {
+        String data = etMessage.getText().toString();
+        Message message = new Message();
+        message.setBody(data);
+        message.setUserId(AntidoteMobile.currentUser.getObjectId());
+        message.saveInBackground(e -> {
+            if(e == null) {
+                System.out.println("Successfully posted chat.");
+                refreshMessages();
+            } else {
+                System.out.println("MESSAGE FAILED TO SEND");
+            }
         });
+        etMessage.setText(null);
     }
 
     void refreshMessages() {

@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -83,8 +82,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
     }
-
-    public void onGoToChat(View v) { startActivity(new Intent(MainActivity.this, ChatActivity.class)); }
 
     public void gotoMenu(Object dest) {
         startActivity(new Intent(MainActivity.this, dest.getClass()));

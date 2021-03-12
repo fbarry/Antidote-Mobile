@@ -209,4 +209,13 @@ public class LobbyActivity extends AppCompatActivity {
 
         LobbyActivity.this.finish();
     }
+
+    public void onClickChat(View v) {
+        launchChatPopup();
+    }
+
+    public void launchChatPopup() {
+        ChatDialog chatDialog = new ChatDialog(LobbyActivity.this);
+        chatDialog.show();
+    }
 }

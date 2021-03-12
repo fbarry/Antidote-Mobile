@@ -45,9 +45,6 @@
         <activity
             android:name=".StatsActivity"
             android:label="Stats Page" />
-        <activity
-            android:name=".ChatActivity"
-            android:label="Chat" />
     </application>
 
 </manifest>
