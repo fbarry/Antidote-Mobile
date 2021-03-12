@@ -136,5 +136,6 @@
     <string name="profile_other">Other profile pic</string>
     <string name="profile_me">My profile</string>
     <string name="your_outgoing_message_here">Your outgoing message here</string>
+    <string name="chat_button">Chat Button</string>
 
 </resources>
