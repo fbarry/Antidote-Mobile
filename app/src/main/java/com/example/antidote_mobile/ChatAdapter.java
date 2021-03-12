@@ -42,11 +42,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
         @Override
         public void bindMessage(Message message) {
             Glide.with(mContext)
-                    .load(getProfileUrl(message.getUserId()))
+                    .load(getProfileUrl(message.getUsername()))
                     .circleCrop() // create an effect of a round profile picture
                     .into(imageOther);
             body.setText(message.getBody());
-            name.setText(message.getUserId());
+            name.setText(message.getUsername());
         }
     }
 
@@ -63,7 +63,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
         @Override
         public void bindMessage(Message message) {
             Glide.with(mContext)
-                    .load(getProfileUrl(message.getUserId()))
+                    .load(getProfileUrl(message.getUsername()))
                     .circleCrop() // create an effect of a round profile picture
                     .into(imageMe);
             body.setText(message.getBody());
@@ -88,11 +88,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
 
     private Context mContext;
     private List<Message> mMessages;
-    private String mUserId;
+    private String mUsername;
 
-    public ChatAdapter(Context context, String userId, List<Message> messages) {
+    public ChatAdapter(Context context, String username, List<Message> messages) {
         mMessages = messages;
-        this.mUserId = userId;
+        mUsername = username;
         mContext = context;
     }
 
@@ -112,7 +112,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
 
     private boolean isMe(int position) {
         Message message = mMessages.get(position);
-        return message.getUserId() != null && message.getUserId().equals(mUserId);
+        return message.getUsername() != null && message.getUsername().equals(mUsername);
     }
 
     @NonNull

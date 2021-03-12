@@ -20,7 +20,7 @@ public class ChatDialog extends Dialog implements View.OnClickListener {
     static final int MAX_CHAT_MESSAGES_TO_SHOW = 50;
 
     LobbyActivity activity;
-    String gameId;
+    String gameId, username;
 
     EditText etMessage;
     ImageButton btSend;
@@ -30,10 +30,11 @@ public class ChatDialog extends Dialog implements View.OnClickListener {
 
     boolean mFirstLoad;
 
-    public ChatDialog(LobbyActivity activity, String gameId) {
+    public ChatDialog(LobbyActivity activity, String gameId, String currentUsername) {
         super(activity);
         this.activity = activity;
         this.gameId = gameId;
+        this.username = currentUsername;
         mMessages = new ArrayList<>();
     }
 
@@ -68,7 +69,7 @@ public class ChatDialog extends Dialog implements View.OnClickListener {
 
         Message message = new Message();
         message.setBody(data);
-        message.setUserId(AntidoteMobile.currentUser.getObjectId());
+        message.setUsername(username);
         message.setGame(gameId);
 
         message.saveInBackground(e -> {

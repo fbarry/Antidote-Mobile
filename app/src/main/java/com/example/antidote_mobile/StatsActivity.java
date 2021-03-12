@@ -67,13 +67,7 @@ public class StatsActivity extends AppCompatActivity implements NavigationView.O
             case R.id.nav_stats:
                 break;
             case R.id.nav_logout:
-                SharedPreferences sp;
-                sp = getSharedPreferences("login", MODE_PRIVATE);
-                sp.edit().putBoolean("logged", false).apply();
-                sp.edit().putString("currentUser", "ERROR: NOT SET").apply();
-                ParseUser.logOutInBackground();
-
-
+                User.logoutCurrentUser(this);
                 gotoMenu(LoginActivity.class);
                 break;
         }
