@@ -85,6 +85,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/lobbyPrivateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        android:onClick="privateButton"
+        android:text="@string/private_"
+        app:layout_constraintEnd_toEndOf="@+id/roomCodeTextView"
+        app:layout_constraintStart_toStartOf="@+id/roomCodeTextView"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/playerList"
         android:layout_width="match_parent"
@@ -96,14 +107,25 @@
 
     <ImageButton
         android:id="@+id/chatButtonLobby"
-        android:contentDescription="@string/chat_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:contentDescription="@string/chat_button"
         android:onClick="onClickChat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_chat_bubble_24" />
+
+    <TextView
+        android:id="@+id/publicTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="@string/private_"
+        app:layout_constraintEnd_toEndOf="@+id/roomCodeTextView"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/roomCodeTextView"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

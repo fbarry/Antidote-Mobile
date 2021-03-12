@@ -8,14 +8,13 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity"
-    tools:openDrawer="start"
-    >
+    tools:openDrawer="start">
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
-        android:layout_gravity="start"
-        android:layout_height="match_parent"
         android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
         app:headerLayout="@layout/header"
         app:menu="@menu/main_menu" />
 
@@ -26,17 +25,16 @@
         tools:ignore="ExtraText">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/toolbar"
             android:background="#808080"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/example_icon"
-            />
+            app:navigationIcon="@drawable/example_icon" />
 
 
         <TextView
@@ -69,6 +67,18 @@
             android:layout_marginTop="32dp"
             android:onClick="onJoinGame"
             android:text="@string/join_game_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/createGameButton" />
+
+        <Button
+            android:id="@+id/browseGamesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200dp"
+            android:onClick="onBrowseGames"
+            android:text="@string/browse_games"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"

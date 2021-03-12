@@ -15,21 +15,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-
-import okhttp3.internal.Util;
 
 import static android.view.View.GONE;
 
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void gotoMenu(Class dest) {
+    public void gotoMenu(Class<?> dest) {
         startActivity(new Intent(MainActivity.this, dest));
     }
 
@@ -154,12 +154,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onJoinGame(View v) {
         TextView gameCodeTextView = findViewById(R.id.joinCodeTextView);
         String gameCode = gameCodeTextView.getText().toString();
+        joinGame(gameCode);
+    }
 
+    public void joinGame(String gameCode) {
         checkIfCurrentPlayerAlreadyExists();
 
         if (currentPlayer != null) {
             Game game = Game.rejoinGame(currentPlayer);
             if (gameCode.length() != 0) {
+                if (game != null && game.players().contains(currentPlayer.getObjectId())) {
+                    goToLobbyActivity(game);
+                    return;
+                }
                 Utilities.showTwoPromptAlert(this,
                         R.string.confirm_leave_rejoin,
                         R.string.lose_progress_warning,
@@ -204,6 +211,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void playerJoiningNewGame(String gameCode) {
+
         currentPlayer = Player.createPlayer(AntidoteMobile.currentUser, false);
 
         if (currentPlayer == null) {
@@ -233,6 +241,50 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         }
+    }
+
+    public void onBrowseGames(View v) {
+        Dialog myDialog = new Dialog(this);
+        myDialog.setContentView(R.layout.activity_browse);
+        myDialog.setCancelable(true);
+        myDialog.setTitle("gaming");
+
+        RecyclerView gameList;
+        GameAdapter adapter;
+
+        gameList = myDialog.findViewById(R.id.rvBrowse);
+
+        LinearLayoutManager llm = new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL,
+                false);
+        gameList.setLayoutManager(llm);
+
+        adapter = new GameAdapter(MainActivity.this, myDialog);
+        gameList.setAdapter(adapter);
+
+        myDialog.show();
+
+        ParseQuery<ParseObject> gameQuery = new ParseQuery<>("Game");
+        gameQuery.whereEqualTo("private", false);
+
+        List<ParseObject> found = null;
+        try {
+            found = gameQuery.find();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        assert found != null;
+
+        System.out.println("Found " + found.size() + " games to display!");
+
+        for (ParseObject po : found) {
+            adapter.addGame((Game) po);
+        }
+
+        myDialog.show();
+
+
     }
 
     public void goToLobbyActivity(Game game) {
@@ -269,9 +321,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         myDialog.show();
 
         signup.setOnClickListener(v1 -> {
-                startActivity(new Intent(MainActivity.this, SignUpActivity.class));
-                myDialog.dismiss();
-                });
+            startActivity(new Intent(MainActivity.this, SignUpActivity.class));
+            myDialog.dismiss();
+        });
 
         login.setOnClickListener(v1 -> {
 

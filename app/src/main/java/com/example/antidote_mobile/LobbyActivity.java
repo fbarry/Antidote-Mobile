@@ -116,10 +116,31 @@ public class LobbyActivity extends AppCompatActivity {
             } else {
                 game = (Game) object;
                 adapter.setGame(game);
+                updatePrivacyVisuals();
                 updatePlayerList();
                 updateGameScreen();
             }
         });
+    }
+
+    public void updatePrivacyVisuals() {
+        String pub = getResources().getString(R.string.public_);
+        String priv = getResources().getString(R.string.private_);
+
+        if (game.host().equals(currentPlayer.getObjectId())) {
+            findViewById(R.id.publicTextView).setVisibility(View.GONE);
+            findViewById(R.id.lobbyPrivateButton).setVisibility(View.VISIBLE);
+            ((Button) findViewById(R.id.lobbyPrivateButton)).setText(game.isPrivate() ? priv : pub);
+        } else {
+            findViewById(R.id.publicTextView).setVisibility(View.VISIBLE);
+            findViewById(R.id.lobbyPrivateButton).setVisibility(View.GONE);
+            ((TextView) findViewById(R.id.publicTextView)).setText(game.isPrivate() ? priv : pub);
+        }
+    }
+
+    public void privateButton(View v) {
+        game.setPrivate(!game.isPrivate());
+        game.saveInBackground(e -> update());
     }
 
     public void updateChat() {

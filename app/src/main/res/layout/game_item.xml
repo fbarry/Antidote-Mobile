@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="horizontal"
     android:paddingLeft="32dp"
-    android:paddingRight="32dp"
     android:paddingTop="10dp"
-    android:paddingBottom="10dp" >
+    android:paddingRight="32dp"
+    android:paddingBottom="10dp">
 
     <TextView
         android:id="@+id/gameName"
@@ -17,14 +16,14 @@
         android:paddingStart="0dp"
         android:paddingEnd="32dp"
         android:text="@string/filler_text"
-        android:textStyle="bold"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/joinButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.5"
-        android:text="@string/kick"/>
+        android:text="@string/join" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

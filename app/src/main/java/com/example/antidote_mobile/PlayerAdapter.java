@@ -22,8 +22,8 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         public PlayerViewHolder(View itemView) {
             super(itemView);
 
-            username = itemView.findViewById(R.id.playerName);
-            kickButton = itemView.findViewById(R.id.kickButton);
+            username = itemView.findViewById(R.id.gameName);
+            kickButton = itemView.findViewById(R.id.joinButton);
         }
     }
 
@@ -41,7 +41,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
 
     public void addPlayer(Player player) {
         players.add(player);
-        notifyItemInserted(players.size()-1);
+        notifyItemInserted(players.size() - 1);
     }
 
     public void removePlayer(Player player) {
@@ -50,9 +50,13 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         notifyItemRemoved(index);
     }
 
-    public ArrayList<Player> getPlayers() { return players; }
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
 
-    public void setGame(Game g) { game = g; }
+    public void setGame(Game g) {
+        game = g;
+    }
 
     @NonNull
     @Override

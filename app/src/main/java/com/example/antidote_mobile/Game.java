@@ -1,6 +1,5 @@
 package com.example.antidote_mobile;
 
-import com.parse.FindCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -25,6 +24,14 @@ public class Game extends ParseObject implements Serializable {
 
     public void setCurrentAction(String currentAction) {
         put("currentAction", currentAction);
+    }
+
+    public boolean isPrivate() {
+        return getBoolean("private");
+    }
+
+    public void setPrivate(boolean isPrivate) {
+        put("private", isPrivate);
     }
 
     public ActionType currentActionType() {

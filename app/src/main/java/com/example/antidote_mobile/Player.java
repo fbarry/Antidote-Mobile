@@ -8,8 +8,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.internal.Util;
-
 @SuppressWarnings("unused")
 @ParseClassName("Player")
 public class Player extends ParseObject implements Serializable {
