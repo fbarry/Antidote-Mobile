@@ -2,10 +2,13 @@ package com.example.antidote_mobile;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,6 +48,15 @@ public class ChatDialog extends Dialog implements View.OnClickListener {
         setContentView(R.layout.activity_chat);
 
         etMessage = findViewById(R.id.etMessage);
+        etMessage.setOnEditorActionListener((v, actionId, event) -> {
+            boolean handled = false;
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
+                onClick(etMessage);
+                handled = true;
+            }
+            return handled;
+        });
+
         btSend = findViewById(R.id.btSend);
         btSend.setOnClickListener(this);
 
@@ -64,6 +76,8 @@ public class ChatDialog extends Dialog implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         String data = etMessage.getText().toString();
+
+        if (data.length() == 0) return;
 
         Message message = new Message();
         message.setBody(data);
