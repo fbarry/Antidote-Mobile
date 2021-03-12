@@ -83,8 +83,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void gotoMenu(Object dest) {
-        startActivity(new Intent(MainActivity.this, dest.getClass()));
+    public void gotoMenu(Class dest) {
+        startActivity(new Intent(MainActivity.this, dest));
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -100,14 +100,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 gotoMenu(StatsActivity.class);
                 break;
             case R.id.nav_logout:
-                SharedPreferences sp;
-                sp = getSharedPreferences("login", MODE_PRIVATE);
-                sp.edit().putBoolean("logged", false).apply();
-                sp.edit().putString("currentUser", "ERROR: NOT SET").apply();
-                ParseUser.logOutInBackground();
-
+                User.logoutCurrentUser(this);
                 MainActivity.this.finish();
-
                 gotoMenu(LoginActivity.class);
                 break;
         }

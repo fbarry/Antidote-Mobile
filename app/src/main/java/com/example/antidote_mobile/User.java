@@ -128,6 +128,7 @@ public class User extends ParseUser {
         sp = activity.getSharedPreferences("login", Context.MODE_PRIVATE);
         sp.edit().putBoolean("logged", false).apply();
         sp.edit().putString("currentUser", "ERROR: NOT SET").apply();
+        AntidoteMobile.currentUser = null;
         ParseUser.logOutInBackground();
     }
 }
