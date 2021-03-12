@@ -1,5 +1,6 @@
 package com.example.antidote_mobile;
 
+import com.parse.FindCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -300,6 +301,8 @@ public class Game extends ParseObject implements Serializable {
     // TODO: Handle errors
     @SuppressWarnings("StatementWithEmptyBody")
     public void deleteGame() {
+        deleteAllChats();
+
         ArrayList<String> playerList = new ArrayList<>(players());
         for (String playerId : playerList) removePlayer(playerId);
 
@@ -312,6 +315,17 @@ public class Game extends ParseObject implements Serializable {
                     }
                 });
             } else {
+            }
+        });
+    }
+
+    public void deleteAllChats() {
+        ParseQuery<Message> query = ParseQuery.getQuery(Message.class);
+        query.whereEqualTo(Message.GAME_KEY, getObjectId());
+
+        query.findInBackground((objects, e) -> {
+            for (ParseObject o : objects) {
+                o.deleteInBackground();
             }
         });
     }

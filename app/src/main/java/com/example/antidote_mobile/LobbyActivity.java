@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +27,8 @@ public class LobbyActivity extends AppCompatActivity {
     Timer refreshTimer;
     RecyclerView playerList;
     PlayerAdapter adapter;
+    ImageButton chatButton;
+    ChatDialog chatDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,8 @@ public class LobbyActivity extends AppCompatActivity {
         adapter = new PlayerAdapter(LobbyActivity.this, game, currentPlayer.isHost());
         playerList.setAdapter(adapter);
 
+        chatDialog = new ChatDialog(LobbyActivity.this, game.getObjectId());
+
         if (!currentPlayer.isHost()) {
             Button startGameButton = findViewById(R.id.startGameButton);
             startGameButton.setVisibility(View.GONE);
@@ -57,6 +62,8 @@ public class LobbyActivity extends AppCompatActivity {
 
         TextView roomCodeTextView = findViewById(R.id.roomCodeTextView);
         roomCodeTextView.setText(game.roomCode());
+
+        chatButton = findViewById(R.id.chatButtonLobby);
 
         updatePlayerList();
 
@@ -93,6 +100,11 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     public void update() {
+        updateGame();
+        updateChat();
+    }
+
+    public void updateGame() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
         query.getInBackground(game.getObjectId(), (object, e) -> {
             if (e != null) {
@@ -107,6 +119,16 @@ public class LobbyActivity extends AppCompatActivity {
                 updateGameScreen();
             }
         });
+    }
+
+    public void updateChat() {
+        chatDialog.refreshMessages();
+    }
+
+    public void showChatNotification() {
+        if (!chatDialog.isShowing()) {
+            chatButton.setImageResource(R.drawable.ic_baseline_mark_chat_unread_24);
+        }
     }
 
     public void updateGameScreen() {
@@ -212,10 +234,10 @@ public class LobbyActivity extends AppCompatActivity {
 
     public void onClickChat(View v) {
         launchChatPopup();
+        chatButton.setImageResource(R.drawable.ic_baseline_chat_bubble_24);
     }
 
     public void launchChatPopup() {
-        ChatDialog chatDialog = new ChatDialog(LobbyActivity.this);
         chatDialog.show();
     }
 }

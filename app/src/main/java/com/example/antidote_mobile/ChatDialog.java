@@ -14,15 +14,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ChatDialog extends Dialog implements View.OnClickListener {
 
     static final int MAX_CHAT_MESSAGES_TO_SHOW = 50;
 
-    Activity activity;
+    LobbyActivity activity;
+    String gameId;
+
     EditText etMessage;
     ImageButton btSend;
     RecyclerView rvChat;
@@ -31,9 +35,11 @@ public class ChatDialog extends Dialog implements View.OnClickListener {
 
     boolean mFirstLoad;
 
-    public ChatDialog(Activity activity) {
+    public ChatDialog(LobbyActivity activity, String gameId) {
         super(activity);
         this.activity = activity;
+        this.gameId = gameId;
+        mMessages = new ArrayList<>();
     }
 
     @Override
@@ -47,7 +53,6 @@ public class ChatDialog extends Dialog implements View.OnClickListener {
         btSend.setOnClickListener(this);
 
         rvChat = findViewById(R.id.rvChat);
-        mMessages = new ArrayList<>();
         mFirstLoad = true;
 
         final String userId = AntidoteMobile.currentUser.getObjectId();
@@ -65,9 +70,12 @@ public class ChatDialog extends Dialog implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         String data = etMessage.getText().toString();
+
         Message message = new Message();
         message.setBody(data);
         message.setUserId(AntidoteMobile.currentUser.getObjectId());
+        message.setGame(gameId);
+
         message.saveInBackground(e -> {
             if(e == null) {
                 System.out.println("Successfully posted chat.");
@@ -82,21 +90,32 @@ public class ChatDialog extends Dialog implements View.OnClickListener {
     void refreshMessages() {
         ParseQuery<Message> query = ParseQuery.getQuery(Message.class);
         query.setLimit(MAX_CHAT_MESSAGES_TO_SHOW);
-
+        query.whereEqualTo(Message.GAME_KEY, gameId);
         query.orderByDescending("createdAt");
 
         query.findInBackground((messages, e) -> {
             if (e == null) {
-                mMessages.clear();
-                mMessages.addAll(messages);
-                mAdapter.notifyDataSetChanged();
-                if (mFirstLoad) {
-                    rvChat.scrollToPosition(0);
-                    mFirstLoad = false;
+                if (newMessages(messages)) {
+                    activity.showChatNotification();
                 }
             } else {
                 System.out.println("Failed to refresh");
             }
         });
+    }
+
+    public boolean newMessages(List<Message> messages) {
+
+        if (mMessages.containsAll(messages)) return false;
+
+        mMessages.clear();
+        mMessages.addAll(messages);
+        mAdapter.notifyDataSetChanged();
+        if (mFirstLoad) {
+            rvChat.scrollToPosition(0);
+            mFirstLoad = false;
+        }
+
+        return true;
     }
 }
