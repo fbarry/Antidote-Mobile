@@ -84,8 +84,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void gotoMenu(Class dest) {
-        startActivity(new Intent(MainActivity.this, dest));
+    public void onGoToChat(View v) { startActivity(new Intent(MainActivity.this, ChatActivity.class)); }
+
+    public void gotoMenu(Object dest) {
+        startActivity(new Intent(MainActivity.this, dest.getClass()));
     }
 
     @SuppressLint("NonConstantResourceId")

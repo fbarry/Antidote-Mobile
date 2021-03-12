@@ -131,5 +131,10 @@
     <string name="edit_status_button">Edit</string>
     <string name="save_status_button">Save</string>
     <string name="statistics">Statistics</string>
+    <string name="send_a_chat_to_your_game">Send a chat to your game</string>
+    <string name="send">Send</string>
+    <string name="profile_other">Other profile pic</string>
+    <string name="profile_me">My profile</string>
+    <string name="your_outgoing_message_here">Your outgoing message here</string>
 
 </resources>
