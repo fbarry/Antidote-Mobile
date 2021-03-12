@@ -137,5 +137,8 @@
     <string name="profile_me">My profile</string>
     <string name="your_outgoing_message_here">Your outgoing message here</string>
     <string name="chat_button">Chat Button</string>
+    <string name="cannot_create_when_in_another_game">You cannot create a game when you are already in one!</string>
+    <string name="leave_other_game_first">Leave you other game first.</string>
+
 
 </resources>

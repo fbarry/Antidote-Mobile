@@ -29,6 +29,8 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import okhttp3.internal.Util;
+
 import static android.view.View.GONE;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -127,6 +129,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     public void onCreateGame(View v) {
+        checkIfCurrentPlayerAlreadyExists();
+
+        if (currentPlayer != null) {
+            Utilities.showInformationAlert(this,
+                    R.string.cannot_create_when_in_another_game,
+                    R.string.leave_other_game_first,
+                    null);
+            return;
+        }
+
         currentPlayer = Player.createPlayer(AntidoteMobile.currentUser, true);
         if (currentPlayer == null) {
             Utilities.showInformationAlert(this,
@@ -143,8 +155,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView gameCodeTextView = findViewById(R.id.joinCodeTextView);
         String gameCode = gameCodeTextView.getText().toString();
 
-        currentPlayer = null;
-
         checkIfCurrentPlayerAlreadyExists();
 
         if (currentPlayer != null) {
@@ -157,8 +167,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         R.string.leave,
                         (dialog, which) -> goToLobbyActivity(game),
                         (dialog, which) -> {
-                            if (game != null) game.removePlayer(currentPlayer.getObjectId());
-                            else currentPlayer.deleteInBackground();
+                            if (game != null) {
+                                if (currentPlayer.isHost()) {
+                                    game.deleteGame();
+                                } else {
+                                    game.removePlayer(currentPlayer.getObjectId());
+                                }
+                            } else currentPlayer.deleteInBackground();
                             playerJoiningNewGame(gameCode);
                         });
             } else {
@@ -170,6 +185,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void checkIfCurrentPlayerAlreadyExists() {
+        currentPlayer = null;
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Player");
         query.whereEqualTo("who", AntidoteMobile.currentUser.getObjectId());
 
