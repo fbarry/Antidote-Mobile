@@ -1,5 +1,9 @@
 package com.example.antidote_mobile;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -54,14 +58,10 @@ public class User extends ParseUser {
     }
 
     public String getStats() {
-        StringBuilder stats = new StringBuilder();
-
-        stats.append("Games Played: " + getNumberOfGames() + "\n");
-        stats.append("Games Won: " + getNumberOfWins() + "\n");
-        stats.append("Games Lost: " + getNumberOfLoses() + "\n");
-        stats.append("Win Rate: " + getWinRate() + "%");
-
-        return stats.toString();
+        return "Games Played: " + getNumberOfGames() + "\n" +
+                "Games Won: " + getNumberOfWins() + "\n" +
+                "Games Lost: " + getNumberOfLoses() + "\n" +
+                "Win Rate: " + getWinRate() + "%";
     }
 
     public static User getUser(String objectId) {
@@ -123,4 +123,11 @@ public class User extends ParseUser {
         return signUp(username, password, null);
     }
 
+    public static void logoutCurrentUser(Activity activity) {
+        SharedPreferences sp;
+        sp = activity.getSharedPreferences("login", Context.MODE_PRIVATE);
+        sp.edit().putBoolean("logged", false).apply();
+        sp.edit().putString("currentUser", "ERROR: NOT SET").apply();
+        ParseUser.logOutInBackground();
+    }
 }

@@ -74,8 +74,9 @@ public class SignUpActivity extends AppCompatActivity {
             currentUser.setIsGuest(false);
             try {
                 currentUser.save();
-                AntidoteMobile.currentUser = currentUser;
-                SignUpActivity.this.finish();
+                User.logoutCurrentUser(this);
+                ParseUser.logInInBackground(username, password);
+                goToDashboard();
                 return;
             } catch (ParseException e) {
                 currentUser = null;
