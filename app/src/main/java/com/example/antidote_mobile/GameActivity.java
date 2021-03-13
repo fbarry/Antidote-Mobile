@@ -1,6 +1,7 @@
 package com.example.antidote_mobile;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -9,14 +10,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.SaveCallback;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -61,17 +60,19 @@ public class GameActivity extends AppCompatActivity {
         ch.setCards(currentPlayer.cards());
 
         ch.setValueChangeListener(() -> {
-            if (ch.lifted != null && game.currentActionType() != ActionType.NONE
-                    && game.currentActionType() != ActionType.SYRINGE) {
-                // We have selected a card (possibly just selected it)
-                findViewById(R.id.confirmButton).setVisibility(View.VISIBLE);
+            if (game.currentActionType() == ActionType.SYRINGE) {
+                if (ch.lifted != null && ch.lifted.type != CardType.SYRINGE) {
+                    game.setCurrentAction(ActionType.NONE);
+                    updateTurnTextView();
+                }
             } else {
-                // We have not selected a card (possibly just deselected it)
-                findViewById(R.id.confirmButton).setVisibility(View.GONE);
-            }
-            if(ch.lifted != null && ch.lifted.type != CardType.SYRINGE) {
-                game.setCurrentAction(ActionType.NONE);
-                updateTurnTextView();
+                if (ch.lifted != null && game.currentActionType() != ActionType.NONE) {
+                    // We have selected a card (possibly just selected it)
+                    findViewById(R.id.confirmButton).setVisibility(View.VISIBLE);
+                } else {
+                    // We have not selected a card (possibly just deselected it)
+                    findViewById(R.id.confirmButton).setVisibility(View.GONE);
+                }
             }
         });
 
@@ -145,27 +146,10 @@ public class GameActivity extends AppCompatActivity {
                 List<ParseObject> parseObjects = getPlayers.find();
                 System.out.println("Got " + parseObjects.size() + " updated players, previously had " + players.size());
                 for (int i = 0; i < players.size(); i++) {
-                    if (parseObjects.get(i).getObjectId().equals(currentPlayer.getObjectId())) {
-                        // Update currentPlayer and the game's UI
-                        ArrayList<String> oldCards = currentPlayer.cards();
-                        currentPlayer = (Player) parseObjects.get(i);
-                        if (!oldCards.equals(ch.getCardData())) {
-                            ch.setCards(currentPlayer.cards());
-                            System.out.println("Updated cards!");
-                        }
-                        if (currentPlayer.isLocked()) {
-                            ch.forceAll();
-                            ch.forceSelect(currentPlayer.selectedIdx());
-                            Drawable nimg = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_baseline_cancel_24, null);
-                            ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
-                        } else {
-                            ch.deselect();
-                            Drawable nimg = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_baseline_check_circle_24, null);
-                            ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
-                        }
-                        ch.selectable = !currentPlayer.isLocked();
 
-                    }
+                    if (parseObjects.get(i).getObjectId().equals(currentPlayer.getObjectId()))
+                        updateCurrentPlayer((Player) parseObjects.get(i));
+
                     // Update the players arraylist with this object
                     if (parseObjects.get(i).getObjectId().equals(players.get(i).getObjectId())) {
                         players.set(i, (Player) parseObjects.get(i));
@@ -173,7 +157,8 @@ public class GameActivity extends AppCompatActivity {
                 }
                 // Show/hide buttons when necessary
                 updateActionVisibilities();
-                if (game.host().equals(currentPlayer.getObjectId())) {
+
+                if (currentPlayer.isHost()) {
                     // We're the host, perhaps we should complete the computation of a turn?
                     int numLocked = 0;
                     for (Player p : players) if (p.isLocked()) numLocked++;
@@ -200,14 +185,37 @@ public class GameActivity extends AppCompatActivity {
                         }
                     }
                 }
+
                 for (Player p : players) {
                     System.out.println(p.getObjectId() + "," + p.username());
                 }
                 updateTurnTextView();
+
             } catch (ParseException ignored) {
             }
         });
+    }
 
+    void updateCurrentPlayer(Player newCurrentPlayer) {
+        // Update currentPlayer and the game's UI
+        ArrayList<String> oldCards = currentPlayer.cards();
+        currentPlayer = newCurrentPlayer;
+        if (!oldCards.equals(ch.getCardData())) {
+            ch.setCards(currentPlayer.cards());
+            System.out.println("Updated cards!");
+        }
+        Drawable nimg;
+        Context context = findViewById(R.id.confirmButton).getContext();
+        if (currentPlayer.isLocked()) {
+            ch.forceAll();
+            ch.forceSelect(currentPlayer.selectedIdx());
+            nimg = AppCompatResources.getDrawable(context, R.drawable.ic_baseline_cancel_24);
+        } else {
+            ch.deselect();
+            nimg = AppCompatResources.getDrawable(context, R.drawable.ic_baseline_check_circle_24);
+        }
+        ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
+        ch.selectable = !currentPlayer.isLocked();
     }
 
     void updateTurnTextView() {
@@ -404,11 +412,14 @@ public class GameActivity extends AppCompatActivity {
     public void confirmSelection(View v) {
         int selectedIdx = ch.getSelectedIndex();
         if (selectedIdx == -1) return;
+        Drawable nimg;
+        Context context = findViewById(R.id.confirmButton).getContext();
+
         if (!ch.selectable) {
             // we meant to deselect
             ch.deselect();
             ch.selectable = true;
-            Drawable nimg = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_baseline_check_circle_24, null);
+            nimg = AppCompatResources.getDrawable(context, R.drawable.ic_baseline_check_circle_24);
             ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
             currentPlayer.setIsLocked(false);
             currentPlayer.setSelectedIdx(-1);
@@ -420,10 +431,11 @@ public class GameActivity extends AppCompatActivity {
             currentPlayer.setCards(ch.getCardData());
             currentPlayer.setSelectedIdx(selectedIdx);
             ch.selectable = false;
-            Drawable nimg = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_baseline_cancel_24, null);
+            nimg = AppCompatResources.getDrawable(context, R.drawable.ic_baseline_cancel_24);
             ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
             currentPlayer.saveInBackground(e -> System.out.println("Saved select successfully!"));
         }
+        ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
     }
 
 }
