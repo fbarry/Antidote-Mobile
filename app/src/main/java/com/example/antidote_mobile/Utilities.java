@@ -10,12 +10,12 @@ import java.util.Random;
 
 public class Utilities {
 
-    static String[] adj = new String[]{ "cute", "mad", "big", "small", "sad", "bad", "dull", "dizzy",
-                                        "crazy", "busy", "calm", "blue", "red", "pink", "teal", "fair",
-                                        "evil", "fine", "good", "ill", "hurt", "kind", "tiny"};
+    static String[] adj = new String[]{"cute", "mad", "big", "small", "sad", "bad", "dull", "dizzy",
+            "crazy", "busy", "calm", "blue", "red", "pink", "teal", "fair",
+            "evil", "fine", "good", "ill", "hurt", "kind", "tiny"};
     static String[] noun = new String[]{"bug", "art", "food", "data", "law", "bird", "love", "fact",
-                                        "hat", "idea", "oven", "bulb", "dino", "army", "user", "road",
-                                        "mole", "math", "lad", "wood", "cell", "mood", "ad", "debt"};
+            "hat", "idea", "oven", "bulb", "dino", "army", "user", "road",
+            "mole", "math", "lad", "wood", "cell", "mood", "ad", "debt"};
 
     public static String getRandomString(int len) {
         StringBuilder sb = new StringBuilder();
