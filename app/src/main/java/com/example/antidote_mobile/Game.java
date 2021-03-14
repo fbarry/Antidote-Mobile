@@ -42,6 +42,14 @@ public class Game extends ParseObject implements Serializable {
         setCurrentAction(currentAction.getText());
     }
 
+    public void setTradeTarget(int tradeTarget) {
+        put("tradeTarget", tradeTarget);
+    }
+
+    public int tradeTarget() {
+        return getInt("tradeTarget");
+    }
+
     public String roomCode() {
         return getString("roomCode");
     }
@@ -235,6 +243,8 @@ public class Game extends ParseObject implements Serializable {
         newGame.setNumRoundsCompleted(0);
         newGame.setToxin(Toxin.NONE.getText());
         newGame.setCurrentAction(ActionType.NONE.getText());
+        newGame.setPrivate(true);
+        newGame.setTradeTarget(-1);
 
         try {
             newGame.save();
@@ -303,6 +313,8 @@ public class Game extends ParseObject implements Serializable {
         setToxin(po.toxin());
         setHost(po.host());
         setCurrentTurn(po.currentTurn());
+        setTradeTarget(po.tradeTarget());
+        setPrivate(po.isPrivate());
     }
 
     // TODO: Handle errors
