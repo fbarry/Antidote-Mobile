@@ -143,6 +143,13 @@
     <string name="join">Join</string>
     <string name="private_">Private</string>
     <string name="public_">Public</string>
+    <string name="player_2_s_confirm_indicator">Player 2\'s confirm indicator</string>
+    <string name="player_3_s_confirm_indicator">Player 3\'s confirm indicator</string>
+    <string name="player_4_s_confirm_indicator">Player 4\'s confirm indicator</string>
+    <string name="player_1_s_confirm_indicator">Player 1\'s confirm indicator</string>
+    <string name="player_5_s_confirm_indicator">Player 5\'s confirm indicator</string>
+    <string name="player_6_s_confirm_indicator">Player 6\'s confirm indicator</string>
+    <string name="player_7_s_confirm_indicator">Player 7\'s confirm indicator</string>
 
 
 </resources>

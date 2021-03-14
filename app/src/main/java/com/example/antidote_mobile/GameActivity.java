@@ -117,6 +117,14 @@ public class GameActivity extends AppCompatActivity {
                 ((TextView) findViewById(R.id.player1TextView)).setText(players.get(0).username());
         }
 
+        findViewById(R.id.confirmedPlayer1).setVisibility(View.GONE);
+        findViewById(R.id.confirmedPlayer2).setVisibility(View.GONE);
+        findViewById(R.id.confirmedPlayer3).setVisibility(View.GONE);
+        findViewById(R.id.confirmedPlayer4).setVisibility(View.GONE);
+        findViewById(R.id.confirmedPlayer5).setVisibility(View.GONE);
+        findViewById(R.id.confirmedPlayer6).setVisibility(View.GONE);
+        findViewById(R.id.confirmedPlayer7).setVisibility(View.GONE);
+
         refreshTimer = new Timer();
 
         update();
@@ -151,8 +159,11 @@ public class GameActivity extends AppCompatActivity {
                         updateCurrentPlayer((Player) parseObjects.get(i));
 
                     // Update the players arraylist with this object
-                    if (parseObjects.get(i).getObjectId().equals(players.get(i).getObjectId())) {
-                        players.set(i, (Player) parseObjects.get(i));
+                    for(int j = 0; j < players.size(); j++){
+                        if (parseObjects.get(i).getObjectId().equals(players.get(j).getObjectId())) {
+                            players.set(j, (Player) parseObjects.get(i));
+                            break;
+                        }
                     }
                 }
                 // Show/hide buttons when necessary
@@ -186,6 +197,8 @@ public class GameActivity extends AppCompatActivity {
                     }
                 }
 
+                updateConfirmedDisplays();
+
                 for (Player p : players) {
                     System.out.println(p.getObjectId() + "," + p.username());
                 }
@@ -194,6 +207,36 @@ public class GameActivity extends AppCompatActivity {
             } catch (ParseException ignored) {
             }
         });
+    }
+
+    void updateConfirmedDisplays(){
+        if(game.currentActionType() == ActionType.NONE){
+            findViewById(R.id.confirmedPlayer1).setVisibility(View.GONE);
+            findViewById(R.id.confirmedPlayer2).setVisibility(View.GONE);
+            findViewById(R.id.confirmedPlayer3).setVisibility(View.GONE);
+            findViewById(R.id.confirmedPlayer4).setVisibility(View.GONE);
+            findViewById(R.id.confirmedPlayer5).setVisibility(View.GONE);
+            findViewById(R.id.confirmedPlayer6).setVisibility(View.GONE);
+            findViewById(R.id.confirmedPlayer7).setVisibility(View.GONE);
+            return;
+        }
+        switch(game.numPlayers()){
+            case 7:
+                findViewById(R.id.confirmedPlayer7).setVisibility(players.get(6).isLocked()?View.VISIBLE:View.GONE);
+            case 6:
+                findViewById(R.id.confirmedPlayer6).setVisibility(players.get(5).isLocked()?View.VISIBLE:View.GONE);
+            case 5:
+                findViewById(R.id.confirmedPlayer5).setVisibility(players.get(4).isLocked()?View.VISIBLE:View.GONE);
+            case 4:
+                findViewById(R.id.confirmedPlayer4).setVisibility(players.get(3).isLocked()?View.VISIBLE:View.GONE);
+            case 3:
+                findViewById(R.id.confirmedPlayer3).setVisibility(players.get(2).isLocked()?View.VISIBLE:View.GONE);
+            case 2:
+                findViewById(R.id.confirmedPlayer2).setVisibility(players.get(1).isLocked()?View.VISIBLE:View.GONE);
+            case 1:
+                findViewById(R.id.confirmedPlayer1).setVisibility(players.get(0).isLocked()?View.VISIBLE:View.GONE);
+        }
+        for(Player p:players)System.out.println(p.isLocked());
     }
 
     void updateCurrentPlayer(Player newCurrentPlayer) {
@@ -436,6 +479,7 @@ public class GameActivity extends AppCompatActivity {
             currentPlayer.saveInBackground(e -> System.out.println("Saved select successfully!"));
         }
         ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
+        update();
     }
 
 }

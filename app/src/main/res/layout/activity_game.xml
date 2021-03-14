@@ -13,7 +13,7 @@
         app:deck_right="1020"
         app:deck_top="1450"
         app:draggable="true"
-        tools:layout_editor_absoluteX="4dp"
+        tools:layout_editor_absoluteX="-16dp"
         tools:layout_editor_absoluteY="0dp" />
 
     <Button
@@ -349,5 +349,68 @@
         app:layout_constraintBottom_toBottomOf="@+id/player7workstation"
         app:layout_constraintStart_toEndOf="@+id/player7workstation"
         app:layout_constraintTop_toTopOf="@+id/player7workstation" />
+
+    <ImageView
+        android:id="@+id/confirmedPlayer1"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:contentDescription="@string/player_1_s_confirm_indicator"
+        app:layout_constraintEnd_toStartOf="@+id/player1TextView"
+        app:layout_constraintTop_toTopOf="@+id/player1TextView"
+        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
+
+    <ImageView
+        android:id="@+id/confirmedPlayer2"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:contentDescription="@string/player_2_s_confirm_indicator"
+        app:layout_constraintEnd_toStartOf="@+id/player2TextView"
+        app:layout_constraintTop_toTopOf="@+id/player2TextView"
+        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
+
+    <ImageView
+        android:id="@+id/confirmedPlayer3"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:contentDescription="@string/player_3_s_confirm_indicator"
+        app:layout_constraintEnd_toStartOf="@+id/player3TextView"
+        app:layout_constraintTop_toTopOf="@+id/player3TextView"
+        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
+
+    <ImageView
+        android:id="@+id/confirmedPlayer4"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:contentDescription="@string/player_4_s_confirm_indicator"
+        app:layout_constraintEnd_toStartOf="@+id/player4TextView"
+        app:layout_constraintTop_toTopOf="@+id/player4TextView"
+        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
+
+    <ImageView
+        android:id="@+id/confirmedPlayer5"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:contentDescription="@string/player_5_s_confirm_indicator"
+        app:layout_constraintEnd_toStartOf="@+id/player5TextView"
+        app:layout_constraintTop_toTopOf="@+id/player5TextView"
+        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
+
+    <ImageView
+        android:id="@+id/confirmedPlayer6"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:contentDescription="@string/player_6_s_confirm_indicator"
+        app:layout_constraintEnd_toStartOf="@+id/player6TextView"
+        app:layout_constraintTop_toTopOf="@+id/player6TextView"
+        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
+
+    <ImageView
+        android:id="@+id/confirmedPlayer7"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:contentDescription="@string/player_7_s_confirm_indicator"
+        app:layout_constraintEnd_toStartOf="@+id/player7TextView"
+        app:layout_constraintTop_toTopOf="@+id/player7TextView"
+        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
