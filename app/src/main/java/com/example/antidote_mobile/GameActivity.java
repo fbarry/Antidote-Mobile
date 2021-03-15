@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements ChatDialogActivity {
 
     @SuppressWarnings("unused")
     public static final int millisPerUpdate = 4_000;
@@ -29,6 +29,8 @@ public class GameActivity extends AppCompatActivity {
     Player currentPlayer;
     CardHandler ch;
     ArrayList<Player> players;
+    ImageButton chatButton;
+    ChatDialog chatDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,12 @@ public class GameActivity extends AppCompatActivity {
 
         game = (Game) getIntent().getSerializableExtra("gameInfo");
         currentPlayer = (Player) getIntent().getSerializableExtra("currentPlayer");
+
+        // Add this button when ready to add chat
+        // chatButton = findViewById(R.id.chatButtonGame);
+
+        chatDialog = new ChatDialog(GameActivity.this, game.getObjectId(), currentPlayer.username());
+        chatDialog.create();
 
         updatePlayers();
 
@@ -125,7 +133,27 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void update() {
+        updateChat();
         updateGame();
+    }
+
+    public void updateChat() {
+        chatDialog.refreshMessages();
+    }
+
+    public void showChatNotification() {
+        if (!chatDialog.isShowing()) {
+            chatButton.setImageResource(R.drawable.ic_baseline_mark_chat_unread_24);
+        }
+    }
+
+    public void onClickChat(View v) {
+        launchChatPopup();
+        chatButton.setImageResource(R.drawable.ic_baseline_chat_bubble_24);
+    }
+
+    public void launchChatPopup() {
+        chatDialog.show();
     }
 
     public void updateGame() {
