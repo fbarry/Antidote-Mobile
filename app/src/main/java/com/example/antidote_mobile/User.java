@@ -31,12 +31,20 @@ public class User extends ParseUser {
         this.put("numberOfWins", numberOfWins);
     }
 
+    public void incrementNumberOfWins() {
+        setNumberOfWins(getNumberOfWins() + 1);
+    }
+
     public int getNumberOfLoses() {
         return this.getInt("numberOfLoses");
     }
 
     public void setNumberOfLoses(int numberOfLoses) {
         this.put("numberOfLoses", numberOfLoses);
+    }
+
+    public void incrementNumberOfLoses() {
+        setNumberOfLoses(getNumberOfLoses() + 1);
     }
 
     public int getNumberOfGames() {
