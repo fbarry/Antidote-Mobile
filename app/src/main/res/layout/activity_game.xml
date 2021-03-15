@@ -137,6 +137,24 @@
         app:srcCompat="@drawable/syringe_temp" />
 
     <ImageButton
+        android:id="@+id/tradeButton"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:adjustViewBounds="true"
+        android:background="#00FFFFFF"
+        android:contentDescription="@string/DiscardButtonDesc"
+        android:cropToPadding="true"
+        android:onClick="onTradeButton"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.731"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.594"
+        app:srcCompat="@drawable/ic_baseline_send_24" />
+
+    <ImageButton
         android:id="@+id/confirmButton"
         android:layout_width="35dp"
         android:layout_height="35dp"
@@ -178,6 +196,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:text="@string/player_1"
+        android:onClick="onClickPlayer1"
         app:layout_constraintBottom_toBottomOf="@+id/player1workstation"
         app:layout_constraintStart_toEndOf="@+id/player1workstation"
         app:layout_constraintTop_toTopOf="@+id/player1workstation" />
@@ -206,6 +225,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:text="@string/player_2"
+        android:onClick="onClickPlayer2"
         app:layout_constraintBottom_toBottomOf="@+id/player2workstation"
         app:layout_constraintStart_toEndOf="@+id/player2workstation"
         app:layout_constraintTop_toTopOf="@+id/player2workstation" />
@@ -234,6 +254,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:text="@string/player_3"
+        android:onClick="onClickPlayer3"
         app:layout_constraintBottom_toBottomOf="@+id/player3workstation"
         app:layout_constraintStart_toEndOf="@+id/player3workstation"
         app:layout_constraintTop_toTopOf="@+id/player3workstation" />
@@ -262,6 +283,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:text="@string/player_4"
+        android:onClick="onClickPlayer4"
         app:layout_constraintBottom_toBottomOf="@+id/player4workstation"
         app:layout_constraintStart_toEndOf="@+id/player4workstation"
         app:layout_constraintTop_toTopOf="@+id/player4workstation" />
@@ -290,6 +312,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:text="@string/player_5"
+        android:onClick="onClickPlayer5"
         app:layout_constraintBottom_toBottomOf="@+id/player5workstation"
         app:layout_constraintStart_toEndOf="@+id/player5workstation"
         app:layout_constraintTop_toTopOf="@+id/player5workstation" />
@@ -318,6 +341,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:text="@string/player_6"
+        android:onClick="onClickPlayer6"
         app:layout_constraintBottom_toBottomOf="@+id/player6workstation"
         app:layout_constraintStart_toEndOf="@+id/player6workstation"
         app:layout_constraintTop_toTopOf="@+id/player6workstation" />
@@ -346,6 +370,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:text="@string/player_7"
+        android:onClick="onClickPlayer7"
         app:layout_constraintBottom_toBottomOf="@+id/player7workstation"
         app:layout_constraintStart_toEndOf="@+id/player7workstation"
         app:layout_constraintTop_toTopOf="@+id/player7workstation" />

@@ -66,7 +66,7 @@ public class GameActivity extends AppCompatActivity {
                     updateTurnTextView();
                 }
             } else {
-                if (ch.lifted != null && game.currentActionType() != ActionType.NONE) {
+                if (ch.lifted != null && game.currentActionType() != ActionType.NONE && currentlyTrading()) {
                     // We have selected a card (possibly just selected it)
                     findViewById(R.id.confirmButton).setVisibility(View.VISIBLE);
                 } else {
@@ -138,6 +138,12 @@ public class GameActivity extends AppCompatActivity {
 
     public void gameRefresh(View v) {
         update();
+    }
+
+    public boolean currentlyTrading() {
+        if(game.currentActionType() != ActionType.TRADE) return true;
+        return players.get(game.tradeTarget()).getObjectId().equals(currentPlayer.getObjectId()) ||
+                players.get(game.currentTurn()).getObjectId().equals(currentPlayer.getObjectId());
     }
 
     public void update() {
@@ -267,6 +273,9 @@ public class GameActivity extends AppCompatActivity {
         turnTextView.append(" " + players.get(game.currentTurn()).username());
         turnTextView.append(", Action: ");
         turnTextView.append(game.currentAction());
+        if (game.currentActionType() == ActionType.TRADE)
+            if (game.tradeTarget() == -1) turnTextView.append(" with ?");
+            else turnTextView.append(" with " + players.get(game.tradeTarget()).username());
     }
 
     void updateActionVisibilities() {
@@ -276,12 +285,14 @@ public class GameActivity extends AppCompatActivity {
             findViewById(R.id.syringeButton).setVisibility(currentPlayer.hasSyringe() ? View.VISIBLE : View.GONE);
             findViewById(R.id.discardCardsButton).setVisibility(View.VISIBLE);
             findViewById(R.id.passCardsRightButton).setVisibility(View.VISIBLE);
+            findViewById(R.id.tradeButton).setVisibility(View.VISIBLE);
 
         } else {
             findViewById(R.id.passCardsLeftButton).setVisibility(View.GONE);
             findViewById(R.id.syringeButton).setVisibility(View.GONE);
             findViewById(R.id.discardCardsButton).setVisibility(View.GONE);
             findViewById(R.id.passCardsRightButton).setVisibility(View.GONE);
+            findViewById(R.id.tradeButton).setVisibility(View.GONE);
         }
     }
 
@@ -482,4 +493,38 @@ public class GameActivity extends AppCompatActivity {
         update();
     }
 
+    public void onTradeButton(View view) {
+        game.setCurrentAction(ActionType.TRADE);
+        game.setTradeTarget(-1);
+        game.saveInBackground(e->update());
+    }
+
+    public void onClickPlayer(int idx){
+        if(game.currentActionType() != ActionType.TRADE || game.tradeTarget() != -1) return;
+        if(idx == players.indexOf(currentPlayer)) return;
+        game.setTradeTarget(idx);
+        game.saveInBackground(e->update());
+    }
+
+    public void onClickPlayer1(View view) {
+        onClickPlayer(0);
+    }
+    public void onClickPlayer2(View view) {
+        onClickPlayer(1);
+    }
+    public void onClickPlayer3(View view) {
+        onClickPlayer(2);
+    }
+    public void onClickPlayer4(View view) {
+        onClickPlayer(3);
+    }
+    public void onClickPlayer5(View view) {
+        onClickPlayer(4);
+    }
+    public void onClickPlayer6(View view) {
+        onClickPlayer(5);
+    }
+    public void onClickPlayer7(View view) {
+        onClickPlayer(6);
+    }
 }
