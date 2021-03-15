@@ -43,10 +43,10 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         // Add this button when ready to add chat
         // chatButton = findViewById(R.id.chatButtonGame);
 
-        chatDialog = new ChatDialog(GameActivity.this, game.getObjectId(), currentPlayer.username());
-        chatDialog.create();
+        // chatDialog = new ChatDialog(GameActivity.this, game.getObjectId(), currentPlayer.username());
+        // chatDialog.create();
 
-        updatePlayers();
+        initializePlayers();
 
         ch = findViewById(R.id.cardHandler);
         ch.setCards(currentPlayer.cards());
@@ -128,6 +128,25 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
     }
 
+    public void initializePlayers() {
+        players = new ArrayList<>();
+        ParseQuery<ParseObject> getPlayers = new ParseQuery<>("Player");
+        getPlayers.whereContainedIn("objectId", game.players());
+        try {
+            List<ParseObject> parseObjects = getPlayers.find();
+            for (String pid : game.players()) {
+                for (ParseObject currObject : parseObjects) {
+                    if (currObject.getObjectId().equals(pid)) {
+                        players.add((Player) currObject);
+                        break;
+                    }
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void gameRefresh(View v) {
         update();
     }
@@ -139,7 +158,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     }
 
     public void update() {
-        updateChat();
+        // updateChat();
         updateGame();
     }
 
@@ -225,6 +244,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         } else if (numLocked == 2) {
             switch (ActionType.fromString(game.currentAction())) {
                 case TRADE:
+                    performTrade();
                 case NONE:
                 default:
             }
@@ -370,6 +390,27 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
                 p.setCards(ourCards);
             }
         }
+        finalizeAction();
+    }
+
+    void performTrade() {
+        Player them = players.get(game.tradeTarget());
+        for (Player us : players) {
+            if (us.getObjectId().equals(currentPlayer.getObjectId())) {
+                ArrayList<String> ourCards = us.cards();
+                ArrayList<String> theirCards = them.cards();
+
+                String ourSelectedCard = ourCards.remove(us.selectedIdx());
+                String theirSelectedCard = theirCards.remove(them.selectedIdx());
+
+                ourCards.add(us.selectedIdx(), theirSelectedCard);
+                theirCards.add(them.selectedIdx(), ourSelectedCard);
+
+                us.setCards(ourCards);
+                them.setCards(theirCards);
+            }
+        }
+        game.setTradeTarget(-1);
         finalizeAction();
     }
 
