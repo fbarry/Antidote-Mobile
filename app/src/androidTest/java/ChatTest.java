@@ -45,9 +45,9 @@ public class ChatTest {
         Game game = getNewLobby();
         Espresso.onView(ViewMatchers.withId(R.id.chatButtonLobby)).perform(click());
 
-        assert(!lobbyActivityTestRule.getActivity().hasWindowFocus());
-
         game.deleteGame();
+
+        assert(!lobbyActivityTestRule.getActivity().hasWindowFocus());
     }
 
     @Test
@@ -61,9 +61,9 @@ public class ChatTest {
 
         Drawable currPicture = chatButton.getDrawable();
 
-        assert(!pastPicture.equals(currPicture));
-
         game.deleteGame();
+
+        assert(!pastPicture.equals(currPicture));
     }
 
     private Game getNewLobby() {
