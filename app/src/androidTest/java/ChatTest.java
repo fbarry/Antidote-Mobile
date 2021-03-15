@@ -1,7 +1,9 @@
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.widget.ImageButton;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.intent.Intents;
@@ -46,7 +48,25 @@ public class ChatTest {
     public void testButtonOpensChat() {
         Game game = getNewLobby();
         Espresso.onView(ViewMatchers.withId(R.id.chatButtonLobby)).perform(click());
+
         assert(!lobbyActivityTestRule.getActivity().hasWindowFocus());
+
+        game.deleteGame();
+    }
+
+    @Test
+    public void testImageWhenOpenChatHasNoNotification() {
+        Game game = getNewLobby();
+
+        ImageButton chatButton = lobbyActivityTestRule.getActivity().findViewById(R.id.chatButtonLobby);
+        Drawable pastPicture = chatButton.getDrawable();
+
+        Espresso.onView(ViewMatchers.withId(R.id.chatButtonLobby)).perform(click());
+
+        Drawable currPicture = chatButton.getDrawable();
+
+        assert(!pastPicture.equals(currPicture));
+
         game.deleteGame();
     }
 
