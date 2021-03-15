@@ -241,7 +241,8 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
                 case NONE:
                 default:
             }
-        } else if (numLocked == 2) {
+        }
+        if (numLocked == 2) {
             switch (ActionType.fromString(game.currentAction())) {
                 case TRADE:
                     performTrade();
