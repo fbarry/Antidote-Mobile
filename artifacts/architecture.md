@@ -117,6 +117,10 @@ A general business rule to follow in a multiplayer game is to ensure that player
 | Info Screen   | 24, 23, 7, 25                                     |
 | Lobby Screen  | 5, 7, 17, 11, 26, 30, 1, 25                       |
 | Game Screen   | 3, 7, 17, 13, 11, 27, 25, 4, 2                    |
+| Profile Screen| 35, 31, 3                                         |
+| Stats Screen  | 25, 31, 3                                         |
+| Login Screen  | 35, 4, 19, 31, 3,                                 |
+| Signup Screen | 35, 4, 19, 31, 3,                                 |
 
 # Resource Management
 
