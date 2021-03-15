@@ -89,7 +89,27 @@ A general business rule to follow in a multiplayer game is to ensure that player
 - The turn-choice buttons are only visible when it is the user's turn, and will graphically indicate which of the allowable actions are about to be taken
 - The Workstation button opens a pop-up, which displays the workstation of the selected user.
 
-![Graphical Diagrams](https://github.com/fbarry/Antidote-Mobile/blob/master/artifacts/UImockup.png?raw=true)
+## Profile Screen
+- The Profile Screen displays the profile
+- The menu button opens the side menu
+- The edit button allows the user to edit
+
+## Stats Screen
+- The Stats screen displays the user's stats
+- The menu button opens the side menu
+
+## Login Screen
+- The Login Screen allows the user to Log in
+- The Login button logs the user in with the current data from the text views and moves them to the Home Screen
+- The Sign Up button takes the user to the Signup Screen
+- The Guest button allows the user to play as a guest and moves them to the Home Screen
+
+## Signup Screen
+- The Signup Screen allows the user to  Sign up
+- The Sign Up button creates a new profile and sends the user to the Home Screen
+- The Guest button allows the user to play as a guest and moves them to the Home Screen
+
+![Graphical Diagrams](https://github.com/fbarry/Antidote-Mobile/blob/master/artifacts/UImockup1.png?raw=true)
 
 | Screen        | User Stories                                      |
 |---------------|---------------------------------------------------|
