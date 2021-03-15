@@ -20,12 +20,12 @@
         android:id="@+id/lobbyRefreshButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="320dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:onClick="gameRefresh"
         android:text="@string/refresh"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
     <TextView
         android:id="@+id/gameCodeTextView"
@@ -42,27 +42,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="4dp"
         android:text="@string/turn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/gameCodeTextView" />
 
     <ImageButton
         android:id="@+id/infoButton"
         android:layout_width="35dp"
         android:layout_height="35dp"
+        android:layout_marginTop="8dp"
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
         android:contentDescription="@string/InfoButtonDesc"
         android:cropToPadding="true"
         android:onClick="openInfoPage"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.008"
         app:srcCompat="@drawable/ic_baseline_info_24" />
 
     <ImageButton
@@ -164,30 +161,26 @@
         android:cropToPadding="true"
         android:onClick="confirmSelection"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.882"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.008"
-        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
+        app:srcCompat="@drawable/ic_baseline_check_circle_24"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@id/chatButtonGame"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/player1workstation"
         android:layout_width="35dp"
         android:layout_height="35dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginStart="16dp"
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
         android:contentDescription="@string/InfoButtonDesc"
         android:cropToPadding="true"
         android:onClick="workstation1"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.042"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.096"
         app:srcCompat="@drawable/ic_baseline_info_24" />
 
     <TextView
@@ -211,12 +204,9 @@
         android:cropToPadding="true"
         android:onClick="workstation2"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.042"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.146"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/player1workstation"
         app:srcCompat="@drawable/ic_baseline_info_24" />
 
     <TextView
@@ -240,12 +230,9 @@
         android:cropToPadding="true"
         android:onClick="workstation3"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.042"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.196"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/player2workstation"
         app:srcCompat="@drawable/ic_baseline_info_24" />
 
     <TextView
@@ -269,12 +256,9 @@
         android:cropToPadding="true"
         android:onClick="workstation4"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.042"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.245"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/player3workstation"
         app:srcCompat="@drawable/ic_baseline_info_24" />
 
     <TextView
@@ -298,12 +282,9 @@
         android:cropToPadding="true"
         android:onClick="workstation5"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.042"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.295"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/player4workstation"
         app:srcCompat="@drawable/ic_baseline_info_24" />
 
     <TextView
@@ -327,12 +308,9 @@
         android:cropToPadding="true"
         android:onClick="workstation6"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.042"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.344"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/player5workstation"
         app:srcCompat="@drawable/ic_baseline_info_24" />
 
     <TextView
@@ -356,12 +334,9 @@
         android:cropToPadding="true"
         android:onClick="workstation7"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.042"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.395"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/player6workstation"
         app:srcCompat="@drawable/ic_baseline_info_24" />
 
     <TextView
@@ -437,5 +412,16 @@
         app:layout_constraintEnd_toStartOf="@+id/player7TextView"
         app:layout_constraintTop_toTopOf="@+id/player7TextView"
         app:srcCompat="@drawable/ic_baseline_check_circle_24" />
+
+    <ImageButton
+        android:id="@+id/chatButtonGame"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="onClickChat"
+        app:layout_constraintEnd_toStartOf="@id/infoButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_chat_bubble_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

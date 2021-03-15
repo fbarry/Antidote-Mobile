@@ -40,11 +40,10 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         game = (Game) getIntent().getSerializableExtra("gameInfo");
         currentPlayer = (Player) getIntent().getSerializableExtra("currentPlayer");
 
-        // Add this button when ready to add chat
-        // chatButton = findViewById(R.id.chatButtonGame);
+        chatButton = findViewById(R.id.chatButtonGame);
 
-        // chatDialog = new ChatDialog(GameActivity.this, game.getObjectId(), currentPlayer.username());
-        // chatDialog.create();
+        chatDialog = new ChatDialog(GameActivity.this, game.getObjectId(), currentPlayer.username());
+        chatDialog.create();
 
         initializePlayers();
 
@@ -158,7 +157,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     }
 
     public void update() {
-        // updateChat();
+        updateChat();
         updateGame();
     }
 
