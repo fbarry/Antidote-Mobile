@@ -152,7 +152,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     }
 
     public boolean currentlyTrading() {
-        if(game.currentActionType() != ActionType.TRADE) return true;
+        if (game.currentActionType() != ActionType.TRADE) return true;
         return players.get(game.tradeTarget()).getObjectId().equals(currentPlayer.getObjectId()) ||
                 players.get(game.currentTurn()).getObjectId().equals(currentPlayer.getObjectId());
     }
@@ -394,22 +394,24 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     }
 
     void performTrade() {
+        Player us = players.get(game.currentTurn());
         Player them = players.get(game.tradeTarget());
-        for (Player us : players) {
-            if (us.getObjectId().equals(currentPlayer.getObjectId())) {
-                ArrayList<String> ourCards = us.cards();
-                ArrayList<String> theirCards = them.cards();
 
-                String ourSelectedCard = ourCards.remove(us.selectedIdx());
-                String theirSelectedCard = theirCards.remove(them.selectedIdx());
+        ArrayList<String> ourCards = us.cards();
+        ArrayList<String> theirCards = them.cards();
 
-                ourCards.add(us.selectedIdx(), theirSelectedCard);
-                theirCards.add(them.selectedIdx(), ourSelectedCard);
+        String ourSelectedCard = ourCards.remove(us.selectedIdx());
+        String theirSelectedCard = theirCards.remove(them.selectedIdx());
 
-                us.setCards(ourCards);
-                them.setCards(theirCards);
-            }
-        }
+        ourCards.add(us.selectedIdx(), theirSelectedCard);
+        theirCards.add(them.selectedIdx(), ourSelectedCard);
+
+        us.setCards(ourCards);
+        them.setCards(theirCards);
+
+        us.deselect();
+        them.deselect();
+
         game.setTradeTarget(-1);
         finalizeAction();
     }
@@ -535,7 +537,6 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
             currentPlayer.setIsLocked(false);
             currentPlayer.setSelectedIdx(-1);
             currentPlayer.setCards(ch.getCardData());
-            currentPlayer.saveInBackground(e -> System.out.println("Saved deselect successfully!"));
         } else {
             System.out.println("Selected " + selectedIdx);
             currentPlayer.setIsLocked(true);
@@ -543,44 +544,49 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
             currentPlayer.setSelectedIdx(selectedIdx);
             ch.selectable = false;
             nimg = AppCompatResources.getDrawable(context, R.drawable.ic_baseline_cancel_24);
-            ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
-            currentPlayer.saveInBackground(e -> System.out.println("Saved select successfully!"));
         }
+
         ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
-        update();
+        currentPlayer.saveInBackground(e -> update());
     }
 
     public void onTradeButton(View view) {
         game.setCurrentAction(ActionType.TRADE);
         game.setTradeTarget(-1);
-        game.saveInBackground(e->update());
+        game.saveInBackground(e -> update());
     }
 
-    public void onClickPlayer(int idx){
-        if(game.currentActionType() != ActionType.TRADE || game.tradeTarget() != -1) return;
-        if(idx == players.indexOf(currentPlayer)) return;
+    public void onClickPlayer(int idx) {
+        if (game.currentActionType() != ActionType.TRADE || game.tradeTarget() != -1) return;
+        if (idx == players.indexOf(currentPlayer)) return;
         game.setTradeTarget(idx);
-        game.saveInBackground(e->update());
+        game.saveInBackground(e -> update());
     }
 
     public void onClickPlayer1(View view) {
         onClickPlayer(0);
     }
+
     public void onClickPlayer2(View view) {
         onClickPlayer(1);
     }
+
     public void onClickPlayer3(View view) {
         onClickPlayer(2);
     }
+
     public void onClickPlayer4(View view) {
         onClickPlayer(3);
     }
+
     public void onClickPlayer5(View view) {
         onClickPlayer(4);
     }
+
     public void onClickPlayer6(View view) {
         onClickPlayer(5);
     }
+
     public void onClickPlayer7(View view) {
         onClickPlayer(6);
     }
