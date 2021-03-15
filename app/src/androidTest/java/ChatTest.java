@@ -1,5 +1,3 @@
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -11,7 +9,6 @@ import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
-import com.example.antidote_mobile.ChatDialog;
 import com.example.antidote_mobile.Game;
 import com.example.antidote_mobile.LobbyActivity;
 import com.example.antidote_mobile.Player;
@@ -25,7 +22,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.action.ViewActions.click;
-import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public class ChatTest {
