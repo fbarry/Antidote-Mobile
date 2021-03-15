@@ -18,7 +18,7 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.Timer;
 
-public class LobbyActivity extends AppCompatActivity {
+public class LobbyActivity extends AppCompatActivity implements ChatDialogActivity {
 
     @SuppressWarnings("unused")
     public static final int millisPerUpdate = 4000;
@@ -48,6 +48,8 @@ public class LobbyActivity extends AppCompatActivity {
         adapter = new PlayerAdapter(LobbyActivity.this, game, currentPlayer.isHost());
         playerList.setAdapter(adapter);
 
+        chatButton = findViewById(R.id.chatButtonLobby);
+
         chatDialog = new ChatDialog(LobbyActivity.this, game.getObjectId(), currentPlayer.username());
         chatDialog.create();
 
@@ -63,8 +65,6 @@ public class LobbyActivity extends AppCompatActivity {
 
         TextView roomCodeTextView = findViewById(R.id.roomCodeTextView);
         roomCodeTextView.setText(game.roomCode());
-
-        chatButton = findViewById(R.id.chatButtonLobby);
 
         updatePlayerList();
 

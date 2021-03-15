@@ -1,5 +1,6 @@
 package com.example.antidote_mobile;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +21,7 @@ public class ChatDialog extends Dialog implements View.OnClickListener {
 
     static final int MAX_CHAT_MESSAGES_TO_SHOW = 50;
 
-    LobbyActivity activity;
+    Activity activity;
     String gameId, username;
 
     EditText etMessage;
@@ -31,7 +32,7 @@ public class ChatDialog extends Dialog implements View.OnClickListener {
 
     boolean mFirstLoad;
 
-    public ChatDialog(LobbyActivity activity, String gameId, String currentUsername) {
+    public ChatDialog(Activity activity, String gameId, String currentUsername) {
         super(activity);
         this.activity = activity;
         this.gameId = gameId;
@@ -102,7 +103,8 @@ public class ChatDialog extends Dialog implements View.OnClickListener {
         query.findInBackground((messages, e) -> {
             if (e == null) {
                 if (newMessages(messages)) {
-                    activity.showChatNotification();
+                    if (activity instanceof ChatDialogActivity)
+                        ((ChatDialogActivity) activity).showChatNotification();
                 }
             } else {
                 System.out.println("Failed to refresh");

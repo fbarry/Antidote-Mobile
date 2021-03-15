@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements ChatDialogActivity {
 
     @SuppressWarnings("unused")
     public static final int millisPerUpdate = 4_000;
@@ -29,6 +29,8 @@ public class GameActivity extends AppCompatActivity {
     Player currentPlayer;
     CardHandler ch;
     ArrayList<Player> players;
+    ImageButton chatButton;
+    ChatDialog chatDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,23 +40,13 @@ public class GameActivity extends AppCompatActivity {
         game = (Game) getIntent().getSerializableExtra("gameInfo");
         currentPlayer = (Player) getIntent().getSerializableExtra("currentPlayer");
 
-        ParseQuery<ParseObject> getPlayers = new ParseQuery<>("Player");
-        getPlayers.whereContainedIn("objectId", game.players());
+        // Add this button when ready to add chat
+        // chatButton = findViewById(R.id.chatButtonGame);
 
-        players = new ArrayList<>();
-        try {
-            List<ParseObject> parseObjects = getPlayers.find();
-            for (String pid : game.players()) {
-                for (ParseObject currObject : parseObjects) {
-                    if (currObject.getObjectId().equals(pid)) {
-                        players.add((Player) currObject);
-                        break;
-                    }
-                }
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        chatDialog = new ChatDialog(GameActivity.this, game.getObjectId(), currentPlayer.username());
+        chatDialog.create();
+
+        updatePlayers();
 
         ch = findViewById(R.id.cardHandler);
         ch.setCards(currentPlayer.cards());
@@ -147,72 +139,96 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void update() {
-        // update our game
-        // update our players arraylist
+        updateChat();
+        updateGame();
+    }
+
+    public void updateChat() {
+        chatDialog.refreshMessages();
+    }
+
+    public void showChatNotification() {
+        if (!chatDialog.isShowing()) {
+            chatButton.setImageResource(R.drawable.ic_baseline_mark_chat_unread_24);
+        }
+    }
+
+    public void onClickChat(View v) {
+        launchChatPopup();
+        chatButton.setImageResource(R.drawable.ic_baseline_chat_bubble_24);
+    }
+
+    public void launchChatPopup() {
+        chatDialog.show();
+    }
+
+    public void updateGame() {
         ParseQuery.getQuery("Game").getInBackground(game.getObjectId(), (object, e) -> {
             game = (Game) object;
-
-            ParseQuery<ParseObject> getPlayers = new ParseQuery<>("Player");
-            getPlayers.whereContainedIn("objectId", game.players());
-            System.out.println(game.players());
-
-            try {
-                List<ParseObject> parseObjects = getPlayers.find();
-                System.out.println("Got " + parseObjects.size() + " updated players, previously had " + players.size());
-                for (int i = 0; i < players.size(); i++) {
-
-                    if (parseObjects.get(i).getObjectId().equals(currentPlayer.getObjectId()))
-                        updateCurrentPlayer((Player) parseObjects.get(i));
-
-                    // Update the players arraylist with this object
-                    for (int j = 0; j < players.size(); j++) {
-                        if (parseObjects.get(i).getObjectId().equals(players.get(j).getObjectId())) {
-                            players.set(j, (Player) parseObjects.get(i));
-                            break;
-                        }
-                    }
-                }
-                // Show/hide buttons when necessary
-                updateActionVisibilities();
-
-                if (currentPlayer.isHost()) {
-                    // We're the host, perhaps we should complete the computation of a turn?
-                    int numLocked = 0;
-                    for (Player p : players) if (p.isLocked()) numLocked++;
-                    System.out.println(numLocked + " players were locked, out of " + game.numPlayers());
-                    if (numLocked == game.numPlayers()) {
-                        switch (ActionType.fromString(game.currentAction())) {
-                            case PASSLEFT:
-                                performPassLeft();
-                                break;
-                            case PASSRIGHT:
-                                performPassRight();
-                                break;
-                            case DISCARD:
-                                performDiscard();
-                                break;
-                            case NONE:
-                            default:
-                        }
-                    } else if (numLocked == 2) {
-                        switch (ActionType.fromString(game.currentAction())) {
-                            case TRADE:
-                            case NONE:
-                            default:
-                        }
-                    }
-                }
-
-                updateConfirmedDisplays();
-
-                for (Player p : players) {
-                    System.out.println(p.getObjectId() + "," + p.username());
-                }
-                updateTurnTextView();
-
-            } catch (ParseException ignored) {
-            }
+            updatePlayers();
         });
+    }
+
+    public void updatePlayers() {
+        ParseQuery<ParseObject> getPlayers = new ParseQuery<>("Player");
+        getPlayers.whereContainedIn("objectId", game.players());
+        System.out.println(game.players());
+
+        try {
+            List<ParseObject> parseObjects = getPlayers.find();
+            System.out.println("Got " + parseObjects.size() + " updated players, previously had " + players.size());
+            for (int i = 0; i < players.size(); i++) {
+
+                if (parseObjects.get(i).getObjectId().equals(currentPlayer.getObjectId()))
+                    updateCurrentPlayer((Player) parseObjects.get(i));
+
+                for (int j = 0; j < players.size(); j++) {
+                    if (parseObjects.get(i).getObjectId().equals(players.get(j).getObjectId())) {
+                        players.set(j, (Player) parseObjects.get(i));
+                        break;
+                    }
+                }
+            }
+
+            updateActionVisibilities();
+
+            if (currentPlayer.isHost()) {
+                computeTurn();
+            }
+
+            updateConfirmedDisplays();
+
+            updateTurnTextView();
+
+        } catch (ParseException ignored) {
+        }
+    }
+
+    public void computeTurn() {
+        int numLocked = 0;
+        for (Player p : players) if (p.isLocked()) numLocked++;
+        System.out.println(numLocked + " players were locked, out of " + game.numPlayers());
+        if (numLocked == game.numPlayers()) {
+            switch (ActionType.fromString(game.currentAction())) {
+                case PASSLEFT:
+                    performPassLeft();
+                    break;
+                case PASSRIGHT:
+                    performPassRight();
+                    break;
+                case DISCARD:
+                    performDiscard();
+                    break;
+                case NONE:
+                default:
+            }
+        } else if (numLocked == 2) {
+            switch (ActionType.fromString(game.currentAction())) {
+                case TRADE:
+                case NONE:
+                default:
+            }
+        }
     }
 
     void updateConfirmedDisplays() {
