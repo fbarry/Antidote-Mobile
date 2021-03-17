@@ -191,8 +191,8 @@ public class CardHandler extends View {
             lifted.setTarget(lifted.x, cardY);
             animateFor(2000);
             lifted = null;
+            if (valueChangeListener != null) valueChangeListener.valueChanged();
         }
-        if (valueChangeListener != null) valueChangeListener.valueChanged();
     }
 
     public void forceSelect(int idx) {
@@ -210,11 +210,9 @@ public class CardHandler extends View {
         int touchX = (int) event.getX();
         int touchY = (int) event.getY();
 
-        if (!selectable) return true;
-
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                fingerDownTime = System.currentTimeMillis();
+                if(selectable) fingerDownTime = System.currentTimeMillis();
                 for (int i = cards.size() - 1; i >= 0; i--) {
                     Card c = cards.get(i);
                     if (c.pointInside(touchX, touchY)) {
@@ -224,7 +222,7 @@ public class CardHandler extends View {
                         break;
                     }
                 }
-                if (lifted != null && lifted != touching) {
+                if (selectable && lifted != null && lifted != touching) {
                     lifted.setTarget(lifted.x, cardY);
                 }
             case MotionEvent.ACTION_MOVE:
