@@ -212,7 +212,7 @@ public class CardHandler extends View {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if(selectable) fingerDownTime = System.currentTimeMillis();
+                if (selectable) fingerDownTime = System.currentTimeMillis();
                 for (int i = cards.size() - 1; i >= 0; i--) {
                     Card c = cards.get(i);
                     if (c.pointInside(touchX, touchY)) {

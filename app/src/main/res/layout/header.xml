@@ -10,18 +10,19 @@
     <ImageView
         android:layout_width="75dp"
         android:layout_height="75dp"
+        android:contentDescription="@string/header_textview"
         android:src="@drawable/example_icon" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Example"
+        android:text="@string/example"
         android:textSize="24sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="www.ExampleEmail.com"
+        android:text="@string/www_exampleemail_com"
         android:textSize="14sp" />
 
 </LinearLayout>

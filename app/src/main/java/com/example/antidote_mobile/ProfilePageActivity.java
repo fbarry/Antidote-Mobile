@@ -2,7 +2,6 @@ package com.example.antidote_mobile;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +17,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
-import com.parse.ParseUser;
 
 public class ProfilePageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -131,7 +129,7 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
         return true;
     }
 
-    public void gotoMenu(Class dest) {
+    public void gotoMenu(Class<?> dest) {
         ProfilePageActivity.this.finish();
         startActivity(new Intent(ProfilePageActivity.this, dest));
     }

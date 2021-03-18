@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@android:color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvChat"
-        android:transcriptMode="alwaysScroll"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@+id/rlSend"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rlSend"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:transcriptMode="alwaysScroll" />
 
     <RelativeLayout
         android:id="@+id/rlSend"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:paddingTop="5dp"
-        android:paddingBottom="10dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:paddingLeft="0dp"
+        android:paddingTop="5dp"
         android:paddingRight="0dp"
-        android:layout_height="wrap_content" >
+        android:paddingBottom="10dp">
+
         <EditText
             android:id="@+id/etMessage"
-            android:layout_toStartOf="@+id/btSend"
-            android:layout_alignBottom="@+id/btSend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btSend"
+            android:layout_toStartOf="@+id/btSend"
+            android:autofillHints="@string/send_a_chat_to_your_game"
             android:gravity="top"
             android:hint="@string/send_a_chat_to_your_game"
-            android:autofillHints="@string/send_a_chat_to_your_game"
-            android:inputType="textShortMessage"
             android:imeOptions="actionSend"
-            />
+            android:inputType="textShortMessage" />
+
         <ImageButton
             android:id="@+id/btSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingEnd="10dp"
             android:layout_alignParentEnd="true"
             android:contentDescription="@string/send"
+            android:gravity="center"
+            android:paddingEnd="10dp"
             android:src="@drawable/ic_baseline_send_24"
             android:textSize="18sp"
             tools:ignore="RtlSymmetry" />

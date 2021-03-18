@@ -2,7 +2,6 @@ package com.example.antidote_mobile;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -15,7 +14,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
-import com.parse.ParseUser;
 
 public class StatsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -75,7 +73,7 @@ public class StatsActivity extends AppCompatActivity implements NavigationView.O
         return true;
     }
 
-    public void gotoMenu(Class dest) {
+    public void gotoMenu(Class<?> dest) {
         StatsActivity.this.finish();
         startActivity(new Intent(StatsActivity.this, dest));
     }

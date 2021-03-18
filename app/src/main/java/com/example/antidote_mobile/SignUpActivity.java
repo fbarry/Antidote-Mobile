@@ -11,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
-import okhttp3.internal.Util;
-
 public class SignUpActivity extends AppCompatActivity {
 
     User currentUser;

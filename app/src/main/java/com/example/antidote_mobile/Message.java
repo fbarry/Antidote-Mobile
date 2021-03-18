@@ -25,12 +25,14 @@ public class Message extends ParseObject {
         put(BODY_KEY, body);
     }
 
-    public void setGame(String gameId) { put(GAME_KEY, gameId); }
+    public void setGame(String gameId) {
+        put(GAME_KEY, gameId);
+    }
 
     @Override
     public boolean equals(Object o) {
         if (o.getClass().equals(getClass())) {
-            return ((Message)o).getObjectId().equals(getObjectId());
+            return ((Message) o).getObjectId().equals(getObjectId());
         } else {
             return false;
         }

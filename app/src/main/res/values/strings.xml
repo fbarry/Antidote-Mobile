@@ -153,6 +153,9 @@
     <string name="fillerplayer00_you">fillerPlayer00 (You)</string>
     <string name="fillerplayer00">fillerPlayer00</string>
     <string name="the_chat_button">The chat button</string>
+    <string name="header_textview">Header textview</string>
+    <string name="example">Example</string>
+    <string name="www_exampleemail_com">www.ExampleEmail.com</string>
 
 
 </resources>

@@ -84,7 +84,7 @@ public class ChatDialog extends Dialog implements View.OnClickListener {
         message.setGame(gameId);
 
         message.saveInBackground(e -> {
-            if(e == null) {
+            if (e == null) {
                 System.out.println("Successfully posted chat.");
                 refreshMessages();
             } else {
