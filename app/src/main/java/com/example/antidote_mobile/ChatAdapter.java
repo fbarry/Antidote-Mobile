@@ -18,7 +18,7 @@ import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHolder> {
 
-    public abstract class MessageViewHolder extends RecyclerView.ViewHolder {
+    public abstract static class MessageViewHolder extends RecyclerView.ViewHolder {
 
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -86,9 +86,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
     private static final int MESSAGE_OUTGOING = 123;
     private static final int MESSAGE_INCOMING = 321;
 
-    private Context mContext;
-    private List<Message> mMessages;
-    private String mUsername;
+    private final Context mContext;
+    private final List<Message> mMessages;
+    private final String mUsername;
 
     public ChatAdapter(Context context, String username, List<Message> messages) {
         mMessages = messages;
