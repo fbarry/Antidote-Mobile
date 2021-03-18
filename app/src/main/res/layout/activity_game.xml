@@ -11,10 +11,242 @@
         android:layout_height="match_parent"
         app:deck_left="70"
         app:deck_right="1020"
-        app:deck_top="1450"
+        app:deck_top="1600"
         app:draggable="true"
-        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
+
+    <ImageButton
+        android:id="@+id/leftPlayer1Workstation"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="188dp"
+        android:adjustViewBounds="true"
+        android:background="#00FFFFFF"
+        android:contentDescription="@string/InfoButtonDesc"
+        android:cropToPadding="true"
+        android:onClick="onPlayerWorkstation"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_info_24" />
+
+    <TextView
+        android:id="@+id/leftPlayer1TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:onClick="onClickPlayer"
+        android:text="@string/fillerplayer00"
+        app:layout_constraintBottom_toBottomOf="@+id/leftPlayer1Workstation"
+        app:layout_constraintStart_toEndOf="@+id/leftPlayer1Confirmed"
+        app:layout_constraintTop_toTopOf="@+id/leftPlayer1Workstation" />
+
+    <ImageView
+        android:id="@+id/leftPlayer1Confirmed"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="4dp"
+        android:contentDescription="@string/player_2_s_confirm_indicator"
+        app:layout_constraintBottom_toBottomOf="@+id/leftPlayer1Workstation"
+        app:layout_constraintStart_toEndOf="@+id/leftPlayer1Workstation"
+        app:layout_constraintTop_toTopOf="@+id/leftPlayer1Workstation"
+        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
+
+    <TextView
+        android:id="@+id/leftPlayer2TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:onClick="onClickPlayer"
+        android:text="@string/fillerplayer00"
+        app:layout_constraintBottom_toBottomOf="@+id/leftPlayer2Workstation"
+        app:layout_constraintStart_toEndOf="@+id/leftPlayer2Confirmed"
+        app:layout_constraintTop_toTopOf="@+id/leftPlayer2Workstation" />
+
+    <ImageButton
+        android:id="@+id/leftPlayer2Workstation"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="268dp"
+        android:adjustViewBounds="true"
+        android:background="#00FFFFFF"
+        android:contentDescription="@string/InfoButtonDesc"
+        android:cropToPadding="true"
+        android:onClick="onPlayerWorkstation"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_info_24" />
+
+    <ImageView
+        android:id="@+id/leftPlayer2Confirmed"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="4dp"
+        android:contentDescription="@string/player_2_s_confirm_indicator"
+        app:layout_constraintBottom_toBottomOf="@+id/leftPlayer2Workstation"
+        app:layout_constraintStart_toEndOf="@+id/leftPlayer2Workstation"
+        app:layout_constraintTop_toTopOf="@+id/leftPlayer2Workstation"
+        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
+
+    <TextView
+        android:id="@+id/leftPlayer3TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:onClick="onClickPlayer"
+        android:text="@string/fillerplayer00"
+        app:layout_constraintBottom_toBottomOf="@+id/leftPlayer3Workstation"
+        app:layout_constraintStart_toEndOf="@+id/leftPlayer3Confirmed"
+        app:layout_constraintTop_toTopOf="@+id/leftPlayer3Workstation" />
+
+    <ImageButton
+        android:id="@+id/leftPlayer3Workstation"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="348dp"
+        android:adjustViewBounds="true"
+        android:background="#00FFFFFF"
+        android:contentDescription="@string/InfoButtonDesc"
+        android:cropToPadding="true"
+        android:onClick="onPlayerWorkstation"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_info_24" />
+
+    <ImageView
+        android:id="@+id/leftPlayer3Confirmed"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="4dp"
+        android:contentDescription="@string/player_2_s_confirm_indicator"
+        app:layout_constraintBottom_toBottomOf="@+id/leftPlayer3Workstation"
+        app:layout_constraintStart_toEndOf="@+id/leftPlayer3Workstation"
+        app:layout_constraintTop_toTopOf="@+id/leftPlayer3Workstation"
+        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
+
+    <TextView
+        android:id="@+id/rightPlayer3TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:gravity="end"
+        android:onClick="onClickPlayer"
+        android:text="@string/fillerplayer00"
+        app:layout_constraintBottom_toBottomOf="@+id/rightPlayer3Workstation"
+        app:layout_constraintEnd_toStartOf="@+id/rightPlayer3Confirmed"
+        app:layout_constraintTop_toTopOf="@+id/rightPlayer3Workstation" />
+
+    <ImageButton
+        android:id="@+id/rightPlayer3Workstation"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="348dp"
+        android:layout_marginEnd="12dp"
+        android:adjustViewBounds="true"
+        android:background="#00FFFFFF"
+        android:contentDescription="@string/InfoButtonDesc"
+        android:cropToPadding="true"
+        android:onClick="onPlayerWorkstation"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_info_24" />
+
+    <ImageView
+        android:id="@+id/rightPlayer3Confirmed"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginEnd="4dp"
+        android:contentDescription="@string/player_2_s_confirm_indicator"
+        app:layout_constraintBottom_toBottomOf="@+id/rightPlayer3Workstation"
+        app:layout_constraintEnd_toStartOf="@+id/rightPlayer3Workstation"
+        app:layout_constraintTop_toTopOf="@+id/rightPlayer3Workstation"
+        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
+
+    <TextView
+        android:id="@+id/rightPlayer2TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:gravity="end"
+        android:onClick="onClickPlayer"
+        android:text="@string/fillerplayer00"
+        app:layout_constraintBottom_toBottomOf="@+id/rightPlayer2Workstation"
+        app:layout_constraintEnd_toStartOf="@+id/rightPlayer2Confirmed"
+        app:layout_constraintTop_toTopOf="@+id/rightPlayer2Workstation" />
+
+    <ImageButton
+        android:id="@+id/rightPlayer2Workstation"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="268dp"
+        android:layout_marginEnd="12dp"
+        android:adjustViewBounds="true"
+        android:background="#00FFFFFF"
+        android:contentDescription="@string/InfoButtonDesc"
+        android:cropToPadding="true"
+        android:onClick="onPlayerWorkstation"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_info_24" />
+
+    <ImageView
+        android:id="@+id/rightPlayer2Confirmed"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginEnd="4dp"
+        android:contentDescription="@string/player_2_s_confirm_indicator"
+        app:layout_constraintBottom_toBottomOf="@+id/rightPlayer2Workstation"
+        app:layout_constraintEnd_toStartOf="@+id/rightPlayer2Workstation"
+        app:layout_constraintTop_toTopOf="@+id/rightPlayer2Workstation"
+        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
+
+    <TextView
+        android:id="@+id/rightPlayer1TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:gravity="end"
+        android:onClick="onClickPlayer"
+        android:text="@string/fillerplayer00"
+        app:layout_constraintBottom_toBottomOf="@+id/rightPlayer1Workstation"
+        app:layout_constraintEnd_toStartOf="@+id/rightPlayer1Confirmed"
+        app:layout_constraintTop_toTopOf="@+id/rightPlayer1Workstation" />
+
+    <ImageButton
+        android:id="@+id/rightPlayer1Workstation"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="188dp"
+        android:layout_marginEnd="12dp"
+        android:adjustViewBounds="true"
+        android:background="#00FFFFFF"
+        android:contentDescription="@string/InfoButtonDesc"
+        android:cropToPadding="true"
+        android:onClick="onPlayerWorkstation"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_info_24" />
+
+    <ImageView
+        android:id="@+id/rightPlayer1Confirmed"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginEnd="4dp"
+        android:contentDescription="@string/player_2_s_confirm_indicator"
+        app:layout_constraintBottom_toBottomOf="@+id/rightPlayer1Workstation"
+        app:layout_constraintEnd_toStartOf="@+id/rightPlayer1Workstation"
+        app:layout_constraintTop_toTopOf="@+id/rightPlayer1Workstation"
+        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
+
 
     <Button
         android:id="@+id/lobbyRefreshButton"
@@ -72,11 +304,11 @@
         android:cropToPadding="true"
         android:onClick="passCardsLeft"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/discardCardsButton"
         app:layout_constraintHorizontal_bias="0.042"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/discardCardsButton"
         app:layout_constraintVertical_bias="0.594"
         app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
@@ -90,11 +322,11 @@
         android:cropToPadding="true"
         android:onClick="passCardsRight"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/discardCardsButton"
         app:layout_constraintHorizontal_bias="0.957"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/discardCardsButton"
         app:layout_constraintVertical_bias="0.594"
         app:srcCompat="@drawable/ic_baseline_arrow_forward_24" />
 
@@ -112,7 +344,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.594"
+        app:layout_constraintVertical_bias="0.683"
         app:srcCompat="@drawable/ic_baseline_arrow_upward_24" />
 
     <ImageButton
@@ -125,11 +357,11 @@
         android:cropToPadding="true"
         android:onClick="syringeButton"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/discardCardsButton"
         app:layout_constraintHorizontal_bias="0.279"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/discardCardsButton"
         app:layout_constraintVertical_bias="0.594"
         app:srcCompat="@drawable/syringe_temp" />
 
@@ -143,11 +375,11 @@
         android:cropToPadding="true"
         android:onClick="onTradeButton"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/discardCardsButton"
         app:layout_constraintHorizontal_bias="0.731"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/discardCardsButton"
         app:layout_constraintVertical_bias="0.594"
         app:srcCompat="@drawable/ic_baseline_send_24" />
 
@@ -155,29 +387,29 @@
         android:id="@+id/confirmButton"
         android:layout_width="35dp"
         android:layout_height="35dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
         android:contentDescription="@string/InfoButtonDesc"
         android:cropToPadding="true"
         android:onClick="confirmSelection"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/ic_baseline_check_circle_24"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toStartOf="@id/chatButtonGame"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
 
     <ImageButton
-        android:id="@+id/player1workstation"
+        android:id="@+id/player1Workstation"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_marginTop="64dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="528dp"
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
         android:contentDescription="@string/InfoButtonDesc"
         android:cropToPadding="true"
-        android:onClick="workstation1"
+        android:onClick="onPlayerWorkstation"
         android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -187,171 +419,44 @@
         android:id="@+id/player1TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:text="@string/player_1"
-        android:onClick="onClickPlayer1"
-        app:layout_constraintBottom_toBottomOf="@+id/player1workstation"
-        app:layout_constraintStart_toEndOf="@+id/player1workstation"
-        app:layout_constraintTop_toTopOf="@+id/player1workstation" />
+        android:layout_marginStart="144dp"
+        android:gravity="center"
+        android:onClick="onClickPlayer"
+        android:text="@string/fillerplayer00_you"
+        app:layout_constraintBottom_toBottomOf="@+id/player1Workstation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/player1Workstation" />
 
     <ImageButton
-        android:id="@+id/player2workstation"
+        android:id="@+id/topPlayerWorkstation"
         android:layout_width="35dp"
         android:layout_height="35dp"
+        android:layout_marginEnd="22dp"
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
         android:contentDescription="@string/InfoButtonDesc"
         android:cropToPadding="true"
-        android:onClick="workstation2"
+        android:onClick="onPlayerWorkstation"
         android:scaleType="fitCenter"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player1workstation"
+        app:layout_constraintBottom_toBottomOf="@+id/topPlayerTextView"
+        app:layout_constraintEnd_toStartOf="@+id/topPlayerTextView"
+        app:layout_constraintTop_toTopOf="@+id/topPlayerTextView"
+        app:layout_constraintVertical_bias="0.5"
         app:srcCompat="@drawable/ic_baseline_info_24" />
 
     <TextView
-        android:id="@+id/player2TextView"
+        android:id="@+id/topPlayerTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:text="@string/player_2"
-        android:onClick="onClickPlayer2"
-        app:layout_constraintBottom_toBottomOf="@+id/player2workstation"
-        app:layout_constraintStart_toEndOf="@+id/player2workstation"
-        app:layout_constraintTop_toTopOf="@+id/player2workstation" />
-
-    <ImageButton
-        android:id="@+id/player3workstation"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:adjustViewBounds="true"
-        android:background="#00FFFFFF"
-        android:contentDescription="@string/InfoButtonDesc"
-        android:cropToPadding="true"
-        android:onClick="workstation3"
-        android:scaleType="fitCenter"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="132dp"
+        android:onClick="onClickPlayer"
+        android:text="@string/fillerplayer00"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player2workstation"
-        app:srcCompat="@drawable/ic_baseline_info_24" />
-
-    <TextView
-        android:id="@+id/player3TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:text="@string/player_3"
-        android:onClick="onClickPlayer3"
-        app:layout_constraintBottom_toBottomOf="@+id/player3workstation"
-        app:layout_constraintStart_toEndOf="@+id/player3workstation"
-        app:layout_constraintTop_toTopOf="@+id/player3workstation" />
-
-    <ImageButton
-        android:id="@+id/player4workstation"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:adjustViewBounds="true"
-        android:background="#00FFFFFF"
-        android:contentDescription="@string/InfoButtonDesc"
-        android:cropToPadding="true"
-        android:onClick="workstation4"
-        android:scaleType="fitCenter"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player3workstation"
-        app:srcCompat="@drawable/ic_baseline_info_24" />
-
-    <TextView
-        android:id="@+id/player4TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:text="@string/player_4"
-        android:onClick="onClickPlayer4"
-        app:layout_constraintBottom_toBottomOf="@+id/player4workstation"
-        app:layout_constraintStart_toEndOf="@+id/player4workstation"
-        app:layout_constraintTop_toTopOf="@+id/player4workstation" />
-
-    <ImageButton
-        android:id="@+id/player5workstation"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:adjustViewBounds="true"
-        android:background="#00FFFFFF"
-        android:contentDescription="@string/InfoButtonDesc"
-        android:cropToPadding="true"
-        android:onClick="workstation5"
-        android:scaleType="fitCenter"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player4workstation"
-        app:srcCompat="@drawable/ic_baseline_info_24" />
-
-    <TextView
-        android:id="@+id/player5TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:text="@string/player_5"
-        android:onClick="onClickPlayer5"
-        app:layout_constraintBottom_toBottomOf="@+id/player5workstation"
-        app:layout_constraintStart_toEndOf="@+id/player5workstation"
-        app:layout_constraintTop_toTopOf="@+id/player5workstation" />
-
-    <ImageButton
-        android:id="@+id/player6workstation"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:adjustViewBounds="true"
-        android:background="#00FFFFFF"
-        android:contentDescription="@string/InfoButtonDesc"
-        android:cropToPadding="true"
-        android:onClick="workstation6"
-        android:scaleType="fitCenter"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player5workstation"
-        app:srcCompat="@drawable/ic_baseline_info_24" />
-
-    <TextView
-        android:id="@+id/player6TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:text="@string/player_6"
-        android:onClick="onClickPlayer6"
-        app:layout_constraintBottom_toBottomOf="@+id/player6workstation"
-        app:layout_constraintStart_toEndOf="@+id/player6workstation"
-        app:layout_constraintTop_toTopOf="@+id/player6workstation" />
-
-    <ImageButton
-        android:id="@+id/player7workstation"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:adjustViewBounds="true"
-        android:background="#00FFFFFF"
-        android:contentDescription="@string/InfoButtonDesc"
-        android:cropToPadding="true"
-        android:onClick="workstation7"
-        android:scaleType="fitCenter"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player6workstation"
-        app:srcCompat="@drawable/ic_baseline_info_24" />
-
-    <TextView
-        android:id="@+id/player7TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:text="@string/player_7"
-        android:onClick="onClickPlayer7"
-        app:layout_constraintBottom_toBottomOf="@+id/player7workstation"
-        app:layout_constraintStart_toEndOf="@+id/player7workstation"
-        app:layout_constraintTop_toTopOf="@+id/player7workstation" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/confirmedPlayer1"
+        android:id="@+id/player1Confirmed"
         android:layout_width="19dp"
         android:layout_height="19dp"
         android:contentDescription="@string/player_1_s_confirm_indicator"
@@ -360,57 +465,15 @@
         app:srcCompat="@drawable/ic_baseline_check_circle_24" />
 
     <ImageView
-        android:id="@+id/confirmedPlayer2"
+        android:id="@+id/topPlayerConfirmed"
         android:layout_width="19dp"
         android:layout_height="19dp"
+        android:layout_marginEnd="2dp"
         android:contentDescription="@string/player_2_s_confirm_indicator"
-        app:layout_constraintEnd_toStartOf="@+id/player2TextView"
-        app:layout_constraintTop_toTopOf="@+id/player2TextView"
-        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
-
-    <ImageView
-        android:id="@+id/confirmedPlayer3"
-        android:layout_width="19dp"
-        android:layout_height="19dp"
-        android:contentDescription="@string/player_3_s_confirm_indicator"
-        app:layout_constraintEnd_toStartOf="@+id/player3TextView"
-        app:layout_constraintTop_toTopOf="@+id/player3TextView"
-        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
-
-    <ImageView
-        android:id="@+id/confirmedPlayer4"
-        android:layout_width="19dp"
-        android:layout_height="19dp"
-        android:contentDescription="@string/player_4_s_confirm_indicator"
-        app:layout_constraintEnd_toStartOf="@+id/player4TextView"
-        app:layout_constraintTop_toTopOf="@+id/player4TextView"
-        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
-
-    <ImageView
-        android:id="@+id/confirmedPlayer5"
-        android:layout_width="19dp"
-        android:layout_height="19dp"
-        android:contentDescription="@string/player_5_s_confirm_indicator"
-        app:layout_constraintEnd_toStartOf="@+id/player5TextView"
-        app:layout_constraintTop_toTopOf="@+id/player5TextView"
-        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
-
-    <ImageView
-        android:id="@+id/confirmedPlayer6"
-        android:layout_width="19dp"
-        android:layout_height="19dp"
-        android:contentDescription="@string/player_6_s_confirm_indicator"
-        app:layout_constraintEnd_toStartOf="@+id/player6TextView"
-        app:layout_constraintTop_toTopOf="@+id/player6TextView"
-        app:srcCompat="@drawable/ic_baseline_check_circle_24" />
-
-    <ImageView
-        android:id="@+id/confirmedPlayer7"
-        android:layout_width="19dp"
-        android:layout_height="19dp"
-        android:contentDescription="@string/player_7_s_confirm_indicator"
-        app:layout_constraintEnd_toStartOf="@+id/player7TextView"
-        app:layout_constraintTop_toTopOf="@+id/player7TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/topPlayerTextView"
+        app:layout_constraintEnd_toStartOf="@+id/topPlayerTextView"
+        app:layout_constraintTop_toTopOf="@+id/topPlayerTextView"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_baseline_check_circle_24" />
 
     <ImageButton
@@ -419,6 +482,7 @@
         android:layout_height="35dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:contentDescription="@string/the_chat_button"
         android:onClick="onClickChat"
         app:layout_constraintEnd_toStartOf="@id/infoButton"
         app:layout_constraintTop_toTopOf="parent"

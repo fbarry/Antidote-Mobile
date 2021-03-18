@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     ArrayList<Player> players;
     ImageButton chatButton;
     ChatDialog chatDialog;
+    int ourIdx = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +42,22 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         game = (Game) getIntent().getSerializableExtra("gameInfo");
         currentPlayer = (Player) getIntent().getSerializableExtra("currentPlayer");
 
+        hideEverything();
+
         chatButton = findViewById(R.id.chatButtonGame);
 
         chatDialog = new ChatDialog(GameActivity.this, game.getObjectId(), currentPlayer.username());
         chatDialog.create();
 
         initializePlayers();
+
+        for (int i = 0; i < game.numPlayers(); i++) {
+            getPlayerConfirmed(i).setVisibility(View.VISIBLE);
+            getPlayerWorkstation(i).setVisibility(View.VISIBLE);
+            getPlayerTextView(i).setVisibility(View.VISIBLE);
+            getPlayerTextView(i).setText(players.get(i).username().replace((CharSequence) "(Host)", ""));
+        }
+        getPlayerTextView(ourIdx).append(" (You)");
 
         ch = findViewById(R.id.cardHandler);
         ch.setCards(currentPlayer.cards());
@@ -73,49 +85,6 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         TextView turnTextView = findViewById(R.id.turnTextView);
         turnTextView.append(" " + currentPlayer.username());
 
-        switch (game.numPlayers()) {
-            case 1:
-            case 2:
-                findViewById(R.id.player3workstation).setVisibility(View.GONE);
-                findViewById(R.id.player3TextView).setVisibility(View.GONE);
-            case 3:
-                findViewById(R.id.player4workstation).setVisibility(View.GONE);
-                findViewById(R.id.player4TextView).setVisibility(View.GONE);
-            case 4:
-                findViewById(R.id.player5workstation).setVisibility(View.GONE);
-                findViewById(R.id.player5TextView).setVisibility(View.GONE);
-            case 5:
-                findViewById(R.id.player6workstation).setVisibility(View.GONE);
-                findViewById(R.id.player6TextView).setVisibility(View.GONE);
-            case 6:
-                findViewById(R.id.player7workstation).setVisibility(View.GONE);
-                findViewById(R.id.player7TextView).setVisibility(View.GONE);
-        }
-        switch (game.numPlayers()) {
-            case 7:
-                ((TextView) findViewById(R.id.player7TextView)).setText(players.get(6).username());
-            case 6:
-                ((TextView) findViewById(R.id.player6TextView)).setText(players.get(5).username());
-            case 5:
-                ((TextView) findViewById(R.id.player5TextView)).setText(players.get(4).username());
-            case 4:
-                ((TextView) findViewById(R.id.player4TextView)).setText(players.get(3).username());
-            case 3:
-                ((TextView) findViewById(R.id.player3TextView)).setText(players.get(2).username());
-            case 2:
-                ((TextView) findViewById(R.id.player2TextView)).setText(players.get(1).username());
-            case 1:
-                ((TextView) findViewById(R.id.player1TextView)).setText(players.get(0).username());
-        }
-
-        findViewById(R.id.confirmedPlayer1).setVisibility(View.GONE);
-        findViewById(R.id.confirmedPlayer2).setVisibility(View.GONE);
-        findViewById(R.id.confirmedPlayer3).setVisibility(View.GONE);
-        findViewById(R.id.confirmedPlayer4).setVisibility(View.GONE);
-        findViewById(R.id.confirmedPlayer5).setVisibility(View.GONE);
-        findViewById(R.id.confirmedPlayer6).setVisibility(View.GONE);
-        findViewById(R.id.confirmedPlayer7).setVisibility(View.GONE);
-
         refreshTimer = new Timer();
 
         update();
@@ -139,6 +108,14 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
                         players.add((Player) currObject);
                         break;
                     }
+                }
+            }
+            for (int i = 0; i < players.size(); i++) {
+                Player p = players.get(i);
+                ourIdx = i;
+                if (p.getObjectId().equals(currentPlayer.getObjectId())) {
+                    currentPlayer = p;
+                    break;
                 }
             }
         } catch (ParseException e) {
@@ -252,31 +229,21 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     }
 
     void updateConfirmedDisplays() {
-        if (game.currentActionType() == ActionType.NONE) {
-            findViewById(R.id.confirmedPlayer1).setVisibility(View.GONE);
-            findViewById(R.id.confirmedPlayer2).setVisibility(View.GONE);
-            findViewById(R.id.confirmedPlayer3).setVisibility(View.GONE);
-            findViewById(R.id.confirmedPlayer4).setVisibility(View.GONE);
-            findViewById(R.id.confirmedPlayer5).setVisibility(View.GONE);
-            findViewById(R.id.confirmedPlayer6).setVisibility(View.GONE);
-            findViewById(R.id.confirmedPlayer7).setVisibility(View.GONE);
-            return;
-        }
         switch (game.numPlayers()) {
             case 7:
-                findViewById(R.id.confirmedPlayer7).setVisibility(players.get(6).isLocked() ? View.VISIBLE : View.GONE);
+                getPlayerConfirmed(6).setVisibility(players.get(6).isLocked() ? View.VISIBLE : View.GONE);
             case 6:
-                findViewById(R.id.confirmedPlayer6).setVisibility(players.get(5).isLocked() ? View.VISIBLE : View.GONE);
+                getPlayerConfirmed(5).setVisibility(players.get(5).isLocked() ? View.VISIBLE : View.GONE);
             case 5:
-                findViewById(R.id.confirmedPlayer5).setVisibility(players.get(4).isLocked() ? View.VISIBLE : View.GONE);
+                getPlayerConfirmed(4).setVisibility(players.get(4).isLocked() ? View.VISIBLE : View.GONE);
             case 4:
-                findViewById(R.id.confirmedPlayer4).setVisibility(players.get(3).isLocked() ? View.VISIBLE : View.GONE);
+                getPlayerConfirmed(3).setVisibility(players.get(3).isLocked() ? View.VISIBLE : View.GONE);
             case 3:
-                findViewById(R.id.confirmedPlayer3).setVisibility(players.get(2).isLocked() ? View.VISIBLE : View.GONE);
+                getPlayerConfirmed(2).setVisibility(players.get(2).isLocked() ? View.VISIBLE : View.GONE);
             case 2:
-                findViewById(R.id.confirmedPlayer2).setVisibility(players.get(1).isLocked() ? View.VISIBLE : View.GONE);
+                getPlayerConfirmed(1).setVisibility(players.get(1).isLocked() ? View.VISIBLE : View.GONE);
             case 1:
-                findViewById(R.id.confirmedPlayer1).setVisibility(players.get(0).isLocked() ? View.VISIBLE : View.GONE);
+                getPlayerConfirmed(0).setVisibility(players.get(0).isLocked() ? View.VISIBLE : View.GONE);
         }
         for (Player p : players) System.out.println(p.isLocked());
     }
@@ -431,36 +398,8 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         startActivity(new Intent(GameActivity.this, InfoPageActivity.class));
     }
 
-    public void workstation1(View v) {
-        viewWorkstation(0);
-    }
-
-    public void workstation2(View v) {
-        viewWorkstation(1);
-    }
-
-    public void workstation3(View v) {
-        viewWorkstation(2);
-    }
-
-    public void workstation4(View v) {
-        viewWorkstation(3);
-    }
-
-    public void workstation5(View v) {
-        viewWorkstation(4);
-    }
-
-    public void workstation6(View v) {
-        viewWorkstation(5);
-    }
-
-    public void workstation7(View v) {
-        viewWorkstation(6);
-    }
-
-    // playerNum is zero-indexed
     public void viewWorkstation(int playerNum) {
+        // playerNum is zero-indexed
         Dialog myDialog = new Dialog(this);
         myDialog.setContentView(R.layout.activity_workstation);
         myDialog.setCancelable(true);
@@ -556,6 +495,15 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         game.saveInBackground(e -> update());
     }
 
+    public void onPlayerWorkstation(View view) {
+        for (int i = 0; i < game.numPlayers(); i++) {
+            if (getPlayerWorkstation(i) == view) {
+                viewWorkstation(i);
+                return;
+            }
+        }
+    }
+
     public void onClickPlayer(int idx) {
         if (game.currentActionType() != ActionType.TRADE || game.tradeTarget() != -1) return;
         if (idx == players.indexOf(currentPlayer)) return;
@@ -563,31 +511,225 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         game.saveInBackground(e -> update());
     }
 
-    public void onClickPlayer1(View view) {
-        onClickPlayer(0);
+    public void onClickPlayer(View view) {
+        for (int i = 0; i < game.numPlayers(); i++) {
+            if (getPlayerTextView(i) == view) {
+                onClickPlayer(i);
+                return;
+            }
+        }
     }
 
-    public void onClickPlayer2(View view) {
-        onClickPlayer(1);
+    public TextView getPlayerTextView(int playerIdx) {
+        int pidx = (playerIdx - ourIdx + game.numPlayers()) % game.numPlayers();
+        if (pidx == 0) return findViewById(R.id.player1TextView);
+
+        // even number of players, so we will be using the top
+        if (pidx == 1) {
+            switch (game.numPlayers()) {
+                case 3:
+                    return findViewById(R.id.rightPlayer1TextView);
+                case 4:
+                    return findViewById(R.id.rightPlayer2TextView);
+                case 5:
+                case 6:
+                case 7:
+                    return findViewById(R.id.rightPlayer3TextView);
+            }
+        } else if (pidx == 2) {
+            switch (game.numPlayers()) {
+                case 3:
+                    return findViewById(R.id.leftPlayer1TextView);
+                case 4:
+                    return findViewById(R.id.topPlayerTextView);
+                case 5:
+                case 6:
+                    return findViewById(R.id.rightPlayer1TextView);
+                case 7:
+                    return findViewById(R.id.rightPlayer2TextView);
+            }
+        } else if (pidx == 3) {
+            switch (game.numPlayers()) {
+                case 4:
+                    return findViewById(R.id.leftPlayer2TextView);
+                case 5:
+                    return findViewById(R.id.leftPlayer1TextView);
+                case 6:
+                    return findViewById(R.id.topPlayerTextView);
+                case 7:
+                    return findViewById(R.id.rightPlayer1TextView);
+            }
+        } else if (pidx == 4) {
+            switch (game.numPlayers()) {
+                case 5:
+                    return findViewById(R.id.leftPlayer3TextView);
+                case 6:
+                case 7:
+                    return findViewById(R.id.leftPlayer1TextView);
+            }
+        } else if (pidx == 5) {
+            switch (game.numPlayers()) {
+                case 6:
+                    return findViewById(R.id.leftPlayer3TextView);
+                case 7:
+                    return findViewById(R.id.leftPlayer2TextView);
+            }
+        } else if (pidx == 6) {
+            if (game.numPlayers() == 7) {
+                return findViewById(R.id.leftPlayer3TextView);
+            }
+        }
+        System.out.println("No return case in getPlayerTextView, returning null (" + pidx + "," + game.numPlayers() + ")");
+        return null;
     }
 
-    public void onClickPlayer3(View view) {
-        onClickPlayer(2);
+    public ImageButton getPlayerWorkstation(int playerIdx) {
+        int pidx = (playerIdx - ourIdx + game.numPlayers()) % game.numPlayers();
+        if (pidx == 0) return findViewById(R.id.player1Workstation);
+
+        // even number of players, so we will be using the top
+        if (pidx == 1) {
+            switch (game.numPlayers()) {
+                case 3:
+                    return findViewById(R.id.rightPlayer1Workstation);
+                case 4:
+                    return findViewById(R.id.rightPlayer2Workstation);
+                case 5:
+                case 6:
+                case 7:
+                    return findViewById(R.id.rightPlayer3Workstation);
+            }
+        } else if (pidx == 2) {
+            switch (game.numPlayers()) {
+                case 3:
+                    return findViewById(R.id.leftPlayer1Workstation);
+                case 4:
+                    return findViewById(R.id.topPlayerWorkstation);
+                case 5:
+                case 6:
+                    return findViewById(R.id.rightPlayer1Workstation);
+                case 7:
+                    return findViewById(R.id.rightPlayer2Workstation);
+            }
+        } else if (pidx == 3) {
+            switch (game.numPlayers()) {
+                case 4:
+                    return findViewById(R.id.leftPlayer2Workstation);
+                case 5:
+                    return findViewById(R.id.leftPlayer1Workstation);
+                case 6:
+                    return findViewById(R.id.topPlayerWorkstation);
+                case 7:
+                    return findViewById(R.id.rightPlayer1Workstation);
+            }
+        } else if (pidx == 4) {
+            switch (game.numPlayers()) {
+                case 5:
+                    return findViewById(R.id.leftPlayer3Workstation);
+                case 6:
+                case 7:
+                    return findViewById(R.id.leftPlayer1Workstation);
+            }
+        } else if (pidx == 5) {
+            switch (game.numPlayers()) {
+                case 6:
+                    return findViewById(R.id.leftPlayer3Workstation);
+                case 7:
+                    return findViewById(R.id.leftPlayer2Workstation);
+            }
+        } else if (pidx == 6) {
+            if (game.numPlayers() == 7) {
+                return findViewById(R.id.leftPlayer3Workstation);
+            }
+        }
+        System.out.println("No return case in getPlayerWorkstation, returning null (" + pidx + "," + game.numPlayers() + ")");
+        return null;
     }
 
-    public void onClickPlayer4(View view) {
-        onClickPlayer(3);
+    public ImageView getPlayerConfirmed(int playerIdx) {
+        int pidx = (playerIdx - ourIdx + game.numPlayers()) % game.numPlayers();
+        if (pidx == 0) return findViewById(R.id.player1Confirmed);
+
+        // even number of players, so we will be using the top
+        if (pidx == 1) {
+            switch (game.numPlayers()) {
+                case 3:
+                    return findViewById(R.id.rightPlayer1Confirmed);
+                case 4:
+                    return findViewById(R.id.rightPlayer2Confirmed);
+                case 5:
+                case 6:
+                case 7:
+                    return findViewById(R.id.rightPlayer3Confirmed);
+            }
+        } else if (pidx == 2) {
+            switch (game.numPlayers()) {
+                case 3:
+                    return findViewById(R.id.leftPlayer1Confirmed);
+                case 4:
+                    return findViewById(R.id.topPlayerConfirmed);
+                case 5:
+                case 6:
+                    return findViewById(R.id.rightPlayer1Confirmed);
+                case 7:
+                    return findViewById(R.id.rightPlayer2Confirmed);
+            }
+        } else if (pidx == 3) {
+            switch (game.numPlayers()) {
+                case 4:
+                    return findViewById(R.id.leftPlayer2Confirmed);
+                case 5:
+                    return findViewById(R.id.leftPlayer1Confirmed);
+                case 6:
+                    return findViewById(R.id.topPlayerConfirmed);
+                case 7:
+                    return findViewById(R.id.rightPlayer1Confirmed);
+            }
+        } else if (pidx == 4) {
+            switch (game.numPlayers()) {
+                case 5:
+                    return findViewById(R.id.leftPlayer3Confirmed);
+                case 6:
+                case 7:
+                    return findViewById(R.id.leftPlayer1Confirmed);
+            }
+        } else if (pidx == 5) {
+            switch (game.numPlayers()) {
+                case 6:
+                    return findViewById(R.id.leftPlayer3Confirmed);
+                case 7:
+                    return findViewById(R.id.leftPlayer2Confirmed);
+            }
+        } else if (pidx == 6) {
+            if (game.numPlayers() == 7) {
+                return findViewById(R.id.leftPlayer3Confirmed);
+            }
+        }
+        System.out.println("No return case in getPlayerConfirmed, returning null (" + pidx + "," + game.numPlayers() + ")");
+        return null;
     }
 
-    public void onClickPlayer5(View view) {
-        onClickPlayer(4);
-    }
-
-    public void onClickPlayer6(View view) {
-        onClickPlayer(5);
-    }
-
-    public void onClickPlayer7(View view) {
-        onClickPlayer(6);
+    public void hideEverything() {
+        findViewById(R.id.leftPlayer1Workstation).setVisibility(View.GONE);
+        findViewById(R.id.leftPlayer2Workstation).setVisibility(View.GONE);
+        findViewById(R.id.leftPlayer3Workstation).setVisibility(View.GONE);
+        findViewById(R.id.rightPlayer1Workstation).setVisibility(View.GONE);
+        findViewById(R.id.rightPlayer2Workstation).setVisibility(View.GONE);
+        findViewById(R.id.rightPlayer3Workstation).setVisibility(View.GONE);
+        findViewById(R.id.topPlayerWorkstation).setVisibility(View.GONE);
+        findViewById(R.id.leftPlayer1Confirmed).setVisibility(View.GONE);
+        findViewById(R.id.leftPlayer2Confirmed).setVisibility(View.GONE);
+        findViewById(R.id.leftPlayer3Confirmed).setVisibility(View.GONE);
+        findViewById(R.id.rightPlayer1Confirmed).setVisibility(View.GONE);
+        findViewById(R.id.rightPlayer2Confirmed).setVisibility(View.GONE);
+        findViewById(R.id.rightPlayer3Confirmed).setVisibility(View.GONE);
+        findViewById(R.id.topPlayerConfirmed).setVisibility(View.GONE);
+        findViewById(R.id.leftPlayer1TextView).setVisibility(View.GONE);
+        findViewById(R.id.leftPlayer2TextView).setVisibility(View.GONE);
+        findViewById(R.id.leftPlayer3TextView).setVisibility(View.GONE);
+        findViewById(R.id.rightPlayer1TextView).setVisibility(View.GONE);
+        findViewById(R.id.rightPlayer2TextView).setVisibility(View.GONE);
+        findViewById(R.id.rightPlayer3TextView).setVisibility(View.GONE);
+        findViewById(R.id.topPlayerTextView).setVisibility(View.GONE);
     }
 }

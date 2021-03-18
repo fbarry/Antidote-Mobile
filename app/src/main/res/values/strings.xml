@@ -150,6 +150,9 @@
     <string name="player_5_s_confirm_indicator">Player 5\'s confirm indicator</string>
     <string name="player_6_s_confirm_indicator">Player 6\'s confirm indicator</string>
     <string name="player_7_s_confirm_indicator">Player 7\'s confirm indicator</string>
+    <string name="fillerplayer00_you">fillerPlayer00 (You)</string>
+    <string name="fillerplayer00">fillerPlayer00</string>
+    <string name="the_chat_button">The chat button</string>
 
 
 </resources>
