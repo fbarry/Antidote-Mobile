@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
+import androidx.annotation.DrawableRes;
 import androidx.core.content.res.ResourcesCompat;
 
 @SuppressWarnings("unused")
@@ -102,19 +103,35 @@ class Card implements Comparable<Card> {
         img.setBounds(bounds);
         img.draw(canvas);
 
+        Drawable centerImage = null;
+
         switch (type) {
             case SYRINGE:
-                canvas.drawText("S", x + 20, y + 40, blackText);
+                canvas.drawText("S", x + 15, y + 40, blackText);
+                centerImage = ResourcesCompat.getDrawable(resources, R.drawable.syringe, null);
                 break;
             case TOXIN:
-                canvas.drawText("X" + toxin.getText().charAt(0), x + 20, y + 40, blackText);
+                canvas.drawText("X" + toxin.getText().charAt(0), x + 15, y + 40, blackText);
+                centerImage = ResourcesCompat.getDrawable(resources, toxin.getResX(), null);
                 break;
             case ANTIDOTE:
-                canvas.drawText("A" + toxin.getText().charAt(0) + number, x + 20, y + 40, blackText);
+                canvas.drawText("A" + toxin.getText().charAt(0) + number, x + 15, y + 40, blackText);
+                centerImage = ResourcesCompat.getDrawable(resources, toxin.getRes(), null);
                 break;
             case NONE:
             default:
                 break;
+        }
+
+        if (centerImage != null) {
+            double scaleFactor = .7;
+            Rect bounds2 = new Rect();
+            bounds2.top = (int) (y + cardHeight * ((1 - scaleFactor) / 2));
+            bounds2.left = (int) (x + cardWidth * ((1 - scaleFactor) / 2));
+            bounds2.bottom = (int) (bounds2.top + cardHeight * scaleFactor);
+            bounds2.right = (int) (bounds2.left + cardWidth * scaleFactor);
+            centerImage.setBounds(bounds2);
+            centerImage.draw(canvas);
         }
     }
 
