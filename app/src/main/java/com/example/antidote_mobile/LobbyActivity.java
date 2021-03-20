@@ -58,6 +58,8 @@ public class LobbyActivity extends AppCompatActivity implements ChatDialogActivi
             startGameButton.setVisibility(View.GONE);
             Button endGameButton = findViewById(R.id.endGameButton);
             endGameButton.setVisibility(View.GONE);
+            Button AIButton = findViewById(R.id.lobbyAIButton);
+            AIButton.setVisibility(View.GONE);
         } else {
             Button leaveGameButton = findViewById(R.id.leaveGameButton);
             leaveGameButton.setVisibility(View.GONE);
@@ -208,6 +210,11 @@ public class LobbyActivity extends AppCompatActivity implements ChatDialogActivi
                 if (!copy.contains(p)) adapter.addPlayer(p);
             }
         });
+    }
+
+    public void AIButton(View v) {
+        game.addPlayer(PlayerAI.createPlayerAI());
+        game.saveInBackground(e -> update());
     }
 
     public void leaveGame(View v) {

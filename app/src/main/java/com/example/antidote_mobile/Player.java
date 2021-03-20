@@ -25,6 +25,14 @@ public class Player extends ParseObject implements Serializable {
         return false;
     }
 
+    public boolean isAI() {
+        return this.getBoolean("AI");
+    }
+
+    public void setIsAI(boolean isAI) {
+        this.put("AI", isAI);
+    }
+
     public boolean isHost() {
         return this.getBoolean("isHost");
     }
@@ -110,6 +118,7 @@ public class Player extends ParseObject implements Serializable {
         ret.setPoints(0);
         ret.setIsLocked(false);
         ret.setSelectedIdx(-1);
+        ret.setIsAI(false);
 
         if (user.isGuest()) ret.setUsername(Utilities.getRandomGuestUsername());
         else ret.setUsername(user.getUsername());
