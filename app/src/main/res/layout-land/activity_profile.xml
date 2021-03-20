@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ProfilePageActivity"
+    tools:openDrawer="start">
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/header"
+        app:menu="@menu/main_menu" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profilePage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ProfilePageActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#808080"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/example_icon" />
+
+
+        <TextView
+            android:id="@+id/profileTitle"
+            android:layout_width="227dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="52dp"
+            android:layout_weight="1"
+            android:ellipsize="none"
+            android:gravity="center"
+            android:maxLines="100"
+            android:scrollHorizontally="false"
+            android:text="@string/default_profile_title"
+            android:textSize="48sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/statusTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/status_title"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/profileTitle"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="@+id/profileTitle"
+            app:layout_constraintTop_toBottomOf="@+id/profileTitle" />
+
+        <TextView
+            android:id="@+id/statusMessage"
+            android:layout_width="298dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="8dp"
+            android:background="@null"
+            android:text="@string/default_status"
+            app:layout_constraintEnd_toEndOf="@+id/statusTitle"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="@+id/statusTitle"
+            app:layout_constraintTop_toBottomOf="@+id/statusTitle" />
+
+        <Button
+            android:id="@+id/statusEditButton"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:onClick="editStatus"
+            android:text="@string/edit_status_button"
+            app:layout_constraintEnd_toEndOf="@+id/statusMessage"
+            app:layout_constraintTop_toBottomOf="@+id/statusMessage" />
+
+        <Button
+            android:id="@+id/statusSaveButton"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:onClick="saveStatus"
+            android:text="@string/save_status_button"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/statusMessage"
+            app:layout_constraintTop_toBottomOf="@+id/statusMessage" />
+
+        <EditText
+            android:id="@+id/changeStatusText"
+            android:layout_width="296dp"
+            android:layout_height="42dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textPersonName"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/statusMessage"
+            app:layout_constraintEnd_toEndOf="@+id/statusMessage"
+            app:layout_constraintStart_toStartOf="@+id/statusMessage"
+            app:layout_constraintTop_toTopOf="@+id/statusMessage"
+            tools:ignore="LabelFor" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>
