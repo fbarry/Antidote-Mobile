@@ -132,11 +132,11 @@ For players of the game Antidote who want to play remotely with friends or bots,
 
 ### Task Allocation
 
-- Fiona Barry:
-- Jacob Steinebronn:
-- Enrique Rodriguez:
-- Daniel West:
-- Zach Ip: 
+- Fiona Barry: Implement friending features and search screen.
+- Jacob Steinebronn: Finish implementing game play and redesign game screen.
+- Enrique Rodriguez: Enable landscape mode and implement design elements.
+- Daniel West: Finish implementing game play.
+- Zach Ip: Implement AI bots.
 
 ## Sprint 8
 
