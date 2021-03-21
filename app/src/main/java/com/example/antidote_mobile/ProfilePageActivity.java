@@ -68,21 +68,35 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
         TextView status = findViewById(R.id.statusMessage);
         EditText changeStatus = findViewById(R.id.changeStatusText);
 
+        TextView friendsTitle = findViewById(R.id.friendsTitle);
         Button editButton = findViewById(R.id.statusEditButton);
+        Button friendButton = findViewById(R.id.friendButton);
 
         if (!user.getObjectId().equals(AntidoteMobile.currentUser.getObjectId())) {
             editButton.setVisibility(View.GONE);
-        } else if (user.isGuest()) {
-            editButton.setVisibility(View.GONE);
+            if (AntidoteMobile.currentUser.getFriends().contains(user.getObjectId())) {
+                friendButton.setText(R.string.unfriend);
+            }
+        } else {
+            friendButton.setVisibility(View.GONE);
         }
 
         status.setPaintFlags(View.INVISIBLE);
         changeStatus.setPaintFlags(View.INVISIBLE);
 
-        if (user.getStatus() == null)
-            status.setText("I'm a pro Antidote Mobile gamer!");
-        else
-            status.setText(user.getStatus());
+        if (user.isGuest()) {
+            editButton.setVisibility(View.GONE);
+            friendButton.setVisibility(View.GONE);
+            friendsList.setVisibility(View.GONE);
+            friendsTitle.setVisibility(View.GONE);
+            status.setText("Create an account to have a status and friends list!");
+        } else {
+            if (user.getStatus() == null) {
+                status.setText("I'm a pro Antidote Mobile gamer!");
+            } else {
+                status.setText(user.getStatus());
+            }
+        }
 
         TextView title = findViewById(R.id.profileTitle);
 
@@ -157,6 +171,16 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
         startActivity(new Intent(ProfilePageActivity.this, dest));
     }
 
+    public void onClickFriendButton(View v) {
+        Button friendButton = findViewById(R.id.friendButton);
+        if (AntidoteMobile.currentUser.getFriends().contains(user.getObjectId())) {
+            AntidoteMobile.currentUser.removeFriend(user.getObjectId());
+            friendButton.setText(R.string.friend);
+        } else {
+            AntidoteMobile.currentUser.addFriend(user.getObjectId());
+            friendButton.setText(R.string.unfriend);
+        }
+    }
 
     @Override
     public void onBackPressed() {
@@ -166,7 +190,6 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
             super.onBackPressed();
         }
     }
-
 
     @Override
     public void goToProfile(User user) {

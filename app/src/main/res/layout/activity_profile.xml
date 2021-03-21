@@ -61,7 +61,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/example_icon" />
+            app:navigationIcon="@drawable/example_icon" >
+
+            <Button
+                android:id="@+id/friendButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:onClick="onClickFriendButton"
+                android:text="@string/friend" />
+
+        </androidx.appcompat.widget.Toolbar>
 
 
         <TextView

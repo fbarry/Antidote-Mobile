@@ -158,6 +158,8 @@
     <string name="www_exampleemail_com">www.ExampleEmail.com</string>
     <string name="add_ai">Add AI</string>
     <string name="friends">Friends</string>
+    <string name="friend">Friend</string>
+    <string name="unfriend">Unfriend</string>
 
 
 </resources>

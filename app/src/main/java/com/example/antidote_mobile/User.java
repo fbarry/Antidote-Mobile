@@ -78,6 +78,18 @@ public class User extends ParseUser implements Serializable {
         else return new ArrayList<>();
     }
 
+    public void removeFriend(String userId) {
+        ArrayList<String> friends = getFriends();
+        friends.remove(userId);
+        this.put("friends", friends);
+    }
+
+    public void addFriend(String userId) {
+        ArrayList<String> friends = getFriends();
+        friends.add(userId);
+        this.put("friends", friends);
+    }
+
     public double getWinRate() {
         if (getNumberOfGames() == 0)
             return 0;
