@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.annotation.NonNull;
+
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -25,6 +27,12 @@ public class User extends ParseUser implements Serializable {
         }
 
         return false;
+    }
+
+    @Override
+    public void put(@NonNull String key, @NonNull Object value) {
+        super.put(key, value);
+        saveInBackground();
     }
 
     public boolean isGuest() {
