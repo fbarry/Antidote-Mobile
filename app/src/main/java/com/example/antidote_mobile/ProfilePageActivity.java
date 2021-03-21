@@ -22,7 +22,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-public class ProfilePageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FriendRecyclerViewActivity {
+public class ProfilePageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, RedirectToProfile {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;

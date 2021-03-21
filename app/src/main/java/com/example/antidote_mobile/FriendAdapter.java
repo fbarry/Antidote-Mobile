@@ -67,8 +67,8 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
         holder.username.setText(currFriend.getUsername());
         holder.user = currFriend;
         holder.username.setOnClickListener(v -> {
-            if (activity instanceof FriendRecyclerViewActivity) {
-                ((FriendRecyclerViewActivity) activity).goToProfile(currFriend);
+            if (activity instanceof RedirectToProfile) {
+                ((RedirectToProfile) activity).goToProfile(currFriend);
             }
         });
     }
