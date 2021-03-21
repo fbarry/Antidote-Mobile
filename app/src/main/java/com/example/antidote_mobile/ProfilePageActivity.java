@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,12 +20,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class ProfilePageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import java.util.ArrayList;
+
+public class ProfilePageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FriendRecyclerViewActivity {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
     RecyclerView friendsList;
+    ArrayList<String> friends;
+    FriendAdapter adapter;
 
     User user;
 
@@ -35,6 +38,11 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        user = (User) getIntent().getSerializableExtra("user");
+        if (user == null) user = AntidoteMobile.currentUser;
+
+        friends = user.getFriends();
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -46,6 +54,9 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
                 false);
         friendsList.setLayoutManager(llm);
 
+        adapter = new FriendAdapter(this, friends);
+        friendsList.setAdapter(adapter);
+
         setSupportActionBar(toolbar);
 
         navigationView.bringToFront();
@@ -54,19 +65,15 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-
-        user = AntidoteMobile.currentUser;
-
-
         TextView status = findViewById(R.id.statusMessage);
         EditText changeStatus = findViewById(R.id.changeStatusText);
 
         Button editButton = findViewById(R.id.statusEditButton);
 
-        if (user.isGuest()) {
+        if (!user.getObjectId().equals(AntidoteMobile.currentUser.getObjectId())) {
             editButton.setVisibility(View.GONE);
-        } else {
-            editButton.setVisibility(View.VISIBLE);
+        } else if (user.isGuest()) {
+            editButton.setVisibility(View.GONE);
         }
 
         status.setPaintFlags(View.INVISIBLE);
@@ -81,6 +88,12 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
 
         title.setText(user.getUsername());
         title.append("'s Profile");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.refresh(user.getFriends());
     }
 
     public void editStatus(View v) {
@@ -155,4 +168,13 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
     }
 
 
+    @Override
+    public void goToProfile(User user) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("user", user);
+        Intent intent = new Intent(ProfilePageActivity.this, ProfilePageActivity.class);
+        intent.putExtras(bundle);
+
+        startActivity(intent);
+    }
 }

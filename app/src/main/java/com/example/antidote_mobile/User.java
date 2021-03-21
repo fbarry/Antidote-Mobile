@@ -8,11 +8,23 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 @SuppressWarnings("unused")
-public class User extends ParseUser {
+public class User extends ParseUser implements Serializable {
 
     public User() {
         super();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof User) {
+            return ((User) o).getObjectId().equals(getObjectId());
+        }
+
+        return false;
     }
 
     public boolean isGuest() {
@@ -57,6 +69,13 @@ public class User extends ParseUser {
 
     public void setStatus(String status) {
         this.put("statusMessage", status);
+    }
+
+    public ArrayList<String> getFriends() {
+        //noinspection unchecked
+        ArrayList<String> ret = (ArrayList<String>) this.get("friends");
+        if (ret != null) return ret;
+        else return new ArrayList<>();
     }
 
     public double getWinRate() {
