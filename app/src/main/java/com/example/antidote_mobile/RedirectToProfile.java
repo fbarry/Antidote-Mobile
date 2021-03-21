@@ -1,5 +1,5 @@
 package com.example.antidote_mobile;
 
-public interface FriendRecyclerViewActivity {
+public interface RedirectToProfile {
     void goToProfile(User user);
 }
