@@ -157,6 +157,9 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
             case R.id.nav_stats:
                 gotoMenu(StatsActivity.class);
                 break;
+            case R.id.nav_search:
+                gotoMenu(SearchActivity.class);
+                break;
             case R.id.nav_logout:
                 User.logoutCurrentUser(this);
                 gotoMenu(LoginActivity.class);

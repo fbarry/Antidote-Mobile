@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -15,28 +15,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class StatsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class SearchActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
 
-    User user;
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stats);
-
-        user = AntidoteMobile.currentUser;
-
-        TextView statsTitle = findViewById(R.id.statsTitle);
-        TextView statsAll = findViewById(R.id.statsAll);
-
-        statsTitle.setText(user.getUsername());
-        statsTitle.append("'s Statistics");
-
-        statsAll.setText(user.getStats());
+        setContentView(R.layout.activity_search);
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -49,23 +36,25 @@ public class StatsActivity extends AppCompatActivity implements NavigationView.O
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+    }
 
-
+    public void goBack(View v) {
+        SearchActivity.this.finish();
     }
 
     @SuppressLint("NonConstantResourceId")
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_dashboard:
-                StatsActivity.this.finish();
+                SearchActivity.this.finish();
                 break;
             case R.id.nav_profile:
                 gotoMenu(ProfilePageActivity.class);
                 break;
             case R.id.nav_stats:
+                gotoMenu(StatsActivity.class);
                 break;
             case R.id.nav_search:
-                gotoMenu(SearchActivity.class);
                 break;
             case R.id.nav_logout:
                 User.logoutCurrentUser(this);
@@ -77,18 +66,7 @@ public class StatsActivity extends AppCompatActivity implements NavigationView.O
     }
 
     public void gotoMenu(Class<?> dest) {
-        StatsActivity.this.finish();
-        startActivity(new Intent(StatsActivity.this, dest));
+        SearchActivity.this.finish();
+        startActivity(new Intent(SearchActivity.this, dest));
     }
-
-
-    @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
 }
