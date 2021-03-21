@@ -150,7 +150,7 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_dashboard:
-                ProfilePageActivity.this.finish();
+                gotoMenu(MainActivity.class);
                 break;
             case R.id.nav_profile:
                 break;

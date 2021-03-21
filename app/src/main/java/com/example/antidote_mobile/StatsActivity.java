@@ -57,7 +57,7 @@ public class StatsActivity extends AppCompatActivity implements NavigationView.O
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_dashboard:
-                StatsActivity.this.finish();
+                gotoMenu(MainActivity.class);
                 break;
             case R.id.nav_profile:
                 gotoMenu(ProfilePageActivity.class);

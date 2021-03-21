@@ -97,7 +97,7 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_dashboard:
-                SearchActivity.this.finish();
+                gotoMenu(MainActivity.class);
                 break;
             case R.id.nav_profile:
                 gotoMenu(ProfilePageActivity.class);
