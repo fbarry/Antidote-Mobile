@@ -160,6 +160,7 @@
     <string name="friends">Friends</string>
     <string name="friend">Friend</string>
     <string name="unfriend">Unfriend</string>
+    <string name="search">Search</string>
 
 
 </resources>
