@@ -1,5 +1,7 @@
 package com.example.antidote_mobile;
 
+import androidx.annotation.NonNull;
+
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -16,6 +18,12 @@ public class Game extends ParseObject implements Serializable {
 
     public Game() {
 
+    }
+
+    @Override
+    public void put(@NonNull String key, @NonNull Object value) {
+        super.put(key, value);
+        saveInBackground();
     }
 
     public String currentAction() {
