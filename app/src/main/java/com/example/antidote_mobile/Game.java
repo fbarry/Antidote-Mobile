@@ -228,9 +228,10 @@ public class Game extends ParseObject implements Serializable {
                 currentPlayer.setCards(new ArrayList<>(hands[playerIndex]));
             }
             try {
-                ParseObject player = query.get(playerId);
-                player.put("cards", hands[playerIndex++]);
-                player.saveInBackground();
+                Player p = (Player) query.get(playerId);
+                p.setCards(hands[playerIndex++]);
+                p.setLastRoundPoints(0);
+                p.saveInBackground();
             } catch (ParseException e) {
                 e.printStackTrace();
             }
