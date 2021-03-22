@@ -18,6 +18,7 @@ import com.example.antidote_mobile.MainActivity;
 import com.example.antidote_mobile.Player;
 import com.example.antidote_mobile.R;
 import com.example.antidote_mobile.User;
+import com.parse.ParseUser;
 
 import org.junit.After;
 import org.junit.Before;
@@ -62,8 +63,8 @@ public class LobbyTest {
         TextView roomCodeTextView = lobby.findViewById(R.id.roomCodeTextView);
         assertEquals(game.roomCode(), roomCodeTextView.getText().toString());
 
-        lobby.finish();
         game.deleteGame();
+        ParseUser.logOutInBackground();
     }
 
     private Activity getNewLobby() {
