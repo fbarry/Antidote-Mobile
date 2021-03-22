@@ -209,13 +209,8 @@ public class LobbyActivity extends AppCompatActivity implements ChatDialogActivi
                         });
             }
 
-            ArrayList<Player> copy = new ArrayList<>(adapter.getPlayers());
-            for (Player p : copy) {
-                if (!list.contains(p)) adapter.removePlayer(p);
-            }
-            for (Player p : list) {
-                if (!copy.contains(p)) adapter.addPlayer(p);
-            }
+            adapter.setPlayers(list);
+            adapter.notifyDataSetChanged();
 
             if (!aiInQueue.isEmpty()) {
                 while (!aiInQueue.isEmpty()) {

@@ -32,8 +32,8 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
 
     private Game game;
     private final boolean isHost;
-    private final ArrayList<Player> players;
     private final Activity activity;
+    private ArrayList<Player> players;
 
     public PlayerAdapter(Activity activity, Game game, boolean isHost) {
         this.activity = activity;
@@ -59,6 +59,10 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
 
     public void setGame(Game g) {
         game = g;
+    }
+
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = new ArrayList<>(players);
     }
 
     @Override
@@ -87,6 +91,22 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
 
         holder.player = currPlayer;
         holder.username.setText(currPlayer.username());
+
+        if (currPlayer.isAI()) {
+            switch (currPlayer.getDifficulty()) {
+                case 0:
+                    holder.difficultyButton.setText(R.string.easy);
+                    break;
+                case 1:
+                    holder.difficultyButton.setText(R.string.medium);
+                    break;
+                case 2:
+                    holder.difficultyButton.setText(R.string.hard);
+                    break;
+                default:
+            }
+        }
+
         if (!isHost || currPlayer.isHost()) {
             holder.kickButton.setVisibility(View.GONE);
             if (holder.difficultyButton != null) {
