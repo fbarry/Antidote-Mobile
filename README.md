@@ -128,7 +128,7 @@ For players of the game Antidote who want to play remotely with friends or bots,
 - [System Architecture](https://github.com/fbarry/Antidote-Mobile/tree/master/artifacts/architecture.md)
 - [Source Code](https://github.com/fbarry/Antidote-Mobile/tree/master/app/src/main)
 - [Automated Tests](https://github.com/fbarry/Antidote-Mobile/tree/master/app/src/androidTest/java)
-- Product Demonstration
+- [Product Demonstration](https://youtu.be/sgsjOebUPuw)
 
 ### Task Allocation
 
