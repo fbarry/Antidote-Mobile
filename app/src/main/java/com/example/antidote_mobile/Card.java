@@ -6,7 +6,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
-import androidx.annotation.DrawableRes;
 import androidx.core.content.res.ResourcesCompat;
 
 @SuppressWarnings("unused")
@@ -90,7 +89,11 @@ class Card implements Comparable<Card> {
     }
 
     // Draw this card on the canvas
-    public void draw(Canvas canvas, Resources resources) {
+    public void draw(Canvas canvas, Resources resources){
+        draw(canvas, resources, true);
+    }
+
+    public void draw(Canvas canvas, Resources resources, boolean isWorkstation) {
         blackText.setTextSize(30);
         update();
         Rect bounds = new Rect();
@@ -111,6 +114,7 @@ class Card implements Comparable<Card> {
                 centerImage = ResourcesCompat.getDrawable(resources, R.drawable.syringe, null);
                 break;
             case TOXIN:
+                if(isWorkstation) break;
                 canvas.drawText("X" + toxin.getText().charAt(0), x + 15, y + 40, blackText);
                 centerImage = ResourcesCompat.getDrawable(resources, toxin.getResX(), null);
                 break;
