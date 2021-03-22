@@ -1,5 +1,6 @@
 package com.example.antidote_mobile;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -233,10 +234,15 @@ public class LobbyActivity extends AppCompatActivity implements ChatDialogActivi
     }
 
     public void endGame(View v) {
-        game.deleteGame();
-        currentPlayer = null;
-        game = null;
-        LobbyActivity.this.finish();
+        Utilities.showConfirmationAlert(this,
+                "Are you sure you want to end this game?",
+                "You cannot undo this action.",
+                (dialog, which) -> {
+                    game.deleteGame();
+                    currentPlayer = null;
+                    game = null;
+                    LobbyActivity.this.finish();
+                });
     }
 
     public void startGame(View v) {
