@@ -89,7 +89,7 @@ class Card implements Comparable<Card> {
     }
 
     // Draw this card on the canvas
-    public void draw(Canvas canvas, Resources resources){
+    public void draw(Canvas canvas, Resources resources) {
         draw(canvas, resources, true);
     }
 
@@ -114,7 +114,7 @@ class Card implements Comparable<Card> {
                 centerImage = ResourcesCompat.getDrawable(resources, R.drawable.syringe, null);
                 break;
             case TOXIN:
-                if(isWorkstation) break;
+                if (isWorkstation) break;
                 canvas.drawText("X" + toxin.getText().charAt(0), x + 15, y + 40, blackText);
                 centerImage = ResourcesCompat.getDrawable(resources, toxin.getResX(), null);
                 break;
