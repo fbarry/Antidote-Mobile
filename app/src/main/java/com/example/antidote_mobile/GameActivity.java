@@ -55,8 +55,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
             getPlayerConfirmed(i).setVisibility(View.VISIBLE);
             getPlayerWorkstation(i).setVisibility(View.VISIBLE);
             getPlayerTextView(i).setVisibility(View.VISIBLE);
-            //noinspection RedundantCast
-            getPlayerTextView(i).setText(players.get(i).username().replace((CharSequence) "(Host)", ""));
+            getPlayerTextView(i).setText(players.get(i).username().replace("(Host)", ""));
         }
         getPlayerTextView(ourIdx).append(" (You)");
 
