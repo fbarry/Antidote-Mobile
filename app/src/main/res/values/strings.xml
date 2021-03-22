@@ -164,6 +164,8 @@
     <string name="easy">Easy</string>
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
+    <string name="round_finished">Round Finished!</string>
+    <string name="back_to_lobby">Back to Lobby</string>
 
 
 </resources>
