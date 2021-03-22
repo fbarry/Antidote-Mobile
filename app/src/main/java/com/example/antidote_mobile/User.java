@@ -93,6 +93,8 @@ public class User extends ParseUser implements Serializable {
     }
 
     public void addFriend(String userId) {
+        if (isGuest()) return;
+
         ArrayList<String> friends = getFriends();
         if (!friends.contains(userId)) friends.add(userId);
         this.put("friends", friends);
