@@ -55,7 +55,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
             getPlayerConfirmed(i).setVisibility(View.VISIBLE);
             getPlayerWorkstation(i).setVisibility(View.VISIBLE);
             getPlayerTextView(i).setVisibility(View.VISIBLE);
-            getPlayerTextView(i).setText(players.get(i).username().replace((CharSequence) "(Host)", ""));
+            getPlayerTextView(i).setText(players.get(i).username().replace("(Host)", ""));
         }
         getPlayerTextView(ourIdx).append(" (You)");
 
@@ -409,6 +409,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
         CardHandler workstationCh = myDialog.findViewById(R.id.cardHandlerWorkstation);
         workstationCh.setCards(players.get(playerNum).workstation());
+        workstationCh.workstation = true;
 
         TextView whoseTextView = myDialog.findViewById(R.id.whoseWorkstationTextView);
         whoseTextView.setText(players.get(playerNum).username());

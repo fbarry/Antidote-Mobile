@@ -34,7 +34,7 @@ public class CardHandler extends View {
     Card touching;
     Card lifted;
     int xOffset, yOffset;
-    boolean draggable = false, selectable = true;
+    boolean draggable = false, selectable = true, workstation = false;
 
 
     ArrayList<Card> cards;
@@ -181,7 +181,7 @@ public class CardHandler extends View {
 //        canvas.drawText("" + minCardX + "," + maxCardX + "," + cardY, 400, 300, black);
         drawPlayMat(canvas);
         for (Card c : cards) {
-            c.draw(canvas, getResources());
+            c.draw(canvas, getResources(), workstation);
         }
 
     }
