@@ -123,20 +123,20 @@ For players of the game Antidote who want to play remotely with friends or bots,
 ## Sprint 7
 
 - [Trello Board](https://trello.com/b/4BXuyGVT/antidote-planning)
-- Burndown Chart
-- Velocity Chart
-- System Architecture
-- Source Code
-- Automated Tests
+- [Burndown Chart](https://docs.google.com/drawings/d/1igQFAsKAE2qLNWmUCUpkfV8SzyUnCn9n2R-nmTXa-IY/edit)
+- [Velocity Chart](https://docs.google.com/drawings/d/16rvN4Frxrgw_4FFaJiSVTQm7VpvmOW8X7FXCXC2kVLU/edit)
+- [System Architecture](https://github.com/fbarry/Antidote-Mobile/tree/master/artifacts/architecture.md)
+- [Source Code](https://github.com/fbarry/Antidote-Mobile/tree/master/app/src/main)
+- [Automated Tests](https://github.com/fbarry/Antidote-Mobile/tree/master/app/src/androidTest/java)
 - Product Demonstration
 
 ### Task Allocation
 
-- Fiona Barry:
-- Jacob Steinebronn:
-- Enrique Rodriguez:
-- Daniel West:
-- Zach Ip: 
+- Fiona Barry: Implement friending features and search screen.
+- Jacob Steinebronn: Finish implementing game play and redesign game screen.
+- Enrique Rodriguez: Enable landscape mode and implement design elements.
+- Daniel West: Finish implementing game play.
+- Zach Ip: Implement AI bots.
 
 ## Sprint 8
 
