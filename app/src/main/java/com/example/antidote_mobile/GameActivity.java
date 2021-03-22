@@ -187,6 +187,11 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
             updateActionVisibilities();
 
+            if (currentPlayer.lastRoundPoints() != 0) {
+                currentPlayer.setLastRoundPoints(0);
+                goToGameOverActivity();
+            }
+
             if (currentPlayer.isHost()) {
                 computeTurn();
             }
@@ -197,6 +202,26 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
         } catch (ParseException ignored) {
         }
+    }
+
+    public void goToGameOverActivity() {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("gameInfo", game);
+        bundle.putSerializable("players", players);
+        Intent intent = new Intent(GameActivity.this, GameOverActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        GameActivity.this.finish();
+    }
+
+    public void endGame() {
+        for (Player p : players) {
+            p.setLastRoundPoints(p.calculatePoints(game.toxin()));
+            p.setPoints(p.points() + p.lastRoundPoints());
+        }
+        game.setNumRoundsCompleted(game.numRoundsCompleted() + 1);
+        game.setNumCards(0);
+        game.setToxin(Toxin.NONE);
     }
 
     public void computeTurn() {
@@ -339,6 +364,13 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
             p.setWorkstation(pWorkstation);
             p.deselect();
         }
+
+        game.setNumCards(game.numCards() - 1);
+
+        if (game.numCards() == 1) {
+            endGame();
+        }
+
         finalizeAction();
     }
 

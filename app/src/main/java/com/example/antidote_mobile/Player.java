@@ -88,6 +88,17 @@ public class Player extends ParseObject implements Serializable {
         return (ArrayList<String>) this.get("workstation");
     }
 
+    public int calculatePoints(Toxin gameToxin) {
+        if (Card.getCardType(cards().get(0)) == CardType.ANTIDOTE) {
+            int value = Card.getNumber(cards().get(0));
+            if (Card.getToxin(cards().get(0)) == gameToxin) {
+                return value;
+            }
+            return -value;
+        }
+        return -1;
+    }
+
     public void setWorkstation(List<String> workstation) {
         this.put("workstation", workstation);
     }
@@ -101,7 +112,11 @@ public class Player extends ParseObject implements Serializable {
     }
 
     public int points() {
-        return this.getInt("Points");
+        return this.getInt("points");
+    }
+
+    public int lastRoundPoints() {
+        return this.getInt("lastRoundPoints");
     }
 
     public void setWho(String who) {
@@ -118,6 +133,10 @@ public class Player extends ParseObject implements Serializable {
 
     public void setPoints(int points) {
         this.put("points", points);
+    }
+
+    public void setLastRoundPoints(int lastRoundPoints) {
+        this.put("lastRoundPoints", lastRoundPoints);
     }
 
     public boolean hasSyringe() {

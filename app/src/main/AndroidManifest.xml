@@ -46,6 +46,9 @@
         <activity
             android:name=".SearchActivity"
             android:label="Search Page" />
+        <activity
+            android:name=".GameOverActivity"
+            android:label="Game Over Screen" />
     </application>
 
 </manifest>
