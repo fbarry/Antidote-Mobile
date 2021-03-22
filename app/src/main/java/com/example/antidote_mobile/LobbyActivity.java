@@ -14,8 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Timer;
 
 public class LobbyActivity extends AppCompatActivity implements ChatDialogActivity {
@@ -30,10 +33,14 @@ public class LobbyActivity extends AppCompatActivity implements ChatDialogActivi
     ImageButton chatButton;
     ChatDialog chatDialog;
 
+    ArrayDeque<Player> aiInQueue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
+
+        aiInQueue = new ArrayDeque<>();
 
         game = (Game) getIntent().getSerializableExtra("gameInfo");
         currentPlayer = (Player) getIntent().getSerializableExtra("currentPlayer");
@@ -202,19 +209,21 @@ public class LobbyActivity extends AppCompatActivity implements ChatDialogActivi
                         });
             }
 
-            ArrayList<Player> copy = new ArrayList<>(adapter.getPlayers());
-            for (Player p : copy) {
-                if (!list.contains(p)) adapter.removePlayer(p);
-            }
-            for (Player p : list) {
-                if (!copy.contains(p)) adapter.addPlayer(p);
+            adapter.setPlayers(list);
+            adapter.notifyDataSetChanged();
+
+            if (!aiInQueue.isEmpty()) {
+                while (!aiInQueue.isEmpty()) {
+                    game.addPlayer(Objects.requireNonNull(aiInQueue.poll()));
+                }
+
+                game.saveInBackground(e1 -> update());
             }
         });
     }
 
     public void AIButton(View v) {
-        game.addPlayer(PlayerAI.createPlayerAI());
-        game.saveInBackground(e -> update());
+        aiInQueue.add(PlayerAI.createPlayerAI());
     }
 
     public void leaveGame(View v) {
