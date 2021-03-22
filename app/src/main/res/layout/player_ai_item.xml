@@ -20,6 +20,13 @@
         android:textStyle="bold" />
 
     <Button
+        android:id="@+id/difficultyButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:text="@string/easy" />
+
+    <Button
         android:id="@+id/joinButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

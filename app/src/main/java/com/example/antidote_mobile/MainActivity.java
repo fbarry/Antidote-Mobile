@@ -101,6 +101,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_stats:
                 gotoMenu(StatsActivity.class);
                 break;
+            case R.id.nav_search:
+                gotoMenu(SearchActivity.class);
+                break;
             case R.id.nav_logout:
                 User.logoutCurrentUser(this);
                 MainActivity.this.finish();

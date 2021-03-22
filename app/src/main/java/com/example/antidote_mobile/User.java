@@ -4,15 +4,35 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.annotation.NonNull;
+
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 @SuppressWarnings("unused")
-public class User extends ParseUser {
+public class User extends ParseUser implements Serializable {
 
     public User() {
         super();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof User) {
+            return ((User) o).getObjectId().equals(getObjectId());
+        }
+
+        return false;
+    }
+
+    @Override
+    public void put(@NonNull String key, @NonNull Object value) {
+        super.put(key, value);
+        saveInBackground();
     }
 
     public boolean isGuest() {
@@ -57,6 +77,25 @@ public class User extends ParseUser {
 
     public void setStatus(String status) {
         this.put("statusMessage", status);
+    }
+
+    public ArrayList<String> getFriends() {
+        //noinspection unchecked
+        ArrayList<String> ret = (ArrayList<String>) this.get("friends");
+        if (ret != null) return ret;
+        else return new ArrayList<>();
+    }
+
+    public void removeFriend(String userId) {
+        ArrayList<String> friends = getFriends();
+        friends.remove(userId);
+        this.put("friends", friends);
+    }
+
+    public void addFriend(String userId) {
+        ArrayList<String> friends = getFriends();
+        friends.add(userId);
+        this.put("friends", friends);
     }
 
     public double getWinRate() {

@@ -1,5 +1,7 @@
 package com.example.antidote_mobile;
 
+import androidx.annotation.NonNull;
+
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
@@ -8,6 +10,12 @@ public class Message extends ParseObject {
     public static final String USERNAME_KEY = "username";
     public static final String BODY_KEY = "body";
     public static final String GAME_KEY = "gameId";
+
+    @Override
+    public void put(@NonNull String key, @NonNull Object value) {
+        super.put(key, value);
+        saveInBackground();
+    }
 
     public String getUsername() {
         return getString(USERNAME_KEY);

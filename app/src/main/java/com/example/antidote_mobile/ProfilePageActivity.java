@@ -15,14 +15,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class ProfilePageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import java.util.ArrayList;
+
+public class ProfilePageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, RedirectToProfile {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    RecyclerView friendsList;
+    ArrayList<String> friends;
+    FriendAdapter adapter;
 
     User user;
 
@@ -32,9 +39,23 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        user = (User) getIntent().getSerializableExtra("user");
+        if (user == null) user = AntidoteMobile.currentUser;
+
+        friends = user.getFriends();
+
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
+        friendsList = findViewById(R.id.friendsList);
+
+        LinearLayoutManager llm = new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL,
+                false);
+        friendsList.setLayoutManager(llm);
+
+        adapter = new FriendAdapter(this, friends);
+        friendsList.setAdapter(adapter);
 
         setSupportActionBar(toolbar);
 
@@ -44,33 +65,49 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-
-        user = AntidoteMobile.currentUser;
-
-
         TextView status = findViewById(R.id.statusMessage);
         EditText changeStatus = findViewById(R.id.changeStatusText);
 
+        TextView friendsTitle = findViewById(R.id.friendsTitle);
         Button editButton = findViewById(R.id.statusEditButton);
+        Button friendButton = findViewById(R.id.friendButton);
 
-        if (user.isGuest()) {
+        if (!user.getObjectId().equals(AntidoteMobile.currentUser.getObjectId())) {
             editButton.setVisibility(View.GONE);
+            if (AntidoteMobile.currentUser.getFriends().contains(user.getObjectId())) {
+                friendButton.setText(R.string.unfriend);
+            }
         } else {
-            editButton.setVisibility(View.VISIBLE);
+            friendButton.setVisibility(View.GONE);
         }
 
         status.setPaintFlags(View.INVISIBLE);
         changeStatus.setPaintFlags(View.INVISIBLE);
 
-        if (user.getStatus() == null)
-            status.setText("I'm a pro Antidote Mobile gamer!");
-        else
-            status.setText(user.getStatus());
+        if (user.isGuest()) {
+            editButton.setVisibility(View.GONE);
+            friendButton.setVisibility(View.GONE);
+            friendsList.setVisibility(View.GONE);
+            friendsTitle.setVisibility(View.GONE);
+            status.setText("Create an account to have a status and friends list!");
+        } else {
+            if (user.getStatus() == null) {
+                status.setText("I'm a pro Antidote Mobile gamer!");
+            } else {
+                status.setText(user.getStatus());
+            }
+        }
 
         TextView title = findViewById(R.id.profileTitle);
 
         title.setText(user.getUsername());
         title.append("'s Profile");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.refresh(user.getFriends());
     }
 
     public void editStatus(View v) {
@@ -113,12 +150,15 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_dashboard:
-                ProfilePageActivity.this.finish();
+                gotoMenu(MainActivity.class);
                 break;
             case R.id.nav_profile:
                 break;
             case R.id.nav_stats:
                 gotoMenu(StatsActivity.class);
+                break;
+            case R.id.nav_search:
+                gotoMenu(SearchActivity.class);
                 break;
             case R.id.nav_logout:
                 User.logoutCurrentUser(this);
@@ -134,6 +174,16 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
         startActivity(new Intent(ProfilePageActivity.this, dest));
     }
 
+    public void onClickFriendButton(View v) {
+        Button friendButton = findViewById(R.id.friendButton);
+        if (AntidoteMobile.currentUser.getFriends().contains(user.getObjectId())) {
+            AntidoteMobile.currentUser.removeFriend(user.getObjectId());
+            friendButton.setText(R.string.friend);
+        } else {
+            AntidoteMobile.currentUser.addFriend(user.getObjectId());
+            friendButton.setText(R.string.unfriend);
+        }
+    }
 
     @Override
     public void onBackPressed() {
@@ -144,5 +194,13 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
         }
     }
 
+    @Override
+    public void goToProfile(User user) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("user", user);
+        Intent intent = new Intent(ProfilePageActivity.this, ProfilePageActivity.class);
+        intent.putExtras(bundle);
 
+        startActivity(intent);
+    }
 }

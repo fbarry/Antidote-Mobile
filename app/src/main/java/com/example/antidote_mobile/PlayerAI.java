@@ -12,20 +12,16 @@ import java.util.Random;
 @ParseClassName("PlayerAI")
 public class PlayerAI extends Player implements Serializable {
 
-    public static final int EASY = 100;
-    public static final int MEDIUM = 200;
-    public static final int HARD = 300;
+    enum DIFFICULTY {
+        EASY,
+        MEDIUM,
+        HARD
+    }
+
+    public final static int numDifficulties = 3;
 
     public PlayerAI() {
         super();
-    }
-
-    public int getDifficulty() {
-        return this.getInt("difficulty");
-    }
-
-    public void setDifficulty(int difficulty) {
-        this.put("difficulty", difficulty);
     }
 
     public static String getRandomAIName() {

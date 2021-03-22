@@ -43,6 +43,9 @@
         <activity
             android:name=".StatsActivity"
             android:label="Stats Page" />
+        <activity
+            android:name=".SearchActivity"
+            android:label="Search Page" />
     </application>
 
 </manifest>

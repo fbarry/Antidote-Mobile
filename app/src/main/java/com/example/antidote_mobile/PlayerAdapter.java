@@ -17,13 +17,16 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     public static class PlayerViewHolder extends RecyclerView.ViewHolder {
         public TextView username;
         public Button kickButton;
+        public Button difficultyButton;
         public Player player;
+        public int difficulty;
 
         public PlayerViewHolder(View itemView) {
             super(itemView);
 
             username = itemView.findViewById(R.id.gameName);
             kickButton = itemView.findViewById(R.id.joinButton);
+            difficultyButton = itemView.findViewById(R.id.difficultyButton);
         }
     }
 
@@ -58,11 +61,23 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         game = g;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return players.get(position).isAI() ? 1 : 0;
+    }
+
     @NonNull
     @Override
     public PlayerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View playerItemView = inflater.inflate(R.layout.player_item, parent, false);
+
+        View playerItemView = null;
+        if (viewType == 0) {
+            playerItemView = inflater.inflate(R.layout.player_item, parent, false);
+        } else if (viewType == 1) {
+            playerItemView = inflater.inflate(R.layout.player_ai_item, parent, false);
+        }
+
         return new PlayerViewHolder(playerItemView);
     }
 
@@ -74,11 +89,34 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         holder.username.setText(currPlayer.username());
         if (!isHost || currPlayer.isHost()) {
             holder.kickButton.setVisibility(View.GONE);
+            if (holder.difficultyButton != null) {
+                holder.difficultyButton.setClickable(false);
+            }
         } else {
             holder.kickButton.setOnClickListener(v -> Utilities.showConfirmationAlert(activity,
                     "Kick " + currPlayer.username() + "?",
                     "The player will need to rejoin",
                     (dialog, which) -> game.removePlayer(currPlayer.getObjectId())));
+            if (holder.difficultyButton != null) {
+                holder.difficultyButton.setOnClickListener(v -> {
+                    holder.difficulty = (holder.difficulty + 1) % PlayerAI.numDifficulties;
+
+                    switch (holder.difficulty) {
+                        case 0:
+                            holder.difficultyButton.setText(R.string.easy);
+                            break;
+                        case 1:
+                            holder.difficultyButton.setText(R.string.medium);
+                            break;
+                        case 2:
+                            holder.difficultyButton.setText(R.string.hard);
+                            break;
+                        default:
+                    }
+
+                    holder.player.setDifficulty(holder.difficulty);
+                });
+            }
         }
     }
 
