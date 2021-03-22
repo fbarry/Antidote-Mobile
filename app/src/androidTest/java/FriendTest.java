@@ -1,6 +1,9 @@
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.intent.Intents;
@@ -25,6 +28,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 @RunWith(AndroidJUnit4.class)
 public class FriendTest {
@@ -70,8 +74,49 @@ public class FriendTest {
         cleanup();
     }
 
+    @Test
+    public void testGuestsCannotHaveFriends() {
+        getGuestProfilePage();
+        assert(user.getFriends() == null || user.getFriends().size() == 0);
+        cleanup();
+    }
+
+    @Test
+    public void testGuestProfilesHideFriendsList() {
+        getGuestProfilePage();
+
+        Activity activity = profileActivityTestRule.getActivity();
+        RecyclerView friendsList = activity.findViewById(R.id.friendsList);
+
+        assert(friendsList.getVisibility() == View.GONE);
+
+        cleanup();
+    }
+
+    @Test
+    public void testGuestProfilesHideFriendsTitle() {
+        getGuestProfilePage();
+
+        Activity activity = profileActivityTestRule.getActivity();
+        TextView friendsTitle = activity.findViewById(R.id.friendsTitle);
+
+        assert(friendsTitle.getVisibility() == View.GONE);
+
+        cleanup();
+    }
+
     User user;
     String fakeFriend = "LQqVSgsBQC";
+
+    private void getGuestProfilePage() {
+        user = User.signUpGuest();
+        AntidoteMobile.currentUser = user;
+        assert user != null;
+
+        user.addFriend(fakeFriend);
+
+        profileActivityTestRule.launchActivity(new Intent());
+    }
 
     private void getNewProfilePage(boolean addFriend, boolean ofYourself) {
         user = User.signIn("randomUser", "randomPassword");
