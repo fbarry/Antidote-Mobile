@@ -25,6 +25,14 @@ public class Player extends ParseObject implements Serializable {
         return false;
     }
 
+    public int getDifficulty() {
+        return this.getInt("difficulty");
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.put("difficulty", difficulty);
+    }
+
     public boolean isAI() {
         return this.getBoolean("AI");
     }
