@@ -126,7 +126,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void updateDisplayedUsername() {
         TextView usernameTextView = findViewById(R.id.usernameTextView);
         usernameTextView.setText(R.string.hey_there);
-        usernameTextView.append(" " + AntidoteMobile.currentUser.getUsername());
+        if (AntidoteMobile.currentUser != null)
+            usernameTextView.append(" " + AntidoteMobile.currentUser.getUsername());
         usernameTextView.append("!");
     }
 
