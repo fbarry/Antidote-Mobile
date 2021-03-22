@@ -1,6 +1,5 @@
 package com.example.antidote_mobile;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.SaveCallback;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -246,7 +244,7 @@ public class LobbyActivity extends AppCompatActivity implements ChatDialogActivi
     }
 
     public void startGame(View v) {
-        if (game.numPlayers() < 2) return;
+        if (game.numPlayers() < 3) return;
 
         game.initialize(currentPlayer);
 
