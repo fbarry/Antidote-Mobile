@@ -2,11 +2,9 @@ package com.example.antidote_mobile;
 
 import com.parse.ParseClassName;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 @ParseClassName("PlayerAI")
@@ -26,7 +24,6 @@ public class PlayerAI extends Player implements Serializable {
 
     public static String getRandomAIName() {
         Random rand = new Random();
-        String[] adj = Utilities.adj;
         String[] noun = Utilities.noun;
         String ret = "robo_" + noun[rand.nextInt(noun.length)] + "_";
         ret += Utilities.getRandomNumberString(AntidoteMobile.maxUsernameLength - ret.length());
@@ -35,7 +32,7 @@ public class PlayerAI extends Player implements Serializable {
 
     public static Player createPlayerAI() {
 
-        Player ret = Player.createPlayer(User.signUpGuest(), false);
+        Player ret = Player.createPlayer(Objects.requireNonNull(User.signUpGuest()), false);
 
         if (ret == null) return null;
 
