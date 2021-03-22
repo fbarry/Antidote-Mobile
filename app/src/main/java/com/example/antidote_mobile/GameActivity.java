@@ -383,17 +383,6 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         finalizeAction();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        if (game.host().equals(currentPlayer.getObjectId())) {
-            game.deleteGame();
-        } else {
-            game.removePlayer(currentPlayer.getObjectId());
-        }
-    }
-
     public void openInfoPage(View v) {
         startActivity(new Intent(GameActivity.this, InfoPageActivity.class));
     }
