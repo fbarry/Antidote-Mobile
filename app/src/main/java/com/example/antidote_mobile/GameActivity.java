@@ -207,6 +207,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     public void goToGameOverActivity() {
         Bundle bundle = new Bundle();
         bundle.putSerializable("gameInfo", game);
+        bundle.putSerializable("currentPlayer", currentPlayer);
         bundle.putSerializable("players", players);
         Intent intent = new Intent(GameActivity.this, GameOverActivity.class);
         intent.putExtras(bundle);
