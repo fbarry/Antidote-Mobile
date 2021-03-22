@@ -27,6 +27,18 @@ class Card implements Comparable<Card> {
         this.y = yEnd = y;
     }
 
+    public static CardType getCardType(String card) {
+        return CardType.fromString(card.split("\\.")[0]);
+    }
+
+    public static Toxin getToxin(String card) {
+        return Toxin.fromString(card.split("\\.")[1]);
+    }
+
+    public static int getNumber(String card) {
+        return Integer.parseInt(card.split("\\.")[2]);
+    }
+
     public String getCardData() {
         String ret = type.getText();
         if (toxin != Toxin.NONE) ret += "." + toxin.getText();
