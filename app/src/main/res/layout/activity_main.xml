@@ -8,7 +8,8 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity"
-    tools:openDrawer="start">
+    tools:openDrawer="start"
+    android:background="@drawable/background">
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
@@ -51,8 +52,8 @@
 
         <Button
             android:id="@+id/createGameButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="62dp"
             android:layout_marginTop="120dp"
             android:onClick="onCreateGame"
             android:text="@string/create_game_button"
@@ -62,9 +63,9 @@
 
         <Button
             android:id="@+id/joinGameButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_width="130dp"
+            android:layout_height="62dp"
+            android:layout_marginTop="48dp"
             android:onClick="onJoinGame"
             android:text="@string/join_game_button"
             app:layout_constraintEnd_toEndOf="parent"
@@ -74,9 +75,9 @@
 
         <Button
             android:id="@+id/browseGamesButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
+            android:layout_width="158dp"
+            android:layout_height="66dp"
+            android:layout_marginTop="270dp"
             android:onClick="onBrowseGames"
             android:text="@string/browse_games"
             app:layout_constraintEnd_toEndOf="parent"
@@ -88,7 +89,7 @@
             android:id="@+id/joinCodeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="50dp"
             android:ems="10"
             android:hint="@string/game_code_placeholder"
             android:importantForAutofill="no"
