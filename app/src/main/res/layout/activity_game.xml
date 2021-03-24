@@ -303,6 +303,7 @@
         android:contentDescription="@string/InfoButtonDesc"
         android:cropToPadding="true"
         android:onClick="passCardsLeft"
+        android:rotation="60"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/discardCardsButton"
         app:layout_constraintHorizontal_bias="0.042"
@@ -328,6 +329,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/discardCardsButton"
         app:layout_constraintVertical_bias="0.594"
+        android:rotation="300"
         app:srcCompat="@drawable/ic_baseline_arrow_forward_24" />
 
     <ImageButton
