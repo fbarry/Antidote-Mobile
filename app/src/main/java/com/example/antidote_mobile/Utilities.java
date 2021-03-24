@@ -3,6 +3,10 @@ package com.example.antidote_mobile;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.drawable.Drawable;
 
 import androidx.annotation.Nullable;
 
@@ -85,5 +89,43 @@ public class Utilities {
 
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    public static void setDrawableColor(String colorString, Drawable img) {
+        int iColor = Color.parseColor(colorString);
+
+        int red = (iColor & 0xFF0000) / 0xFFFF;
+        int green = (iColor & 0xFF00) / 0xFF;
+        int blue = iColor & 0xFF;
+
+        float[] matrix = {0, 0, 0, 0, red,
+                0, 0, 0, 0, green,
+                0, 0, 0, 0, blue,
+                0, 0, 0, 1, 0};
+
+        ColorFilter colorFilter = new ColorMatrixColorFilter(matrix);
+        img.setColorFilter(colorFilter);
+    }
+
+    public static int getNumberResource(int number) {
+        switch (number) {
+            case 0:
+                return R.drawable.number0;
+            case 1:
+                return R.drawable.number1;
+            case 2:
+                return R.drawable.number2;
+            case 3:
+                return R.drawable.number3;
+            case 4:
+                return R.drawable.number4;
+            case 5:
+                return R.drawable.number5;
+            case 6:
+                return R.drawable.number6;
+            case 7:
+                return R.drawable.number7;
+        }
+        return -1;
     }
 }
