@@ -3,6 +3,7 @@ package com.example.antidote_mobile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,7 +22,21 @@ public class GameOverActivity extends AppCompatActivity {
 
         game = (Game) getIntent().getSerializableExtra("gameInfo");
         currentPlayer = (Player) getIntent().getSerializableExtra("currentPlayer");
-        // players = (ArrayList<Player>) getIntent().getSerializableExtra("players");
+        //noinspection unchecked
+        players = (ArrayList<Player>) getIntent().getSerializableExtra("players");
+
+        hideEverything();
+        for (int i = 0; i < players.size(); i++) {
+            TextView tv = getTextView(i);
+            tv.setVisibility(View.VISIBLE);
+            tv.setText(players.get(i).username());
+            tv.append(" : [ " + players.get(i).points() + " ] ");
+            if (players.get(i).lastRoundPoints() >= 0) tv.append("+");
+            tv.append(players.get(i).lastRoundPoints() + "");
+
+        }
+        currentPlayer.setNeedsGameOverScreen(false);
+        currentPlayer.saveInBackground();
     }
 
     public void goToLobbyActivity(View v) {
@@ -32,5 +47,29 @@ public class GameOverActivity extends AppCompatActivity {
         goToLobby.putExtras(sendGame);
         startActivity(goToLobby);
         GameOverActivity.this.finish();
+    }
+
+    private TextView getTextView(int playerIndex) {
+        switch (playerIndex) {
+            case 0:
+                return findViewById(R.id.gameOver_player1TextView);
+            case 1:
+                return findViewById(R.id.gameOver_player2TextView);
+            case 2:
+                return findViewById(R.id.gameOver_player3TextView);
+            case 3:
+                return findViewById(R.id.gameOver_player4TextView);
+            case 4:
+                return findViewById(R.id.gameOver_player5TextView);
+            case 5:
+                return findViewById(R.id.gameOver_player6TextView);
+            case 6:
+                return findViewById(R.id.gameOver_player7TextView);
+        }
+        return findViewById(R.id.gameOver_player7TextView);
+    }
+
+    private void hideEverything() {
+        for (int i = 0; i < 7; i++) getTextView(i).setVisibility(View.GONE);
     }
 }

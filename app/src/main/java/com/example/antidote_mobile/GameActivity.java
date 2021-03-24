@@ -16,7 +16,6 @@ import androidx.appcompat.content.res.AppCompatResources;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -180,7 +179,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
                 for (int j = 0; j < players.size(); j++) {
                     if (parseObjects.get(i).getObjectId().equals(players.get(j).getObjectId())) {
                         players.set(j, p);
-                        if (players.get(j).getObjectId().equals(currentPlayer.getObjectId())){
+                        if (players.get(j).getObjectId().equals(currentPlayer.getObjectId())) {
                             updateCurrentPlayer(players.get(j));
                         }
                         break;
@@ -190,8 +189,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
             updateActionVisibilities();
 
-            if (currentPlayer.lastRoundPoints() != 0) {
-                currentPlayer.setLastRoundPoints(0);
+            if (currentPlayer.needsGameOverScreen()) {
                 goToGameOverActivity();
             }
 
@@ -222,6 +220,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         for (Player p : players) {
             p.setLastRoundPoints(p.calculatePoints(game.toxin()));
             p.setPoints(p.points() + p.lastRoundPoints());
+            p.setNeedsGameOverScreen(true);
         }
         game.setNumRoundsCompleted(game.numRoundsCompleted() + 1);
         game.setNumCards(0);
