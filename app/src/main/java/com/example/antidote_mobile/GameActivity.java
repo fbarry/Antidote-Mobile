@@ -257,21 +257,42 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     }
 
     void updateConfirmedDisplays() {
+        if (game.currentActionType() == ActionType.NONE || game.currentActionType() == ActionType.SYRINGE) {
+            for (int i = 0; i < game.numPlayers(); i++) {
+                getPlayerConfirmed(i).setVisibility(View.GONE);
+            }
+            return;
+        }
+
         switch (game.numPlayers()) {
             case 7:
-                getPlayerConfirmed(6).setVisibility(players.get(6).isLocked() ? View.VISIBLE : View.GONE);
+                if (players.get(6).isLocked() || (players.get(6).isAI() && game.currentActionType() != ActionType.TRADE))
+                    getPlayerConfirmed(6).setVisibility(View.VISIBLE);
+                else getPlayerConfirmed(6).setVisibility(View.GONE);
             case 6:
-                getPlayerConfirmed(5).setVisibility(players.get(5).isLocked() ? View.VISIBLE : View.GONE);
+                if (players.get(5).isLocked() || (players.get(5).isAI() && game.currentActionType() != ActionType.TRADE))
+                    getPlayerConfirmed(5).setVisibility(View.VISIBLE);
+                else getPlayerConfirmed(5).setVisibility(View.GONE);
             case 5:
-                getPlayerConfirmed(4).setVisibility(players.get(4).isLocked() ? View.VISIBLE : View.GONE);
+                if (players.get(4).isLocked() || (players.get(4).isAI() && game.currentActionType() != ActionType.TRADE))
+                    getPlayerConfirmed(4).setVisibility(View.VISIBLE);
+                else getPlayerConfirmed(4).setVisibility(View.GONE);
             case 4:
-                getPlayerConfirmed(3).setVisibility(players.get(3).isLocked() ? View.VISIBLE : View.GONE);
+                if (players.get(3).isLocked() || (players.get(3).isAI() && game.currentActionType() != ActionType.TRADE))
+                    getPlayerConfirmed(3).setVisibility(View.VISIBLE);
+                else getPlayerConfirmed(3).setVisibility(View.GONE);
             case 3:
-                getPlayerConfirmed(2).setVisibility(players.get(2).isLocked() ? View.VISIBLE : View.GONE);
+                if (players.get(2).isLocked() || (players.get(2).isAI() && game.currentActionType() != ActionType.TRADE))
+                    getPlayerConfirmed(2).setVisibility(View.VISIBLE);
+                else getPlayerConfirmed(2).setVisibility(View.GONE);
             case 2:
-                getPlayerConfirmed(1).setVisibility(players.get(1).isLocked() ? View.VISIBLE : View.GONE);
+                if (players.get(1).isLocked() || (players.get(1).isAI() && game.currentActionType() != ActionType.TRADE))
+                    getPlayerConfirmed(1).setVisibility(View.VISIBLE);
+                else getPlayerConfirmed(1).setVisibility(View.GONE);
             case 1:
-                getPlayerConfirmed(0).setVisibility(players.get(0).isLocked() ? View.VISIBLE : View.GONE);
+                if (players.get(0).isLocked() || (players.get(0).isAI() && game.currentActionType() != ActionType.TRADE))
+                    getPlayerConfirmed(0).setVisibility(View.VISIBLE);
+                else getPlayerConfirmed(0).setVisibility(View.GONE);
         }
         for (Player p : players) System.out.println(p.isLocked());
     }
