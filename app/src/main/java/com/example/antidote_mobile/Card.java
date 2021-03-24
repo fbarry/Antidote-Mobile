@@ -134,6 +134,7 @@ class Card implements Comparable<Card> {
         bounds.bottom = (int) (bounds.top + cardHeight * size);
         bounds.right = (int) (bounds.left + cardWidth * size);
         Drawable img = ResourcesCompat.getDrawable(resources, R.drawable.blank_card, null);
+        if(type == CardType.TOXIN && isWorkstation) img = ResourcesCompat.getDrawable(resources, R.drawable.cardback, null);
         assert img != null;
         img.setBounds(bounds);
         img.draw(canvas);
