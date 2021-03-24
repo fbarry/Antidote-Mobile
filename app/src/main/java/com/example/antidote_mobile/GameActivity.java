@@ -464,8 +464,9 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         workstationCh.workstation = true;
 
         TextView whoseTextView = myDialog.findViewById(R.id.whoseWorkstationTextView);
-        whoseTextView.setText(players.get(playerNum).username());
-        whoseTextView.append("'s Workstation");
+        whoseTextView.setText(players.get(playerNum).username().replace("(Host)", ""));
+        if (players.get(playerNum) == currentPlayer) whoseTextView.setText(R.string.your_workstation);
+        else whoseTextView.append("'s Workstation");
 
 
         ImageButton syringeButton = myDialog.findViewById(R.id.confirmSyringeButton);
