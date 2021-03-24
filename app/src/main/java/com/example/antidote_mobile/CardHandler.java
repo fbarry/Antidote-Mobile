@@ -33,7 +33,7 @@ public class CardHandler extends View {
 
     Card touching;
     Card lifted;
-    int xOffset, yOffset;
+    int xOffset, yOffset, downX, downY;
     boolean draggable = false, selectable = true, workstation = false;
 
 
@@ -138,7 +138,7 @@ public class CardHandler extends View {
     // animation to go to that position.
     private void fixCards() {
         Collections.sort(cards);
-        animateFor(600);
+        animateFor(9000);
 
         if (cards.size() == 1) {
             cards.get(0).setTarget((maxCardX + minCardX) / 2 - Card.cardWidth / 2, cardY);
@@ -222,6 +222,8 @@ public class CardHandler extends View {
                         break;
                     }
                 }
+                downX = touchX;
+                downY = touchY;
                 if (selectable && lifted != null && lifted != touching) {
                     lifted.setTarget(lifted.x, cardY);
                 }
@@ -233,7 +235,8 @@ public class CardHandler extends View {
                 break;
             case MotionEvent.ACTION_UP:
                 if (touching != null) {
-                    if (System.currentTimeMillis() - fingerDownTime < TAP_WINDOW && touching != lifted && selectable) {
+                    if (System.currentTimeMillis() - fingerDownTime < TAP_WINDOW && touching != lifted && selectable
+                            && Utilities.dist(touchX, touchY, downX, downY) < 10) {
                         touching.setTarget(touchX - xOffset, cardY - 50);
                         lifted = touching;
                     } else {

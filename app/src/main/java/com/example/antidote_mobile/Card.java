@@ -11,13 +11,14 @@ import androidx.core.content.res.ResourcesCompat;
 @SuppressWarnings("unused")
 class Card implements Comparable<Card> {
 
-    public static final int cardHeight = 367, cardWidth = 200;
-    private static final double trackingDivisor = 6.5, snapRadius = 7.5;
+    public static final int cardHeight = 367, cardWidth = 240;
+    private static final double trackingDivisor = 6.5, snapRadius = 8.5;
     private static final Paint blackText = new Paint();
 
 
     int xStart, yStart, xEnd, yEnd, x, y;
 
+    boolean animateSize = false;
     CardType type = CardType.NONE;
     Toxin toxin = Toxin.NONE;
     int number = -1;
@@ -71,19 +72,29 @@ class Card implements Comparable<Card> {
     // Set this card to animate towards (tx, ty) over time
     // Ensure that you set enough animation frames for this to complete
     public void setTarget(int tx, int ty) {
+        xStart = x;
+        yStart = y;
         xEnd = tx;
         yEnd = ty;
     }
 
+    public void setAnimateSize(boolean toAnimateSize) {
+        animateSize = toAnimateSize;
+    }
+
     // Forcibly set the card's position, without animation
     public void forceSetPosition(int x, int y) {
-        this.x = xEnd = x;
-        this.y = yEnd = y;
+        this.x = xStart = xEnd = x;
+        this.y = yStart = yEnd = y;
     }
 
     public void forceMove() {
-        this.x = xEnd;
-        this.y = yEnd;
+        this.x = xStart = xEnd;
+        this.y = yStart = yEnd;
+    }
+
+    double sign(double x) {
+        return x < 0 ? -1 : 1;
     }
 
     // Compute and set this card's x to where it should be on it's animation
@@ -92,6 +103,14 @@ class Card implements Comparable<Card> {
             x = xEnd;
             y = yEnd;
             return;
+        }
+
+        if (animateSize) {
+            double startDist = Utilities.dist(xStart, yStart, x, y);
+            double endDist = Utilities.dist(x, y, xEnd, yEnd);
+            double totalDist = Utilities.dist(xStart, yStart, xEnd, yEnd);
+            double t = startDist / totalDist;
+            size = Math.min(t, 1 - t) * 2;
         }
 
         double dx = (xEnd - x) / trackingDivisor;
@@ -170,7 +189,7 @@ class Card implements Comparable<Card> {
 
             Rect bounds2 = new Rect();
             bounds2.top = (int) (y + (type == CardType.TOXIN ? 1 : -8) * size);
-            bounds2.left = (int) (x + (type == CardType.TOXIN ? 15 : 8) * size);
+            bounds2.left = (int) (x + (type == CardType.TOXIN ? 19 : 12) * size);
             bounds2.bottom = (int) (bounds2.top + cardHeight * size * scaleFactor);
             bounds2.right = (int) (bounds2.left + cardHeight * size * scaleFactor);
             numberImage.setBounds(bounds2);
