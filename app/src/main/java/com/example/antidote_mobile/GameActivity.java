@@ -353,7 +353,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         game.setCurrentAction(ActionType.NONE.getText());
         ParseObject.saveAllInBackground(players, e1 -> game.saveInBackground((e2 -> {
             try {
-                Thread.sleep(100);
+                Thread.sleep(200);
             } catch (InterruptedException interruptedException) {
                 interruptedException.printStackTrace();
             }
@@ -541,7 +541,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
         currentPlayer.saveInBackground(e -> {
             try {
-                Thread.sleep(100);
+                Thread.sleep(200);
             } catch (InterruptedException interruptedException) {
                 interruptedException.printStackTrace();
             }
