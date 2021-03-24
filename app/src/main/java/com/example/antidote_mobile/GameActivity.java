@@ -16,6 +16,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -174,12 +175,14 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
             System.out.println("Got " + parseObjects.size() + " updated players, previously had " + players.size());
             for (int i = 0; i < players.size(); i++) {
 
-                if (parseObjects.get(i).getObjectId().equals(currentPlayer.getObjectId()))
-                    updateCurrentPlayer((Player) parseObjects.get(i));
+                Player p = (Player) parseObjects.get(i);
 
                 for (int j = 0; j < players.size(); j++) {
                     if (parseObjects.get(i).getObjectId().equals(players.get(j).getObjectId())) {
-                        players.set(j, (Player) parseObjects.get(i));
+                        players.set(j, p);
+                        if (players.get(j).getObjectId().equals(currentPlayer.getObjectId())){
+                            updateCurrentPlayer(players.get(j));
+                        }
                         break;
                     }
                 }
@@ -328,7 +331,14 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     void finalizeAction() {
         game.setCurrentTurn((game.currentTurn() + 1) % game.numPlayers());
         game.setCurrentAction(ActionType.NONE.getText());
-        ParseObject.saveAllInBackground(players, e -> game.saveInBackground(e1 -> update()));
+        ParseObject.saveAllInBackground(players, e1 -> game.saveInBackground((e2 -> {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
+            update();
+        })));
     }
 
     // 1 for left, -1 for right
@@ -509,7 +519,14 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         }
 
         ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
-        currentPlayer.saveInBackground(e -> update());
+        currentPlayer.saveInBackground(e -> {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
+            update();
+        });
     }
 
     public void onTradeButton(View view) {
