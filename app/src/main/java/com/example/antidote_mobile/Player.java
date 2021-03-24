@@ -33,6 +33,14 @@ public class Player extends ParseObject implements Serializable {
         return false;
     }
 
+    public boolean needsGameOverScreen() {
+        return getBoolean("needsGameOverScreen");
+    }
+
+    public void setNeedsGameOverScreen(boolean needsGameOverScreen) {
+        put("needsGameOverScreen", needsGameOverScreen);
+    }
+
     public int getDifficulty() {
         return this.getInt("difficulty");
     }

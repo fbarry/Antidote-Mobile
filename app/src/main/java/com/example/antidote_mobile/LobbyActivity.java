@@ -162,12 +162,11 @@ public class LobbyActivity extends AppCompatActivity implements ChatDialogActivi
     }
 
     public void updateGameScreen() {
-        if (game.numCards() > 0) {
+        if (game.numCards() > 0 || currentPlayer != null && currentPlayer.needsGameOverScreen()) {
             ParseQuery<ParseObject> query = new ParseQuery<>("Player");
 
             try {
-                ParseObject po = query.get(currentPlayer.getObjectId());
-                currentPlayer = (Player) po;
+                currentPlayer = (Player) query.get(currentPlayer.getObjectId());
                 goToGameScreen();
             } catch (ParseException e) {
                 Utilities.showInformationAlert(this,
