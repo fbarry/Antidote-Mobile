@@ -16,11 +16,12 @@ class Card implements Comparable<Card> {
     private static final Paint blackText = new Paint();
 
 
-    int xEnd, yEnd, x, y;
+    int xStart, yStart, xEnd, yEnd, x, y;
 
     CardType type = CardType.NONE;
     Toxin toxin = Toxin.NONE;
     int number = -1;
+    double size = 1.0;
 
     public Card(int x, int y) {
         this.x = xEnd = x;
@@ -111,28 +112,32 @@ class Card implements Comparable<Card> {
         Rect bounds = new Rect();
         bounds.top = y;
         bounds.left = x;
-        bounds.bottom = bounds.top + cardHeight;
-        bounds.right = bounds.left + cardWidth;
+        bounds.bottom = (int) (bounds.top + cardHeight * size);
+        bounds.right = (int) (bounds.left + cardWidth * size);
         Drawable img = ResourcesCompat.getDrawable(resources, R.drawable.blank_card, null);
         assert img != null;
         img.setBounds(bounds);
         img.draw(canvas);
 
         Drawable centerImage = null;
+        Drawable thumbnailImage = null;
+        Drawable numberImage = null;
 
         switch (type) {
             case SYRINGE:
-                canvas.drawText("S", x + 15, y + 40, blackText);
+                thumbnailImage = ResourcesCompat.getDrawable(resources, R.drawable.syringethumbnail, null);
                 centerImage = ResourcesCompat.getDrawable(resources, R.drawable.syringe, null);
                 break;
             case TOXIN:
                 if (isWorkstation) break;
-                canvas.drawText("X" + toxin.getText().charAt(0), x + 15, y + 40, blackText);
                 centerImage = ResourcesCompat.getDrawable(resources, toxin.getResX(), null);
+                thumbnailImage = ResourcesCompat.getDrawable(resources, toxin.getThumbres(), null);
+                numberImage = ResourcesCompat.getDrawable(resources, R.drawable.numberx, null);
                 break;
             case ANTIDOTE:
-                canvas.drawText("A" + toxin.getText().charAt(0) + number, x + 15, y + 40, blackText);
                 centerImage = ResourcesCompat.getDrawable(resources, toxin.getRes(), null);
+                thumbnailImage = ResourcesCompat.getDrawable(resources, toxin.getThumbres(), null);
+                numberImage = ResourcesCompat.getDrawable(resources, Utilities.getNumberResource(number), null);
                 break;
             case NONE:
             default:
@@ -142,12 +147,35 @@ class Card implements Comparable<Card> {
         if (centerImage != null) {
             double scaleFactor = .7;
             Rect bounds2 = new Rect();
-            bounds2.top = (int) (y + cardHeight * ((1 - scaleFactor) / 2));
-            bounds2.left = (int) (x + cardWidth * ((1 - scaleFactor) / 2));
-            bounds2.bottom = (int) (bounds2.top + cardHeight * scaleFactor);
-            bounds2.right = (int) (bounds2.left + cardWidth * scaleFactor);
+            bounds2.top = (int) (y - 5 * size + cardHeight * size * ((1 - scaleFactor) / 2));
+            bounds2.left = (int) (x + cardWidth * size * ((1 - scaleFactor) / 2));
+            bounds2.bottom = (int) (bounds2.top + cardHeight * size * scaleFactor);
+            bounds2.right = (int) (bounds2.left + cardWidth * size * scaleFactor);
             centerImage.setBounds(bounds2);
             centerImage.draw(canvas);
+        }
+        if (thumbnailImage != null) {
+            double scaleFactor = .135;
+            Rect bounds2 = new Rect();
+            bounds2.top = (int) (y + 1 * size);
+            bounds2.left = (int) (x + 5 * size);
+            bounds2.bottom = (int) (bounds2.top + cardHeight * size * scaleFactor);
+            bounds2.right = (int) (bounds2.left + cardWidth * size * scaleFactor);
+            thumbnailImage.setBounds(bounds2);
+            thumbnailImage.draw(canvas);
+        }
+        if (numberImage != null) {
+            double scaleFactor = .135;
+            if (type == CardType.ANTIDOTE) scaleFactor *= 1.35;
+
+            Rect bounds2 = new Rect();
+            bounds2.top = (int) (y + (type == CardType.TOXIN ? 1 : -8) * size);
+            bounds2.left = (int) (x + (type == CardType.TOXIN ? 15 : 8) * size);
+            bounds2.bottom = (int) (bounds2.top + cardHeight * size * scaleFactor);
+            bounds2.right = (int) (bounds2.left + cardHeight * size * scaleFactor);
+            numberImage.setBounds(bounds2);
+            Utilities.setDrawableColor(toxin.getColorString(), numberImage);
+            numberImage.draw(canvas);
         }
     }
 
