@@ -30,7 +30,7 @@
         android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_info_24" />
+        app:srcCompat="@drawable/deckicon" />
 
     <TextView
         android:id="@+id/leftPlayer1TextView"
@@ -79,7 +79,7 @@
         android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_info_24" />
+        app:srcCompat="@drawable/deckicon" />
 
     <ImageView
         android:id="@+id/leftPlayer2Confirmed"
@@ -117,7 +117,7 @@
         android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_info_24" />
+        app:srcCompat="@drawable/deckicon" />
 
     <ImageView
         android:id="@+id/leftPlayer3Confirmed"
@@ -156,7 +156,7 @@
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_info_24" />
+        app:srcCompat="@drawable/deckicon" />
 
     <ImageView
         android:id="@+id/rightPlayer3Confirmed"
@@ -195,7 +195,7 @@
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_info_24" />
+        app:srcCompat="@drawable/deckicon" />
 
     <ImageView
         android:id="@+id/rightPlayer2Confirmed"
@@ -234,7 +234,7 @@
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_info_24" />
+        app:srcCompat="@drawable/deckicon" />
 
     <ImageView
         android:id="@+id/rightPlayer1Confirmed"
@@ -347,7 +347,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.683"
-        app:srcCompat="@drawable/ic_baseline_arrow_upward_24" />
+        app:srcCompat="@drawable/trashcan_icon" />
 
     <ImageButton
         android:id="@+id/syringeButton"
@@ -415,7 +415,7 @@
         android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_info_24" />
+        app:srcCompat="@drawable/deckicon" />
 
     <TextView
         android:id="@+id/player1TextView"
@@ -444,7 +444,7 @@
         app:layout_constraintEnd_toStartOf="@+id/topPlayerTextView"
         app:layout_constraintTop_toTopOf="@+id/topPlayerTextView"
         app:layout_constraintVertical_bias="0.5"
-        app:srcCompat="@drawable/ic_baseline_info_24" />
+        app:srcCompat="@drawable/deckicon" />
 
     <TextView
         android:id="@+id/topPlayerTextView"
