@@ -33,6 +33,21 @@ public class Player extends ParseObject implements Serializable {
         this.put("difficulty", difficulty.getDiffVal());
     }
 
+    public ArrayList<String> memory() {
+        //noinspection unchecked
+        return (ArrayList<String>) get("memory");
+    }
+
+    public void setMemory(List<String> memory) {
+        put("memory", memory);
+    }
+
+    public void addMemory(String memory) {
+        ArrayList<String> memories = memory();
+        memories.add(memory);
+        setMemory(memories);
+    }
+
     public boolean needsGameOverScreen() {
         return getBoolean("needsGameOverScreen");
     }
@@ -154,6 +169,7 @@ public class Player extends ParseObject implements Serializable {
         ret.setIsLocked(false);
         ret.setSelectedIdx(-1);
         ret.setIsAI(false);
+        ret.setMemory(new ArrayList<>());
 
         if (user.isGuest()) ret.setUsername(Utilities.getRandomGuestUsername());
         else ret.setUsername(user.getUsername());
