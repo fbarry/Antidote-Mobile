@@ -142,7 +142,7 @@ public class PlayerAI extends Player implements Serializable {
     }
 
     private static void selectPassCardMedium(Player p, Game game) {
-        // Pick a random non-toxin, non-syringe card to pass
+        // Pick a random antidote card to pass
         ArrayList<Integer> candidates = new ArrayList<>();
 
         ArrayList<String> cardStrings = p.cards();
@@ -302,7 +302,7 @@ public class PlayerAI extends Player implements Serializable {
         // Discard a toxin, then a useless antidote, then a syringe, then a useful antidote
         ArrayList<String> cardStrings = p.cards();
 
-        // Trade a syringe, if we can
+        // Discard a toxin if we can
         for (int i = 0; i < cardStrings.size(); i++) {
             if (Card.getCardType(cardStrings.get(i)) == CardType.TOXIN) {
                 p.setSelectedIdx(i);
@@ -316,7 +316,9 @@ public class PlayerAI extends Player implements Serializable {
         ArrayList<Integer> candidates = new ArrayList<>();
 
         // Pick a random useless antidote
+        System.out.println(cardStrings + " from " + p.username());
         for (int i = 0; i < cardStrings.size(); i++) {
+            if (Card.getCardType(cardStrings.get(i)) == CardType.SYRINGE) continue;
             if (seenToxins.contains(Card.getToxin(cardStrings.get(i)))) continue;
             candidates.add(i);
         }

@@ -280,7 +280,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
                 getPlayerConfirmed(i).setVisibility(View.GONE);
             if (players.get(game.currentTurn()).isAI() || players.get(game.currentTurn()).isLocked())
                 getPlayerConfirmed(game.currentTurn()).setVisibility(View.VISIBLE);
-            if (game.tradeTarget() != -1 && players.get(game.tradeTarget()).isLocked() || players.get(game.tradeTarget()).isAI())
+            if (game.tradeTarget() != -1 && (players.get(game.tradeTarget()).isLocked() || players.get(game.tradeTarget()).isAI()))
                 getPlayerConfirmed(game.tradeTarget()).setVisibility(View.VISIBLE);
             return;
         }
