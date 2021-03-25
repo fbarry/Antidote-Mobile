@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+@SuppressWarnings("unused")
 public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder> {
 
     public static class PlayerViewHolder extends RecyclerView.ViewHolder {
@@ -19,7 +20,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         public Button kickButton;
         public Button difficultyButton;
         public Player player;
-        public int difficulty;
+        public PlayerAI.Difficulty difficulty;
 
         public PlayerViewHolder(View itemView) {
             super(itemView);
@@ -93,14 +94,14 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         holder.username.setText(currPlayer.username());
 
         if (currPlayer.isAI()) {
-            switch (currPlayer.getDifficulty()) {
-                case 0:
+            switch (currPlayer.difficulty()) {
+                case EASY:
                     holder.difficultyButton.setText(R.string.easy);
                     break;
-                case 1:
+                case MEDIUM:
                     holder.difficultyButton.setText(R.string.medium);
                     break;
-                case 2:
+                case HARD:
                     holder.difficultyButton.setText(R.string.hard);
                     break;
                 default:
@@ -117,24 +118,26 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
                     "Kick " + currPlayer.username() + "?",
                     "The player will need to rejoin",
                     (dialog, which) -> game.removePlayer(currPlayer.getObjectId())));
+
             if (holder.difficultyButton != null) {
                 holder.difficultyButton.setOnClickListener(v -> {
-                    holder.difficulty = (holder.difficulty + 1) % PlayerAI.numDifficulties;
+                    holder.difficulty = holder.difficulty.next();
 
                     switch (holder.difficulty) {
-                        case 0:
+                        case EASY:
                             holder.difficultyButton.setText(R.string.easy);
                             break;
-                        case 1:
+                        case MEDIUM:
                             holder.difficultyButton.setText(R.string.medium);
                             break;
-                        case 2:
+                        case HARD:
                             holder.difficultyButton.setText(R.string.hard);
                             break;
                         default:
                     }
 
                     holder.player.setDifficulty(holder.difficulty);
+                    holder.player.saveInBackground();
                 });
             }
         }

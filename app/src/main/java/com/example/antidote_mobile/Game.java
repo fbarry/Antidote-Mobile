@@ -20,12 +20,6 @@ public class Game extends ParseObject implements Serializable {
 
     }
 
-    @Override
-    public void put(@NonNull String key, @NonNull Object value) {
-        super.put(key, value);
-        saveInBackground();
-    }
-
     public String currentAction() {
         return getString("currentAction");
     }

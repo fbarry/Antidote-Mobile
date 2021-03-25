@@ -1,7 +1,5 @@
 package com.example.antidote_mobile;
 
-import androidx.annotation.NonNull;
-
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -19,12 +17,6 @@ public class Player extends ParseObject implements Serializable {
     }
 
     @Override
-    public void put(@NonNull String key, @NonNull Object value) {
-        super.put(key, value);
-        saveInBackground();
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (o.getClass().equals(getClass())) {
             Player p = (Player) o;
@@ -33,20 +25,20 @@ public class Player extends ParseObject implements Serializable {
         return false;
     }
 
+    public PlayerAI.Difficulty difficulty() {
+        return PlayerAI.Difficulty.fromDiffVal(this.getInt("difficulty"));
+    }
+
+    public void setDifficulty(PlayerAI.Difficulty difficulty) {
+        this.put("difficulty", difficulty.getDiffVal());
+    }
+
     public boolean needsGameOverScreen() {
         return getBoolean("needsGameOverScreen");
     }
 
     public void setNeedsGameOverScreen(boolean needsGameOverScreen) {
         put("needsGameOverScreen", needsGameOverScreen);
-    }
-
-    public int getDifficulty() {
-        return this.getInt("difficulty");
-    }
-
-    public void setDifficulty(int difficulty) {
-        this.put("difficulty", difficulty);
     }
 
     public boolean isAI() {
@@ -175,5 +167,6 @@ public class Player extends ParseObject implements Serializable {
             return null;
         }
     }
+
 
 }

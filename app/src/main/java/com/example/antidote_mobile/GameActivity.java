@@ -229,9 +229,13 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
     public void computeTurn() {
         int numLocked = 0;
-        for (Player p : players) if (p.isLocked()) numLocked++;
+        int numAi = 0;
+        for (Player p : players) {
+            if (p.isLocked()) numLocked++;
+            else if (p.isAI()) numAi++;
+        }
         System.out.println(numLocked + " players were locked, out of " + game.numPlayers());
-        if (numLocked == game.numPlayers()) {
+        if (numLocked + numAi == game.numPlayers()) {
             switch (ActionType.fromString(game.currentAction())) {
                 case PASSLEFT:
                     performPassLeft();
@@ -246,13 +250,11 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
                 default:
             }
         }
-        if (numLocked == 2) {
-            switch (ActionType.fromString(game.currentAction())) {
-                case TRADE:
-                    performTrade();
-                case NONE:
-                default:
-            }
+
+        if (game.currentActionType() == ActionType.TRADE && game.tradeTarget() != -1) {
+            boolean traderConfirmed = players.get(game.currentTurn()).isAI() || players.get(game.currentTurn()).isLocked();
+            boolean tradeeConfirmed = players.get(game.tradeTarget()).isAI() || players.get(game.tradeTarget()).isLocked();
+            if (tradeeConfirmed && traderConfirmed) performTrade();
         }
     }
 
@@ -363,6 +365,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
     // 1 for left, -1 for right
     void performPass(int direction) {
+        for (Player p : players) if(p.isAI()) PlayerAI.selectPassCard(p, game);
         ArrayList<String> trades = new ArrayList<>();
         for (Player p : players) trades.add(p.cards().get(p.selectedIdx()));
         for (int i = 0; i < game.numPlayers(); i++) {
@@ -465,7 +468,8 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
         TextView whoseTextView = myDialog.findViewById(R.id.whoseWorkstationTextView);
         whoseTextView.setText(players.get(playerNum).username().replace("(Host)", ""));
-        if (players.get(playerNum) == currentPlayer) whoseTextView.setText(R.string.your_workstation);
+        if (players.get(playerNum) == currentPlayer)
+            whoseTextView.setText(R.string.your_workstation);
         else whoseTextView.append("'s Workstation");
 
 
