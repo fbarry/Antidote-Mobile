@@ -64,9 +64,10 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
         ch.setValueChangeListener(() -> {
             if (game.currentActionType() == ActionType.SYRINGE) {
-                if (ch.lifted != null && ch.lifted.type != CardType.SYRINGE) {
+                if (ch.lifted == null || ch.lifted.type != CardType.SYRINGE) {
                     game.setCurrentAction(ActionType.NONE);
                     updateTurnTextView();
+                    updateActionVisibilities();
                 }
             } else {
                 if (ch.lifted != null && game.currentActionType() != ActionType.NONE && currentlyTrading()) {
