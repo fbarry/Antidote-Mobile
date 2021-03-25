@@ -76,6 +76,49 @@ public class PlayerAI extends Player implements Serializable {
         }
     }
 
+    public static void selectAction(Player p, Game game) {
+        switch (p.difficulty()) {
+            case EASY:
+                selectActionEasy(p, game);
+                return;
+            case MEDIUM:
+                selectActionMedium(p, game);
+                return;
+            case HARD:
+                selectActionHard(p, game);
+                return;
+            default:
+        }
+    }
+
+    private static void selectActionEasy(Player p, Game game) {
+        // Pass left or right, or discard if it doesn't end the game
+        int choice = Utilities.getRandomInt(0, 2);
+        if (game.numCards() == 2) choice = Utilities.getRandomInt(0, 1);
+
+        switch (choice) {
+            case 0:
+                game.setCurrentAction(ActionType.PASSLEFT);
+                return;
+            case 1:
+                game.setCurrentAction(ActionType.PASSRIGHT);
+                return;
+            case 2:
+            default:
+                game.setCurrentAction(ActionType.DISCARD);
+        }
+    }
+
+    private static void selectActionMedium(Player p, Game game) {
+        // TODO: implement
+        selectActionEasy(p, game);
+    }
+
+    private static void selectActionHard(Player p, Game game) {
+        // TODO: implement
+        selectActionMedium(p, game);
+    }
+
     public static void selectPassCard(Player p, Game game) {
         switch (p.difficulty()) {
             case EASY:

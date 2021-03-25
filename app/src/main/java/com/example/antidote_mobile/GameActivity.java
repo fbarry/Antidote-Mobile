@@ -188,6 +188,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
                 }
             }
 
+
             ch.setCrossToxins(currentPlayer.getRememberedToxins());
 
             updateActionVisibilities();
@@ -203,6 +204,11 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
             updateConfirmedDisplays();
 
             updateTurnTextView();
+
+            if (players.get(game.currentTurn()).isAI() && game.currentActionType() == ActionType.NONE){
+                PlayerAI.selectAction(players.get(game.currentTurn()), game);
+                game.saveInBackground(e->update());
+            }
 
         } catch (ParseException ignored) {
         }
@@ -357,6 +363,11 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         game.setCurrentTurn((game.currentTurn() + 1) % game.numPlayers());
         game.setCurrentAction(ActionType.NONE.getText());
         for (Player p : players) p.rememberToxinsInHand();
+
+        if (players.get(game.currentTurn()).isAI())
+            PlayerAI.selectAction(players.get(game.currentTurn()), game);
+
+
         ParseObject.saveAllInBackground(players, e1 -> game.saveInBackground((e2 -> {
             try {
                 Thread.sleep(200);
