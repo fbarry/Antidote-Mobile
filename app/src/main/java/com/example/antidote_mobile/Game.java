@@ -1,7 +1,5 @@
 package com.example.antidote_mobile;
 
-import androidx.annotation.NonNull;
-
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -229,6 +227,8 @@ public class Game extends ParseObject implements Serializable {
                 p.setIsLocked(false);
                 p.setSelectedIdx(-1);
                 p.setWorkstation(new ArrayList<>());
+                p.setMemory(new ArrayList<>());
+                p.rememberToxinsInHand();
                 p.saveInBackground();
             } catch (ParseException e) {
                 e.printStackTrace();

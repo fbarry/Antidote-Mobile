@@ -154,6 +154,22 @@ public class Player extends ParseObject implements Serializable {
         this.put("lastRoundPoints", lastRoundPoints);
     }
 
+    public void rememberToxinsInHand() {
+        for (String cardString : cards()) {
+            if (Card.getCardType(cardString) == CardType.TOXIN) {
+                Toxin toxin = Card.getToxin(cardString);
+                boolean found = false;
+                for (String str : memory()) {
+                    if (str.startsWith("SEEN") && str.contains(toxin.getText())) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) addMemory("SEEN." + toxin.getText());
+            }
+        }
+    }
+
     public boolean hasSyringe() {
         return cards().contains(CardType.SYRINGE.getText());
     }

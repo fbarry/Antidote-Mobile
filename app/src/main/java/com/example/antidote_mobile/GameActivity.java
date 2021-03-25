@@ -354,6 +354,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     void finalizeAction() {
         game.setCurrentTurn((game.currentTurn() + 1) % game.numPlayers());
         game.setCurrentAction(ActionType.NONE.getText());
+        for(Player p : players) p.rememberToxinsInHand();
         ParseObject.saveAllInBackground(players, e1 -> game.saveInBackground((e2 -> {
             try {
                 Thread.sleep(200);
@@ -430,6 +431,9 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     void performTrade() {
         Player us = players.get(game.currentTurn());
         Player them = players.get(game.tradeTarget());
+
+        if(us.isAI()) PlayerAI.selectTradeCard(us, game);
+        if(them.isAI()) PlayerAI.selectTradeCard(them, game);
 
         ArrayList<String> ourCards = us.cards();
         ArrayList<String> theirCards = them.cards();
