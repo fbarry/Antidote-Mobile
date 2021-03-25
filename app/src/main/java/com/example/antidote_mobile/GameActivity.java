@@ -356,7 +356,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     void finalizeAction() {
         game.setCurrentTurn((game.currentTurn() + 1) % game.numPlayers());
         game.setCurrentAction(ActionType.NONE.getText());
-        for(Player p : players) p.rememberToxinsInHand();
+        for (Player p : players) p.rememberToxinsInHand();
         ParseObject.saveAllInBackground(players, e1 -> game.saveInBackground((e2 -> {
             try {
                 Thread.sleep(200);
@@ -369,7 +369,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
     // 1 for left, -1 for right
     void performPass(int direction) {
-        for (Player p : players) if(p.isAI()) PlayerAI.selectPassCard(p, game);
+        for (Player p : players) if (p.isAI()) PlayerAI.selectPassCard(p, game);
         ArrayList<String> trades = new ArrayList<>();
         for (Player p : players) trades.add(p.cards().get(p.selectedIdx()));
         for (int i = 0; i < game.numPlayers(); i++) {
@@ -396,7 +396,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     void performDiscard() {
         System.out.println("Discarding!!!");
         for (Player p : players) {
-            if(p.isAI()) PlayerAI.selectDiscardCard(p, game);
+            if (p.isAI()) PlayerAI.selectDiscardCard(p, game);
             ArrayList<String> pCards = p.cards(), pWorkstation = p.workstation();
             pWorkstation.add(pCards.remove(p.selectedIdx()));
             p.setCards(pCards);
@@ -435,8 +435,8 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         Player us = players.get(game.currentTurn());
         Player them = players.get(game.tradeTarget());
 
-        if(us.isAI()) PlayerAI.selectTradeCard(us, game);
-        if(them.isAI()) PlayerAI.selectTradeCard(them, game);
+        if (us.isAI()) PlayerAI.selectTradeCard(us, game);
+        if (them.isAI()) PlayerAI.selectTradeCard(them, game);
 
         ArrayList<String> ourCards = us.cards();
         ArrayList<String> theirCards = them.cards();

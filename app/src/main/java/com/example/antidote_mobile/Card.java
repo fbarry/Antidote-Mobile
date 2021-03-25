@@ -17,7 +17,6 @@ class Card implements Comparable<Card> {
     private static final double trackingDivisor = 6.5, snapRadius = 8.5;
     private static final Paint blackText = new Paint();
 
-
     int xStart, yStart, xEnd, yEnd, x, y;
 
     boolean animateSize = false;
@@ -136,7 +135,8 @@ class Card implements Comparable<Card> {
         bounds.bottom = (int) (bounds.top + cardHeight * size);
         bounds.right = (int) (bounds.left + cardWidth * size);
         Drawable img = ResourcesCompat.getDrawable(resources, R.drawable.blank_card, null);
-        if(type == CardType.TOXIN && isWorkstation) img = ResourcesCompat.getDrawable(resources, R.drawable.cardback, null);
+        if (type == CardType.TOXIN && isWorkstation)
+            img = ResourcesCompat.getDrawable(resources, R.drawable.cardback, null);
         assert img != null;
         img.setBounds(bounds);
         img.draw(canvas);
@@ -161,7 +161,8 @@ class Card implements Comparable<Card> {
                 centerImage = ResourcesCompat.getDrawable(resources, toxin.getRes(), null);
                 thumbnailImage = ResourcesCompat.getDrawable(resources, toxin.getThumbres(), null);
                 numberImage = ResourcesCompat.getDrawable(resources, Utilities.getNumberResource(number), null);
-                if(crossToxins.contains(toxin)) crossImage = ResourcesCompat.getDrawable(resources, R.drawable.cardcross, null);
+                if (crossToxins.contains(toxin))
+                    crossImage = ResourcesCompat.getDrawable(resources, R.drawable.cardcross, null);
                 break;
             case NONE:
             default:
@@ -201,7 +202,7 @@ class Card implements Comparable<Card> {
             Utilities.setDrawableColor(toxin.getColorString(), numberImage);
             numberImage.draw(canvas);
         }
-        if(crossImage != null){
+        if (crossImage != null) {
             crossImage.setBounds(bounds);
             crossImage.draw(canvas);
         }

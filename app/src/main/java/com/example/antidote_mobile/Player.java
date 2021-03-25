@@ -171,7 +171,7 @@ public class Player extends ParseObject implements Serializable {
         }
     }
 
-    public HashSet<Toxin> getRememberedToxins(){
+    public HashSet<Toxin> getRememberedToxins() {
         HashSet<Toxin> ret = new HashSet<>();
         for (String memory : memory()) {
             if (memory.startsWith("SEEN")) ret.add(Toxin.fromString(memory.split("\\.")[1]));
