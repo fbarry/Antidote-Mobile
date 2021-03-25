@@ -484,6 +484,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         CardHandler workstationCh = myDialog.findViewById(R.id.cardHandlerWorkstation);
         workstationCh.setCards(players.get(playerNum).workstation());
         workstationCh.workstation = true;
+        workstationCh.setCrossToxins(currentPlayer.getRememberedToxins());
 
         TextView whoseTextView = myDialog.findViewById(R.id.whoseWorkstationTextView);
         whoseTextView.setText(players.get(playerNum).username().replace("(Host)", ""));
