@@ -142,17 +142,17 @@ For players of the game Antidote who want to play remotely with friends or bots,
 
 - [Trello Board](https://trello.com/b/4BXuyGVT/antidote-planning)
 - Burndown Chart
-- Velocity Chart
-- System Architecture
-- Source Code
-- Automated Tests
+- [Velocity Chart](https://docs.google.com/drawings/d/16rvN4Frxrgw_4FFaJiSVTQm7VpvmOW8X7FXCXC2kVLU/edit)
+- [System Architecture](https://github.com/fbarry/Antidote-Mobile/tree/master/artifacts/architecture.md)
+- [Source Code](https://github.com/fbarry/Antidote-Mobile/tree/master/app/src/main)
+- [Automated Tests](https://github.com/fbarry/Antidote-Mobile/tree/master/app/src/androidTest/java)
 - Product Demonstration
 
 ### Task Allocation
 
-- Fiona Barry:
-- Jacob Steinebronn:
-- Enrique Rodriguez:
-- Daniel West:
-- Zach Ip: 
+- Fiona Barry: Implement sharing features
+- Jacob Steinebronn: Clean up and manage animations, AI, graphics
+- Enrique Rodriguez: Clean up theming and design constraints
+- Daniel West: Implement step-by-step instructions for players
+- Zach Ip: Finish AI
 
