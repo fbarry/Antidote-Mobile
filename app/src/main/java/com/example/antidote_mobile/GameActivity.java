@@ -188,6 +188,8 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
                 }
             }
 
+            ch.setCrossToxins(currentPlayer.getRememberedToxins());
+
             updateActionVisibilities();
 
             if (currentPlayer.needsGameOverScreen()) {

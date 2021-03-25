@@ -8,6 +8,8 @@ import android.graphics.drawable.Drawable;
 
 import androidx.core.content.res.ResourcesCompat;
 
+import java.util.HashSet;
+
 @SuppressWarnings("unused")
 class Card implements Comparable<Card> {
 
@@ -122,10 +124,10 @@ class Card implements Comparable<Card> {
 
     // Draw this card on the canvas
     public void draw(Canvas canvas, Resources resources) {
-        draw(canvas, resources, true);
+        draw(canvas, resources, true, new HashSet<>());
     }
 
-    public void draw(Canvas canvas, Resources resources, boolean isWorkstation) {
+    public void draw(Canvas canvas, Resources resources, boolean isWorkstation, HashSet<Toxin> crossToxins) {
         blackText.setTextSize(30);
         update();
         Rect bounds = new Rect();
@@ -142,6 +144,7 @@ class Card implements Comparable<Card> {
         Drawable centerImage = null;
         Drawable thumbnailImage = null;
         Drawable numberImage = null;
+        Drawable crossImage = null;
 
         switch (type) {
             case SYRINGE:
@@ -158,6 +161,7 @@ class Card implements Comparable<Card> {
                 centerImage = ResourcesCompat.getDrawable(resources, toxin.getRes(), null);
                 thumbnailImage = ResourcesCompat.getDrawable(resources, toxin.getThumbres(), null);
                 numberImage = ResourcesCompat.getDrawable(resources, Utilities.getNumberResource(number), null);
+                if(crossToxins.contains(toxin)) crossImage = ResourcesCompat.getDrawable(resources, R.drawable.cardcross, null);
                 break;
             case NONE:
             default:
@@ -196,6 +200,10 @@ class Card implements Comparable<Card> {
             numberImage.setBounds(bounds2);
             Utilities.setDrawableColor(toxin.getColorString(), numberImage);
             numberImage.draw(canvas);
+        }
+        if(crossImage != null){
+            crossImage.setBounds(bounds);
+            crossImage.draw(canvas);
         }
     }
 

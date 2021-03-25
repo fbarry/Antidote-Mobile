@@ -175,10 +175,7 @@ public class PlayerAI extends Player implements Serializable {
             }
         }
 
-        HashSet<Toxin> seenToxins = new HashSet<>();
-        for (String memory : p.memory()) {
-            if (memory.startsWith("SEEN")) seenToxins.add(Toxin.fromString(memory.split("\\.")[1]));
-        }
+        HashSet<Toxin> seenToxins = p.getRememberedToxins();
 
         // We only have antidotes! Pick the highest number we don't remember
         for (int numberTarget = game.numPlayers(); numberTarget > 0; numberTarget--) {

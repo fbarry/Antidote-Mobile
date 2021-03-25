@@ -6,6 +6,7 @@ import com.parse.ParseObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -168,6 +169,14 @@ public class Player extends ParseObject implements Serializable {
                 if (!found) addMemory("SEEN." + toxin.getText());
             }
         }
+    }
+
+    public HashSet<Toxin> getRememberedToxins(){
+        HashSet<Toxin> ret = new HashSet<>();
+        for (String memory : memory()) {
+            if (memory.startsWith("SEEN")) ret.add(Toxin.fromString(memory.split("\\.")[1]));
+        }
+        return ret;
     }
 
     public boolean hasSyringe() {

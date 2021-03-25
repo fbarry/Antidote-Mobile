@@ -16,6 +16,7 @@ import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -35,7 +36,7 @@ public class CardHandler extends View {
     Card lifted;
     int xOffset, yOffset, downX, downY;
     boolean draggable = false, selectable = true, workstation = false;
-
+    HashSet<Toxin> crossToxins = new HashSet<>();
 
     ArrayList<Card> cards;
     long animationFrames = 0, fingerDownTime = 0;
@@ -61,6 +62,10 @@ public class CardHandler extends View {
         super(context, attrs, defStyleAttr);
         this.context = context;
         init(attrs);
+    }
+
+    public void setCrossToxins(HashSet<Toxin> crossToxins) {
+        this.crossToxins = crossToxins;
     }
 
     private void init(@Nullable AttributeSet attrs) {
@@ -181,7 +186,7 @@ public class CardHandler extends View {
 //        canvas.drawText("" + minCardX + "," + maxCardX + "," + cardY, 400, 300, black);
         drawPlayMat(canvas);
         for (Card c : cards) {
-            c.draw(canvas, getResources(), workstation);
+            c.draw(canvas, getResources(), workstation, crossToxins);
         }
 
     }
