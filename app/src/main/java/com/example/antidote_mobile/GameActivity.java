@@ -396,6 +396,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     void performDiscard() {
         System.out.println("Discarding!!!");
         for (Player p : players) {
+            if(p.isAI()) PlayerAI.selectDiscardCard(p, game);
             ArrayList<String> pCards = p.cards(), pWorkstation = p.workstation();
             pWorkstation.add(pCards.remove(p.selectedIdx()));
             p.setCards(pCards);

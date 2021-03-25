@@ -233,5 +233,76 @@ public class PlayerAI extends Player implements Serializable {
         selectTradeCardMedium(p, game);
     }
 
+    public static void selectDiscardCard(Player p, Game game) {
+        switch (p.difficulty()) {
+            case EASY:
+                selectDiscardEasy(p, game);
+                return;
+            case MEDIUM:
+                selectDiscardMedium(p, game);
+                return;
+            case HARD:
+                selectDiscardHard(p, game);
+                return;
+            default:
+        }
+    }
+
+    private static void selectDiscardEasy(Player p, Game game) {
+        // Discard a random card
+        int toSelect = Utilities.getRandomInt(0, p.cards().size() - 1);
+        p.setSelectedIdx(toSelect);
+        p.setIsLocked(true);
+    }
+
+    private static void selectDiscardMedium(Player p, Game game) {
+        // Discard a toxin, then a useless antidote, then a syringe, then a useful antidote
+        ArrayList<String> cardStrings = p.cards();
+
+        // Trade a syringe, if we can
+        for (int i = 0; i < cardStrings.size(); i++) {
+            if (Card.getCardType(cardStrings.get(i)) == CardType.TOXIN) {
+                p.setSelectedIdx(i);
+                p.setIsLocked(true);
+                return;
+            }
+        }
+
+
+        HashSet<Toxin> seenToxins = p.getRememberedToxins();
+        ArrayList<Integer> candidates = new ArrayList<>();
+
+        // Pick a random useless antidote
+        for (int i = 0; i < cardStrings.size(); i++) {
+            if (seenToxins.contains(Card.getToxin(cardStrings.get(i)))) continue;
+            candidates.add(i);
+        }
+        if (candidates.size() != 0) {
+            p.setSelectedIdx(candidates.get(Utilities.getRandomInt(0, candidates.size() - 1)));
+            p.setIsLocked(true);
+            return;
+        }
+
+        // Pick a syringe
+        for (int i = 0; i < cardStrings.size(); i++) {
+            if (Card.getCardType(cardStrings.get(i)) == CardType.SYRINGE) {
+                p.setSelectedIdx(i);
+                p.setIsLocked(true);
+                return;
+            }
+        }
+
+        // We only have useful antidotes! Pick a random one
+        p.setSelectedIdx(Utilities.getRandomInt(0, cardStrings.size() - 1));
+        p.setIsLocked(true);
+    }
+
+    private static void selectDiscardHard(Player p, Game game) {
+        // TODO: implement
+        selectDiscardMedium(p, game);
+    }
+
+
+
 
 }
