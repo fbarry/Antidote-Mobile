@@ -91,7 +91,7 @@ public class PlayerAI extends Player implements Serializable {
 
     public static void selectPassCardEasy(Player p, Game game) {
         // Pick a random card to pass
-        int toSelect = Utilities.getRandomInt(0, p.cards().size());
+        int toSelect = Utilities.getRandomInt(0, p.cards().size()-1);
         p.setSelectedIdx(toSelect);
         p.setIsLocked(true);
     }
@@ -107,7 +107,7 @@ public class PlayerAI extends Player implements Serializable {
         }
 
         if(candidates.size() != 0){
-            p.setSelectedIdx(candidates.get(Utilities.getRandomInt(0, candidates.size())));
+            p.setSelectedIdx(candidates.get(Utilities.getRandomInt(0, candidates.size()-1)));
             p.setIsLocked(true);
             return;
         }
@@ -122,7 +122,7 @@ public class PlayerAI extends Player implements Serializable {
         }
 
         // We only have toxins! who cares at this point
-        p.setSelectedIdx(Utilities.getRandomInt(0, cardStrings.size()));
+        p.setSelectedIdx(Utilities.getRandomInt(0, cardStrings.size()-1));
         p.setIsLocked(true);
     }
 
