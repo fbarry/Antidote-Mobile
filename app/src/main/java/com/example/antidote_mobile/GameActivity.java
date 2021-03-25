@@ -205,9 +205,9 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
             updateTurnTextView();
 
-            if (players.get(game.currentTurn()).isAI() && game.currentActionType() == ActionType.NONE){
+            if (players.get(game.currentTurn()).isAI() && game.currentActionType() == ActionType.NONE) {
                 PlayerAI.selectAction(players.get(game.currentTurn()), game);
-                game.saveInBackground(e->update());
+                game.saveInBackground(e -> update());
             }
 
         } catch (ParseException ignored) {
@@ -272,6 +272,16 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
             for (int i = 0; i < game.numPlayers(); i++) {
                 getPlayerConfirmed(i).setVisibility(View.GONE);
             }
+            return;
+        }
+
+        if (game.currentActionType() == ActionType.TRADE) {
+            for (int i = 0; i < game.numPlayers(); i++)
+                getPlayerConfirmed(i).setVisibility(View.GONE);
+            if (players.get(game.currentTurn()).isAI() || players.get(game.currentTurn()).isLocked())
+                getPlayerConfirmed(game.currentTurn()).setVisibility(View.VISIBLE);
+            if (game.tradeTarget() != -1 && players.get(game.tradeTarget()).isLocked() || players.get(game.tradeTarget()).isAI())
+                getPlayerConfirmed(game.tradeTarget()).setVisibility(View.VISIBLE);
             return;
         }
 
