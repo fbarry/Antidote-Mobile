@@ -29,12 +29,6 @@ public class User extends ParseUser implements Serializable {
         return false;
     }
 
-    @Override
-    public void put(@NonNull String key, @NonNull Object value) {
-        super.put(key, value);
-        saveInBackground();
-    }
-
     public boolean isGuest() {
         return this.getBoolean("isGuest");
     }
@@ -90,6 +84,7 @@ public class User extends ParseUser implements Serializable {
         ArrayList<String> friends = getFriends();
         friends.remove(userId);
         this.put("friends", friends);
+        saveInBackground();
     }
 
     public void addFriend(String userId) {
@@ -98,6 +93,7 @@ public class User extends ParseUser implements Serializable {
         ArrayList<String> friends = getFriends();
         if (!friends.contains(userId)) friends.add(userId);
         this.put("friends", friends);
+        saveInBackground();
     }
 
     public double getWinRate() {
