@@ -150,7 +150,7 @@ For players of the game Antidote who want to play remotely with friends or bots,
 
 ### Task Allocation
 
-- Fiona Barry: Implement sharing features
+- Fiona Barry: Clean up code and UI
 - Jacob Steinebronn: Clean up and manage animations, AI, graphics
 - Enrique Rodriguez: Clean up theming and design constraints
 - Daniel West: Implement step-by-step instructions for players
