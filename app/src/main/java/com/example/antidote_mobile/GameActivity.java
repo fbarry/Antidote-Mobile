@@ -139,8 +139,9 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
     public boolean currentlyTrading() {
         if (game.currentActionType() != ActionType.TRADE) return true;
-        return players.get(game.tradeTarget()).getObjectId().equals(currentPlayer.getObjectId()) ||
-                players.get(game.currentTurn()).getObjectId().equals(currentPlayer.getObjectId());
+        boolean ans = players.get(game.currentTurn()).getObjectId().equals(currentPlayer.getObjectId());
+        if(game.tradeTarget() != -1) ans |= players.get(game.tradeTarget()).getObjectId().equals(currentPlayer.getObjectId());
+        return ans;
     }
 
     public void update() {
