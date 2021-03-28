@@ -76,6 +76,58 @@ public class PlayerAI extends Player implements Serializable {
         }
     }
 
+    private static HashSet<Toxin> getPossibleToxins(Player p, Game game) {
+
+        HashSet<Toxin> allToxins = new HashSet<>();
+
+        for (Toxin t : Toxin.values()) {
+            if (t == Toxin.AGENTU && game.numPlayers() != 7) continue;
+            allToxins.add(t);
+        }
+
+        allToxins.removeAll(p.getRememberedToxins());
+
+        return allToxins;
+    }
+
+    private static boolean hasAntidote(Player p, Game game, Toxin t) {
+        return getMatchingAntidotes(p, game, t).size() > 0;
+    }
+
+    private static ArrayList<String> getMatchingAntidotes(Player p, Game game, Toxin t) {
+        ArrayList<String> cards = p.cards();
+
+        ArrayList<String> match = new ArrayList<>();
+
+        for (String card : p.cards()) {
+            if (Card.getCardType(card) == CardType.ANTIDOTE) {
+                if (Card.getToxin(card) == t) {
+                    match.add(card);
+                }
+            }
+        }
+
+        return match;
+    }
+
+    private static Toxin getRandomPossibleToxin(Player p, Game game) {
+        HashSet<Toxin> possibleToxins = getPossibleToxins(p, game);
+
+        return possibleToxins.toArray(new Toxin[0])[Utilities.getRandomInt(0, possibleToxins.size() - 1)];
+    }
+
+    private static ArrayList<String> getAllToxinsInHand(Player p, Game game) {
+        ArrayList<String> toxins = new ArrayList<>();
+
+        for (String card : p.cards()) {
+            if (Card.getCardType(card) == CardType.TOXIN) {
+                toxins.add(card);
+            }
+        }
+
+        return toxins;
+    }
+
     public static void selectAction(Player p, Game game) {
         switch (p.difficulty()) {
             case EASY:
@@ -88,6 +140,20 @@ public class PlayerAI extends Player implements Serializable {
                 selectActionHard(p, game);
                 return;
             default:
+        }
+    }
+
+    private static void selectRandomPass(Player p, Game game) {
+        int choice = Utilities.getRandomInt(0, 1);
+        switch (choice) {
+            case 0:
+                game.setCurrentAction(ActionType.PASSLEFT);
+                return;
+            case 1:
+                game.setCurrentAction(ActionType.PASSRIGHT);
+                return;
+            default:
+                game.setCurrentAction(ActionType.DISCARD);
         }
     }
 
@@ -110,13 +176,57 @@ public class PlayerAI extends Player implements Serializable {
     }
 
     private static void selectActionMedium(Player p, Game game) {
-        // TODO: implement
-        selectActionEasy(p, game);
+        HashSet<Toxin> possibleToxins = getPossibleToxins(p, game);
+
+        if (possibleToxins.size() == 1) {
+
+            if (hasAntidote(p, game, getRandomPossibleToxin(p, game))) {
+                // If has antidote, end game ASAP
+                game.setCurrentAction(ActionType.DISCARD);
+                return;
+            }
+        }
+
+        selectRandomPass(p, game);
+
     }
 
     private static void selectActionHard(Player p, Game game) {
-        // TODO: implement
-        selectActionMedium(p, game);
+        // This AI is just going to cheat
+
+        Toxin trueToxin = game.toxin();
+
+        if (hasAntidote(p, game, trueToxin)) {
+            // If has antidote, end game ASAP
+            game.setCurrentAction(ActionType.DISCARD);
+            return;
+        }
+
+        // If doesn't have antidote, pick an action randomly depending on the number of cards left and whether it has a toxin
+        // Fewer cards = more likely to pass to stall game
+        // More cards & more toxins = more likely to discard to deny information
+
+        int numToxins = getAllToxinsInHand(p, game).size();
+
+        if (numToxins == 0) {
+            selectRandomPass(p, game);
+            return;
+        }
+
+        int choice = Utilities.getRandomInt(3, 10);
+
+        if (choice >= p.cards().size()) {
+            selectRandomPass(p, game);
+            return;
+        }
+
+        choice = Utilities.getRandomInt(0, p.cards().size() - 1);
+
+        if (choice < numToxins) {
+            game.setCurrentAction(ActionType.DISCARD);
+        } else {
+            selectRandomPass(p, game);
+        }
     }
 
     public static void selectPassCard(Player p, Game game) {
@@ -172,8 +282,58 @@ public class PlayerAI extends Player implements Serializable {
     }
 
     private static void selectPassCardHard(Player p, Game game) {
-        // TODO: implement
-        selectPassCardMedium(p, game);
+        Toxin trueToxin = game.toxin();
+
+        // Pick random antidote for not the real toxin
+        ArrayList<Integer> candidates = new ArrayList<>();
+
+        ArrayList<String> cardStrings = p.cards();
+        for (int i = 0; i < cardStrings.size(); i++) {
+            if (Card.getCardType(cardStrings.get(i)) == CardType.ANTIDOTE)
+                if (Card.getToxin(cardStrings.get(i)) != trueToxin)
+                    candidates.add(i);
+        }
+
+        if (candidates.size() != 0) {
+            p.setSelectedIdx(candidates.get(Utilities.getRandomInt(0, candidates.size() - 1)));
+            p.setIsLocked(true);
+            return;
+        }
+
+        // Pass a syringe otherwise
+        for (int i = 0; i < cardStrings.size(); i++) {
+            if (Card.getCardType(cardStrings.get(i)) == CardType.SYRINGE) {
+                p.setSelectedIdx(i);
+                p.setIsLocked(true);
+                return;
+            }
+        }
+
+        // Okay even passing a toxin is fine
+        for (int i = 0; i < cardStrings.size(); i++) {
+            if (Card.getCardType(cardStrings.get(i)) == CardType.TOXIN) {
+                p.setSelectedIdx(i);
+                p.setIsLocked(true);
+                return;
+            }
+        }
+
+        // Okay we only have the true antidote; time to pass the lowest value one
+
+        int lowestValue = 8;
+        int lowestIndex = 0;
+
+        for (int i = 0; i < cardStrings.size(); i++) {
+            if (Card.getCardType(cardStrings.get(i)) == CardType.ANTIDOTE) {
+                if (Card.getNumber(cardStrings.get(i)) < lowestValue) {
+                    lowestValue = Card.getNumber(cardStrings.get(i));
+                    lowestIndex = i;
+                }
+            }
+        }
+
+        p.setSelectedIdx(lowestIndex);
+        p.setIsLocked(true);
     }
 
     public static void selectTradeCard(Player p, Game game) {
@@ -272,8 +432,8 @@ public class PlayerAI extends Player implements Serializable {
     }
 
     private static void selectTradeCardHard(Player p, Game game) {
-        // TODO: implement
-        selectTradeCardMedium(p, game);
+        // Same rules as passing cards; aims to sabotage other players the most
+        selectPassCardHard(p, game);
     }
 
     public static void selectDiscardCard(Player p, Game game) {
@@ -343,9 +503,70 @@ public class PlayerAI extends Player implements Serializable {
     }
 
     private static void selectDiscardHard(Player p, Game game) {
-        // TODO: implement
-        selectDiscardMedium(p, game);
-    }
+        Toxin trueToxin = game.toxin();
 
+        ArrayList<Integer> candidates = new ArrayList<>();
+
+        ArrayList<String> cardStrings = p.cards();
+
+        // We want to discard a random true antidote if we have multiples, as long as it isn't our highest value one
+        int highestValue = 0;
+        for (String card : cardStrings) {
+            if (Card.getCardType(card) == CardType.ANTIDOTE) {
+                if (Card.getToxin(card) == trueToxin) {
+                    highestValue = Math.max(highestValue, Card.getNumber(card));
+                }
+            }
+        }
+
+        for (int i = 0; i < cardStrings.size(); i++) {
+            String card = cardStrings.get(i);
+            if (Card.getCardType(card) == CardType.ANTIDOTE) {
+                if (Card.getToxin(card) == trueToxin) {
+                    if (Card.getNumber(card) < highestValue) {
+                        candidates.add(i);
+                    }
+                }
+            }
+        }
+
+        if (candidates.size() != 0) {
+            p.setSelectedIdx(candidates.get(Utilities.getRandomInt(0, candidates.size() - 1)));
+            p.setIsLocked(true);
+            return;
+        }
+
+        // We want to discard a random toxin
+        for (int i = 0; i < cardStrings.size(); i++) {
+            if (Card.getCardType(cardStrings.get(i)) == CardType.TOXIN) {
+                candidates.add(i);
+            }
+        }
+
+        if (candidates.size() != 0) {
+            p.setSelectedIdx(candidates.get(Utilities.getRandomInt(0, candidates.size() - 1)));
+            p.setIsLocked(true);
+            return;
+        }
+
+        // Pick a random non-true antidote
+        for (int i = 0; i < cardStrings.size(); i++) {
+            if (Card.getCardType(cardStrings.get(i)) == CardType.ANTIDOTE) {
+                if (Card.getToxin(cardStrings.get(i)) != trueToxin) {
+                    candidates.add(i);
+                }
+            }
+        }
+
+        if (candidates.size() != 0) {
+            p.setSelectedIdx(candidates.get(Utilities.getRandomInt(0, candidates.size() - 1)));
+            p.setIsLocked(true);
+            return;
+        }
+
+        // If none of those work, we just have syringes, so just discard a random card
+        p.setSelectedIdx(Utilities.getRandomInt(0, cardStrings.size() - 1));
+        p.setIsLocked(true);
+    }
 
 }
