@@ -169,6 +169,6 @@
     <string name="your_workstation">Your Workstation</string>
     <string name="stats">Stats</string>
     <string name="antidote_mobile">Antidote Mobile</string>
-
+    <string name="max_capacity">Game is at max capacity.</string>
 
 </resources>

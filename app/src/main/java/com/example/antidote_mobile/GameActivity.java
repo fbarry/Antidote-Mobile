@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,6 +43,11 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
         game = (Game) getIntent().getSerializableExtra("gameInfo");
         currentPlayer = (Player) getIntent().getSerializableExtra("currentPlayer");
+
+        if (!currentPlayer.isHost()) {
+            Button endGameButton = findViewById(R.id.deleteGameInGame);
+            endGameButton.setVisibility(View.GONE);
+        }
 
         hideEverything();
 
@@ -238,6 +244,19 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         game.setNumCards(0);
         game.setToxin(Toxin.NONE);
     }
+
+    public void onClickEndGame(View v) {
+        Utilities.showConfirmationAlert(this,
+                "Are you sure you want to end this game?",
+                "You cannot undo this action.",
+                (dialog, which) -> {
+                    game.deleteGame();
+                    currentPlayer = null;
+                    game = null;
+                    GameActivity.this.finish();
+                });
+    }
+
 
     public void computeTurn() {
         int numLocked = 0;

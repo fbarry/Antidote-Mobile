@@ -220,6 +220,7 @@ public class LobbyActivity extends AppCompatActivity implements ChatDialogActivi
     }
 
     public void AIButton(View v) {
+        if (game.numPlayers() + aiInQueue.size() >= 7) return;
         aiInQueue.add(PlayerAI.createPlayerAI());
     }
 
