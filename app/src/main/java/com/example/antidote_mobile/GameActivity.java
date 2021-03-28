@@ -3,6 +3,7 @@ package com.example.antidote_mobile;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -342,16 +343,26 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         ch.selectable = !currentPlayer.isLocked();
     }
 
+    void setActionDetails() {
+        findViewById(R.id.actionDetails).setVisibility(TextView.VISIBLE);
+        ch.setActionDetailsNeeded();
+    }
+
+    void setNoActionDetails() {
+        findViewById(R.id.actionDetails).setVisibility(TextView.GONE);
+        ch.setNoActionDetailsNeeded();
+    }
+
     void updateActionDetails() {
         TextView actionDetails = findViewById(R.id.actionDetails);
         switch (game.currentActionType()) {
             case SYRINGE:
             case NONE:
-                actionDetails.setVisibility(TextView.GONE);
+                setNoActionDetails();
                 return;
             case TRADE:
                 if (game.tradeTarget() == -1 || !currentlyTrading()) {
-                    actionDetails.setVisibility(TextView.GONE);
+                    setNoActionDetails();
                     return;
                 }
                 actionDetails.setText(R.string.tradeACard);
@@ -366,7 +377,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
                 actionDetails.setText(R.string.discardACard);
                 break;
         }
-        actionDetails.setVisibility(TextView.VISIBLE);
+        setActionDetails();
     }
 
     void updateTurnTextView() {

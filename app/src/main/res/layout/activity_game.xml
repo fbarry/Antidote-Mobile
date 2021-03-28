@@ -496,7 +496,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/fillerActionDetails"
-        android:textColor="#5a98a2"
+        android:textColor="@color/pretty_blue"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
