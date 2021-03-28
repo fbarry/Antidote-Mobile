@@ -95,6 +95,13 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        refreshTimer.cancel();
+    }
+
     public void initializePlayers() {
         players = new ArrayList<>();
         ParseQuery<ParseObject> getPlayers = new ParseQuery<>("Player");
