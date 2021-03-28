@@ -40,7 +40,7 @@ public class PlayerAI extends Player implements Serializable {
 
         public Difficulty next() {
             int x = getDiffVal();
-            x = (x % Difficulty.values().length) + 1;
+            x = (x % (Difficulty.values().length - 1)) + 1;
             return fromDiffVal(x);
         }
 

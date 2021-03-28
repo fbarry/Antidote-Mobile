@@ -94,6 +94,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         holder.username.setText(currPlayer.username());
 
         if (currPlayer.isAI()) {
+            holder.difficulty = currPlayer.difficulty();
             switch (currPlayer.difficulty()) {
                 case EASY:
                     holder.difficultyButton.setText(R.string.easy);
