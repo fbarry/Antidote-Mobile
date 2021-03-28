@@ -140,7 +140,8 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     public boolean currentlyTrading() {
         if (game.currentActionType() != ActionType.TRADE) return true;
         boolean ans = players.get(game.currentTurn()).getObjectId().equals(currentPlayer.getObjectId());
-        if(game.tradeTarget() != -1) ans |= players.get(game.tradeTarget()).getObjectId().equals(currentPlayer.getObjectId());
+        if (game.tradeTarget() != -1)
+            ans |= players.get(game.tradeTarget()).getObjectId().equals(currentPlayer.getObjectId());
         return ans;
     }
 
@@ -248,7 +249,6 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         }
         game.setNumRoundsCompleted(game.numRoundsCompleted() + 1);
         game.setNumCards(0);
-        game.setToxin(Toxin.NONE);
     }
 
     public void onClickEndGame(View v) {
@@ -256,7 +256,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
                 "Are you sure you want to end this game?",
                 "You cannot undo this action.",
                 (dialog, which) -> {
-                    while(refreshing) {
+                    while (refreshing) {
                         try {
                             //noinspection BusyWait
                             Thread.sleep(10);

@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
-    android:layout_height="465dp">
+    android:layout_height="fill_parent">
 
     <TextView
         android:id="@+id/gameOverHeaderTextView"
@@ -103,5 +103,15 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/toxinImageView"
+        android:layout_width="217dp"
+        android:layout_height="267dp"
+        android:contentDescription="@string/info_table01_contentDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:srcCompat="@drawable/c9tonicx" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

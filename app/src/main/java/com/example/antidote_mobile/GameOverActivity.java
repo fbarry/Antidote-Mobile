@@ -1,11 +1,14 @@
 package com.example.antidote_mobile;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -38,6 +41,12 @@ public class GameOverActivity extends AppCompatActivity {
             if (players.get(i).lastRoundPoints() >= 0) tv.append("+");
             tv.append(players.get(i).lastRoundPoints() + "");
         }
+
+        ImageView toxinView = findViewById(R.id.toxinImageView);
+        System.out.println(game.toxin().getText() + " is the toxin at the end of the game");
+        Drawable img = ResourcesCompat.getDrawable(getResources(), game.toxin().getResX(), null);
+        System.out.println(img);
+        toxinView.setImageDrawable(ResourcesCompat.getDrawable(getResources(), game.toxin().getResX(), null));
 
         updateWinStats();
 
