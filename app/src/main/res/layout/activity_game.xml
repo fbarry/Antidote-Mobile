@@ -247,28 +247,6 @@
         app:layout_constraintTop_toTopOf="@+id/rightPlayer1Workstation"
         app:srcCompat="@drawable/ic_baseline_check_circle_24" />
 
-
-    <Button
-        android:id="@+id/lobbyRefreshButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:onClick="gameRefresh"
-        android:text="@string/refresh"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
-
-    <TextView
-        android:id="@+id/gameCodeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:text="@string/game_code"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/turnTextView"
         android:layout_width="wrap_content"
@@ -277,7 +255,7 @@
         android:layout_marginTop="4dp"
         android:text="@string/turn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gameCodeTextView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/infoButton"

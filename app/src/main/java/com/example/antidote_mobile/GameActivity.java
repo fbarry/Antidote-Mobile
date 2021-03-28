@@ -20,6 +20,7 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity implements ChatDialogActivity {
 
@@ -80,20 +81,17 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
             }
         });
 
-        TextView gameCodeTextView = findViewById(R.id.gameCodeTextView);
-        gameCodeTextView.append(" " + game.roomCode());
-
         TextView turnTextView = findViewById(R.id.turnTextView);
         turnTextView.append(" " + currentPlayer.username());
 
         refreshTimer = new Timer();
 
         update();
-//        refreshTimer.scheduleAtFixedRate(new TimerTask() {
-//            public void run() {
-//                runOnUiThread(() -> update());
-//            }
-//        }, 0, millisPerUpdate);
+        refreshTimer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                runOnUiThread(() -> update());
+            }
+        }, 0, millisPerUpdate);
 
     }
 
@@ -124,10 +122,6 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         }
     }
 
-    public void gameRefresh(View v) {
-        update();
-    }
-
     public boolean currentlyTrading() {
         if (game.currentActionType() != ActionType.TRADE) return true;
         return players.get(game.tradeTarget()).getObjectId().equals(currentPlayer.getObjectId()) ||
@@ -135,6 +129,8 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     }
 
     public void update() {
+        if (game == null) return;
+
         updateChat();
         updateGame();
     }

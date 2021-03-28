@@ -19,6 +19,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class LobbyActivity extends AppCompatActivity implements ChatDialogActivity {
 
@@ -79,11 +80,11 @@ public class LobbyActivity extends AppCompatActivity implements ChatDialogActivi
         refreshTimer = new Timer();
 
         update();
-//        refreshTimer.scheduleAtFixedRate(new TimerTask() {
-//            public void run() {
-//                runOnUiThread(() -> update());
-//            }
-//        }, 0, millisPerUpdate);
+        refreshTimer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                runOnUiThread(() -> update());
+            }
+        }, 0, millisPerUpdate);
 
     }
 
@@ -104,11 +105,9 @@ public class LobbyActivity extends AppCompatActivity implements ChatDialogActivi
             game.removePlayer(currentPlayer.getObjectId());
     }
 
-    public void lobbyRefresh(View v) {
-        update();
-    }
-
     public void update() {
+        if (game == null) return;
+
         updateGame();
         updateChat();
     }
