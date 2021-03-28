@@ -322,6 +322,7 @@
         android:contentDescription="@string/InfoButtonDesc"
         android:cropToPadding="true"
         android:onClick="passCardsRight"
+        android:rotation="300"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/discardCardsButton"
         app:layout_constraintHorizontal_bias="0.957"
@@ -329,7 +330,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/discardCardsButton"
         app:layout_constraintVertical_bias="0.594"
-        android:rotation="300"
         app:srcCompat="@drawable/ic_baseline_arrow_forward_24" />
 
     <ImageButton
@@ -489,5 +489,18 @@
         app:layout_constraintEnd_toStartOf="@id/infoButton"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_chat_bubble_24" />
+
+    <TextView
+        android:id="@+id/actionDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/fillerActionDetails"
+        android:textColor="#5a98a2"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/infoButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

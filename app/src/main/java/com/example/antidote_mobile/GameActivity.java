@@ -205,6 +205,8 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
             updateTurnTextView();
 
+            updateActionDetails();
+
             if (players.get(game.currentTurn()).isAI() && game.currentActionType() == ActionType.NONE) {
                 PlayerAI.selectAction(players.get(game.currentTurn()), game);
                 game.saveInBackground(e -> update());
@@ -338,6 +340,33 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         }
         ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
         ch.selectable = !currentPlayer.isLocked();
+    }
+
+    void updateActionDetails() {
+        TextView actionDetails = findViewById(R.id.actionDetails);
+        switch (game.currentActionType()) {
+            case SYRINGE:
+            case NONE:
+                actionDetails.setVisibility(TextView.GONE);
+                return;
+            case TRADE:
+                if (game.tradeTarget() == -1 || !currentlyTrading()) {
+                    actionDetails.setVisibility(TextView.GONE);
+                    return;
+                }
+                actionDetails.setText(R.string.tradeACard);
+                break;
+            case PASSLEFT:
+                actionDetails.setText(R.string.passLeft);
+                break;
+            case PASSRIGHT:
+                actionDetails.setText(R.string.passRight);
+                break;
+            case DISCARD:
+                actionDetails.setText(R.string.discardACard);
+                break;
+        }
+        actionDetails.setVisibility(TextView.VISIBLE);
     }
 
     void updateTurnTextView() {
