@@ -30,6 +30,7 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
     RecyclerView friendsList;
     ArrayList<String> friends;
     FriendAdapter adapter;
+    StatsDialog statsDialog;
 
     User user;
 
@@ -41,6 +42,8 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
 
         user = (User) getIntent().getSerializableExtra("user");
         if (user == null) user = AntidoteMobile.currentUser;
+
+        statsDialog = new StatsDialog(this, user);
 
         friends = user.getFriends();
 
@@ -154,9 +157,6 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
                 break;
             case R.id.nav_profile:
                 break;
-            case R.id.nav_stats:
-                gotoMenu(StatsActivity.class);
-                break;
             case R.id.nav_search:
                 gotoMenu(SearchActivity.class);
                 break;
@@ -183,6 +183,10 @@ public class ProfilePageActivity extends AppCompatActivity implements Navigation
             AntidoteMobile.currentUser.addFriend(user.getObjectId());
             friendButton.setText(R.string.unfriend);
         }
+    }
+
+    public void onClickStats(View v) {
+        statsDialog.show();
     }
 
     @Override

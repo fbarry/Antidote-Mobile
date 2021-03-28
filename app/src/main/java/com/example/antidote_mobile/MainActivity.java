@@ -98,9 +98,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_profile:
                 gotoMenu(ProfilePageActivity.class);
                 break;
-            case R.id.nav_stats:
-                gotoMenu(StatsActivity.class);
-                break;
             case R.id.nav_search:
                 gotoMenu(SearchActivity.class);
                 break;

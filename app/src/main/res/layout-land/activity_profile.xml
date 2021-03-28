@@ -37,6 +37,14 @@
             app:navigationIcon="@drawable/example_icon" >
 
             <Button
+                android:id="@+id/statsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:onClick="onClickStats"
+                android:text="@string/stats" />
+
+            <Button
                 android:id="@+id/friendButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

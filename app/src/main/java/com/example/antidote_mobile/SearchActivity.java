@@ -102,9 +102,6 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
             case R.id.nav_profile:
                 gotoMenu(ProfilePageActivity.class);
                 break;
-            case R.id.nav_stats:
-                gotoMenu(StatsActivity.class);
-                break;
             case R.id.nav_search:
                 break;
             case R.id.nav_logout:

@@ -17,10 +17,6 @@
                 android:icon="@drawable/example_icon"
                 android:title="Profile" />
             <item
-                android:id="@+id/nav_stats"
-                android:icon="@drawable/example_icon"
-                android:title="User Stats" />
-            <item
                 android:id="@+id/nav_search"
                 android:icon="@drawable/example_icon"
                 android:title="Search Users" />

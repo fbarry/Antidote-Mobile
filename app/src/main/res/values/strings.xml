@@ -167,6 +167,7 @@
     <string name="round_finished">Round Finished!</string>
     <string name="back_to_lobby">Back to Lobby</string>
     <string name="your_workstation">Your Workstation</string>
+    <string name="stats">Stats</string>
 
 
 </resources>
