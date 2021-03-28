@@ -247,28 +247,6 @@
         app:layout_constraintTop_toTopOf="@+id/rightPlayer1Workstation"
         app:srcCompat="@drawable/ic_baseline_check_circle_24" />
 
-
-    <Button
-        android:id="@+id/lobbyRefreshButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:onClick="gameRefresh"
-        android:text="@string/refresh"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
-
-    <TextView
-        android:id="@+id/gameCodeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:text="@string/game_code"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/turnTextView"
         android:layout_width="wrap_content"
@@ -277,20 +255,34 @@
         android:layout_marginTop="4dp"
         android:text="@string/turn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gameCodeTextView" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/deleteGameInGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/red"
+        android:onClick="onClickEndGame"
+        android:text="@string/end_game"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintTop_toTopOf="@id/infoButton"
+        app:layout_constraintBottom_toBottomOf="@id/infoButton" />
 
     <ImageButton
         android:id="@+id/infoButton"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
         android:contentDescription="@string/InfoButtonDesc"
         android:cropToPadding="true"
         android:onClick="openInfoPage"
         android:scaleType="fitCenter"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/deleteGameInGame"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_info_24" />
 

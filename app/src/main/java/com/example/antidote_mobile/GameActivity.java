@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity implements ChatDialogActivity {
 
@@ -34,6 +36,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     ImageButton chatButton;
     ChatDialog chatDialog;
     int ourIdx = 0;
+    boolean refreshing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,11 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
         game = (Game) getIntent().getSerializableExtra("gameInfo");
         currentPlayer = (Player) getIntent().getSerializableExtra("currentPlayer");
+
+        if (!currentPlayer.isHost()) {
+            Button endGameButton = findViewById(R.id.deleteGameInGame);
+            endGameButton.setVisibility(View.GONE);
+        }
 
         hideEverything();
 
@@ -81,21 +89,25 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
             }
         });
 
-        TextView gameCodeTextView = findViewById(R.id.gameCodeTextView);
-        gameCodeTextView.append(" " + game.roomCode());
-
         TextView turnTextView = findViewById(R.id.turnTextView);
         turnTextView.append(" " + currentPlayer.username());
 
         refreshTimer = new Timer();
 
         update();
-//        refreshTimer.scheduleAtFixedRate(new TimerTask() {
-//            public void run() {
-//                runOnUiThread(() -> update());
-//            }
-//        }, 0, millisPerUpdate);
+        refreshTimer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                runOnUiThread(() -> update());
+            }
+        }, 0, millisPerUpdate);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        refreshTimer.cancel();
     }
 
     public void initializePlayers() {
@@ -125,10 +137,6 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         }
     }
 
-    public void gameRefresh(View v) {
-        update();
-    }
-
     public boolean currentlyTrading() {
         if (game.currentActionType() != ActionType.TRADE) return true;
         return players.get(game.tradeTarget()).getObjectId().equals(currentPlayer.getObjectId()) ||
@@ -136,6 +144,8 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     }
 
     public void update() {
+        if (game == null) return;
+        refreshing = true;
         updateChat();
         updateGame();
     }
@@ -212,8 +222,9 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
                 PlayerAI.selectAction(players.get(game.currentTurn()), game);
                 game.saveInBackground(e -> update());
             }
-
+            refreshing = false;
         } catch (ParseException ignored) {
+            refreshing = false;
         }
     }
 
@@ -238,6 +249,27 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         game.setNumCards(0);
         game.setToxin(Toxin.NONE);
     }
+
+    public void onClickEndGame(View v) {
+        Utilities.showConfirmationAlert(this,
+                "Are you sure you want to end this game?",
+                "You cannot undo this action.",
+                (dialog, which) -> {
+                    while(refreshing) {
+                        try {
+                            //noinspection BusyWait
+                            Thread.sleep(10);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    game.deleteGame();
+                    currentPlayer = null;
+                    game = null;
+                    GameActivity.this.finish();
+                });
+    }
+
 
     public void computeTurn() {
         int numLocked = 0;
@@ -336,7 +368,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
             ch.forceSelect(currentPlayer.selectedIdx());
             nimg = AppCompatResources.getDrawable(context, R.drawable.ic_baseline_cancel_24);
         } else {
-            ch.deselect();
+//            ch.deselect();
             nimg = AppCompatResources.getDrawable(context, R.drawable.ic_baseline_check_circle_24);
         }
         ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
@@ -412,6 +444,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     void finalizeAction() {
         game.setCurrentTurn((game.currentTurn() + 1) % game.numPlayers());
         game.setCurrentAction(ActionType.NONE.getText());
+        game.setNumCards(currentPlayer.cards().size());
         for (Player p : players) p.rememberToxinsInHand();
 
         if (players.get(game.currentTurn()).isAI())

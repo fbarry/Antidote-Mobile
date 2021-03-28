@@ -41,9 +41,6 @@
             android:name=".SignUpActivity"
             android:label="Sign Up Page" />
         <activity
-            android:name=".StatsActivity"
-            android:label="Stats Page" />
-        <activity
             android:name=".SearchActivity"
             android:label="Search Page" />
         <activity

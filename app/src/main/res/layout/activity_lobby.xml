@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toStartOf="@id/endGameButton"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/roomCodeTextView" />
+        app:layout_constraintTop_toBottomOf="@id/lobbyPrivateButton" />
 
     <Button
         android:id="@+id/endGameButton"
@@ -59,7 +59,7 @@
         app:layout_constraintBottom_toTopOf="@id/playerLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/startGameButton"
-        app:layout_constraintTop_toBottomOf="@+id/roomCodeTextView" />
+        app:layout_constraintTop_toBottomOf="@id/lobbyPrivateButton" />
 
     <Button
         android:id="@+id/leaveGameButton"
@@ -72,40 +72,29 @@
         app:layout_constraintBottom_toTopOf="@+id/playerLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/roomCodeTextView" />
-
-    <Button
-        android:id="@+id/lobbyRefreshButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:onClick="lobbyRefresh"
-        android:text="@string/refresh"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/lobbyPrivateButton" />
 
     <Button
         android:id="@+id/lobbyPrivateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="16dp"
         android:onClick="privateButton"
         android:text="@string/private_"
         app:layout_constraintEnd_toStartOf="@+id/lobbyAIButton"
         app:layout_constraintStart_toStartOf="@+id/roomCodeTextView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/roomCodeTextView" />
 
     <Button
         android:id="@+id/lobbyAIButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="16dp"
         android:onClick="AIButton"
         android:text="@string/add_ai"
         app:layout_constraintEnd_toEndOf="@+id/roomCodeTextView"
         app:layout_constraintStart_toEndOf="@+id/lobbyPrivateButton"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/roomCodeTextView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/playerList"
@@ -132,11 +121,12 @@
         android:id="@+id/publicTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/private_"
         app:layout_constraintEnd_toEndOf="@+id/roomCodeTextView"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/roomCodeTextView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/roomCodeTextView"
+        app:layout_constraintBottom_toTopOf="@id/leaveGameButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

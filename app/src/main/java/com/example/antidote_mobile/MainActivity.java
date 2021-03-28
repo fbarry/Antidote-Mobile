@@ -98,9 +98,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_profile:
                 gotoMenu(ProfilePageActivity.class);
                 break;
-            case R.id.nav_stats:
-                gotoMenu(StatsActivity.class);
-                break;
             case R.id.nav_search:
                 gotoMenu(SearchActivity.class);
                 break;
@@ -239,6 +236,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Utilities.showInformationAlert(this,
                             R.string.enter_lobby_error,
                             R.string.game_in_progress,
+                            null);
+                } else if (game.numPlayers() >= 7) {
+                    currentPlayer.deleteInBackground();
+                    currentPlayer = null;
+                    Utilities.showInformationAlert(this,
+                            R.string.enter_lobby_error,
+                            R.string.max_capacity,
                             null);
                 } else {
                     goToLobbyActivity(game);
