@@ -7,6 +7,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.parse.SaveCallback;
+
 import java.util.ArrayList;
 
 public class GameOverActivity extends AppCompatActivity {
@@ -33,10 +37,28 @@ public class GameOverActivity extends AppCompatActivity {
             tv.append(" : [ " + players.get(i).points() + " ] ");
             if (players.get(i).lastRoundPoints() >= 0) tv.append("+");
             tv.append(players.get(i).lastRoundPoints() + "");
-
         }
+
+        updateWinStats();
+
         currentPlayer.setNeedsGameOverScreen(false);
         currentPlayer.saveInBackground();
+    }
+
+    public void updateWinStats() {
+        User user = AntidoteMobile.currentUser;
+        Stats stats = user.getStats();
+
+        if (currentPlayer.lastRoundPoints() >= 0) {
+            stats.incrementWins();
+        } else {
+            stats.incrementLosses();
+        }
+
+        stats.saveInBackground(e -> {
+            if (e == null) System.out.println("SUCCESS");
+            else e.printStackTrace();
+        });
     }
 
     public void goToLobbyActivity(View v) {

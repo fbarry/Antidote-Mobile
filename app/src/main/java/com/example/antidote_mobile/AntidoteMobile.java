@@ -23,6 +23,7 @@ public class AntidoteMobile extends Application {
         ParseObject.registerSubclass(Message.class);
         ParseObject.registerSubclass(PlayerAI.class);
         Player.registerSubclass(PlayerAI.class);
+        ParseObject.registerSubclass(Stats.class);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("57qfnC7TPZyHUCEbGJiFZ8u2qN7Pr8qqWDu51yxI")

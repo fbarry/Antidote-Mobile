@@ -10,11 +10,13 @@ public class StatsDialog extends Dialog {
 
     Activity activity;
     User user;
+    Stats stats;
 
     public StatsDialog(Activity activity, User user) {
         super(activity);
         this.activity = activity;
         this.user = user;
+        this.stats = user.getStats();
     }
 
     @Override
@@ -29,6 +31,6 @@ public class StatsDialog extends Dialog {
         statsTitle.setText(user.getUsername());
         statsTitle.append("'s Statistics");
 
-        statsAll.setText(user.getStats());
+        statsAll.setText(stats.getStats());
     }
 }

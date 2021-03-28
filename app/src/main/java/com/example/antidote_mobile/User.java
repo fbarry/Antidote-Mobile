@@ -7,8 +7,10 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,40 +31,30 @@ public class User extends ParseUser implements Serializable {
         return false;
     }
 
+    public void setStats(String id) {
+        put("stats", id);
+    }
+
+    public Stats getStats() {
+        String stats = this.getString("stats");
+
+        Stats ret = null;
+        try {
+            ParseQuery<ParseObject> query = new ParseQuery<>("Stats");
+            ret = (Stats) query.get(stats);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return ret;
+    }
+
     public boolean isGuest() {
         return this.getBoolean("isGuest");
     }
 
     public void setIsGuest(boolean isGuest) {
         this.put("isGuest", isGuest);
-    }
-
-    public int getNumberOfWins() {
-        return this.getInt("numberOfWins");
-    }
-
-    public void setNumberOfWins(int numberOfWins) {
-        this.put("numberOfWins", numberOfWins);
-    }
-
-    public void incrementNumberOfWins() {
-        setNumberOfWins(getNumberOfWins() + 1);
-    }
-
-    public int getNumberOfLoses() {
-        return this.getInt("numberOfLoses");
-    }
-
-    public void setNumberOfLoses(int numberOfLoses) {
-        this.put("numberOfLoses", numberOfLoses);
-    }
-
-    public void incrementNumberOfLoses() {
-        setNumberOfLoses(getNumberOfLoses() + 1);
-    }
-
-    public int getNumberOfGames() {
-        return getNumberOfWins() + getNumberOfLoses();
     }
 
     public String getStatus() {
@@ -96,19 +88,6 @@ public class User extends ParseUser implements Serializable {
         saveInBackground();
     }
 
-    public double getWinRate() {
-        if (getNumberOfGames() == 0)
-            return 0;
-        return (Math.round(((this.getNumberOfWins() * 100.0) / this.getNumberOfGames()) * 100.0) / 100.0);
-    }
-
-    public String getStats() {
-        return "Games Played: " + getNumberOfGames() + "\n" +
-                "Games Won: " + getNumberOfWins() + "\n" +
-                "Games Lost: " + getNumberOfLoses() + "\n" +
-                "Win Rate: " + getWinRate() + "%";
-    }
-
     public static User getUser(String objectId) {
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         try {
@@ -135,8 +114,14 @@ public class User extends ParseUser implements Serializable {
         newProfile.setPassword(password);
         newProfile.setIsGuest(false);
 
-        newProfile.setNumberOfWins(0);
-        newProfile.setNumberOfLoses(0);
+        Stats stats = new Stats();
+        try {
+            stats.save();
+        } catch (ParseException e) {
+            return null;
+        }
+
+        newProfile.setStats(stats.getObjectId());
 
         if (email != null) newProfile.setEmail(email);
 
@@ -154,6 +139,17 @@ public class User extends ParseUser implements Serializable {
         newProfile.setUsername("guest_" + (int) (Math.random() * 100000000));
         newProfile.setPassword(AntidoteMobile.guestPassword);
         newProfile.setIsGuest(true);
+
+        Stats stats = new Stats();
+        try {
+            stats.save();
+        } catch (ParseException e) {
+            System.out.println("NO STATS MADE :(");
+            e.printStackTrace();
+            return null;
+        }
+
+        newProfile.setStats(stats.getObjectId());
 
         try {
             newProfile.signUp();
