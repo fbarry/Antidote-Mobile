@@ -17,6 +17,8 @@ class Card implements Comparable<Card> {
     private static final double trackingDivisor = 6.5, snapRadius = 8.5;
     private static final Paint blackText = new Paint();
 
+    private static final String crossColorString = "#bd5568";
+
     int xStart, yStart, xEnd, yEnd, x, y;
 
     boolean animateSize = false;
@@ -204,6 +206,7 @@ class Card implements Comparable<Card> {
         }
         if (crossImage != null) {
             crossImage.setBounds(bounds);
+            Utilities.setDrawableColor(crossColorString, crossImage);
             crossImage.draw(canvas);
         }
     }

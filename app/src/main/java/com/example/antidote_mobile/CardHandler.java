@@ -30,6 +30,9 @@ public class CardHandler extends View {
     private static final int millisPerFrame = 2, maxDx = 150;
     private int minCardX = 50, maxCardX = 1000, cardY = 1000;
 
+    private final int deactivatedColor = Color.GRAY;
+    private final int activatedColor = Color.parseColor("#5a98a2");
+
     ValueChangeListener valueChangeListener;
 
     Card touching;
@@ -37,6 +40,7 @@ public class CardHandler extends View {
     int xOffset, yOffset, downX, downY;
     boolean draggable = false, selectable = true, workstation = false;
     HashSet<Toxin> crossToxins = new HashSet<>();
+    int color = deactivatedColor;
 
     ArrayList<Card> cards;
     long animationFrames = 0, fingerDownTime = 0;
@@ -62,6 +66,19 @@ public class CardHandler extends View {
         super(context, attrs, defStyleAttr);
         this.context = context;
         init(attrs);
+    }
+
+    public void setColor(int inColor) {
+        color = inColor;
+        postInvalidate();
+    }
+
+    public void setActionDetailsNeeded() {
+        setColor(activatedColor);
+    }
+
+    public void setNoActionDetailsNeeded() {
+        setColor(deactivatedColor);
     }
 
     public void setCrossToxins(HashSet<Toxin> crossToxins) {
@@ -169,7 +186,7 @@ public class CardHandler extends View {
     public void drawPlayMat(Canvas canvas) {
         Paint paint = new Paint();
         int borderB = 40, borderW = 20;
-        paint.setColor(Color.BLACK);
+        paint.setColor(color);
         paint.setStrokeWidth(3);
         // This cards border is offset by a few pixels, I'm not sure why so this fix will work for now
         // Is there a better solution? Probably!

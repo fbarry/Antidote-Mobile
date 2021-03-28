@@ -3,6 +3,7 @@ package com.example.antidote_mobile;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -215,6 +216,8 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
             updateTurnTextView();
 
+            updateActionDetails();
+
             if (players.get(game.currentTurn()).isAI() && game.currentActionType() == ActionType.NONE) {
                 PlayerAI.selectAction(players.get(game.currentTurn()), game);
                 game.saveInBackground(e -> update());
@@ -372,6 +375,43 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         ch.selectable = !currentPlayer.isLocked();
     }
 
+    void setActionDetails() {
+        findViewById(R.id.actionDetails).setVisibility(TextView.VISIBLE);
+        ch.setActionDetailsNeeded();
+    }
+
+    void setNoActionDetails() {
+        findViewById(R.id.actionDetails).setVisibility(TextView.GONE);
+        ch.setNoActionDetailsNeeded();
+    }
+
+    void updateActionDetails() {
+        TextView actionDetails = findViewById(R.id.actionDetails);
+        switch (game.currentActionType()) {
+            case SYRINGE:
+            case NONE:
+                setNoActionDetails();
+                return;
+            case TRADE:
+                if (game.tradeTarget() == -1 || !currentlyTrading()) {
+                    setNoActionDetails();
+                    return;
+                }
+                actionDetails.setText(R.string.tradeACard);
+                break;
+            case PASSLEFT:
+                actionDetails.setText(R.string.passLeft);
+                break;
+            case PASSRIGHT:
+                actionDetails.setText(R.string.passRight);
+                break;
+            case DISCARD:
+                actionDetails.setText(R.string.discardACard);
+                break;
+        }
+        setActionDetails();
+    }
+
     void updateTurnTextView() {
         TextView turnTextView = findViewById(R.id.turnTextView);
         turnTextView.setText(R.string.turn_);
@@ -404,6 +444,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     void finalizeAction() {
         game.setCurrentTurn((game.currentTurn() + 1) % game.numPlayers());
         game.setCurrentAction(ActionType.NONE.getText());
+        game.setNumCards(currentPlayer.cards().size());
         for (Player p : players) p.rememberToxinsInHand();
 
         if (players.get(game.currentTurn()).isAI())

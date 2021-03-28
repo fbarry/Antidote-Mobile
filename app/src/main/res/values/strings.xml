@@ -170,5 +170,11 @@
     <string name="stats">Stats</string>
     <string name="antidote_mobile">Antidote Mobile</string>
     <string name="max_capacity">Game is at max capacity.</string>
+    <string name="fillerActionDetails">fillerActionDetails</string>
+    <string name="tradeACard">Trade a Card!</string>
+    <string name="passLeft">Pass Left!</string>
+    <string name="passRight">Pass Right!</string>
+    <string name="discardACard">Discard a Card!</string>
+
 
 </resources>
