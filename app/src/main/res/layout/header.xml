@@ -8,7 +8,7 @@
     android:padding="20dp">
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="69dp"
         android:layout_height="87dp"
         android:contentDescription="@string/header_textview"
         android:src="@drawable/logo" />
