@@ -43,6 +43,8 @@ public class GameOverActivity extends AppCompatActivity {
 
         currentPlayer.setNeedsGameOverScreen(false);
         currentPlayer.saveInBackground();
+        game.setNumCards(0);
+        game.saveInBackground();
     }
 
     public void updateWinStats() {
