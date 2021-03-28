@@ -33,6 +33,8 @@ public class LobbyActivity extends AppCompatActivity implements ChatDialogActivi
     ImageButton chatButton;
     ChatDialog chatDialog;
 
+    boolean gameScreenLaunched = false;
+
     ArrayDeque<Player> aiInQueue;
 
     @Override
@@ -263,6 +265,10 @@ public class LobbyActivity extends AppCompatActivity implements ChatDialogActivi
     }
 
     public void goToGameScreen() {
+        if (gameScreenLaunched) return;
+
+        gameScreenLaunched = true;
+
         Intent goToGame = new Intent(LobbyActivity.this, GameActivity.class);
         Bundle sendGame = new Bundle();
         sendGame.putSerializable("gameInfo", game);
