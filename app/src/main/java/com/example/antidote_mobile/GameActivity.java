@@ -404,6 +404,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     void finalizeAction() {
         game.setCurrentTurn((game.currentTurn() + 1) % game.numPlayers());
         game.setCurrentAction(ActionType.NONE.getText());
+        game.setNumCards(currentPlayer.cards().size());
         for (Player p : players) p.rememberToxinsInHand();
 
         if (players.get(game.currentTurn()).isAI())
