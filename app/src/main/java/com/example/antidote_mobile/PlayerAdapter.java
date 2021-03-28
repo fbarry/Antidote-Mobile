@@ -115,12 +115,14 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
                 holder.difficultyButton.setClickable(false);
             }
         } else {
+            holder.kickButton.setVisibility(View.VISIBLE);
             holder.kickButton.setOnClickListener(v -> Utilities.showConfirmationAlert(activity,
                     "Kick " + currPlayer.username() + "?",
                     "The player will need to rejoin",
                     (dialog, which) -> game.removePlayer(currPlayer.getObjectId())));
 
             if (holder.difficultyButton != null) {
+                holder.difficultyButton.setClickable(true);
                 holder.difficultyButton.setOnClickListener(v -> {
                     holder.difficulty = holder.difficulty.next();
 
