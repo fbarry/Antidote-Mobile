@@ -175,6 +175,7 @@
     <string name="passLeft">Pass Left!</string>
     <string name="passRight">Pass Right!</string>
     <string name="discardACard">Discard a Card!</string>
+    <string name="game_ended_by_host">Game was ended by host.</string>
 
 
 </resources>

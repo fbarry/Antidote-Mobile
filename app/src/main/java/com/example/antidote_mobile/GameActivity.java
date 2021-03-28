@@ -2,8 +2,8 @@ package com.example.antidote_mobile;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -148,11 +148,12 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     public void update() {
         if (game == null) return;
         refreshing = true;
-        updateChat();
         updateGame();
+        updateChat();
     }
 
     public void updateChat() {
+        if (game == null) return;
         chatDialog.refreshMessages();
     }
 
@@ -174,6 +175,16 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     public void updateGame() {
         ParseQuery.getQuery("Game").getInBackground(game.getObjectId(), (object, e) -> {
             game = (Game) object;
+
+            if (game == null) {
+                Utilities.showInformationAlert(this,
+                        R.string.game_ended_by_host,
+                        R.string.sorry,
+                        (dialog, which) -> GameActivity.this.finish());
+                currentPlayer = null;
+                return;
+            }
+
             updatePlayers();
         });
     }
