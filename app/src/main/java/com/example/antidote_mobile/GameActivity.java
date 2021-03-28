@@ -35,6 +35,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     ImageButton chatButton;
     ChatDialog chatDialog;
     int ourIdx = 0;
+    boolean refreshing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +144,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
     public void update() {
         if (game == null) return;
-
+        refreshing = true;
         updateChat();
         updateGame();
     }
@@ -218,8 +219,9 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
                 PlayerAI.selectAction(players.get(game.currentTurn()), game);
                 game.saveInBackground(e -> update());
             }
-
+            refreshing = false;
         } catch (ParseException ignored) {
+            refreshing = false;
         }
     }
 
@@ -250,6 +252,14 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
                 "Are you sure you want to end this game?",
                 "You cannot undo this action.",
                 (dialog, which) -> {
+                    while(refreshing) {
+                        try {
+                            //noinspection BusyWait
+                            Thread.sleep(10);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     game.deleteGame();
                     currentPlayer = null;
                     game = null;
@@ -355,7 +365,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
             ch.forceSelect(currentPlayer.selectedIdx());
             nimg = AppCompatResources.getDrawable(context, R.drawable.ic_baseline_cancel_24);
         } else {
-            ch.deselect();
+//            ch.deselect();
             nimg = AppCompatResources.getDrawable(context, R.drawable.ic_baseline_check_circle_24);
         }
         ((ImageButton) findViewById(R.id.confirmButton)).setImageDrawable(nimg);
