@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -78,6 +79,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
                     game.setCurrentAction(ActionType.NONE);
                     updateTurnTextView();
                     updateActionVisibilities();
+                    updateActionDetails();
                 }
             } else {
                 if (ch.lifted != null && game.currentActionType() != ActionType.NONE && currentlyTrading()) {
@@ -177,7 +179,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         ParseQuery.getQuery("Game").getInBackground(game.getObjectId(), (object, e) -> {
             ActionType prevAction = game.currentActionType();
             game = (Game) object;
-            if(prevAction == ActionType.SYRINGE) game.setCurrentAction(ActionType.SYRINGE);
+            if (prevAction == ActionType.SYRINGE) game.setCurrentAction(ActionType.SYRINGE);
 
             if (game == null) {
                 Utilities.showInformationAlert(this,
@@ -402,6 +404,14 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
     void updateActionDetails() {
         TextView actionDetails = findViewById(R.id.actionDetails);
+        for (int i = 0; i < game.numPlayers(); i++) {
+            Drawable img = ResourcesCompat.getDrawable(getResources(), R.drawable.deckicon_grey, null);
+            assert img != null;
+            if (game.currentActionType() == ActionType.SYRINGE)
+                Utilities.setDrawableColor("#FF5A98A2", img);
+            else Utilities.setDrawableColor("#FF888888", img);
+            getPlayerWorkstation(i).setImageDrawable(img);
+        }
         switch (game.currentActionType()) {
             case SYRINGE:
                 actionDetails.setText(R.string.selectSyringe);
