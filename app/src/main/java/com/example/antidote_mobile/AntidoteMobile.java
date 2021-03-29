@@ -26,8 +26,8 @@ public class AntidoteMobile extends Application {
         ParseObject.registerSubclass(Stats.class);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
-                .applicationId("57qfnC7TPZyHUCEbGJiFZ8u2qN7Pr8qqWDu51yxI")
-                .clientKey("lsS9eQ0ZUXrhQdWUQnMHGhfNB12mUbjZ1KE8874m")
+                .applicationId("N2wLs7jtNJi8DADzehiIFR5kk5cnoh9zBI9V5uE0")
+                .clientKey("5pEyV2pTxhLTLEdR8Pc6Mu3gSWOrvlON8N9sNK5g")
                 .server("https://parseapi.back4app.com")
                 .build()
         );
