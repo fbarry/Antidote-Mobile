@@ -2,8 +2,9 @@ package com.example.antidote_mobile;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -425,14 +426,19 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     }
 
     void updateTurnTextView() {
+        for (int i = 0; i < game.numPlayers(); i++) {
+            getPlayerTextView(i).setTextColor(Color.GRAY);
+            getPlayerTextView(i).setTypeface(Typeface.DEFAULT);
+
+        }
+        getPlayerTextView(game.currentTurn()).setTextColor(getResources().getColor(R.color.pretty_orange, null));
+        getPlayerTextView(game.currentTurn()).setTypeface(Typeface.DEFAULT_BOLD);
+
         TextView turnTextView = findViewById(R.id.turnTextView);
+        turnTextView.setVisibility(View.GONE);
         turnTextView.setText(R.string.turn_);
         turnTextView.append(" " + players.get(game.currentTurn()).username());
-        turnTextView.append(", Action: ");
-        turnTextView.append(game.currentAction());
-        if (game.currentActionType() == ActionType.TRADE)
-            if (game.tradeTarget() == -1) turnTextView.append(" with ?");
-            else turnTextView.append(" with " + players.get(game.tradeTarget()).username());
+
     }
 
     void updateActionVisibilities() {
