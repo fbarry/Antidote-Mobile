@@ -194,8 +194,8 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
             }
 
             updatePlayers();
-            System.out.println("Turn: " +prevTurn+" -> " + game.currentTurn());
-            if(prevTurn != game.currentTurn()){
+            System.out.println("Turn: " + prevTurn + " -> " + game.currentTurn());
+            if (prevTurn != game.currentTurn()) {
                 ch.setCards(currentPlayer.cards());
                 System.out.println("Updated cards!");
             }
