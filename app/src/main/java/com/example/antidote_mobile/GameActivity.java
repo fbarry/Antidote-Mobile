@@ -417,7 +417,9 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
                 actionDetails.setText(R.string.selectSyringe);
                 break;
             case NONE:
-                setNoActionDetails();
+                if (currentPlayer.getObjectId().equals(players.get(game.currentTurn()).getObjectId()))
+                    actionDetails.setText(R.string.selectAnAction);
+                else setNoActionDetails();
                 return;
             case TRADE:
                 if (game.tradeTarget() == -1 || !currentlyTrading()) {

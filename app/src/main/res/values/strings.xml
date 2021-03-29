@@ -177,6 +177,7 @@
     <string name="discardACard">Discard a Card!</string>
     <string name="game_ended_by_host">Game was ended by host.</string>
     <string name="selectSyringe">Pick a Workstation to Syringe!</string>
+    <string name="selectAnAction">Select an Action!</string>
 
 
 </resources>
