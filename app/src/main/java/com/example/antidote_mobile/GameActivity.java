@@ -39,6 +39,7 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     ChatDialog chatDialog;
     int ourIdx = 0;
     boolean refreshing = false;
+    int prevTurn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,7 +179,9 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
     public void updateGame() {
         ParseQuery.getQuery("Game").getInBackground(game.getObjectId(), (object, e) -> {
             ActionType prevAction = game.currentActionType();
+            prevTurn = game.currentTurn();
             game = (Game) object;
+
             if (prevAction == ActionType.SYRINGE) game.setCurrentAction(ActionType.SYRINGE);
 
             if (game == null) {
@@ -191,6 +194,11 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
             }
 
             updatePlayers();
+            System.out.println("Turn: " +prevTurn+" -> " + game.currentTurn());
+            if(prevTurn != game.currentTurn()){
+                ch.setCards(currentPlayer.cards());
+                System.out.println("Updated cards!");
+            }
         });
     }
 
@@ -372,12 +380,8 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
     void updateCurrentPlayer(Player newCurrentPlayer) {
         // Update currentPlayer and the game's UI
-        ArrayList<String> oldCards = currentPlayer.cards();
         currentPlayer = newCurrentPlayer;
-        if (!oldCards.equals(ch.getCardData())) {
-            ch.setCards(currentPlayer.cards());
-            System.out.println("Updated cards!");
-        }
+
         Drawable nimg;
         Context context = findViewById(R.id.confirmButton).getContext();
         if (currentPlayer.isLocked()) {
