@@ -175,7 +175,9 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
 
     public void updateGame() {
         ParseQuery.getQuery("Game").getInBackground(game.getObjectId(), (object, e) -> {
+            ActionType prevAction = game.currentActionType();
             game = (Game) object;
+            if(prevAction == ActionType.SYRINGE) game.setCurrentAction(ActionType.SYRINGE);
 
             if (game == null) {
                 Utilities.showInformationAlert(this,
@@ -402,6 +404,8 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         TextView actionDetails = findViewById(R.id.actionDetails);
         switch (game.currentActionType()) {
             case SYRINGE:
+                actionDetails.setText(R.string.selectSyringe);
+                break;
             case NONE:
                 setNoActionDetails();
                 return;
@@ -638,6 +642,8 @@ public class GameActivity extends AppCompatActivity implements ChatDialogActivit
         currentPlayer.setCards(ch.getCardData());
         ch.forceSelect(currentPlayer.cards().indexOf(CardType.SYRINGE.getText()));
         updateTurnTextView();
+        updateActionDetails();
+        updateActionVisibilities();
     }
 
     public void confirmSelection(View v) {
